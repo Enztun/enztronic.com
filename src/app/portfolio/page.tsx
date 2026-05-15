@@ -1,6 +1,7 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { ArrowRight } from 'lucide-react';
+import ImageWithFallback from '@/components/ImageWithFallback';
 
 const projects = [
   {
@@ -160,34 +161,5 @@ export default function Portfolio() {
       
       <Footer />
     </main>
-  );
-}
-
-// Component to handle image with fallback to placeholder
-function ImageWithFallback({ src, alt, className }: { src: string; alt: string; className?: string }) {
-  return (
-    <div className={`relative ${className}`}>
-      <img 
-        src={src} 
-        alt={alt}
-        className="w-full h-full object-cover"
-        onError={(e) => {
-          const target = e.target as HTMLImageElement;
-          target.style.display = 'none';
-          const parent = target.parentElement;
-          if (parent && !parent.querySelector('.placeholder')) {
-            const placeholder = document.createElement('div');
-            placeholder.className = 'placeholder absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200';
-            placeholder.innerHTML = `
-              <div class="text-center p-4">
-                <div class="text-4xl mb-2">🖼️</div>
-                <p class="text-sm text-slate-500">Screenshot coming soon</p>
-              </div>
-            `;
-            parent.appendChild(placeholder);
-          }
-        }}
-      />
-    </div>
   );
 }
