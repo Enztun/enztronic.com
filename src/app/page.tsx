@@ -91,9 +91,14 @@ export default function Home() {
                 <span className="text-base">Enterprise-grade Security & Compliance</span>
               </li>
             </ul>
-            <button className="flex items-center gap-2 text-primary font-bold group">
+            <a
+              href="https://qianlima.co.id"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-primary font-bold group"
+            >
               View Project Details <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
+            </a>
           </div>
         </div>
       </section>

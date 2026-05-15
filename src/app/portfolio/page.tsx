@@ -60,34 +60,76 @@ export default function Portfolio() {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
-            <div key={index} className="group bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl overflow-hidden border border-gray-200 hover:shadow-xl transition-all hover:border-primary/30">
-              <div className="aspect-video bg-gradient-to-br from-primary/10 to-blue-50 flex items-center justify-center p-6">
-                <div className="text-center">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">{project.title}</h3>
-                  <p className="text-sm text-gray-600">{project.category}</p>
+        <div className="grid gap-8">
+          {projects.map((project) => (
+            <article key={project.url} className="group overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-50/80 shadow-sm transition hover:shadow-xl">
+              <div className="grid gap-6 md:grid-cols-[1.35fr_1fr] p-6">
+                <div className="relative overflow-hidden rounded-[2rem] bg-slate-950 p-6 text-white shadow-lg">
+                  <div className="absolute inset-x-0 top-0 h-28 bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.18),_transparent_52%)]" />
+                  <div className="relative rounded-[1.75rem] border border-slate-700/60 bg-slate-900 p-5 shadow-2xl">
+                    <div className="flex items-center gap-2 rounded-[1.5rem] border border-slate-700/80 bg-slate-800 px-3 py-2 text-slate-400">
+                      <span className="h-2.5 w-2.5 rounded-full bg-red-500" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
+                    </div>
+                    <div className="mt-5 rounded-[1.75rem] bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 p-6">
+                      <div className="text-xs uppercase tracking-[0.24em] text-slate-500">Live preview</div>
+                      <h3 className="mt-4 text-3xl font-semibold tracking-tight text-white">{project.title}</h3>
+                      <p className="mt-4 text-sm leading-6 text-slate-300 line-clamp-4">{project.description}</p>
+                      <div className="mt-6 rounded-3xl border border-slate-700/60 bg-slate-950/75 px-4 py-3 text-xs uppercase tracking-[0.24em] text-slate-400">
+                        {project.url}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="pointer-events-none absolute -bottom-6 -right-6 hidden md:block">
+                    <div className="relative w-36 rounded-[2rem] border border-slate-300/20 bg-white/95 p-3 shadow-[0_28px_60px_-28px_rgba(15,23,42,0.8)]">
+                      <div className="mb-3 h-2 w-14 rounded-full bg-slate-300/80" />
+                      <div className="h-72 rounded-[1.75rem] bg-gradient-to-br from-slate-50 via-slate-100 to-slate-200 p-3">
+                        <div className="h-full rounded-[1.5rem] bg-slate-950/95 p-3">
+                          <div className="mb-3 h-2.5 w-16 rounded-full bg-slate-700/90" />
+                          <div className="space-y-2">
+                            <div className="h-3 rounded-full bg-slate-700/90 w-3/4" />
+                            <div className="h-3 rounded-full bg-slate-700/90 w-1/2" />
+                            <div className="h-3 rounded-full bg-slate-700/90 w-2/3" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-col justify-between gap-6">
+                  <div className="space-y-5">
+                    <span className="inline-flex rounded-full bg-primary/10 px-4 py-2 text-sm font-semibold text-primary">{project.category}</span>
+                    <div className="space-y-3">
+                      <p className="text-gray-700">{project.description}</p>
+                      <div className="flex flex-wrap gap-2">
+                        {project.tags.map((tag, idx) => (
+                          <span key={idx} className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-700">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col gap-3">
+                    <a
+                      href={project.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
+                    >
+                      Visit Site <ArrowRight className="h-4 w-4" />
+                    </a>
+                    <div className="rounded-3xl bg-slate-100 p-4 text-sm text-slate-600">
+                      <p className="font-semibold text-slate-900">Device preview included</p>
+                      <p className="mt-1 text-slate-500">Phone + laptop placeholder frames make your portfolio feel more visual.</p>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="p-6">
-                <p className="text-gray-700 mb-4 line-clamp-3">{project.description}</p>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.tags.map((tag, idx) => (
-                    <span key={idx} className="px-3 py-1 bg-white border border-gray-200 rounded-full text-xs font-medium text-gray-700">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <a 
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-primary font-bold group-hover:gap-3 transition-all hover:text-blue-700"
-                >
-                  Visit Site <ArrowRight className="w-4 h-4" />
-                </a>
-              </div>
-            </div>
+            </article>
           ))}
         </div>
       </section>
