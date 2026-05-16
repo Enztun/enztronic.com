@@ -9,6 +9,11 @@ build/
 *.png
 *.webmanifest
 
+# Allow committed screenshot assets in public/screenshots
+!public/screenshots/
+!public/screenshots/*.svg
+!public/screenshots/*.png
+
 # Dependencies
 node_modules/
 
