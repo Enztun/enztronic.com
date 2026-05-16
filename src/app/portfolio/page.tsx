@@ -3,6 +3,9 @@ import Footer from '@/components/Footer';
 import { ArrowRight } from 'lucide-react';
 import ImageWithFallback from '@/components/ImageWithFallback';
 
+const defaultLaptopScreenshot = '/screenshots/placeholder-laptop.svg';
+const defaultMobileScreenshot = '/screenshots/placeholder-mobile.svg';
+
 const projects = [
   {
     title: 'Qianlima',
@@ -10,8 +13,8 @@ const projects = [
     description: 'Cross-border hiring platform connecting Chinese corporations with Indonesian talent. Features multi-language support (ID/CN/EN), advanced candidate filtering, enterprise-grade security, and a comprehensive HR workflow management system.',
     url: 'https://qianlima.co.id',
     tags: ['Next.js', 'Multi-language', 'Enterprise'],
-    laptopScreenshot: '/screenshots/qianlima-laptop.png',
-    mobileScreenshot: '/screenshots/qianlima-mobile.png'
+    laptopScreenshot: defaultLaptopScreenshot,
+    mobileScreenshot: defaultMobileScreenshot
   },
   {
     title: 'Monopole Consulting',
@@ -19,8 +22,8 @@ const projects = [
     description: 'Fine and rare wine consultation services website designed for both Taiwanese and US clients. Bilingual interface (English/Traditional Chinese), wine list catalog, consulting services, events management, and tasting notes - developed from scratch with client branding.',
     url: 'https://monopoleconsulting.com',
     tags: ['Bilingual', 'React', 'E-commerce'],
-    laptopScreenshot: '/screenshots/monopoleconsulting-laptop.png',
-    mobileScreenshot: '/screenshots/monopoleconsulting-mobile.png'
+    laptopScreenshot: defaultLaptopScreenshot,
+    mobileScreenshot: defaultMobileScreenshot
   },
   {
     title: 'Setia Karya (AC Mobil Murah)',
@@ -28,8 +31,8 @@ const projects = [
     description: 'Complete brand transformation and digital marketing campaign. Created the iconic brand jargon "Car, Bus, Truck & Heavy Equipment Air Conditioning Service". Built website, implemented Google Ads strategy, and managed social media channels including YouTube, Instagram, and Facebook.',
     url: 'https://acmobilmurah.com',
     tags: ['Branding', 'Google Ads', 'Social Media'],
-    laptopScreenshot: '/screenshots/acmobilmurah-laptop.png',
-    mobileScreenshot: '/screenshots/acmobilmurah-mobile.png'
+    laptopScreenshot: defaultLaptopScreenshot,
+    mobileScreenshot: defaultMobileScreenshot
   },
   {
     title: 'Berdi Rental',
@@ -37,8 +40,8 @@ const projects = [
     description: 'Car rental landing page that achieved SEO ranking #1 in just 1 week. Built brand identity from scratch with strategic SEO optimization, creating a high-performing website that immediately captured organic search traffic.',
     url: 'https://berdirental.com',
     tags: ['SEO', 'Landing Page', 'Branding'],
-    laptopScreenshot: '/screenshots/berdirental-laptop.png',
-    mobileScreenshot: '/screenshots/berdirental-mobile.png'
+    laptopScreenshot: defaultLaptopScreenshot,
+    mobileScreenshot: defaultMobileScreenshot
   },
   {
     title: 'ShortPro',
@@ -46,8 +49,8 @@ const projects = [
     description: 'Complete digital ecosystem setup including website development, FTP infrastructure, email domain configuration, and content production. Managed official Instagram presence, paid advertising, and ongoing digital events for local market establishment.',
     url: 'https://shortpro.co.id',
     tags: ['Branding', 'Infrastructure', 'Content'],
-    laptopScreenshot: '/screenshots/shortpro-laptop.png',
-    mobileScreenshot: '/screenshots/shortpro-mobile.png'
+    laptopScreenshot: defaultLaptopScreenshot,
+    mobileScreenshot: defaultMobileScreenshot
   },
   {
     title: 'Salim Berkat Sejahtera',
@@ -55,8 +58,8 @@ const projects = [
     description: 'Website and email domain setup for PT. Salim Berkat Sejahtera in Balikpapan, Kalimantan Timur. Focused on establishing professional online presence and brand identity for the company.',
     url: 'https://salimberkatsejahtera.com',
     tags: ['Branding', 'Web Design', 'Email'],
-    laptopScreenshot: '/screenshots/salimberkatsejahtera-laptop.png',
-    mobileScreenshot: '/screenshots/salimberkatsejahtera-mobile.png'
+    laptopScreenshot: defaultLaptopScreenshot,
+    mobileScreenshot: defaultMobileScreenshot
   }
 ];
 
