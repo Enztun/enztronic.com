@@ -1,0 +1,211 @@
+// ═══════════════════════════════════════════════════════════════
+// Meridian DLMM — Persistent Logging Schema (Postgres)
+// Designed for: Pool selection logic, Dry-run PnL, Tx hashes, Fee collections
+// ═══════════════════════════════════════════════════════════════
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Open/Closed Positions ─────────────────────────────────
+model Position {
+  id              String   @id @default(cuid())
+  positionAddress String   @unique
+  poolAddress     String
+  poolName        String?
+  strategy        String   @default("bid_ask") // bid_ask | spot | curve
+  binMin          Int
+  binMax          Int
+  binActive       Int
+  binStep         Int?
+  baseMint        String?
+  baseSymbol      String?
+  quoteMint       String?  @default("So11111111111111111111111111111111111111112")
+  amountSol       Float    @default(0)
+  amountX         Float    @default(0)
+  amountY         Float    @default(0)
+  currentValueUsd Float?
+  pnlUsd          Float?
+  pnlPct          Float?
+  unclaimedFeesUsd Float?
+  allTimeFeesUsd  Float?
+  feePerTvl24h    Float?
+  inRange         Boolean  @default(true)
+  outOfRangeSince DateTime?
+  status          String   @default("open") // open | closed
+  closeReason     String?  // stop_loss | trailing_tp | oor | low_yield | manual
+  volatility      Float?
+  feeTvlRatio     Float?
+  organicScore    Float?
+  initialValueUsd Float?
+  deployedAt      DateTime @default(now())
+  closedAt        DateTime?
+
+  decisions DecisionLog[]
+  transactions TransactionLog[]
+  dryRuns   DryRunResult[]
+
+  @@index([poolAddress])
+  @@index([status])
+  @@index([baseMint])
+}
+
+// ─── Decision Log (Why the bot did what it did) ────────────
+model DecisionLog {
+  id              String   @id @default(cuid())
+  type            String   // deploy | close | skip | no_deploy | claim | swap
+  actor           String   // SCREENER | MANAGER | GENERAL
+  poolAddress     String?
+  poolName        String?
+  positionAddress String?
+  summary         String
+  reason          String
+  risks           String?  // JSON array of risk factors
+  metrics         String?  // JSON object of key metrics
+  createdAt       DateTime @default(now())
+
+  position Position? @relation(fields: [positionAddress], references: [positionAddress])
+
+  @@index([type])
+  @@index([actor])
+  @@index([createdAt])
+}
+
+// ─── On-Chain Transaction Log ──────────────────────────────
+model TransactionLog {
+  id              String   @id @default(cuid())
+  type            String   // deploy | close | claim | swap
+  positionAddress String?
+  poolAddress     String?
+  txHash          String?
+  slot            Int?
+  blockTime       DateTime?
+  amountSol       Float?
+  feesCollected   Float?
+  success         Boolean  @default(true)
+  error           String?
+  createdAt       DateTime @default(now())
+
+  position Position? @relation(fields: [positionAddress], references: [positionAddress])
+
+  @@index([type])
+  @@index([txHash])
+  @@index([createdAt])
+}
+
+// ─── Dry-Run Performance (Simulated PnL) ───────────────────
+model DryRunResult {
+  id                    String   @id @default(cuid())
+  poolAddress           String
+  poolName              String?
+  strategy              String   @default("bid_ask")
+  binsBelow             Int
+  binsAbove             Int      @default(0)
+  simulatedPnlUsd       Float?
+  simulatedPnlPct       Float?
+  simulatedFeesUsd      Float?
+  simulatedHoldTimeHours Float?
+  volatilityAtEntry     Float?
+  volatilityAtExit      Float?
+  priceAtEntry          Float?
+  priceAtExit           Float?
+  exitReason            String?  // oor | stop_loss | trailing_tp | manual
+  createdAt             DateTime @default(now())
+
+  position Position? @relation(fields: [positionAddress], references: [positionAddress])
+  positionAddress String?
+
+  @@index([poolAddress])
+  @@index([createdAt])
+}
+
+// ─── Pool Screening Candidates ─────────────────────────────
+model PoolCandidate {
+  id              String   @id @default(cuid())
+  poolAddress     String
+  poolName        String?
+  score           Float?
+  feeTvlRatio     Float?
+  tvl             Float?
+  volume          Float?
+  organicScore    Float?
+  holders         Int?
+  mcap            Float?
+  binStep         Int?
+  volatility      Float?
+  baseTokenSymbol String?
+  baseTokenMint   String?
+  feeWindow       Float?
+  priceChangePct  Float?
+  activePositions Int?
+  screenedAt      DateTime @default(now())
+  status          String   @default("pending") // pending | approved | skipped | deployed | rejected
+
+  @@index([poolAddress])
+  @@index([score])
+  @@index([status])
+}
+
+// ─── Bot Configuration (Runtime) ───────────────────────────
+model BotConfig {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String   // JSON-encoded value
+  section   String   // screening | management | risk | schedule | llm | strategy | hiveMind
+  updatedAt DateTime @updatedAt
+
+  @@index([section])
+}
+
+// ─── Learned Lessons ───────────────────────────────────────
+model Lesson {
+  id        String   @id @default(cuid())
+  rule      String
+  tags      String   @default("[]") // JSON array of tags
+  role      String?  // SCREENER | MANAGER | GENERAL | null (all)
+  pinned    Boolean  @default(false)
+  source    String   @default("auto") // auto | manual | self_tune | hivemind
+  createdAt DateTime @default(now())
+
+  @@index([role])
+  @@index([pinned])
+}
+
+// ─── Per-Pool Memory & History ─────────────────────────────
+model PoolMemory {
+  id           String   @id @default(cuid())
+  poolAddress  String
+  poolName     String?
+  deployCount  Int      @default(0)
+  winCount     Int      @default(0)
+  lossCount    Int      @default(0)
+  totalPnlUsd  Float    @default(0)
+  totalFeesUsd Float    @default(0)
+  notes        String   @default("[]") // JSON array of notes
+  lastDeployAt DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@unique([poolAddress])
+}
+
+// ─── Screening Threshold Snapshots (for evolution) ─────────
+model ThresholdSnapshot {
+  id              String   @id @default(cuid())
+  thresholdKey    String
+  oldValue        Float
+  newValue        Float
+  reason          String
+  winRate         Float?
+  avgPnlPct       Float?
+  sampleSize      Int?
+  createdAt       DateTime @default(now())
+
+  @@index([thresholdKey])
+  @@index([createdAt])
+}

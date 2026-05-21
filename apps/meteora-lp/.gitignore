@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+
+# Build output
+.next/
+out/
+
+# Database
+db/*.db
+
+# Logs
+dev.log
+*.log
+
+# Environment
+.env
+.env.local
+.env.meridian
+.env*.local
+
+# Meridian repo clone
+repos/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Agent context
+agent-ctx/
+.zscripts/
+
+# Upload
+upload/
+download/
+examples/
+
+# Cache
+.cache/

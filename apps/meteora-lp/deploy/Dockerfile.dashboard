@@ -1,0 +1,35 @@
+# ─── Next.js Dashboard Dockerfile ─────────────────────────────
+# Build context: project root (deploy/docker-compose.yml sets context: ..)
+# This lets us COPY prisma/ and the full Next.js app in one stage.
+
+FROM node:20-slim AS builder
+
+WORKDIR /app
+
+# Install dependencies (use npm install so no lock file is required)
+COPY package.json ./
+RUN npm install
+
+# Generate Prisma client before building Next.js
+COPY prisma/ ./prisma/
+RUN npx prisma generate
+
+# Copy the rest of the source and build
+COPY . .
+RUN npm run build
+
+# ─── Runtime ──────────────────────────────────────────────────
+FROM node:20-slim
+
+WORKDIR /app
+
+ENV NODE_ENV=production
+
+# Next.js standalone output bundles everything needed to run
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/public ./public
+
+EXPOSE 3000
+
+CMD ["node", "server.js"]
