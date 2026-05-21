@@ -1,0 +1,173 @@
+# ═══════════════════════════════════════════════════════════════
+# Meridian DLMM Bot — Docker Compose (Jakarta Rig)
+# AMD Ryzen 3 3100 + RX 580 8GB, ~10GB RAM available
+# ═══════════════════════════════════════════════════════════════
+#
+# FIRST-TIME SETUP:
+#   1. Copy deploy/.env.meridian.template → deploy/.env.meridian
+#      Fill in WALLET_PRIVATE_KEY and RPC_URL (keep DRY_RUN=true first)
+#   2. cd deploy && docker compose up -d postgres
+#   3. cd .. && npm run db:push          (push Prisma schema to Postgres)
+#   4. docker compose up -d             (start all services)
+#
+# USAGE:
+#   docker compose up -d               Start all services
+#   docker compose logs -f bot         Watch bot logs
+#   docker compose logs -f sidecar     Watch sync logs
+#   docker compose down                Stop all
+#   docker compose up --build          Rebuild after code changes
+#
+# All build contexts are relative to this file's location (deploy/).
+# ═══════════════════════════════════════════════════════════════
+
+version: "3.9"
+
+services:
+
+  # ─── PostgreSQL ───────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: meridian-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: meridian
+      POSTGRES_PASSWORD: meridian_secret
+      POSTGRES_DB: meridian
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U meridian"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    mem_limit: 256m
+    networks:
+      - meridian-net
+
+  # ─── Ollama (Local LLM) ──────────────────────────────────
+  # Runs on the host GPU. To use ROCm on Linux:
+  #   uncomment the devices block below and set HSA_OVERRIDE_GFX_VERSION=8.0.3
+  # On Windows with DirectML: run Ollama on host and set
+  #   LLM_BASE_URL=http://host.docker.internal:11434/v1 in .env.meridian
+  ollama:
+    image: ollama/ollama:latest
+    container_name: meridian-ollama
+    restart: unless-stopped
+    volumes:
+      - ollama-data:/root/.ollama
+    ports:
+      - "11434:11434"
+    # ─── ROCm GPU (Linux only, RX 580) ──────────────────
+    # devices:
+    #   - /dev/kfd:/dev/kfd
+    #   - /dev/dri:/dev/dri
+    # environment:
+    #   - HSA_OVERRIDE_GFX_VERSION=8.0.3
+    mem_limit: 6g
+    memswap_limit: 6g
+    networks:
+      - meridian-net
+
+  # ─── Fastify Proxy (Ollama ↔ OpenAI SDK compat) ──────────
+  proxy:
+    build:
+      context: .
+      dockerfile: Dockerfile.proxy
+    container_name: meridian-proxy
+    restart: unless-stopped
+    environment:
+      - FASTIFY_PROXY_PORT=3333
+      - FASTIFY_PROXY_TARGET=http://ollama:11434/v1
+    ports:
+      - "3334:3333"
+    depends_on:
+      - ollama
+    mem_limit: 128m
+    networks:
+      - meridian-net
+
+  # ─── Meridian Bot ─────────────────────────────────────────
+  # Context: .. (project root) so Dockerfile.meridian can COPY
+  # from repos/meridian/ and deploy/user-config.ollama.json.
+  # PREREQUISITE: git clone https://github.com/yunus-0x/meridian repos/meridian
+  # The bot writes state.json etc. to /data (named volume shared with sidecar).
+  bot:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.meridian
+    container_name: meridian-bot
+    restart: unless-stopped
+    env_file:
+      - .env.meridian
+    environment:
+      - NODE_OPTIONS=--max-old-space-size=512
+    volumes:
+      - meridian-data:/data
+      # user-config.json is baked into the image from repos/meridian/user-config.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+      proxy:
+        condition: service_started
+    mem_limit: 768m
+    cpus: 1.5
+    networks:
+      - meridian-net
+
+  # ─── Sync Sidecar ────────────────────────────────────────
+  # Watches Meridian's JSON files in the shared volume and upserts
+  # them into PostgreSQL so the dashboard shows live data.
+  # Context: .. (project root) so it can access prisma/schema.prisma
+  sidecar:
+    build:
+      context: ..
+      dockerfile: mini-services/sync-bot-state/Dockerfile
+    container_name: meridian-sidecar
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=postgresql://meridian:meridian_secret@postgres:5432/meridian?schema=public
+      - DATA_DIR=/data
+      - POLL_MS=5000
+    volumes:
+      - meridian-data:/data:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+      bot:
+        condition: service_started
+    mem_limit: 128m
+    networks:
+      - meridian-net
+
+  # ─── Next.js Dashboard ───────────────────────────────────
+  # Context: .. (project root) — dashboard code lives at repo root
+  dashboard:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.dashboard
+    container_name: meridian-dashboard
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=postgresql://meridian:meridian_secret@postgres:5432/meridian?schema=public
+      - NEXT_PUBLIC_BOT_API=http://bot:3333
+      - NEXT_PUBLIC_OLLAMA_API=http://ollama:11434
+      - NODE_ENV=production
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    mem_limit: 512m
+    networks:
+      - meridian-net
+
+volumes:
+  postgres-data:
+  ollama-data:
+  meridian-data:
+
+networks:
+  meridian-net:
+    driver: bridge
