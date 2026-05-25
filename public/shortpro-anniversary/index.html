@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ShortPro 2nd Anniversary — Proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  * { font-family: 'Inter', 'Noto Sans SC', sans-serif; }
+  [data-lang] { display: none; }
+  .lang-active { display: block !important; }
+  .lang-active-inline { display: inline !important; }
+  span[data-lang].lang-active { display: inline !important; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  .lang-btn { transition: all 0.15s; }
+  .lang-btn.active { background: #6366f1; color: #fff; }
+  .tab-btn { transition: all 0.2s; border-bottom: 2px solid transparent; }
+  .tab-btn.active { border-bottom-color: #6366f1; color: #818cf8; }
+  .flow-arrow { color: #6366f1; font-size: 1.5rem; line-height: 1; }
+  .card { background: #1e1e2e; border: 1px solid #2d2d3f; border-radius: 0.75rem; padding: 1.25rem; }
+  .badge { display: inline-block; font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 9999px; }
+  .badge-blue { background: #1e3a5f; color: #60a5fa; }
+  .badge-purple { background: #2e1a47; color: #a78bfa; }
+  .badge-green { background: #1a3a2e; color: #34d399; }
+  .api-pill { background: #1a2340; color: #93c5fd; font-family: monospace; font-size: 0.8rem; padding: 4px 10px; border-radius: 6px; display: inline-block; margin: 2px; }
+  .spec-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #2d2d3f; }
+  .spec-row:last-child { border-bottom: none; }
+  .align-table th { background: #1e1e2e; color: #a78bfa; font-weight: 600; padding: 0.6rem 1rem; text-align: left; font-size: 0.85rem; }
+  .align-table td { padding: 0.6rem 1rem; font-size: 0.85rem; border-bottom: 1px solid #2d2d3f; color: #cbd5e1; }
+  .align-table tr:last-child td { border-bottom: none; }
+  .section-title { font-size: 1.1rem; font-weight: 700; color: #e2e8f0; margin-bottom: 0.75rem; }
+  .flow-box { background: #1e1e2e; border: 1px solid #3730a3; border-radius: 0.5rem; padding: 0.5rem 1.25rem; color: #c7d2fe; font-weight: 500; text-align: center; font-size: 0.9rem; }
+  .flow-container { display: flex; flex-direction: column; align-items: center; gap: 0.25rem; max-width: 280px; margin: 0 auto; }
+  body { background: #0f0f1a; color: #e2e8f0; min-height: 100vh; }
+  .event-number { width: 2rem; height: 2rem; background: #4338ca; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; color: #fff; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="sticky top-0 z-50" style="background:#0f0f1a; border-bottom:1px solid #1e1e2e;">
+  <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div style="width:32px;height:32px;background:linear-gradient(135deg,#6366f1,#8b5cf6);border-radius:8px;"></div>
+      <div>
+        <div class="font-bold text-sm" style="color:#e2e8f0;">ShortPro</div>
+        <div class="text-xs" style="color:#6366f1;">
+          <span data-lang="id">2nd Anniversary Proposal</span>
+          <span data-lang="en">2nd Anniversary Proposal</span>
+          <span data-lang="zh">二周年纪念提案</span>
+        </div>
+      </div>
+    </div>
+    <!-- Language Switcher -->
+    <div class="flex gap-1" style="background:#1e1e2e;border-radius:8px;padding:3px;">
+      <button onclick="setLang('id')" id="btn-id" class="lang-btn active text-xs font-semibold px-3 py-1 rounded-md">ID</button>
+      <button onclick="setLang('en')" id="btn-en" class="lang-btn text-xs font-semibold px-3 py-1 rounded-md" style="color:#94a3b8;">EN</button>
+      <button onclick="setLang('zh')" id="btn-zh" class="lang-btn text-xs font-semibold px-3 py-1 rounded-md" style="color:#94a3b8;">ZH</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="max-w-5xl mx-auto px-4 pt-10 pb-6">
+  <div class="text-xs font-semibold mb-3" style="color:#6366f1;letter-spacing:0.1em;">
+    <span data-lang="id">SHORTPRO · 26 MEI 2026</span>
+    <span data-lang="en">SHORTPRO · MAY 26, 2026</span>
+    <span data-lang="zh">SHORTPRO · 2026年5月26日</span>
+  </div>
+  <h1 class="text-3xl font-extrabold mb-3 leading-tight" style="color:#fff;">
+    <span data-lang="id">ShortPro 2nd Anniversary<br/><span style="color:#818cf8;">Digital Event System</span></span>
+    <span data-lang="en">ShortPro 2nd Anniversary<br/><span style="color:#818cf8;">Digital Event System</span></span>
+    <span data-lang="zh">ShortPro二周年<br/><span style="color:#818cf8;">数字活动系统</span></span>
+  </h1>
+  <p class="text-sm max-w-2xl" style="color:#94a3b8;">
+    <span data-lang="id">Sistem event terpusat di <code style="color:#a78bfa;">event.shortpro.co.id</code> — dirancang scalable, hemat biaya, dan aman untuk sistem utama ShortPro.app.</span>
+    <span data-lang="en">A centralized event system at <code style="color:#a78bfa;">event.shortpro.co.id</code> — designed to be scalable, cost-efficient, and safe for the core ShortPro.app infrastructure.</span>
+    <span data-lang="zh">集中在 <code style="color:#a78bfa;">event.shortpro.co.id</code> 的活动系统——可扩展、成本低，且对ShortPro.app主系统安全。</span>
+  </p>
+</section>
+
+<!-- TABS -->
+<div class="max-w-5xl mx-auto px-4">
+  <div class="flex gap-6 border-b" style="border-color:#1e1e2e;">
+    <button onclick="setTab('vps')" id="tab-vps" class="tab-btn active pb-3 text-sm font-semibold" style="color:#818cf8;">
+      <span data-lang="id">VPS &amp; Infrastruktur</span>
+      <span data-lang="en">VPS &amp; Infrastructure</span>
+      <span data-lang="zh">VPS与基础架构</span>
+    </button>
+    <button onclick="setTab('campaign')" id="tab-campaign" class="tab-btn pb-3 text-sm font-semibold" style="color:#6b7280;">
+      <span data-lang="id">Proposal Campaign</span>
+      <span data-lang="en">Campaign Proposal</span>
+      <span data-lang="zh">活动提案</span>
+    </button>
+  </div>
+</div>
+
+<main class="max-w-5xl mx-auto px-4 py-8">
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- TAB 1: VPS & INFRASTRUCTURE -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div id="content-vps" class="tab-content active">
+
+  <!-- Audience badge -->
+  <div class="mb-6">
+    <span class="badge badge-blue">
+      <span data-lang="id">Untuk: Tim Engineering / Tim ShortPro.app</span>
+      <span data-lang="en">For: Engineering Team / ShortPro.app Team</span>
+      <span data-lang="zh">受众：工程团队 / ShortPro.app团队</span>
+    </span>
+  </div>
+
+  <!-- Section 1: Main Concept -->
+  <section class="mb-8">
+    <div class="section-title">
+      <span data-lang="id">1. Konsep Utama</span>
+      <span data-lang="en">1. Main Concept</span>
+      <span data-lang="zh">1. 核心概念</span>
+    </div>
+    <p class="text-sm mb-4" style="color:#94a3b8;">
+      <span data-lang="id">Daripada mengandalkan API ShortPro.app sebagai sumber data, event system menjadi "pusat aktivitas" yang mandiri. Seluruh tracking dilakukan oleh sistem event, lalu hasilnya dibuka melalui Open API.</span>
+      <span data-lang="en">Instead of relying on the ShortPro.app API as a data source, the event system becomes an independent "activity hub." All tracking is handled by the event system, then results are exposed through an Open API.</span>
+      <span data-lang="zh">不依赖ShortPro.app API作为数据源，而是让活动系统成为独立的"活动中心"。所有追踪由活动系统处理，结果通过Open API对外开放。</span>
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Flow diagram -->
+      <div class="card">
+        <div class="text-xs font-semibold mb-3" style="color:#6366f1;">
+          <span data-lang="id">Alur Sistem</span>
+          <span data-lang="en">System Flow</span>
+          <span data-lang="zh">系统流程</span>
+        </div>
+        <div class="flow-container">
+          <div class="flow-box">User</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-box">event.shortpro.co.id</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-box">
+            <span data-lang="id">Event Backend</span>
+            <span data-lang="en">Event Backend</span>
+            <span data-lang="zh">活动后端</span>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-box">Open API</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-box">ShortPro.app Team</div>
+        </div>
+      </div>
+
+      <!-- Architecture -->
+      <div class="card">
+        <div class="text-xs font-semibold mb-3" style="color:#6366f1;">
+          <span data-lang="id">Arsitektur Infrastruktur</span>
+          <span data-lang="en">Infrastructure Architecture</span>
+          <span data-lang="zh">基础设施架构</span>
+        </div>
+        <div class="flow-container">
+          <div class="flow-box">Cloudflare</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-box">Vercel Frontend</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-box">
+            <span data-lang="id">Event VPS Backend</span>
+            <span data-lang="en">Event VPS Backend</span>
+            <span data-lang="zh">活动VPS后端</span>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-box">PostgreSQL</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-box">
+            <span data-lang="id">Upstash Redis (Cache)</span>
+            <span data-lang="en">Upstash Redis (Cache)</span>
+            <span data-lang="zh">Upstash Redis（缓存）</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Why this model -->
+  <section class="mb-8">
+    <div class="section-title">
+      <span data-lang="id">2. Kenapa Model Ini Lebih Baik</span>
+      <span data-lang="en">2. Why This Model is Better</span>
+      <span data-lang="zh">2. 为什么这个方案更优</span>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="card">
+        <div class="text-xs font-semibold mb-2" style="color:#f87171;">
+          <span data-lang="id">Kalau Mengandalkan API ShortPro.app</span>
+          <span data-lang="en">If Relying on ShortPro.app API</span>
+          <span data-lang="zh">若依赖ShortPro.app API</span>
+        </div>
+        <ul class="text-sm space-y-1" style="color:#94a3b8;">
+          <li class="flex items-start gap-2"><span style="color:#f87171;">✗</span>
+            <span data-lang="id">Harus menunggu endpoint dari tim mereka</span>
+            <span data-lang="en">Must wait for endpoints from their team</span>
+            <span data-lang="zh">必须等待对方团队提供端点</span>
+          </li>
+          <li class="flex items-start gap-2"><span style="color:#f87171;">✗</span>
+            <span data-lang="id">Tergantung struktur backend mereka</span>
+            <span data-lang="en">Dependent on their backend structure</span>
+            <span data-lang="zh">依赖对方后端结构</span>
+          </li>
+          <li class="flex items-start gap-2"><span style="color:#f87171;">✗</span>
+            <span data-lang="id">Berisiko mengganggu sistem utama</span>
+            <span data-lang="en">Risk of disrupting the main system</span>
+            <span data-lang="zh">存在干扰主系统的风险</span>
+          </li>
+          <li class="flex items-start gap-2"><span style="color:#f87171;">✗</span>
+            <span data-lang="id">Sinkronisasi lebih rumit</span>
+            <span data-lang="en">Synchronization is more complex</span>
+            <span data-lang="zh">同步更复杂</span>
+          </li>
+          <li class="flex items-start gap-2"><span style="color:#f87171;">✗</span>
+            <span data-lang="id">Debugging lebih sulit</span>
+            <span data-lang="en">Debugging is harder</span>
+            <span data-lang="zh">调试更困难</span>
+          </li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="text-xs font-semibold mb-2" style="color:#34d399;">
+          <span data-lang="id">Kalau Event System Menjadi Pusat Aktivitas</span>
+          <span data-lang="en">If Event System Becomes the Activity Hub</span>
+          <span data-lang="zh">若活动系统成为中心</span>
+        </div>
+        <ul class="text-sm space-y-1" style="color:#94a3b8;">
+          <li class="flex items-start gap-2"><span style="color:#34d399;">✓</span>
+            <span data-lang="id">Tim event memiliki kontrol penuh</span>
+            <span data-lang="en">Event team has full control</span>
+            <span data-lang="zh">活动团队拥有完全控制权</span>
+          </li>
+          <li class="flex items-start gap-2"><span style="color:#34d399;">✓</span>
+            <span data-lang="id">Tracking lebih akurat</span>
+            <span data-lang="en">More accurate tracking</span>
+            <span data-lang="zh">追踪更精准</span>
+          </li>
+          <li class="flex items-start gap-2"><span style="color:#34d399;">✓</span>
+            <span data-lang="id">Beban tim ShortPro.app lebih ringan</span>
+            <span data-lang="en">Less burden on ShortPro.app team</span>
+            <span data-lang="zh">ShortPro.app团队负担更轻</span>
+          </li>
+          <li class="flex items-start gap-2"><span style="color:#34d399;">✓</span>
+            <span data-lang="id">Integrasi lebih sederhana</span>
+            <span data-lang="en">Simpler integration</span>
+            <span data-lang="zh">集成更简单</span>
+          </li>
+          <li class="flex items-start gap-2"><span style="color:#34d399;">✓</span>
+            <span data-lang="id">Lebih aman untuk sistem utama ShortPro</span>
+            <span data-lang="en">Safer for ShortPro's main system</span>
+            <span data-lang="zh">对ShortPro主系统更安全</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Tech Stack -->
+  <section class="mb-8">
+    <div class="section-title">
+      <span data-lang="id">3. Tech Stack yang Direkomendasikan</span>
+      <span data-lang="en">3. Recommended Tech Stack</span>
+      <span data-lang="zh">3. 推荐技术栈</span>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+      <div class="card">
+        <div class="text-xs font-semibold mb-2" style="color:#6366f1;">Frontend</div>
+        <div class="text-sm font-semibold mb-1" style="color:#e2e8f0;">Next.js + Vercel</div>
+        <div class="text-xs" style="color:#64748b;">TypeScript · TailwindCSS · App Router</div>
+        <div class="mt-3 text-xs" style="color:#94a3b8;">
+          <span data-lang="id">Auto-scaling CDN global. Traffic frontend tidak membebani VPS.</span>
+          <span data-lang="en">Auto-scaling global CDN. Frontend traffic doesn't hit the VPS.</span>
+          <span data-lang="zh">全球CDN自动扩展，前端流量不占用VPS。</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="text-xs font-semibold mb-2" style="color:#6366f1;">Backend</div>
+        <div class="text-sm font-semibold mb-1" style="color:#e2e8f0;">Fastify + Node.js</div>
+        <div class="text-xs" style="color:#64748b;">TypeScript · REST API · VPS</div>
+        <div class="mt-3 text-xs" style="color:#94a3b8;">
+          <span data-lang="id">Sangat ringan dan performant. Ideal untuk VPS RAM kecil.</span>
+          <span data-lang="en">Extremely lightweight and high-performance. Ideal for small-RAM VPS.</span>
+          <span data-lang="zh">极轻量且高性能，适合小内存VPS。</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="text-xs font-semibold mb-2" style="color:#6366f1;">Database</div>
+        <div class="text-sm font-semibold mb-1" style="color:#e2e8f0;">PostgreSQL</div>
+        <div class="text-xs" style="color:#64748b;">Relational · Ranking · Transactions</div>
+        <div class="mt-3 text-xs" style="color:#94a3b8;">
+          <span data-lang="id">Stabil dan cocok untuk leaderboard, KPI, dan transaction tracking.</span>
+          <span data-lang="en">Stable, suitable for leaderboards, KPI, and transaction tracking.</span>
+          <span data-lang="zh">稳定，适合排行榜、KPI和交易追踪。</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="text-xs font-semibold mb-2" style="color:#6366f1;">Cache</div>
+        <div class="text-sm font-semibold mb-1" style="color:#e2e8f0;">Upstash Redis</div>
+        <div class="text-xs" style="color:#64748b;">Serverless · Leaderboard Cache · Anti-spam</div>
+        <div class="mt-3 text-xs" style="color:#94a3b8;">
+          <span data-lang="id">Serverless Redis — tidak memakai RAM VPS. Free tier tersedia.</span>
+          <span data-lang="en">Serverless Redis — doesn't use VPS RAM. Free tier available.</span>
+          <span data-lang="zh">无服务器Redis，不占用VPS内存，提供免费套餐。</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="text-xs font-semibold mb-2" style="color:#6366f1;">Protection</div>
+        <div class="text-sm font-semibold mb-1" style="color:#e2e8f0;">Cloudflare</div>
+        <div class="text-xs" style="color:#64748b;">DDoS · Rate Limiting · Bot Protection · SSL</div>
+        <div class="mt-3 text-xs" style="color:#94a3b8;">
+          <span data-lang="id">Melindungi VPS dari traffic berbahaya dan spam.</span>
+          <span data-lang="en">Protects the VPS from malicious traffic and spam.</span>
+          <span data-lang="zh">保护VPS免受恶意流量和垃圾请求的攻击。</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="text-xs font-semibold mb-2" style="color:#6366f1;">Infrastructure</div>
+        <div class="text-sm font-semibold mb-1" style="color:#e2e8f0;">VPS — 3 Months</div>
+        <div class="text-xs" style="color:#64748b;">2 vCPU · 2 GB RAM · 40 GB SSD</div>
+        <div class="mt-3 text-xs" style="color:#94a3b8;">
+          <span data-lang="id">Hanya untuk backend API dan database. Bukan video/livestream.</span>
+          <span data-lang="en">Only for API backend and database. Not for video/livestream.</span>
+          <span data-lang="zh">仅用于API后端和数据库，不用于视频/直播。</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section 4: VPS Spec -->
+  <section class="mb-8">
+    <div class="section-title">
+      <span data-lang="id">4. Spesifikasi VPS yang Diajukan</span>
+      <span data-lang="en">4. Proposed VPS Specification</span>
+      <span data-lang="zh">4. VPS规格申请</span>
+    </div>
+    <div class="card max-w-md">
+      <div class="spec-row">
+        <span class="text-sm" style="color:#64748b;">CPU</span>
+        <span class="text-sm font-semibold" style="color:#e2e8f0;">2 vCPU</span>
+      </div>
+      <div class="spec-row">
+        <span class="text-sm" style="color:#64748b;">RAM</span>
+        <span class="text-sm font-semibold" style="color:#e2e8f0;">2 GB</span>
+      </div>
+      <div class="spec-row">
+        <span class="text-sm" style="color:#64748b;">Storage</span>
+        <span class="text-sm font-semibold" style="color:#e2e8f0;">40 GB SSD</span>
+      </div>
+      <div class="spec-row">
+        <span class="text-sm" style="color:#64748b;">
+          <span data-lang="id">Durasi</span>
+          <span data-lang="en">Duration</span>
+          <span data-lang="zh">使用期限</span>
+        </span>
+        <span class="text-sm font-semibold" style="color:#e2e8f0;">
+          <span data-lang="id">3 Bulan</span>
+          <span data-lang="en">3 Months</span>
+          <span data-lang="zh">3个月</span>
+        </span>
+      </div>
+      <div class="spec-row">
+        <span class="text-sm" style="color:#64748b;">
+          <span data-lang="id">Kapasitas Estimasi</span>
+          <span data-lang="en">Estimated Capacity</span>
+          <span data-lang="zh">预估容量</span>
+        </span>
+        <span class="text-sm font-semibold" style="color:#34d399;">1,000–1,500 concurrent</span>
+      </div>
+    </div>
+    <p class="text-xs mt-3" style="color:#64748b;">
+      <span data-lang="id">VPS kecil ini cukup karena frontend di Vercel, cache di Upstash, dan Cloudflare menangani traffic besar. VPS hanya menerima request API ringan.</span>
+      <span data-lang="en">This small VPS is sufficient because the frontend is on Vercel, cache on Upstash, and Cloudflare handles heavy traffic. The VPS only receives lightweight API requests.</span>
+      <span data-lang="zh">这台小型VPS已足够，因为前端在Vercel上，缓存在Upstash，Cloudflare处理大流量。VPS只接收轻量API请求。</span>
+    </p>
+  </section>
+
+  <!-- Section 5: Open API -->
+  <section class="mb-8">
+    <div class="section-title">
+      <span data-lang="id">5. Open API untuk Tim ShortPro.app</span>
+      <span data-lang="en">5. Open API for ShortPro.app Team</span>
+      <span data-lang="zh">5. 面向ShortPro.app团队的Open API</span>
+    </div>
+    <p class="text-sm mb-3" style="color:#94a3b8;">
+      <span data-lang="id">Event backend menyediakan endpoint yang bisa langsung dikonsumsi oleh tim ShortPro.app — tanpa perlu membuat backend event baru.</span>
+      <span data-lang="en">The event backend provides endpoints that the ShortPro.app team can consume directly — without needing to build a new event backend.</span>
+      <span data-lang="zh">活动后端提供端点，ShortPro.app团队可直接调用，无需新建活动后端。</span>
+    </p>
+    <div class="flex flex-wrap gap-2">
+      <span class="api-pill">GET /leaderboard</span>
+      <span class="api-pill">GET /user-points</span>
+      <span class="api-pill">GET /user-stamps</span>
+      <span class="api-pill">GET /event-referrals</span>
+      <span class="api-pill">GET /daily-claims</span>
+    </div>
+    <p class="text-xs mt-3" style="color:#64748b;">
+      <span data-lang="id">ShortPro.app cukup membaca dan menampilkan data. Event system menjadi "engine", ShortPro.app menjadi "consumer".</span>
+      <span data-lang="en">ShortPro.app only needs to read and display data. The event system is the "engine", ShortPro.app is the "consumer".</span>
+      <span data-lang="zh">ShortPro.app只需读取并展示数据。活动系统是"引擎"，ShortPro.app是"消费者"。</span>
+    </p>
+  </section>
+
+  <!-- Section 6: Development Phases -->
+  <section class="mb-8">
+    <div class="section-title">
+      <span data-lang="id">6. Fase Pengembangan</span>
+      <span data-lang="en">6. Development Phases</span>
+      <span data-lang="zh">6. 开发阶段</span>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="card text-center">
+        <div class="text-xs font-bold mb-2" style="color:#6366f1;">Phase 1</div>
+        <ul class="text-xs space-y-1 text-left" style="color:#94a3b8;">
+          <li>• Infrastructure</li>
+          <li>• Database</li>
+          <li>• UID Auth</li>
+          <li>• API Architecture</li>
+        </ul>
+      </div>
+      <div class="card text-center">
+        <div class="text-xs font-bold mb-2" style="color:#6366f1;">Phase 2</div>
+        <ul class="text-xs space-y-1 text-left" style="color:#94a3b8;">
+          <li>• Referral System</li>
+          <li>• Leaderboard</li>
+          <li>• Stamp System</li>
+          <li>• QR System</li>
+        </ul>
+      </div>
+      <div class="card text-center">
+        <div class="text-xs font-bold mb-2" style="color:#6366f1;">Phase 3</div>
+        <ul class="text-xs space-y-1 text-left" style="color:#94a3b8;">
+          <li>• Spin Wheel</li>
+          <li>• Social Missions</li>
+          <li>• Admin Dashboard</li>
+          <li>• Analytics</li>
+        </ul>
+      </div>
+      <div class="card text-center">
+        <div class="text-xs font-bold mb-2" style="color:#6366f1;">Phase 4</div>
+        <ul class="text-xs space-y-1 text-left" style="color:#94a3b8;">
+          <li>• Stress Testing</li>
+          <li>• Anti-abuse</li>
+          <li>• Deployment</li>
+          <li>• Campaign Launch</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conclusion VPS -->
+  <section class="mb-4">
+    <div class="card" style="border-color:#3730a3; background:linear-gradient(135deg,#1a1a2e,#1e1e3f);">
+      <div class="text-xs font-semibold mb-2" style="color:#818cf8;">
+        <span data-lang="id">Kesimpulan</span>
+        <span data-lang="en">Conclusion</span>
+        <span data-lang="zh">结论</span>
+      </div>
+      <p class="text-sm" style="color:#c7d2fe;">
+        <span data-lang="id">Proposal ini dirancang low cost, scalable, dan aman — anniversary event bisa berjalan besar tanpa membebani infrastruktur utama perusahaan. Tim ShortPro.app cukup consume API, tanpa perlu membuat event backend dari nol.</span>
+        <span data-lang="en">This proposal is designed to be low-cost, scalable, and safe — the anniversary event can run at scale without burdening the company's core infrastructure. The ShortPro.app team only needs to consume the API, without building an event backend from scratch.</span>
+        <span data-lang="zh">本提案设计为低成本、可扩展且安全——周年活动可大规模运行，而不会给公司核心基础设施带来负担。ShortPro.app团队只需调用API，无需从头构建活动后端。</span>
+      </p>
+    </div>
+  </section>
+
+</div><!-- /content-vps -->
+
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- TAB 2: CAMPAIGN PROPOSAL -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div id="content-campaign" class="tab-content">
+
+  <!-- Audience badge -->
+  <div class="mb-6">
+    <span class="badge badge-purple">
+      <span data-lang="id">Untuk: Seluruh Tim</span>
+      <span data-lang="en">For: All Teams</span>
+      <span data-lang="zh">受众：全体团队</span>
+    </span>
+  </div>
+
+  <!-- Overview -->
+  <section class="mb-8">
+    <div class="section-title">
+      <span data-lang="id">Posisi Sistem Event dalam Campaign Anniversary</span>
+      <span data-lang="en">Event System Position in the Anniversary Campaign</span>
+      <span data-lang="zh">活动系统在周年营销活动中的定位</span>
+    </div>
+    <div class="card mb-4" style="border-color:#4c1d95;">
+      <p class="text-sm" style="color:#c4b5fd;">
+        <span data-lang="id">Sistem event ini bukan "acara tambahan" — melainkan <strong>Digital Layer untuk Anniversary Campaign</strong>. Ia mendukung tracking, engagement, validasi KPI, dan aktivitas user secara online maupun offline.</span>
+        <span data-lang="en">This event system is not an "extra activity" — it is the <strong>Digital Layer for the Anniversary Campaign</strong>. It supports tracking, engagement, KPI validation, and user activity both online and offline.</span>
+        <span data-lang="zh">这个活动系统不是"附加活动"——而是<strong>周年营销活动的数字层</strong>。它支持追踪、互动、KPI验证以及线上线下用户活动。</span>
+      </p>
+    </div>
+    <div class="text-center text-sm" style="color:#94a3b8;">
+      <span data-lang="id">Campaign Internal Tim <span style="color:#818cf8;">+</span> Digital Event System <span style="color:#818cf8;">=</span> Campaign Anniversary yang lebih terukur, interaktif, dan scalable</span>
+      <span data-lang="en">Internal Team Campaign <span style="color:#818cf8;">+</span> Digital Event System <span style="color:#818cf8;">=</span> A more measurable, interactive, and scalable Anniversary Campaign</span>
+      <span data-lang="zh">内部团队活动 <span style="color:#818cf8;">+</span> 数字活动系统 <span style="color:#818cf8;">=</span> 更可衡量、更互动、更可扩展的周年营销活动</span>
+    </div>
+  </section>
+
+  <!-- Alignment Table -->
+  <section class="mb-8">
+    <div class="section-title">
+      <span data-lang="id">Keselarasan dengan Proposal Internal Tim</span>
+      <span data-lang="en">Alignment with the Internal Team Proposal</span>
+      <span data-lang="zh">与内部团队提案的对齐</span>
+    </div>
+    <div class="card" style="padding:0; overflow:hidden;">
+      <table class="align-table w-full">
+        <thead>
+          <tr>
+            <th>
+              <span data-lang="id">Proposal Internal</span>
+              <span data-lang="en">Internal Proposal</span>
+              <span data-lang="zh">内部提案</span>
+            </th>
+            <th>
+              <span data-lang="id">Sistem Event</span>
+              <span data-lang="en">Event System</span>
+              <span data-lang="zh">活动系统</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span data-lang="id">Karnival Referral</span><span data-lang="en">Referral Carnival</span><span data-lang="zh">推荐狂欢</span></td>
+            <td><span data-lang="id">Referral Leaderboard</span><span data-lang="en">Referral Leaderboard</span><span data-lang="zh">推荐排行榜</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="id">Pertumbuhan User</span><span data-lang="en">User Growth</span><span data-lang="zh">用户增长</span></td>
+            <td><span data-lang="id">UID Tracking &amp; Leaderboard</span><span data-lang="en">UID Tracking &amp; Leaderboard</span><span data-lang="zh">UID追踪与排行榜</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="id">KPI Leader</span><span data-lang="en">Leader KPI</span><span data-lang="zh">领袖KPI</span></td>
+            <td><span data-lang="id">Ranking &amp; Point System</span><span data-lang="en">Ranking &amp; Point System</span><span data-lang="zh">排名与积分系统</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="id">Aktivasi Komunitas</span><span data-lang="en">Community Activation</span><span data-lang="zh">社区激活</span></td>
+            <td><span data-lang="id">Daily Missions &amp; QR Missions</span><span data-lang="en">Daily Missions &amp; QR Missions</span><span data-lang="zh">每日任务与QR任务</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="id">Leader Engagement</span><span data-lang="en">Leader Engagement</span><span data-lang="zh">领袖参与</span></td>
+            <td><span data-lang="id">Stamp Collection</span><span data-lang="en">Stamp Collection</span><span data-lang="zh">印章收集</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="id">Campaign Online</span><span data-lang="en">Online Campaign</span><span data-lang="zh">线上营销</span></td>
+            <td><span data-lang="id">Social Share Missions</span><span data-lang="en">Social Share Missions</span><span data-lang="zh">社交分享任务</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="id">Offline Anniversary</span><span data-lang="en">Offline Anniversary</span><span data-lang="zh">线下周年活动</span></td>
+            <td><span data-lang="id">QR Attendance</span><span data-lang="en">QR Attendance</span><span data-lang="zh">QR签到</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="id">Monitoring Data</span><span data-lang="en">Data Monitoring</span><span data-lang="zh">数据监控</span></td>
+            <td><span data-lang="id">Dashboard &amp; API</span><span data-lang="en">Dashboard &amp; API</span><span data-lang="zh">仪表盘与API</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 6 Events -->
+  <section class="mb-8">
+    <div class="section-title">
+      <span data-lang="id">Event yang Direkomendasikan</span>
+      <span data-lang="en">Recommended Events</span>
+      <span data-lang="zh">推荐活动</span>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+      <!-- 1. Referral Leaderboard -->
+      <div class="card">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="event-number">1</div>
+          <div>
+            <div class="text-sm font-bold" style="color:#e2e8f0;">Referral Leaderboard</div>
+            <span class="badge badge-green" style="font-size:0.65rem;">
+              <span data-lang="id">Paling selaras</span>
+              <span data-lang="en">Most aligned</span>
+              <span data-lang="zh">最契合</span>
+            </span>
+          </div>
+        </div>
+        <p class="text-xs mb-2" style="color:#94a3b8;">
+          <span data-lang="id">User mendapat referral link unik. Semua referral tercatat di event system, masuk leaderboard dan KPI campaign.</span>
+          <span data-lang="en">Users get a unique referral link. All referrals are recorded in the event system, feeding the leaderboard and campaign KPI.</span>
+          <span data-lang="zh">用户获得专属推荐链接。所有推荐均记录在活动系统中，进入排行榜和营销KPI。</span>
+        </p>
+        <div class="text-xs font-mono" style="color:#6366f1;">event.shortpro.co.id/r/15185039</div>
+        <div class="mt-2 flex flex-wrap gap-1">
+          <span class="badge badge-blue">
+            <span data-lang="id">Kompetisi</span><span data-lang="en">Competition</span><span data-lang="zh">竞争</span>
+          </span>
+          <span class="badge badge-blue">
+            <span data-lang="id">Viral</span><span data-lang="en">Viral</span><span data-lang="zh">裂变传播</span>
+          </span>
+          <span class="badge badge-blue">
+            <span data-lang="id">KPI Realtime</span><span data-lang="en">Realtime KPI</span><span data-lang="zh">实时KPI</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- 2. QR Attendance -->
+      <div class="card">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="event-number">2</div>
+          <div>
+            <div class="text-sm font-bold" style="color:#e2e8f0;">QR Attendance Game</div>
+            <span class="badge badge-purple" style="font-size:0.65rem;">
+              <span data-lang="id">Online + Offline</span>
+              <span data-lang="en">Online + Offline</span>
+              <span data-lang="zh">线上+线下</span>
+            </span>
+          </div>
+        </div>
+        <p class="text-xs mb-2" style="color:#94a3b8;">
+          <span data-lang="id">QR di venue, booth, panggung, poster, WhatsApp Business, dan Instagram story. User scan untuk mendapat stamp, poin, dan hidden reward.</span>
+          <span data-lang="en">QR codes at venues, booths, stage, posters, WhatsApp Business, and Instagram stories. Users scan to earn stamps, points, and hidden rewards.</span>
+          <span data-lang="zh">QR码放置于场地、展位、舞台、海报、WhatsApp Business和Instagram故事。用户扫码获得印章、积分和隐藏奖励。</span>
+        </p>
+        <div class="mt-2 flex flex-wrap gap-1">
+          <span class="badge badge-blue">
+            <span data-lang="id">Offline Event</span><span data-lang="en">Offline Event</span><span data-lang="zh">线下活动</span>
+          </span>
+          <span class="badge badge-blue">
+            <span data-lang="id">WhatsApp Integration</span><span data-lang="en">WhatsApp Integration</span><span data-lang="zh">WhatsApp集成</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- 3. Stamp Collection -->
+      <div class="card">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="event-number">3</div>
+          <div>
+            <div class="text-sm font-bold" style="color:#e2e8f0;">Stamp Collection</div>
+          </div>
+        </div>
+        <p class="text-xs mb-2" style="color:#94a3b8;">
+          <span data-lang="id">User kumpulkan stamp dari referral, QR scan, daily login, spin wheel, dan social mission. Milestone reward mendorong user menyelesaikan seluruh aktivitas.</span>
+          <span data-lang="en">Users collect stamps from referrals, QR scans, daily logins, spin wheel, and social missions. Milestone rewards motivate users to complete all activities.</span>
+          <span data-lang="zh">用户通过推荐、QR扫码、每日登录、转盘和社交任务收集印章。里程碑奖励激励用户完成所有活动。</span>
+        </p>
+        <div class="text-xs space-y-1" style="color:#6366f1;">
+          <div>5 stamp → <span data-lang="id">Voucher</span><span data-lang="en">Voucher</span><span data-lang="zh">优惠券</span></div>
+          <div>10 stamp → <span data-lang="id">Merchandise</span><span data-lang="en">Merchandise</span><span data-lang="zh">周边商品</span></div>
+          <div>15 stamp → <span data-lang="id">Grand Prize Entry</span><span data-lang="en">Grand Prize Entry</span><span data-lang="zh">大奖入场资格</span></div>
+        </div>
+      </div>
+
+      <!-- 4. Spin Wheel -->
+      <div class="card">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="event-number">4</div>
+          <div>
+            <div class="text-sm font-bold" style="color:#e2e8f0;">Spin Wheel</div>
+            <span class="badge badge-green" style="font-size:0.65rem;">
+              <span data-lang="id">Engagement Booster</span>
+              <span data-lang="en">Engagement Booster</span>
+              <span data-lang="zh">互动助推器</span>
+            </span>
+          </div>
+        </div>
+        <p class="text-xs mb-2" style="color:#94a3b8;">
+          <span data-lang="id">Spin didapat dari referral, QR attendance, daily claim, dan mission completion. Reward berupa voucher, merchandise, bonus poin, atau bonus stamp.</span>
+          <span data-lang="en">Spins are earned from referrals, QR attendance, daily claims, and mission completions. Rewards include vouchers, merchandise, bonus points, or bonus stamps.</span>
+          <span data-lang="zh">转盘次数来自推荐、QR签到、每日领取和任务完成。奖励包括优惠券、周边商品、额外积分或额外印章。</span>
+        </p>
+        <div class="mt-2 flex flex-wrap gap-1">
+          <span class="badge badge-blue">Fun</span>
+          <span class="badge badge-blue">
+            <span data-lang="id">Ringan untuk server</span><span data-lang="en">Lightweight</span><span data-lang="zh">服务器友好</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- 5. Daily Claim -->
+      <div class="card">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="event-number">5</div>
+          <div>
+            <div class="text-sm font-bold" style="color:#e2e8f0;">Daily Claim</div>
+            <span class="badge badge-purple" style="font-size:0.65rem;">
+              <span data-lang="id">Retention Booster</span>
+              <span data-lang="en">Retention Booster</span>
+              <span data-lang="zh">留存助推器</span>
+            </span>
+          </div>
+        </div>
+        <p class="text-xs mb-2" style="color:#94a3b8;">
+          <span data-lang="id">User claim hadiah harian. Streak bonus mendorong user kembali setiap hari selama periode campaign.</span>
+          <span data-lang="en">Users claim daily rewards. Streak bonuses encourage users to return every day throughout the campaign period.</span>
+          <span data-lang="zh">用户每日领取奖励。连续签到奖励鼓励用户在整个活动期间每天回访。</span>
+        </p>
+        <div class="text-xs space-y-1" style="color:#6366f1;">
+          <div><span data-lang="id">Hari 1</span><span data-lang="en">Day 1</span><span data-lang="zh">第1天</span> → 10 poin</div>
+          <div><span data-lang="id">Hari 3</span><span data-lang="en">Day 3</span><span data-lang="zh">第3天</span> → extra spin</div>
+          <div><span data-lang="id">Hari 7</span><span data-lang="en">Day 7</span><span data-lang="zh">第7天</span> → special reward</div>
+        </div>
+      </div>
+
+      <!-- 6. Social Share Mission -->
+      <div class="card">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="event-number">6</div>
+          <div>
+            <div class="text-sm font-bold" style="color:#e2e8f0;">Social Share Mission</div>
+            <span class="badge badge-green" style="font-size:0.65rem;">
+              <span data-lang="id">Marketing Amplifier</span>
+              <span data-lang="en">Marketing Amplifier</span>
+              <span data-lang="zh">营销放大器</span>
+            </span>
+          </div>
+        </div>
+        <p class="text-xs mb-2" style="color:#94a3b8;">
+          <span data-lang="id">User mendapat reward jika upload IG story, share TikTok, upload foto event, atau mention ShortPro. Mendorong organic promotion dan social proof.</span>
+          <span data-lang="en">Users earn rewards for uploading IG stories, sharing on TikTok, uploading event photos, or mentioning ShortPro. Drives organic promotion and social proof.</span>
+          <span data-lang="zh">用户上传Instagram故事、分享TikTok、上传活动照片或@ShortPro即可获得奖励。促进有机推广和社交证明。</span>
+        </p>
+        <div class="mt-2 flex flex-wrap gap-1">
+          <span class="badge badge-blue">Instagram</span>
+          <span class="badge badge-blue">TikTok</span>
+          <span class="badge badge-blue">
+            <span data-lang="id">Organic</span><span data-lang="en">Organic</span><span data-lang="zh">自然流量</span>
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Bonus Suggestions -->
+  <section class="mb-8">
+    <div class="section-title">
+      <span data-lang="id">Saran Tambahan</span>
+      <span data-lang="en">Bonus Suggestions</span>
+      <span data-lang="zh">额外建议</span>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+      <div class="card">
+        <div class="text-sm font-semibold mb-1" style="color:#e2e8f0;">
+          <span data-lang="id">#1 — Digital KPI Dashboard</span>
+          <span data-lang="en">#1 — Digital KPI Dashboard</span>
+          <span data-lang="zh">#1 — 数字KPI仪表盘</span>
+        </div>
+        <p class="text-xs" style="color:#94a3b8;">
+          <span data-lang="id">Leader bisa melihat progress referral, ranking, dan target menuju reward secara realtime. Meningkatkan motivasi leader.</span>
+          <span data-lang="en">Leaders can view referral progress, ranking, and reward targets in real time. Boosts leader motivation.</span>
+          <span data-lang="zh">领袖可实时查看推荐进度、排名和奖励目标，提升领袖积极性。</span>
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="text-sm font-semibold mb-1" style="color:#e2e8f0;">
+          <span data-lang="id">#2 — Hidden QR Missions</span>
+          <span data-lang="en">#2 — Hidden QR Missions</span>
+          <span data-lang="zh">#2 — 隐藏QR任务</span>
+        </div>
+        <p class="text-xs" style="color:#94a3b8;">
+          <span data-lang="id">QR tertentu hanya muncul saat live, di venue, atau di WhatsApp blast — membuat campaign lebih menarik dan eksklusif.</span>
+          <span data-lang="en">Certain QR codes only appear during live events, at the venue, or in WhatsApp blasts — making the campaign more exciting and exclusive.</span>
+          <span data-lang="zh">特定QR码仅在直播、现场或WhatsApp推送时出现，使活动更具吸引力和专属感。</span>
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="text-sm font-semibold mb-1" style="color:#e2e8f0;">
+          <span data-lang="id">#3 — Live Leaderboard During Event</span>
+          <span data-lang="en">#3 — Live Leaderboard During Event</span>
+          <span data-lang="zh">#3 — 活动现场直播排行榜</span>
+        </div>
+        <p class="text-xs" style="color:#94a3b8;">
+          <span data-lang="id">Leaderboard ditampilkan live di screen saat acara offline. Meningkatkan kompetisi dan hype di venue.</span>
+          <span data-lang="en">The leaderboard is displayed live on screen during the offline event. Increases competition and hype at the venue.</span>
+          <span data-lang="zh">排行榜在线下活动期间实时展示于大屏幕，提升现场竞争氛围和热度。</span>
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="text-sm font-semibold mb-1" style="color:#e2e8f0;">
+          <span data-lang="id">#4 — Booster Day / Double Point Day</span>
+          <span data-lang="en">#4 — Booster Day / Double Point Day</span>
+          <span data-lang="zh">#4 — 助推日 / 双倍积分日</span>
+        </div>
+        <p class="text-xs" style="color:#94a3b8;">
+          <span data-lang="id">Contoh: Hari Sabtu → Referral x2 poin, QR Scan x2 stamp. Bagus untuk meningkatkan spike traffic di hari tertentu.</span>
+          <span data-lang="en">Example: Saturday → Referral x2 points, QR Scan x2 stamps. Great for driving traffic spikes on targeted days.</span>
+          <span data-lang="zh">例如：周六→推荐获双倍积分，QR扫码获双倍印章。适合在特定日期制造流量高峰。</span>
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- UID System -->
+  <section class="mb-8">
+    <div class="section-title">
+      <span data-lang="id">Sistem Identifikasi User — UID ShortPro</span>
+      <span data-lang="en">User Identification — ShortPro UID</span>
+      <span data-lang="zh">用户识别——ShortPro UID</span>
+    </div>
+    <div class="card max-w-lg">
+      <p class="text-sm mb-3" style="color:#94a3b8;">
+        <span data-lang="id">Semua user menggunakan UID ShortPro yang sudah ada. Tidak perlu register ulang.</span>
+        <span data-lang="en">All users use their existing ShortPro UID. No need to re-register.</span>
+        <span data-lang="zh">所有用户使用现有的ShortPro UID，无需重新注册。</span>
+      </p>
+      <div class="text-xs font-mono mb-3" style="color:#a78bfa; background:#1a1a2e; padding:8px 12px; border-radius:6px;">
+        UID: 15185039
+      </div>
+      <div class="grid grid-cols-2 gap-2 text-xs" style="color:#94a3b8;">
+        <div class="flex items-center gap-1"><span style="color:#34d399;">✓</span>
+          <span data-lang="id">Tidak perlu register ulang</span>
+          <span data-lang="en">No re-registration needed</span>
+          <span data-lang="zh">无需重新注册</span>
+        </div>
+        <div class="flex items-center gap-1"><span style="color:#34d399;">✓</span>
+          <span data-lang="id">Tracking lebih mudah</span>
+          <span data-lang="en">Easier tracking</span>
+          <span data-lang="zh">追踪更便捷</span>
+        </div>
+        <div class="flex items-center gap-1"><span style="color:#34d399;">✓</span>
+          <span data-lang="id">Sinkron dengan ecosystem ShortPro</span>
+          <span data-lang="en">Synced with ShortPro ecosystem</span>
+          <span data-lang="zh">与ShortPro生态同步</span>
+        </div>
+        <div class="flex items-center gap-1"><span style="color:#34d399;">✓</span>
+          <span data-lang="id">Anti-duplicate lebih mudah</span>
+          <span data-lang="en">Easier anti-duplicate</span>
+          <span data-lang="zh">防重复更简单</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conclusion Campaign -->
+  <section class="mb-4">
+    <div class="card" style="border-color:#4c1d95; background:linear-gradient(135deg,#1a1a2e,#1f1a2e);">
+      <div class="text-xs font-semibold mb-2" style="color:#a78bfa;">
+        <span data-lang="id">Kesimpulan</span>
+        <span data-lang="en">Conclusion</span>
+        <span data-lang="zh">结论</span>
+      </div>
+      <p class="text-sm" style="color:#c4b5fd;">
+        <span data-lang="id">Proposal ini sangat align dengan draft internal tim — memperkuat campaign Anniversary tanpa membebani sistem utama ShortPro.app. Scalable dengan biaya rendah, realistis untuk dijalankan dalam 3 bulan campaign. Seluruh aktivitas Anniversary menjadi lebih terukur, interaktif, dan mudah dimonitor lintas divisi.</span>
+        <span data-lang="en">This proposal is highly aligned with the internal team draft — it strengthens the Anniversary campaign without burdening ShortPro.app's main system. Scalable at low cost, realistic to execute within a 3-month campaign. All Anniversary activities become more measurable, interactive, and easy to monitor across divisions.</span>
+        <span data-lang="zh">本提案与内部团队草案高度契合——在不给ShortPro.app主系统带来负担的情况下，强化周年营销活动。低成本可扩展，3个月活动期内可实际执行。所有周年活动将更可衡量、更具互动性，且便于跨部门监控。</span>
+      </p>
+    </div>
+  </section>
+
+</div><!-- /content-campaign -->
+
+</main>
+
+<!-- FOOTER -->
+<footer class="border-t mt-8 py-6 text-center text-xs" style="border-color:#1e1e2e; color:#475569;">
+  <span data-lang="id">ShortPro 2nd Anniversary Digital Event System — Proposal Mei 2026</span>
+  <span data-lang="en">ShortPro 2nd Anniversary Digital Event System — May 2026 Proposal</span>
+  <span data-lang="zh">ShortPro二周年数字活动系统——2026年5月提案</span>
+</footer>
+
+<script>
+  let currentLang = 'id';
+
+  function setLang(lang) {
+    currentLang = lang;
+    // Update all data-lang elements
+    document.querySelectorAll('[data-lang]').forEach(el => {
+      el.classList.remove('lang-active');
+    });
+    document.querySelectorAll('[data-lang="' + lang + '"]').forEach(el => {
+      el.classList.add('lang-active');
+    });
+    // Update button states
+    ['id', 'en', 'zh'].forEach(l => {
+      const btn = document.getElementById('btn-' + l);
+      if (l === lang) {
+        btn.classList.add('active');
+        btn.style.color = '';
+      } else {
+        btn.classList.remove('active');
+        btn.style.color = '#94a3b8';
+      }
+    });
+    // Update html lang attribute
+    document.documentElement.lang = lang === 'zh' ? 'zh-Hans' : lang;
+  }
+
+  function setTab(tab) {
+    ['vps', 'campaign'].forEach(t => {
+      document.getElementById('content-' + t).classList.remove('active');
+      const btn = document.getElementById('tab-' + t);
+      btn.classList.remove('active');
+      btn.style.color = '#6b7280';
+    });
+    document.getElementById('content-' + tab).classList.add('active');
+    const activeBtn = document.getElementById('tab-' + tab);
+    activeBtn.classList.add('active');
+    activeBtn.style.color = '#818cf8';
+  }
+
+  // Initialize: show ID language
+  setLang('id');
+</script>
+
+</body>
+</html>
