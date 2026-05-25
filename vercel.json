@@ -1,20 +1,3 @@
 {
-  "projects": [
-    {
-      "name": "enztronic-main",
-      "alias": "enztronic.com",
-      "path": ".",
-      "settings": {
-        "buildCommand": "npm run build"
-      }
-    },
-    {
-      "name": "meteora-dashboard",
-      "alias": "enztronic.com/meteora",
-      "path": "apps/meteora-lp",
-      "settings": {
-        "buildCommand": "npm run build"
-      }
-    }
-  ]
+  "buildCommand": "npm run build"
 }
