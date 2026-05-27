@@ -1,0 +1,215 @@
+{
+  "nav": {
+    "services": "Layanan",
+    "portfolio": "Portofolio",
+    "about": "Tentang",
+    "blog": "Blog",
+    "cta": "Mulai Sekarang"
+  },
+  "footer": {
+    "brand": "ENZTRONIC",
+    "tagline": "Membangun keunggulan digital untuk bisnis di seluruh dunia.",
+    "sections": {
+      "services": "Layanan",
+      "company": "Perusahaan",
+      "connect": "Terhubung"
+    },
+    "links": {
+      "webDev": "Pengembangan Web",
+      "digitalMarketing": "Pemasaran Digital",
+      "paidAds": "Iklan Berbayar",
+      "branding": "Branding",
+      "about": "Tentang Kami",
+      "portfolio": "Portofolio",
+      "blog": "Blog",
+      "contact": "Kontak",
+      "linkedin": "LinkedIn",
+      "twitter": "Twitter",
+      "instagram": "Instagram"
+    },
+    "copyright": "© {year} ENZTRONIC. Hak cipta dilindungi."
+  },
+  "home": {
+    "badge": "KUALITAS GLOBAL · DIBANGUN DI JAKARTA",
+    "headline": "Launch. Rank. Scale.",
+    "description": "Satu tim. Stack digital lengkap. Kami menangani web development, SEO, iklan berbayar, dan branding — agar kamu bisa fokus membangun bisnis. Berbasis di Jakarta, dikirim secara global, dengan biaya yang jauh lebih terjangkau dari agensi Barat.",
+    "ctaPrimary": "Mulai Proyek Kamu",
+    "ctaSecondary": "Lihat Portofolio",
+    "stats": {
+      "years": "10+ Tahun",
+      "yearsLabel": "Pengalaman Industri",
+      "projects": "450+ Proyek",
+      "projectsLabel": "Berhasil Diselesaikan",
+      "industries": "15+ Industri",
+      "industriesLabel": "Klien di Seluruh Dunia",
+      "retention": "98%",
+      "retentionLabel": "Tingkat Retensi Klien"
+    },
+    "hero": {
+      "revenueGrowth": "+145%",
+      "revenueLabel": "Rata-rata Pertumbuhan Pendapatan"
+    },
+    "caseStudy": {
+      "label": "Proyek Unggulan",
+      "title": "Qianlima — Rekrutmen Lintas Batas di Skala Besar",
+      "description": "Dibangun dari nol untuk perusahaan Tiongkok yang merekrut talenta Indonesia. Platform rekrutmen multi-bahasa yang menangani penyaringan kandidat kompleks, alur kerja HR lintas batas, dan kepatuhan tingkat enterprise — live dan terus berkembang.",
+      "feature1": "Antarmuka multi-bahasa (ID / CN / EN)",
+      "feature2": "Penyaringan & pemfilteran kandidat canggih",
+      "feature3": "Keamanan & kepatuhan enterprise terintegrasi",
+      "cta": "Lihat Proyek",
+      "screenshot": "Screenshot Proyek: Qianlima.co.id"
+    }
+  },
+  "about": {
+    "heading": "Tentang ENZTRONIC",
+    "p1": "Kami adalah agensi digital premium yang berdedikasi untuk mentransformasi bisnis melalui teknologi inovatif dan pemasaran strategis.",
+    "p2": "Dengan pengalaman lebih dari 10 tahun dan 450+ proyek sukses, kami telah membantu perusahaan di 15+ industri mencapai pertumbuhan luar biasa melalui pengembangan web kustom, pemasaran digital, dan solusi branding.",
+    "stats": {
+      "years": "10+",
+      "yearsLabel": "Tahun Keunggulan",
+      "projects": "450+",
+      "projectsLabel": "Proyek Diselesaikan",
+      "industries": "15+",
+      "industriesLabel": "Industri Dilayani",
+      "retention": "98%",
+      "retentionLabel": "Retensi Klien"
+    },
+    "founder": {
+      "portrait": "Aaron — Foto Pendiri",
+      "name": "Aaron",
+      "title": "Pendiri & CEO"
+    }
+  },
+  "services": {
+    "heading": "Yang Kami Kerjakan",
+    "subheading": "Semua yang dibutuhkan startup untuk launch, ditemukan, dan berkembang — dalam satu atap.",
+    "items": [
+      {
+        "title": "Web Development",
+        "description": "Website dan aplikasi yang cepat, scalable, dan dirancang untuk konversi — bukan sekadar tampilan. Kami ship dalam hitungan minggu, bukan bulan.",
+        "features": ["Next.js & React", "E-commerce & Marketplace", "Integrasi CMS", "Pengembangan API"]
+      },
+      {
+        "title": "SEO & Konten",
+        "description": "Ranking di Google sebelum runway kamu habis. Kami membangun kehadiran organik yang terus berkembang seiring waktu.",
+        "features": ["SEO Teknikal", "Strategi Konten", "Optimasi On-page", "Link Building"]
+      },
+      {
+        "title": "Iklan Berbayar",
+        "description": "Belanja iklan yang benar-benar menghasilkan. Kami menjalankan kampanye performa dengan tracking ketat dari hari pertama.",
+        "features": ["Google Ads", "Meta (Facebook & Instagram)", "LinkedIn Ads", "Pelacakan Konversi"]
+      },
+      {
+        "title": "Branding",
+        "description": "Brand yang terlihat serius sejak hari pertama launch. Logo, identitas, dan panduan yang tumbuh bersama bisnismu.",
+        "features": ["Desain Logo", "Panduan Merek", "Identitas Visual", "Strategi Merek"]
+      },
+      {
+        "title": "Konsultasi Pertumbuhan",
+        "description": "Strategi dulu, eksekusi kemudian. Kami membantu founder memprioritaskan hal-hal yang benar-benar menggerakkan bisnis.",
+        "features": ["Analisis Pasar", "Strategi Channel", "Analitik Performa", "Perencanaan Roadmap"]
+      },
+      {
+        "title": "Desain UI/UX",
+        "description": "Antarmuka yang benar-benar dipahami pengguna. Desain berbasis riset yang mengurangi churn dan meningkatkan konversi.",
+        "features": ["Riset Pengguna", "Wireframing & Flow", "Prototyping", "Pengujian Kegunaan"]
+      }
+    ]
+  },
+  "portfolio": {
+    "heading": "Portofolio Kami",
+    "description": "Proyek sukses di bidang rekrutmen, konsultasi, pemasaran digital, dan e-commerce. Dari pembuatan merek hingga dominasi SEO.",
+    "visitSite": "Kunjungi Situs",
+    "projects": [
+      {
+        "title": "Qianlima",
+        "category": "Platform Rekrutmen",
+        "description": "Platform rekrutmen lintas batas yang menghubungkan perusahaan Tiongkok dengan talenta Indonesia. Fitur dukungan multi-bahasa (ID/CN/EN), penyaringan kandidat canggih, keamanan tingkat enterprise, dan sistem manajemen alur kerja HR komprehensif.",
+        "url": "https://qianlima.co.id",
+        "tags": ["Next.js", "Multi-bahasa", "Enterprise"]
+      },
+      {
+        "title": "Monopole Consulting",
+        "category": "Konsultasi Wine - Bilingual",
+        "description": "Website layanan konsultasi wine mewah yang dirancang untuk klien Taiwan dan AS. Antarmuka bilingual (Inggris/Mandarin Tradisional), katalog daftar wine, layanan konsultasi, manajemen acara, dan catatan pencicipan - dikembangkan dari awal dengan branding klien.",
+        "url": "https://monopoleconsulting.com",
+        "tags": ["Bilingual", "React", "E-commerce"]
+      },
+      {
+        "title": "Setia Karya (AC Mobil Murah)",
+        "category": "Pemasaran Digital Penuh",
+        "description": "Transformasi merek lengkap dan kampanye pemasaran digital. Menciptakan jargon merek ikonik \"Car, Bus, Truck & Heavy Equipment Air Conditioning Service\". Membangun website, mengimplementasikan strategi Google Ads, dan mengelola saluran media sosial termasuk YouTube, Instagram, dan Facebook.",
+        "url": "https://acmobilmurah.com",
+        "tags": ["Branding", "Google Ads", "Media Sosial"]
+      },
+      {
+        "title": "Berdi Rental",
+        "category": "Rental Mobil - Peringkat SEO #1",
+        "description": "Landing page rental mobil yang mencapai peringkat SEO #1 hanya dalam 1 minggu. Membangun identitas merek dari awal dengan optimasi SEO strategis, menciptakan website berkinerja tinggi yang langsung menangkap traffic pencarian organik.",
+        "url": "https://berdirental.com",
+        "tags": ["SEO", "Landing Page", "Branding"]
+      },
+      {
+        "title": "ShortPro",
+        "category": "Branding Lokal & Lingkungan Digital",
+        "description": "Pengaturan ekosistem digital lengkap termasuk pengembangan website, infrastruktur FTP, konfigurasi domain email, dan produksi konten. Mengelola kehadiran Instagram resmi, iklan berbayar, dan acara digital berkelanjutan untuk penetapan pasar lokal.",
+        "url": "https://shortpro.co.id",
+        "tags": ["Branding", "Infrastruktur", "Konten"]
+      },
+      {
+        "title": "Salim Berkat Sejahtera",
+        "category": "Branding PT & Kehadiran Web",
+        "description": "Pengaturan website dan domain email untuk PT. Salim Berkat Sejahtera di Balikpapan, Kalimantan Timur. Fokus pada membangun kehadiran online profesional dan identitas merek perusahaan.",
+        "url": "https://salimberkatsejahtera.com",
+        "tags": ["Branding", "Desain Web", "Email"]
+      }
+    ]
+  },
+  "blog": {
+    "label": "Wawasan",
+    "heading": "Berita terbaru dari ENZTRONIC",
+    "description": "Artikel, studi kasus, dan pembaruan agensi untuk transformasi digital, pengembangan web, dan pemasaran pertumbuhan.",
+    "comingSoon": "Segera hadir",
+    "placeholder": "Konten blog sedang dalam pembangunan",
+    "placeholderDetail": "Kami sedang menyiapkan cerita berkualitas tinggi tentang produk digital, branding, dan kampanye sukses. Kunjungi kembali segera.",
+    "readMore": "Baca selengkapnya"
+  },
+  "contact": {
+    "label": "Hubungi kami",
+    "heading": "Kontak ENZTRONIC",
+    "description": "Siap memulai proyek Anda? Kirim pesan kepada kami dan kami akan menghubungi Anda dengan strategi digital yang disesuaikan.",
+    "emailPromptPre": "Email kami di",
+    "emailPromptPost": "atau gunakan formulir kontak setelah situs sepenuhnya dibangun.",
+    "email": "enztun@enztronic.com",
+    "office": "Kantor",
+    "officeLocation": "Jakarta, Indonesia",
+    "phone": "Telepon",
+    "phoneNumber": "+62 8963 7579 728"
+  },
+  "meta": {
+    "home": {
+      "title": "Enztronic — Agensi Digital Full-Stack, Jakarta",
+      "description": "Satu tim untuk web development, SEO, iklan berbayar, dan branding. Berbasis di Jakarta, dikirim secara global. 450+ proyek, retensi klien 98%. Mulai berkembang hari ini."
+    },
+    "about": {
+      "title": "Tentang | Enztronic",
+      "description": "Pelajari tentang Enztronic — agensi digital premium dengan pengalaman 10+ tahun dalam 450+ proyek di 15+ industri di seluruh dunia."
+    },
+    "services": {
+      "title": "Layanan | Enztronic",
+      "description": "Layanan digital komprehensif: pengembangan web, pemasaran digital, iklan berbayar, branding, konsultasi pertumbuhan, dan desain UI/UX."
+    },
+    "portfolio": {
+      "title": "Portofolio | Enztronic",
+      "description": "Jelajahi portofolio proyek sukses kami di bidang rekrutmen, konsultasi, pemasaran digital, e-commerce, dan branding di Indonesia dan luar negeri."
+    },
+    "blog": {
+      "title": "Blog | Enztronic",
+      "description": "Artikel, studi kasus, dan pembaruan agensi tentang transformasi digital, pengembangan web, dan pemasaran pertumbuhan dari Enztronic."
+    },
+    "contact": {
+      "title": "Kontak | Enztronic",
+      "description": "Hubungi Enztronic untuk memulai proyek digital Anda. Kami dapat dihubungi melalui email atau kunjungi kantor kami di Jakarta."
+    }
+  }
+}

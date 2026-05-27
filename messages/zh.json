@@ -1,0 +1,215 @@
+{
+  "nav": {
+    "services": "服务",
+    "portfolio": "案例集",
+    "about": "关于我们",
+    "blog": "博客",
+    "cta": "立即开始"
+  },
+  "footer": {
+    "brand": "ENZTRONIC",
+    "tagline": "为全球企业打造卓越数字体验。",
+    "sections": {
+      "services": "服务",
+      "company": "公司",
+      "connect": "联系我们"
+    },
+    "links": {
+      "webDev": "网站开发",
+      "digitalMarketing": "数字营销",
+      "paidAds": "付费广告",
+      "branding": "品牌策划",
+      "about": "关于我们",
+      "portfolio": "案例集",
+      "blog": "博客",
+      "contact": "联系",
+      "linkedin": "LinkedIn",
+      "twitter": "Twitter",
+      "instagram": "Instagram"
+    },
+    "copyright": "© {year} ENZTRONIC. 保留所有权利。"
+  },
+  "home": {
+    "badge": "全球品质 · 雅加达出品",
+    "headline": "Launch. Rank. Scale.",
+    "description": "一支团队，全栈数字服务。我们负责网站开发、SEO、付费广告和品牌策划——让你专注于做产品。雅加达出品，全球交付，成本远低于西方同类机构。",
+    "ctaPrimary": "开始你的项目",
+    "ctaSecondary": "查看案例",
+    "stats": {
+      "years": "10+ 年",
+      "yearsLabel": "行业经验",
+      "projects": "450+ 个项目",
+      "projectsLabel": "成功交付",
+      "industries": "15+ 个行业",
+      "industriesLabel": "全球客户覆盖",
+      "retention": "98%",
+      "retentionLabel": "客户留存率"
+    },
+    "hero": {
+      "revenueGrowth": "+145%",
+      "revenueLabel": "平均营收增长"
+    },
+    "caseStudy": {
+      "label": "精选项目",
+      "title": "千里马 — 大规模跨境招聘平台",
+      "description": "从零开始为中国企业招募印尼人才而构建。一个多语言招聘平台，处理复杂的候选人筛选、跨境HR工作流程和企业级合规——已上线并持续增长。",
+      "feature1": "多语言界面（ID / CN / EN）",
+      "feature2": "高级候选人筛选与过滤",
+      "feature3": "企业级安全与合规内置",
+      "cta": "查看项目",
+      "screenshot": "项目截图：Qianlima.co.id"
+    }
+  },
+  "about": {
+    "heading": "关于 ENZTRONIC",
+    "p1": "我们是一家高端数字营销机构，致力于通过创新技术和战略营销推动企业转型。",
+    "p2": "凭借10年以上的经验和450多个成功项目，我们已帮助15多个行业的企业通过定制网站开发、数字营销和品牌策划实现卓越增长。",
+    "stats": {
+      "years": "10+",
+      "yearsLabel": "年卓越经验",
+      "projects": "450+",
+      "projectsLabel": "项目交付",
+      "industries": "15+",
+      "industriesLabel": "服务行业",
+      "retention": "98%",
+      "retentionLabel": "客户留存率"
+    },
+    "founder": {
+      "portrait": "Aaron — 创始人照片",
+      "name": "Aaron",
+      "title": "创始人兼首席执行官"
+    }
+  },
+  "services": {
+    "heading": "我们做什么",
+    "subheading": "初创公司启动、获客、增长所需的一切——尽在一处。",
+    "items": [
+      {
+        "title": "网站开发",
+        "description": "快速、可扩展、以转化为导向的网站和应用——不只是好看。我们以周为单位交付，而非数月。",
+        "features": ["Next.js & React", "电商与平台", "CMS集成", "API开发"]
+      },
+      {
+        "title": "SEO与内容",
+        "description": "在资金耗尽前登上Google首页。我们构建随时间复利增长的自然搜索流量。",
+        "features": ["技术SEO", "内容策略", "页面优化", "外链建设"]
+      },
+      {
+        "title": "付费广告",
+        "description": "真正产生回报的广告投放。从第一天起就进行严格的跟踪与绩效管理。",
+        "features": ["Google Ads", "Meta（Facebook & Instagram）", "LinkedIn广告", "转化追踪"]
+      },
+      {
+        "title": "品牌策划",
+        "description": "从上线第一天就看起来专业可信。Logo、视觉识别和品牌规范，随你的业务一同成长。",
+        "features": ["Logo设计", "品牌规范", "视觉识别", "品牌战略"]
+      },
+      {
+        "title": "增长咨询",
+        "description": "先定战略，再谈执行。我们帮助创始人聚焦真正推动业务增长的优先事项。",
+        "features": ["市场分析", "渠道策略", "绩效分析", "路线图规划"]
+      },
+      {
+        "title": "UI/UX设计",
+        "description": "用户真正看得懂的界面。基于研究的设计，降低流失率，提升转化率。",
+        "features": ["用户研究", "线框图", "原型设计", "可用性测试"]
+      }
+    ]
+  },
+  "portfolio": {
+    "heading": "我们的案例集",
+    "description": "招聘、咨询、数字营销和电商领域的成功项目。从品牌创建到SEO主导。",
+    "visitSite": "访问网站",
+    "projects": [
+      {
+        "title": "千里马",
+        "category": "招聘平台",
+        "description": "跨境招聘平台，连接中国企业与印尼人才。具备多语言支持（ID/CN/EN）、高级候选人筛选、企业级安全和综合HR工作流管理系统。",
+        "url": "https://qianlima.co.id",
+        "tags": ["Next.js", "多语言", "企业级"]
+      },
+      {
+        "title": "Monopole Consulting",
+        "category": "葡萄酒咨询 - 双语",
+        "description": "为台湾和美国客户设计的精品葡萄酒咨询服务网站。双语界面（英语/繁体中文）、酒单目录、咨询服务、活动管理和品鉴笔记 - 从零开始开发，融入客户品牌。",
+        "url": "https://monopoleconsulting.com",
+        "tags": ["双语", "React", "电商"]
+      },
+      {
+        "title": "Setia Karya (AC Mobil Murah)",
+        "category": "全面数字营销",
+        "description": "完整的品牌转型和数字营销活动。创造了标志性品牌口号 Car, Bus, Truck & Heavy Equipment Air Conditioning Service。建立网站，实施Google Ads策略，管理YouTube、Instagram和Facebook等社交媒体渠道。",
+        "url": "https://acmobilmurah.com",
+        "tags": ["品牌策划", "Google Ads", "社交媒体"]
+      },
+      {
+        "title": "Berdi Rental",
+        "category": "租车 - SEO排名第1",
+        "description": "租车落地页，仅用1周时间实现SEO排名第1。从零开始打造品牌形象，配合战略性SEO优化，创建高性能网站，立即捕获有机搜索流量。",
+        "url": "https://berdirental.com",
+        "tags": ["SEO", "落地页", "品牌策划"]
+      },
+      {
+        "title": "ShortPro",
+        "category": "本地品牌与数字生态",
+        "description": "完整的数字生态系统搭建，包括网站开发、FTP基础设施、邮件域名配置和内容制作。管理官方Instagram账号、付费广告和持续的数字活动，助力本地市场建立。",
+        "url": "https://shortpro.co.id",
+        "tags": ["品牌策划", "基础设施", "内容"]
+      },
+      {
+        "title": "Salim Berkat Sejahtera",
+        "category": "PT品牌与网络存在",
+        "description": "为位于东加里曼丹巴厘巴板的PT. Salim Berkat Sejahtera建立网站和邮件域名。专注于为公司建立专业的线上形象和品牌识别。",
+        "url": "https://salimberkatsejahtera.com",
+        "tags": ["品牌策划", "网站设计", "邮件"]
+      }
+    ]
+  },
+  "blog": {
+    "label": "洞察",
+    "heading": "ENZTRONIC 最新动态",
+    "description": "关于数字化转型、网站开发和增长营销的文章、案例研究和机构动态。",
+    "comingSoon": "即将推出",
+    "placeholder": "博客内容正在建设中",
+    "placeholderDetail": "我们正在准备关于数字产品、品牌和成功营销活动的高质量内容。敬请期待。",
+    "readMore": "阅读更多"
+  },
+  "contact": {
+    "label": "联系我们",
+    "heading": "联系 ENZTRONIC",
+    "description": "准备好开始您的项目了吗？给我们发送消息，我们将为您提供量身定制的数字策略。",
+    "emailPromptPre": "发送邮件至",
+    "emailPromptPost": "或在网站完全建成后使用联系表单。",
+    "email": "enztun@enztronic.com",
+    "office": "办公室",
+    "officeLocation": "印度尼西亚 雅加达",
+    "phone": "电话",
+    "phoneNumber": "+62 8963 7579 728"
+  },
+  "meta": {
+    "home": {
+      "title": "Enztronic — 全栈数字机构，雅加达",
+      "description": "网站开发、SEO、付费广告和品牌策划，一支团队全搞定。雅加达出品，全球交付。450+项目，98%留存率。立即开始增长。"
+    },
+    "about": {
+      "title": "关于我们 | Enztronic",
+      "description": "了解Enztronic——一家拥有10年以上经验的高端数字营销机构，在全球15个以上行业成功交付450多个项目。"
+    },
+    "services": {
+      "title": "服务 | Enztronic",
+      "description": "全面的数字服务：网站开发、数字营销、付费广告、品牌策划、增长咨询和UI/UX设计。"
+    },
+    "portfolio": {
+      "title": "案例集 | Enztronic",
+      "description": "探索我们在印尼及海外招聘、咨询、数字营销、电商和品牌策划领域的成功案例。"
+    },
+    "blog": {
+      "title": "博客 | Enztronic",
+      "description": "来自Enztronic关于数字化转型、网站开发和增长营销的文章、案例研究和机构动态。"
+    },
+    "contact": {
+      "title": "联系 | Enztronic",
+      "description": "联系Enztronic开启您的数字项目。通过电子邮件联系我们或访问我们的雅加达办公室。"
+    }
+  }
+}

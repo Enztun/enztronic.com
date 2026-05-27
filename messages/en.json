@@ -1,0 +1,215 @@
+{
+  "nav": {
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "about": "About",
+    "blog": "Blog",
+    "cta": "Get Started"
+  },
+  "footer": {
+    "brand": "ENZTRONIC",
+    "tagline": "Building digital excellence for businesses worldwide.",
+    "sections": {
+      "services": "Services",
+      "company": "Company",
+      "connect": "Connect"
+    },
+    "links": {
+      "webDev": "Web Development",
+      "digitalMarketing": "Digital Marketing",
+      "paidAds": "Paid Ads",
+      "branding": "Branding",
+      "about": "About Us",
+      "portfolio": "Portfolio",
+      "blog": "Blog",
+      "contact": "Contact",
+      "linkedin": "LinkedIn",
+      "twitter": "Twitter",
+      "instagram": "Instagram"
+    },
+    "copyright": "© {year} ENZTRONIC. All rights reserved."
+  },
+  "home": {
+    "badge": "GLOBAL QUALITY · BUILT IN JAKARTA",
+    "headline": "Launch. Rank. Scale.",
+    "description": "One team. Full digital stack. We handle web development, SEO, paid ads, and branding — so you can focus on building your business. Jakarta-based, globally delivered, at a fraction of Western agency costs.",
+    "ctaPrimary": "Start Your Project",
+    "ctaSecondary": "See Our Work",
+    "stats": {
+      "years": "10+ Years",
+      "yearsLabel": "Industry Experience",
+      "projects": "450+ Projects",
+      "projectsLabel": "Successfully Delivered",
+      "industries": "15+ Industries",
+      "industriesLabel": "Clients Worldwide",
+      "retention": "98%",
+      "retentionLabel": "Client Retention Rate"
+    },
+    "hero": {
+      "revenueGrowth": "+145%",
+      "revenueLabel": "Average Revenue Growth"
+    },
+    "caseStudy": {
+      "label": "Featured Project",
+      "title": "Qianlima — Cross-Border Hiring at Scale",
+      "description": "Built from scratch for Chinese corporations recruiting Indonesian talent. A multi-language recruitment platform handling complex candidate screening, cross-border HR workflows, and enterprise-grade compliance — live and growing.",
+      "feature1": "Multi-language interface (ID / CN / EN)",
+      "feature2": "Advanced candidate screening & filtering",
+      "feature3": "Enterprise security & compliance built-in",
+      "cta": "View Project",
+      "screenshot": "Project Screenshot: Qianlima.co.id"
+    }
+  },
+  "about": {
+    "heading": "We build digital infrastructure for serious businesses.",
+    "p1": "Enztronic is a full-stack digital agency based in Jakarta, Indonesia. We work with startups, founders, and growing businesses that need a complete digital team — not a patchwork of vendors.",
+    "p2": "We combine engineering, SEO, paid advertising, and branding into one coherent operation. No handoffs between agencies. No lost context. Just execution — delivered globally at a fraction of Western rates.",
+    "stats": {
+      "years": "10+",
+      "yearsLabel": "Years of Experience",
+      "projects": "450+",
+      "projectsLabel": "Projects Delivered",
+      "industries": "15+",
+      "industriesLabel": "Industries Covered",
+      "retention": "98%",
+      "retentionLabel": "Client Retention Rate"
+    },
+    "founder": {
+      "portrait": "Aaron — Founder Portrait",
+      "name": "Aaron",
+      "title": "Founder & CEO"
+    }
+  },
+  "services": {
+    "heading": "What We Do",
+    "subheading": "Everything a startup needs to launch, get found, and grow — under one roof.",
+    "items": [
+      {
+        "title": "Web Development",
+        "description": "Fast, scalable websites and apps built to convert — not just look good. We ship in weeks, not months.",
+        "features": ["Next.js & React", "E-commerce & Marketplaces", "CMS Integration", "API Development"]
+      },
+      {
+        "title": "SEO & Content",
+        "description": "Rank on Google before your runway runs out. We build search presence that compounds over time.",
+        "features": ["Technical SEO", "Content Strategy", "On-page Optimization", "Link Building"]
+      },
+      {
+        "title": "Paid Advertising",
+        "description": "Ad spend that actually returns. We run performance campaigns with tight tracking from day one.",
+        "features": ["Google Ads", "Meta (Facebook & Instagram)", "LinkedIn Ads", "Conversion Tracking"]
+      },
+      {
+        "title": "Branding",
+        "description": "A brand that looks serious from launch day. Logo, identity, and guidelines built to scale with you.",
+        "features": ["Logo Design", "Brand Guidelines", "Visual Identity", "Brand Strategy"]
+      },
+      {
+        "title": "Growth Consulting",
+        "description": "Strategy first, execution second. We help founders prioritize what actually moves the needle.",
+        "features": ["Market Analysis", "Channel Strategy", "Performance Analytics", "Roadmap Planning"]
+      },
+      {
+        "title": "UI/UX Design",
+        "description": "Interfaces that users actually understand. Research-backed design that reduces churn and increases conversions.",
+        "features": ["User Research", "Wireframing & Flows", "Prototyping", "Usability Testing"]
+      }
+    ]
+  },
+  "portfolio": {
+    "heading": "Our Portfolio",
+    "description": "Successful projects across recruitment, consulting, digital marketing, and e-commerce. From brand creation to SEO dominance.",
+    "visitSite": "Visit Site",
+    "projects": [
+      {
+        "title": "Qianlima",
+        "category": "Recruitment Platform",
+        "description": "Cross-border hiring platform connecting Chinese corporations with Indonesian talent. Features multi-language support (ID/CN/EN), advanced candidate filtering, enterprise-grade security, and a comprehensive HR workflow management system.",
+        "url": "https://qianlima.co.id",
+        "tags": ["Next.js", "Multi-language", "Enterprise"]
+      },
+      {
+        "title": "Monopole Consulting",
+        "category": "Wine Consulting - Bilingual",
+        "description": "Fine and rare wine consultation services website designed for both Taiwanese and US clients. Bilingual interface (English/Traditional Chinese), wine list catalog, consulting services, events management, and tasting notes - developed from scratch with client branding.",
+        "url": "https://monopoleconsulting.com",
+        "tags": ["Bilingual", "React", "E-commerce"]
+      },
+      {
+        "title": "Setia Karya (AC Mobil Murah)",
+        "category": "Full Digital Marketing",
+        "description": "Complete brand transformation and digital marketing campaign. Created the iconic brand jargon \"Car, Bus, Truck & Heavy Equipment Air Conditioning Service\". Built website, implemented Google Ads strategy, and managed social media channels including YouTube, Instagram, and Facebook.",
+        "url": "https://acmobilmurah.com",
+        "tags": ["Branding", "Google Ads", "Social Media"]
+      },
+      {
+        "title": "Berdi Rental",
+        "category": "Car Rental - SEO Ranked #1",
+        "description": "Car rental landing page that achieved SEO ranking #1 in just 1 week. Built brand identity from scratch with strategic SEO optimization, creating a high-performing website that immediately captured organic search traffic.",
+        "url": "https://berdirental.com",
+        "tags": ["SEO", "Landing Page", "Branding"]
+      },
+      {
+        "title": "ShortPro",
+        "category": "Local Branding & Digital Environment",
+        "description": "Complete digital ecosystem setup including website development, FTP infrastructure, email domain configuration, and content production. Managed official Instagram presence, paid advertising, and ongoing digital events for local market establishment.",
+        "url": "https://shortpro.co.id",
+        "tags": ["Branding", "Infrastructure", "Content"]
+      },
+      {
+        "title": "Salim Berkat Sejahtera",
+        "category": "PT Branding & Web Presence",
+        "description": "Website and email domain setup for PT. Salim Berkat Sejahtera in Balikpapan, Kalimantan Timur. Focused on establishing professional online presence and brand identity for the company.",
+        "url": "https://salimberkatsejahtera.com",
+        "tags": ["Branding", "Web Design", "Email"]
+      }
+    ]
+  },
+  "blog": {
+    "label": "Insights",
+    "heading": "Latest news from ENZTRONIC",
+    "description": "Articles, case studies, and agency updates for digital transformation, web development, and growth marketing.",
+    "comingSoon": "Coming soon",
+    "placeholder": "Blog content is under construction",
+    "placeholderDetail": "We're preparing high-quality stories about digital products, branding, and successful campaigns. Check back soon.",
+    "readMore": "Read more"
+  },
+  "contact": {
+    "label": "Get in touch",
+    "heading": "Contact ENZTRONIC",
+    "description": "Ready to start your project? Send us a message and we'll reach out with a tailored digital strategy.",
+    "emailPromptPre": "Email us at",
+    "emailPromptPost": "or use the contact form once the site is fully built.",
+    "email": "enztun@enztronic.com",
+    "office": "Office",
+    "officeLocation": "Jakarta, Indonesia",
+    "phone": "Phone",
+    "phoneNumber": "+62 8963 7579 728"
+  },
+  "meta": {
+    "home": {
+      "title": "Enztronic — Full-Stack Digital Agency, Jakarta",
+      "description": "One team for web development, SEO, paid ads, and branding. Jakarta-based, globally delivered. 450+ projects, 98% client retention. Start growing today."
+    },
+    "about": {
+      "title": "About Enztronic — Full-Stack Digital Agency, Jakarta",
+      "description": "Enztronic is a Jakarta-based full-stack digital agency combining web development, SEO, paid ads, and branding into one team. No vendor chaos, just execution."
+    },
+    "services": {
+      "title": "Services | Enztronic",
+      "description": "Comprehensive digital services: web development, digital marketing, paid advertising, branding, growth consulting, and UI/UX design."
+    },
+    "portfolio": {
+      "title": "Portfolio | Enztronic",
+      "description": "Explore our portfolio of successful projects in recruitment, consulting, digital marketing, e-commerce, and branding across Indonesia and beyond."
+    },
+    "blog": {
+      "title": "Blog | Enztronic",
+      "description": "Articles, case studies, and agency updates on digital transformation, web development, and growth marketing from Enztronic."
+    },
+    "contact": {
+      "title": "Contact | Enztronic",
+      "description": "Get in touch with Enztronic to start your digital project. Reach us via email or visit our Jakarta office."
+    }
+  }
+}
