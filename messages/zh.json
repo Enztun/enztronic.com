@@ -4,7 +4,8 @@
     "portfolio": "案例集",
     "about": "关于我们",
     "blog": "博客",
-    "cta": "立即开始"
+    "contact": "联系",
+    "cta": "立即咨询"
   },
   "footer": {
     "brand": "ENZTRONIC",
@@ -47,7 +48,18 @@
     },
     "hero": {
       "revenueGrowth": "+145%",
-      "revenueLabel": "平均营收增长"
+      "revenueLabel": "平均营收增长",
+      "servicesHeading": "我们的服务",
+      "servicesSubheading": "一支团队，满足您所有数字化需求——网站、SEO、广告和品牌。",
+      "servicesViewAll": "查看全部服务",
+      "portfolioHeading": "精选案例",
+      "portfolioViewAll": "查看所有项目",
+      "blogHeading": "最新洞察",
+      "blogViewAll": "查看所有文章",
+      "ctaHeading": "准备好发展您的业务了吗？",
+      "ctaBody": "大多数机构只是执行。我们思考、规划并执行。让我们来谈谈您的目标。",
+      "ctaWhatsapp": "WhatsApp 咨询",
+      "ctaContact": "立即联系"
     },
     "caseStudy": {
       "label": "精选项目",

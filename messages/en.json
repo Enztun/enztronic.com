@@ -4,7 +4,8 @@
     "portfolio": "Portfolio",
     "about": "About",
     "blog": "Blog",
-    "cta": "Get Started"
+    "contact": "Contact",
+    "cta": "Let's Talk"
   },
   "footer": {
     "brand": "ENZTRONIC",
@@ -47,7 +48,18 @@
     },
     "hero": {
       "revenueGrowth": "+145%",
-      "revenueLabel": "Average Revenue Growth"
+      "revenueLabel": "Average Revenue Growth",
+      "servicesHeading": "What We Do",
+      "servicesSubheading": "One team. Web, SEO, ads, and branding — no vendor chaos.",
+      "servicesViewAll": "See all services",
+      "portfolioHeading": "Selected Work",
+      "portfolioViewAll": "View all projects",
+      "blogHeading": "Latest Insights",
+      "blogViewAll": "View all articles",
+      "ctaHeading": "Ready to grow your business?",
+      "ctaBody": "Most agencies just execute. We think, plan, and execute. Let's talk about your goals.",
+      "ctaWhatsapp": "WhatsApp Us",
+      "ctaContact": "Get in Touch"
     },
     "caseStudy": {
       "label": "Featured Project",

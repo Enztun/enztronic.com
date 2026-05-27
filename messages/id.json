@@ -4,7 +4,8 @@
     "portfolio": "Portofolio",
     "about": "Tentang",
     "blog": "Blog",
-    "cta": "Mulai Sekarang"
+    "contact": "Kontak",
+    "cta": "Hubungi Kami"
   },
   "footer": {
     "brand": "ENZTRONIC",
@@ -47,7 +48,18 @@
     },
     "hero": {
       "revenueGrowth": "+145%",
-      "revenueLabel": "Rata-rata Pertumbuhan Pendapatan"
+      "revenueLabel": "Rata-rata Pertumbuhan Pendapatan",
+      "servicesHeading": "Layanan Kami",
+      "servicesSubheading": "Satu tim untuk semua kebutuhan digital Anda — web, SEO, iklan, dan branding.",
+      "servicesViewAll": "Lihat semua layanan",
+      "portfolioHeading": "Karya Pilihan",
+      "portfolioViewAll": "Lihat semua proyek",
+      "blogHeading": "Wawasan Terbaru",
+      "blogViewAll": "Lihat semua artikel",
+      "ctaHeading": "Siap mengembangkan bisnis Anda?",
+      "ctaBody": "Kebanyakan agensi hanya mengeksekusi. Kami berpikir, merencanakan, dan mengeksekusi. Mari diskusikan tujuan Anda.",
+      "ctaWhatsapp": "WhatsApp Kami",
+      "ctaContact": "Hubungi Kami"
     },
     "caseStudy": {
       "label": "Proyek Unggulan",
