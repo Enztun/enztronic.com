@@ -63,6 +63,16 @@ function formatDate(iso: string, locale: string) {
   );
 }
 
+// If the body's first block is the same image as mainImage, drop it to avoid a duplicate hero.
+function deduplicateBody(body: unknown, mainImageRef?: string): unknown {
+  if (!Array.isArray(body) || !mainImageRef) return body;
+  const first = body[0] as { _type?: string; asset?: { _ref?: string } };
+  if (first?._type === 'image' && first?.asset?._ref === mainImageRef) {
+    return body.slice(1);
+  }
+  return body;
+}
+
 // ─── icon map for iconGrid ─────────────────────────────────────────────────────
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -415,8 +425,10 @@ export default async function PostPage({
   }
   if (!post) notFound();
 
-  const headings = extractHeadings(post.body);
-  const mins = readTime(post.body);
+  const mainImageRef = (post.mainImage as { asset?: { _ref?: string } } | null)?.asset?._ref;
+  const dedupedBody = deduplicateBody(post.body, mainImageRef);
+  const headings = extractHeadings(dedupedBody);
+  const mins = readTime(dedupedBody);
   const canonicalUrl =
     locale === 'en' ? `${BASE}/blog/${slug}` : `${BASE}/${locale}/blog/${slug}`;
 
@@ -496,8 +508,9 @@ export default async function PostPage({
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-16">
           {/* main body */}
           <div className="min-w-0">
-            {post.body && (
-              <PortableText value={post.body} components={portableTextComponents} />
+            {Array.isArray(dedupedBody) && dedupedBody.length > 0 && (
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              <PortableText value={dedupedBody as any} components={portableTextComponents} />
             )}
           </div>
 
