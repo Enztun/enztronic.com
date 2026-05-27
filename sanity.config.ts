@@ -1,8 +1,15 @@
 import { defineConfig } from 'sanity';
 import { structureTool } from 'sanity/structure';
 import { visionTool } from '@sanity/vision';
-import { EnvelopeIcon, DocumentTextIcon, UsersIcon, TagIcon } from '@sanity/icons';
+import { EnvelopeIcon, DocumentTextIcon, UsersIcon, TagIcon, EarthGlobeIcon } from '@sanity/icons';
 import { schemaTypes } from './src/sanity/schemaTypes';
+
+const PAGE_SLUGS = [
+  { slug: 'home', label: 'Home' },
+  { slug: 'about', label: 'About' },
+  { slug: 'services', label: 'Services' },
+  { slug: 'portfolio', label: 'Portfolio' },
+];
 
 export default defineConfig({
   name: 'enztronic',
@@ -24,6 +31,27 @@ export default defineConfig({
                   .title('Inquiries')
                   .filter('_type == "inquiry"')
                   .defaultOrdering([{ field: 'submittedAt', direction: 'desc' }])
+              ),
+            S.divider(),
+            S.listItem()
+              .title('Pages')
+              .icon(EarthGlobeIcon)
+              .child(
+                S.list()
+                  .title('Pages')
+                  .items(
+                    PAGE_SLUGS.map(({ slug, label }) =>
+                      S.listItem()
+                        .title(label)
+                        .child(
+                          S.documentList()
+                            .title(`${label} — Language Versions`)
+                            .filter('_type == "page" && slug.current == $slug')
+                            .params({ slug })
+                            .defaultOrdering([{ field: 'language', direction: 'asc' }])
+                        )
+                    )
+                  )
               ),
             S.divider(),
             S.listItem()

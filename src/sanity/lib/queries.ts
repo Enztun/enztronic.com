@@ -48,3 +48,14 @@ export const postBySlugQuery = defineQuery(`
 export const postSlugsQuery = defineQuery(`
   *[_type == "post" && defined(slug.current)] { "slug": slug.current, language }
 `);
+
+export const pageBySlugQuery = defineQuery(`
+  *[_type == "page" && slug.current == $slug && language == $language][0] {
+    _id,
+    title,
+    language,
+    modules,
+    "seoTitle": seo.title,
+    "seoDescription": seo.description,
+  }
+`);
