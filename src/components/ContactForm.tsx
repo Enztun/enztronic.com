@@ -1,13 +1,26 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { Info, CheckCircle } from 'lucide-react';
 
 function Tooltip({ text }: { text: string }) {
   const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    function onOutsideClick(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', onOutsideClick);
+    return () => document.removeEventListener('mousedown', onOutsideClick);
+  }, [open]);
+
   return (
-    <span className="relative inline-flex items-center ml-1.5">
+    <span ref={ref} className="relative inline-flex items-center ml-1.5">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
@@ -17,15 +30,9 @@ function Tooltip({ text }: { text: string }) {
         <Info className="w-4 h-4" />
       </button>
       {open && (
-        <>
-          <span
-            className="fixed inset-0 z-10"
-            onClick={() => setOpen(false)}
-          />
-          <span className="absolute left-0 top-6 z-20 w-72 bg-gray-900 text-white text-xs rounded-xl p-3 leading-relaxed shadow-xl">
-            {text}
-          </span>
-        </>
+        <span className="absolute left-0 top-6 z-20 w-72 bg-gray-900 text-white text-xs rounded-xl p-3 leading-relaxed shadow-xl">
+          {text}
+        </span>
       )}
     </span>
   );
