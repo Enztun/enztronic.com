@@ -10,6 +10,10 @@ import { moduleCaseStudyType } from './moduleCaseStudyType';
 import { moduleServicesGridType } from './moduleServicesGridType';
 import { modulePortfolioGridType } from './modulePortfolioGridType';
 import { moduleAboutIntroType } from './moduleAboutIntroType';
+import { blockImageGridType } from './blockImageGridType';
+import { blockIconGridType } from './blockIconGridType';
+import { blockSideBySideType } from './blockSideBySideType';
+import { blockCtaType } from './blockCtaType';
 
 export const schemaTypes = [
   blockContentType,
@@ -24,4 +28,8 @@ export const schemaTypes = [
   moduleServicesGridType,
   modulePortfolioGridType,
   moduleAboutIntroType,
+  blockImageGridType,
+  blockIconGridType,
+  blockSideBySideType,
+  blockCtaType,
 ];

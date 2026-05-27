@@ -172,7 +172,12 @@
     "comingSoon": "Coming soon",
     "placeholder": "Blog content is under construction",
     "placeholderDetail": "We're preparing high-quality stories about digital products, branding, and successful campaigns. Check back soon.",
-    "readMore": "Read more"
+    "readMore": "Read more",
+    "backToBlog": "Back to Blog",
+    "by": "By",
+    "minRead": "min read",
+    "share": "Share This Article",
+    "toc": "Table of Contents"
   },
   "contact": {
     "label": "Get in touch",

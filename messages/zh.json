@@ -172,7 +172,12 @@
     "comingSoon": "即将推出",
     "placeholder": "博客内容正在建设中",
     "placeholderDetail": "我们正在准备关于数字产品、品牌和成功营销活动的高质量内容。敬请期待。",
-    "readMore": "阅读更多"
+    "readMore": "阅读更多",
+    "backToBlog": "返回博客",
+    "by": "作者",
+    "minRead": "分钟阅读",
+    "share": "分享文章",
+    "toc": "目录"
   },
   "contact": {
     "label": "联系我们",

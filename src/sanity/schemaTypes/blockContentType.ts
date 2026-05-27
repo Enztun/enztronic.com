@@ -54,5 +54,9 @@ export const blockContentType = defineType({
         },
       ],
     }),
+    defineArrayMember({ type: 'imageGrid' }),
+    defineArrayMember({ type: 'iconGrid' }),
+    defineArrayMember({ type: 'sideBySide' }),
+    defineArrayMember({ type: 'ctaBlock' }),
   ],
 });

@@ -172,7 +172,12 @@
     "comingSoon": "Segera hadir",
     "placeholder": "Konten blog sedang dalam pembangunan",
     "placeholderDetail": "Kami sedang menyiapkan cerita berkualitas tinggi tentang produk digital, branding, dan kampanye sukses. Kunjungi kembali segera.",
-    "readMore": "Baca selengkapnya"
+    "readMore": "Baca selengkapnya",
+    "backToBlog": "Kembali ke Blog",
+    "by": "Oleh",
+    "minRead": "mnt baca",
+    "share": "Bagikan Artikel Ini",
+    "toc": "Daftar Isi"
   },
   "contact": {
     "label": "Hubungi kami",
