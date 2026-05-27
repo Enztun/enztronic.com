@@ -6,22 +6,36 @@ export const postType = defineType({
   title: 'Post',
   type: 'document',
   icon: DocumentTextIcon,
+  groups: [
+    { name: 'content', title: 'Content', default: true },
+    { name: 'settings', title: 'Settings' },
+    { name: 'seo', title: 'SEO' },
+  ],
   fields: [
     defineField({
       name: 'title',
       type: 'string',
+      group: 'content',
       validation: (r) => r.required(),
     }),
     defineField({
       name: 'slug',
       type: 'slug',
+      group: 'content',
       options: { source: 'title', maxLength: 96 },
       validation: (r) => r.required(),
+    }),
+    defineField({
+      name: 'body',
+      title: 'Body',
+      type: 'blockContent',
+      group: 'content',
     }),
     defineField({
       name: 'language',
       title: 'Language',
       type: 'string',
+      group: 'settings',
       initialValue: 'en',
       options: {
         list: [
@@ -35,11 +49,33 @@ export const postType = defineType({
     defineField({
       name: 'author',
       type: 'reference',
+      group: 'settings',
       to: { type: 'author' },
+    }),
+    defineField({
+      name: 'categories',
+      type: 'array',
+      group: 'settings',
+      of: [{ type: 'reference', to: { type: 'category' } }],
+    }),
+    defineField({
+      name: 'publishedAt',
+      type: 'datetime',
+      group: 'settings',
+      initialValue: () => new Date().toISOString(),
+    }),
+    defineField({
+      name: 'excerpt',
+      type: 'text',
+      group: 'seo',
+      rows: 3,
+      description: 'Short summary shown in post listings and metadata.',
+      validation: (r) => r.max(200),
     }),
     defineField({
       name: 'mainImage',
       type: 'image',
+      group: 'seo',
       options: { hotspot: true },
       fields: [
         {
@@ -49,28 +85,6 @@ export const postType = defineType({
           validation: (r) => r.required(),
         },
       ],
-    }),
-    defineField({
-      name: 'categories',
-      type: 'array',
-      of: [{ type: 'reference', to: { type: 'category' } }],
-    }),
-    defineField({
-      name: 'publishedAt',
-      type: 'datetime',
-      initialValue: () => new Date().toISOString(),
-    }),
-    defineField({
-      name: 'excerpt',
-      type: 'text',
-      rows: 3,
-      description: 'Short summary shown in post listings and metadata.',
-      validation: (r) => r.max(200),
-    }),
-    defineField({
-      name: 'body',
-      title: 'Body',
-      type: 'blockContent',
     }),
   ],
   preview: {
