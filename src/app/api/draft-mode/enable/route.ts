@@ -1,8 +1,6 @@
-import { draftMode } from 'next/headers';
-import { redirect } from 'next/navigation';
+import { defineEnableDraftMode } from 'next-sanity/draft-mode';
+import { client } from '@/sanity/lib/client';
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  (await draftMode()).enable();
-  redirect(searchParams.get('redirect') ?? '/');
-}
+export const { GET } = defineEnableDraftMode({
+  client: client.withConfig({ token: process.env.SANITY_API_TOKEN }),
+});
