@@ -4,7 +4,8 @@ import { Code, Megaphone, Target, Palette, TrendingUp, Users } from 'lucide-reac
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ModuleRenderer from '@/components/modules/ModuleRenderer';
-import { client, isSanityConfigured } from '@/sanity/lib/client';
+import { isSanityConfigured } from '@/sanity/lib/client';
+import { sanityFetch } from '@/sanity/lib/fetch';
 import { pageBySlugQuery } from '@/sanity/lib/queries';
 
 const BASE = 'https://enztronic.com';
@@ -28,7 +29,7 @@ export default async function Services({ params }: { params: Promise<{ locale: s
 
   if (isSanityConfigured) {
     try {
-      const page = await client.fetch(pageBySlugQuery, { slug: 'services', language: locale });
+      const page = await sanityFetch({ query: pageBySlugQuery, params: { slug: 'services', language: locale } });
       if (page?.modules?.length > 0) {
         return (
           <main className="min-h-screen bg-white">

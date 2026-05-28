@@ -5,7 +5,8 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ModuleRenderer from '@/components/modules/ModuleRenderer';
 import { Link } from '@/i18n/navigation';
-import { client, isSanityConfigured } from '@/sanity/lib/client';
+import { isSanityConfigured } from '@/sanity/lib/client';
+import { sanityFetch } from '@/sanity/lib/fetch';
 import { pageBySlugQuery, postsByLocaleQuery } from '@/sanity/lib/queries';
 import { urlFor } from '@/sanity/lib/image';
 import type { PostSummary } from '@/sanity/lib/types';
@@ -49,7 +50,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
   if (isSanityConfigured) {
     try {
-      const page = await client.fetch(pageBySlugQuery, { slug: 'home', language: locale });
+      const page = await sanityFetch({ query: pageBySlugQuery, params: { slug: 'home', language: locale } });
       if (page?.modules?.length > 0) {
         return (
           <main className="min-h-screen bg-surface selection:bg-primary/10">
@@ -75,9 +76,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   let recentPosts: PostSummary[] = [];
   if (isSanityConfigured) {
     try {
-      recentPosts = await client.fetch(postsByLocaleQuery, { locale });
+      recentPosts = await sanityFetch<PostSummary[]>({ query: postsByLocaleQuery, params: { locale } });
       if (recentPosts.length === 0 && locale !== 'en') {
-        recentPosts = await client.fetch(postsByLocaleQuery, { locale: 'en' });
+        recentPosts = await sanityFetch<PostSummary[]>({ query: postsByLocaleQuery, params: { locale: 'en' } });
       }
       recentPosts = recentPosts.slice(0, 3);
     } catch {}

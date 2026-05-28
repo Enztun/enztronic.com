@@ -4,7 +4,8 @@ import { ArrowRight } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Link } from '@/i18n/navigation';
-import { client, isSanityConfigured } from '@/sanity/lib/client';
+import { isSanityConfigured } from '@/sanity/lib/client';
+import { sanityFetch } from '@/sanity/lib/fetch';
 import { urlFor } from '@/sanity/lib/image';
 import { postsByLocaleQuery, postsQuery } from '@/sanity/lib/queries';
 import type { PostSummary } from '@/sanity/lib/types';
@@ -54,12 +55,12 @@ export default async function BlogPage({
   let posts: PostSummary[] = [];
   if (isSanityConfigured) {
     try {
-      posts = await client.fetch(postsByLocaleQuery, { locale });
+      posts = await sanityFetch<PostSummary[]>({ query: postsByLocaleQuery, params: { locale } });
       if (posts.length === 0 && locale !== 'en') {
-        posts = await client.fetch(postsByLocaleQuery, { locale: 'en' });
+        posts = await sanityFetch<PostSummary[]>({ query: postsByLocaleQuery, params: { locale: 'en' } });
       }
       if (posts.length === 0) {
-        posts = await client.fetch(postsQuery);
+        posts = await sanityFetch<PostSummary[]>({ query: postsQuery });
       }
     } catch {
       // Sanity not reachable — show empty state

@@ -1,6 +1,7 @@
 import { defineConfig } from 'sanity';
 import { structureTool } from 'sanity/structure';
 import { visionTool } from '@sanity/vision';
+import { presentationTool } from 'sanity/presentation';
 import { EnvelopeIcon, DocumentTextIcon, UsersIcon, TagIcon, EarthGlobeIcon } from '@sanity/icons';
 import { schemaTypes } from './src/sanity/schemaTypes';
 
@@ -67,6 +68,13 @@ export default defineConfig({
               .icon(TagIcon)
               .child(S.documentTypeList('category').title('Categories')),
           ]),
+    }),
+    presentationTool({
+      previewUrl: {
+        draftMode: {
+          enable: '/api/draft-mode/enable',
+        },
+      },
     }),
     visionTool(),
   ],

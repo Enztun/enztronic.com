@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import { draftMode } from 'next/headers';
+import { VisualEditing } from 'next-sanity/visual-editing';
 import { routing } from '@/i18n/routing';
 import '../globals.css';
 
@@ -82,6 +84,7 @@ export default async function LocaleLayout({
   }
 
   const messages = await getMessages();
+  const { isEnabled: isDraftMode } = await draftMode();
 
   return (
     <html
@@ -97,6 +100,7 @@ export default async function LocaleLayout({
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider messages={messages}>
           {children}
+          {isDraftMode && <VisualEditing />}
         </NextIntlClientProvider>
       </body>
     </html>

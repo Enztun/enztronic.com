@@ -11,7 +11,8 @@ import {
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Link } from '@/i18n/navigation';
-import { client, isSanityConfigured } from '@/sanity/lib/client';
+import { isSanityConfigured } from '@/sanity/lib/client';
+import { sanityFetch } from '@/sanity/lib/fetch';
 import { urlFor } from '@/sanity/lib/image';
 import { postBySlugQuery, postSlugsQuery } from '@/sanity/lib/queries';
 import { ShareButtons } from '@/components/blog/ShareButtons';
@@ -351,8 +352,8 @@ const portableTextComponents = {
 export async function generateStaticParams() {
   if (!isSanityConfigured) return [];
   try {
-    const slugs = await client.fetch(postSlugsQuery);
-    return slugs.map((item: { slug: string; language: string | null }) => ({
+    const slugs = await sanityFetch<Array<{ slug: string; language: string | null }>>({ query: postSlugsQuery });
+    return slugs.map((item) => ({
       slug: item.slug,
       locale: item.language ?? 'en',
     }));
@@ -372,7 +373,7 @@ export async function generateMetadata({
   if (!isSanityConfigured) return {};
   let post;
   try {
-    post = await client.fetch(postBySlugQuery, { slug });
+    post = await sanityFetch({ query: postBySlugQuery, params: { slug } });
   } catch {
     return {};
   }
@@ -419,7 +420,7 @@ export default async function PostPage({
   if (!isSanityConfigured) notFound();
   let post;
   try {
-    post = await client.fetch(postBySlugQuery, { slug });
+    post = await sanityFetch({ query: postBySlugQuery, params: { slug } });
   } catch {
     notFound();
   }
