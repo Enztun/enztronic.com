@@ -5,5 +5,5 @@ export default createMiddleware(routing);
 
 export const config = {
   // Exclude _next, _vercel, studio, meteora sub-app, and static files
-  matcher: ['/((?!_next|_vercel|studio|meteora|.*\\..*).*)'],
+  matcher: ['/((?!_next|_vercel|studio|meteora|api|.*\\..*).*)'],
 };
