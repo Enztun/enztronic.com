@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import ContactForm from '@/components/ContactForm';
+import ContactOptions from '@/components/contact/ContactOptions';
 
 const BASE = 'https://enztronic.com';
 
@@ -56,8 +56,8 @@ export default async function ContactPage({
           <p className="mt-6 text-gray-600 max-w-2xl mx-auto">{t('description')}</p>
         </div>
 
-        <div className="rounded-3xl border border-gray-200 bg-gray-50 p-8 md:p-10 mb-8">
-          <ContactForm />
+        <div className="mb-8">
+          <ContactOptions />
         </div>
 
         <div className="grid gap-4 md:grid-cols-3">

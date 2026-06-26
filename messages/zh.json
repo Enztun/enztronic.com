@@ -233,7 +233,19 @@
     "formSubmitting": "发送中...",
     "formSuccessTitle": "我们会尽快联系您！",
     "formSuccessMessage": "我们已收到您的消息，将在24小时内审核您的项目并与您联系。",
-    "formError": "出现问题，请直接发邮件给我们。"
+    "formError": "出现问题，请直接发邮件给我们。",
+    "optionFormTitle": "填写表单",
+    "optionFormDescription": "快速直接 — 在一个页面上回答所有问题。",
+    "optionJourneyTitle": "引导式问卷",
+    "optionJourneyDescription": "更喜欢分步流程？我们将引导您完成4个简短的问题。",
+    "journeyChangeMethod": "选择其他联系方式",
+    "journeyStepLabel": "第 {current} 步，共 {total} 步",
+    "journeyBack": "上一步",
+    "journeyNext": "下一步",
+    "journeyStep1Title": "您需要哪方面的帮助？",
+    "journeyStep2Title": "您的预算范围是多少？",
+    "journeyStep3Title": "介绍一下您的项目",
+    "journeyStep4Title": "我们如何联系您？"
   },
   "meta": {
     "home": {

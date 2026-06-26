@@ -39,9 +39,9 @@
     "stats": {
       "years": "10+ Years",
       "yearsLabel": "Industry Experience",
-      "projects": "450+ Projects",
+      "projects": "45+ Projects",
       "projectsLabel": "Successfully Delivered",
-      "industries": "15+ Industries",
+      "industries": "5+ Industries",
       "industriesLabel": "Clients Worldwide",
       "retention": "98%",
       "retentionLabel": "Client Retention Rate"
@@ -194,7 +194,7 @@
   "contact": {
     "label": "Get in touch",
     "heading": "Start Your Project",
-    "description": "Tell us what you're building. We'll get back to you within 24 hours with a clear next step — no fluff.",
+    "description": "Or you can fill this form, We'll get back to you ASAP. We usually respond within 12 hours or faster.",
     "email": "enztun@enztronic.com",
     "office": "Office",
     "officeLocation": "Jakarta, Indonesia",
@@ -233,7 +233,19 @@
     "formSubmitting": "Sending...",
     "formSuccessTitle": "We'll be in touch!",
     "formSuccessMessage": "Your message has been received. We'll review your project and reach out within 24 hours.",
-    "formError": "Something went wrong. Please email us directly."
+    "formError": "Something went wrong. Please email us directly.",
+    "optionFormTitle": "Fill a Form",
+    "optionFormDescription": "Straightforward and quick — answer everything on one page.",
+    "optionJourneyTitle": "Guided Questionnaire",
+    "optionJourneyDescription": "Prefer a step-by-step flow? We'll walk you through 4 short questions.",
+    "journeyChangeMethod": "Choose a different way to reach out",
+    "journeyStepLabel": "Step {current} of {total}",
+    "journeyBack": "Back",
+    "journeyNext": "Next",
+    "journeyStep1Title": "What do you need help with?",
+    "journeyStep2Title": "What's your budget range?",
+    "journeyStep3Title": "Tell us about your project",
+    "journeyStep4Title": "How can we reach you?"
   },
   "meta": {
     "home": {

@@ -1,0 +1,268 @@
+'use client';
+
+import { useState } from 'react';
+import { useTranslations } from 'next-intl';
+import { CheckCircle, ChevronLeft, ChevronRight } from 'lucide-react';
+import {
+  Tooltip,
+  inputClass,
+  pillClass,
+  emptyContactForm,
+  type ContactFormData,
+} from './shared';
+
+const TOTAL_STEPS = 4;
+
+export default function ContactJourney() {
+  const t = useTranslations('contact');
+  const [step, setStep] = useState(1);
+  const [form, setForm] = useState<ContactFormData>(emptyContactForm);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState('');
+
+  const set = (key: keyof ContactFormData, value: string) =>
+    setForm((prev) => ({ ...prev, [key]: value }));
+
+  const toggle = (key: keyof ContactFormData, value: string) =>
+    set(key, form[key] === value ? '' : value);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error();
+      setSuccess(true);
+    } catch {
+      setError(t('formError'));
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  if (success) {
+    return (
+      <div className="rounded-3xl border border-green-100 bg-green-50 p-12 text-center">
+        <CheckCircle className="w-12 h-12 text-green-500 mx-auto mb-4" />
+        <h3 className="text-xl font-bold mb-2">{t('formSuccessTitle')}</h3>
+        <p className="text-gray-600 max-w-sm mx-auto">{t('formSuccessMessage')}</p>
+      </div>
+    );
+  }
+
+  const services = [
+    { label: t('formServiceWebsite'), value: 'website' },
+    { label: t('formServiceSeo'), value: 'seo' },
+    { label: t('formServiceAds'), value: 'ads' },
+    { label: t('formServiceBranding'), value: 'branding' },
+    { label: t('formServiceUnknown'), value: 'unknown' },
+  ];
+
+  const budgets = [
+    { label: t('formBudgetUnder1k'), value: 'under_1k' },
+    { label: t('formBudget1k5k'), value: '1k_5k' },
+    { label: t('formBudget5k15k'), value: '5k_15k' },
+    { label: t('formBudgetAbove15k'), value: 'above_15k' },
+    { label: t('formBudgetPreferNot'), value: 'prefer_not' },
+  ];
+
+  const times = [
+    { label: t('formTimeMorning'), value: 'morning' },
+    { label: t('formTimeAfternoon'), value: 'afternoon' },
+    { label: t('formTimeEvening'), value: 'evening' },
+  ];
+
+  const canSubmit = form.name.trim() !== '' && form.email.trim() !== '';
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-8">
+      {/* Progress */}
+      <div>
+        <div className="flex items-center gap-2 mb-2">
+          {Array.from({ length: TOTAL_STEPS }, (_, i) => i + 1).map((s) => (
+            <div
+              key={s}
+              className={`h-1.5 flex-1 rounded-full transition-colors ${
+                s <= step ? 'bg-primary' : 'bg-gray-200'
+              }`}
+            />
+          ))}
+        </div>
+        <p className="text-xs uppercase tracking-wider text-gray-400 font-semibold">
+          {t('journeyStepLabel', { current: step, total: TOTAL_STEPS })}
+        </p>
+      </div>
+
+      {step === 1 && (
+        <div>
+          <label className="flex items-center text-lg font-bold mb-4">
+            {t('journeyStep1Title')}
+            <Tooltip text={t('formServiceTooltip')} />
+          </label>
+          <div className="flex flex-wrap gap-2">
+            {services.map(({ label, value }) => (
+              <button
+                key={value}
+                type="button"
+                onClick={() => toggle('service', value)}
+                className={pillClass(form.service === value)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {step === 2 && (
+        <div>
+          <label className="flex items-center text-lg font-bold mb-4">
+            {t('journeyStep2Title')}
+            <Tooltip text={t('formBudgetTooltip')} />
+          </label>
+          <div className="flex flex-wrap gap-2">
+            {budgets.map(({ label, value }) => (
+              <button
+                key={value}
+                type="button"
+                onClick={() => toggle('budget', value)}
+                className={pillClass(form.budget === value)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {step === 3 && (
+        <div className="space-y-6">
+          <h3 className="text-lg font-bold">{t('journeyStep3Title')}</h3>
+          <div>
+            <label className="block text-sm font-semibold mb-1.5">{t('formMessage')}</label>
+            <textarea
+              rows={4}
+              placeholder={t('formMessagePlaceholder')}
+              value={form.message}
+              onChange={(e) => set('message', e.target.value)}
+              className={`${inputClass} resize-none`}
+            />
+          </div>
+          <div>
+            <label className="flex items-center text-sm font-semibold mb-3">
+              {t('formPreferredTime')}
+              <Tooltip text={t('formPreferredTimeTooltip')} />
+            </label>
+            <div className="flex flex-wrap gap-2">
+              {times.map(({ label, value }) => (
+                <button
+                  key={value}
+                  type="button"
+                  onClick={() => toggle('preferredTime', value)}
+                  className={pillClass(form.preferredTime === value)}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {step === 4 && (
+        <div className="space-y-5">
+          <h3 className="text-lg font-bold">{t('journeyStep4Title')}</h3>
+          <div className="grid gap-4 md:grid-cols-2">
+            <div>
+              <label className="block text-sm font-semibold mb-1.5">
+                {t('formName')} <span className="text-red-400">*</span>
+              </label>
+              <input
+                type="text"
+                required
+                placeholder={t('formNamePlaceholder')}
+                value={form.name}
+                onChange={(e) => set('name', e.target.value)}
+                className={inputClass}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold mb-1.5">
+                {t('formEmail')} <span className="text-red-400">*</span>
+              </label>
+              <input
+                type="email"
+                required
+                placeholder={t('formEmailPlaceholder')}
+                value={form.email}
+                onChange={(e) => set('email', e.target.value)}
+                className={inputClass}
+              />
+            </div>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            <div>
+              <label className="block text-sm font-semibold mb-1.5">{t('formCompany')}</label>
+              <input
+                type="text"
+                placeholder={t('formCompanyPlaceholder')}
+                value={form.company}
+                onChange={(e) => set('company', e.target.value)}
+                className={inputClass}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold mb-1.5">{t('formCountry')}</label>
+              <input
+                type="text"
+                placeholder={t('formCountryPlaceholder')}
+                value={form.country}
+                onChange={(e) => set('country', e.target.value)}
+                className={inputClass}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {error && <p className="text-sm text-red-500">{error}</p>}
+
+      <div className="flex items-center justify-between pt-2">
+        <button
+          type="button"
+          onClick={() => setStep((s) => Math.max(1, s - 1))}
+          disabled={step === 1}
+          className="inline-flex items-center gap-1 text-sm font-semibold text-gray-500 hover:text-primary disabled:opacity-0 disabled:pointer-events-none transition"
+        >
+          <ChevronLeft className="w-4 h-4" />
+          {t('journeyBack')}
+        </button>
+
+        {step < TOTAL_STEPS ? (
+          <button
+            type="button"
+            onClick={() => setStep((s) => Math.min(TOTAL_STEPS, s + 1))}
+            className="inline-flex items-center gap-1.5 bg-primary text-white font-semibold py-3 px-6 rounded-2xl hover:opacity-90 transition"
+          >
+            {t('journeyNext')}
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        ) : (
+          <button
+            type="submit"
+            disabled={loading || !canSubmit}
+            className="bg-primary text-white font-semibold py-3 px-8 rounded-2xl hover:opacity-90 transition disabled:opacity-60"
+          >
+            {loading ? t('formSubmitting') : t('formSubmit')}
+          </button>
+        )}
+      </div>
+    </form>
+  );
+}

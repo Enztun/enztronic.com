@@ -233,7 +233,19 @@
     "formSubmitting": "Mengirim...",
     "formSuccessTitle": "Kami akan segera menghubungi Anda!",
     "formSuccessMessage": "Pesan Anda telah diterima. Kami akan meninjau proyek Anda dan menghubungi Anda dalam 24 jam.",
-    "formError": "Terjadi kesalahan. Silakan email kami langsung."
+    "formError": "Terjadi kesalahan. Silakan email kami langsung.",
+    "optionFormTitle": "Isi Formulir",
+    "optionFormDescription": "Cepat dan langsung — jawab semuanya dalam satu halaman.",
+    "optionJourneyTitle": "Kuesioner Terpandu",
+    "optionJourneyDescription": "Lebih suka alur bertahap? Kami akan memandu Anda melalui 4 pertanyaan singkat.",
+    "journeyChangeMethod": "Pilih cara lain untuk menghubungi kami",
+    "journeyStepLabel": "Langkah {current} dari {total}",
+    "journeyBack": "Kembali",
+    "journeyNext": "Lanjut",
+    "journeyStep1Title": "Apa yang Anda butuhkan?",
+    "journeyStep2Title": "Berapa kisaran anggaran Anda?",
+    "journeyStep3Title": "Ceritakan tentang proyek Anda",
+    "journeyStep4Title": "Bagaimana kami bisa menghubungi Anda?"
   },
   "meta": {
     "home": {

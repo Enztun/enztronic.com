@@ -1,84 +1,27 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { Info, CheckCircle } from 'lucide-react';
-
-function Tooltip({ text }: { text: string }) {
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    if (!open) return;
-    function onOutsideClick(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    }
-    document.addEventListener('mousedown', onOutsideClick);
-    return () => document.removeEventListener('mousedown', onOutsideClick);
-  }, [open]);
-
-  return (
-    <span ref={ref} className="relative inline-flex items-center ml-1.5">
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        className="text-gray-400 hover:text-primary transition-colors"
-        aria-label="More info"
-      >
-        <Info className="w-4 h-4" />
-      </button>
-      {open && (
-        <span className="absolute left-0 top-6 z-20 w-72 bg-gray-900 text-white text-xs rounded-xl p-3 leading-relaxed shadow-xl">
-          {text}
-        </span>
-      )}
-    </span>
-  );
-}
-
-type FormData = {
-  name: string;
-  email: string;
-  company: string;
-  service: string;
-  budget: string;
-  message: string;
-  preferredTime: string;
-  country: string;
-};
-
-const inputClass =
-  'w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition bg-white';
-
-const pillClass = (active: boolean) =>
-  `px-4 py-2 rounded-full text-sm font-medium border transition-all cursor-pointer ${
-    active
-      ? 'bg-primary text-white border-primary'
-      : 'bg-gray-50 text-gray-700 border-gray-200 hover:border-primary/50'
-  }`;
+import { CheckCircle } from 'lucide-react';
+import {
+  Tooltip,
+  inputClass,
+  pillClass,
+  emptyContactForm,
+  type ContactFormData,
+} from './contact/shared';
 
 export default function ContactForm() {
   const t = useTranslations('contact');
-  const [form, setForm] = useState<FormData>({
-    name: '',
-    email: '',
-    company: '',
-    service: '',
-    budget: '',
-    message: '',
-    preferredTime: '',
-    country: '',
-  });
+  const [form, setForm] = useState<ContactFormData>(emptyContactForm);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
 
-  const set = (key: keyof FormData, value: string) =>
+  const set = (key: keyof ContactFormData, value: string) =>
     setForm((prev) => ({ ...prev, [key]: value }));
 
-  const toggle = (key: keyof FormData, value: string) =>
+  const toggle = (key: keyof ContactFormData, value: string) =>
     set(key, form[key] === value ? '' : value);
 
   async function handleSubmit(e: React.FormEvent) {
