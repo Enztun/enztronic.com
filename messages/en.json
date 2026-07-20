@@ -9,17 +9,17 @@
   },
   "footer": {
     "brand": "ENZTRONIC",
-    "tagline": "Building digital excellence for businesses worldwide.",
+    "tagline": "Building the digital systems businesses run on.",
     "sections": {
       "services": "Services",
       "company": "Company",
       "connect": "Connect"
     },
     "links": {
-      "webDev": "Web Development",
-      "digitalMarketing": "Digital Marketing",
-      "paidAds": "Paid Ads",
-      "branding": "Branding",
+      "webDev": "Websites & Digital Products",
+      "digitalMarketing": "AI Automation",
+      "paidAds": "SaaS & Platforms",
+      "branding": "Brand & Product Systems",
       "about": "About Us",
       "portfolio": "Portfolio",
       "blog": "Blog",
@@ -31,60 +31,60 @@
     "copyright": "© {year} ENZTRONIC. All rights reserved."
   },
   "home": {
-    "badge": "GLOBAL QUALITY · BUILT IN JAKARTA",
-    "headline": "Launch. Rank. Scale.",
-    "description": "One team. Full digital stack. We handle web development, SEO, paid ads, and branding — so you can focus on building your business. Jakarta-based, globally delivered, at a fraction of Western agency costs.",
-    "ctaPrimary": "Start Your Project",
+    "badge": "AI AUTOMATION & DIGITAL PRODUCT STUDIO",
+    "headline": "We build the digital systems your business runs on.",
+    "description": "Enztronic designs AI automation, SaaS platforms, system integrations, websites, and digital products for growing businesses in Indonesia and beyond.",
+    "ctaPrimary": "Audit Your Operations",
     "ctaSecondary": "See Our Work",
     "stats": {
-      "years": "10+ Years",
-      "yearsLabel": "Industry Experience",
-      "projects": "45+ Projects",
-      "projectsLabel": "Successfully Delivered",
-      "industries": "5+ Industries",
-      "industriesLabel": "Clients Worldwide",
-      "retention": "98%",
-      "retentionLabel": "Client Retention Rate"
+      "years": "AI + SaaS",
+      "yearsLabel": "Core Capabilities",
+      "projects": "3 Languages",
+      "projectsLabel": "Cross-Border Delivery",
+      "industries": "End-to-End",
+      "industriesLabel": "Product Systems",
+      "retention": "Jakarta",
+      "retentionLabel": "Built for Global Teams"
     },
     "hero": {
-      "revenueGrowth": "+145%",
-      "revenueLabel": "Average Revenue Growth",
+      "revenueGrowth": "Systems First",
+      "revenueLabel": "Built Around Real Operations",
       "servicesHeading": "What We Do",
-      "servicesSubheading": "One team. Web, SEO, ads, and branding — no vendor chaos.",
+      "servicesSubheading": "One team for automation, platforms, products, and the systems connecting them.",
       "servicesViewAll": "See all services",
       "portfolioHeading": "Selected Work",
       "portfolioViewAll": "View all projects",
       "blogHeading": "Latest Insights",
       "blogViewAll": "View all articles",
-      "ctaHeading": "Ready to grow your business?",
-      "ctaBody": "Most agencies just execute. We think, plan, and execute. Let's talk about your goals.",
+      "ctaHeading": "Where is manual work slowing your business down?",
+      "ctaBody": "We map the bottleneck, design the right system, and build a practical path from operations to launch.",
       "ctaWhatsapp": "WhatsApp Us",
       "ctaContact": "Get in Touch"
     },
     "caseStudy": {
       "label": "Featured Project",
       "title": "Qianlima — Cross-Border Hiring at Scale",
-      "description": "Built from scratch for Chinese corporations recruiting Indonesian talent. A multi-language recruitment platform handling complex candidate screening, cross-border HR workflows, and enterprise-grade compliance — live and growing.",
+      "description": "A multilingual recruitment platform for Chinese companies hiring Indonesian talent, with role-based dashboards, candidate management, interview scheduling, document workflows, and cross-border operations.",
       "feature1": "Multi-language interface (ID / CN / EN)",
       "feature2": "Advanced candidate screening & filtering",
-      "feature3": "Enterprise security & compliance built-in",
+      "feature3": "Interview scheduling & document workflows",
       "cta": "View Project",
       "screenshot": "Project Screenshot: Qianlima.co.id"
     }
   },
   "about": {
-    "heading": "We build digital infrastructure for serious businesses.",
-    "p1": "Enztronic is a full-stack digital agency based in Jakarta, Indonesia. We work with startups, founders, and growing businesses that need a complete digital team — not a patchwork of vendors.",
-    "p2": "We combine engineering, SEO, paid advertising, and branding into one coherent operation. No handoffs between agencies. No lost context. Just execution — delivered globally at a fraction of Western rates.",
+    "heading": "We turn operational bottlenecks into working digital systems.",
+    "p1": "Enztronic is an AI automation and digital product studio based in Jakarta. We work with founders and growing teams that need software to improve how their business actually operates.",
+    "p2": "Our work connects strategy, product design, engineering, integration, and growth infrastructure in one delivery team—from the first workflow audit to a system people can use.",
     "stats": {
-      "years": "10+",
-      "yearsLabel": "Years of Experience",
-      "projects": "450+",
-      "projectsLabel": "Projects Delivered",
-      "industries": "15+",
-      "industriesLabel": "Industries Covered",
-      "retention": "98%",
-      "retentionLabel": "Client Retention Rate"
+      "years": "AI + SaaS",
+      "yearsLabel": "Core Capabilities",
+      "projects": "3 Languages",
+      "projectsLabel": "Cross-Border Delivery",
+      "industries": "End-to-End",
+      "industriesLabel": "Product Systems",
+      "retention": "Jakarta",
+      "retentionLabel": "Built for Global Teams"
     },
     "founder": {
       "portrait": "Aaron — Founder Portrait",
@@ -93,50 +93,50 @@
     }
   },
   "services": {
-    "heading": "What We Do",
-    "subheading": "Everything a startup needs to launch, get found, and grow — under one roof.",
+    "heading": "Digital systems built around real operations",
+    "subheading": "From workflow automation to customer-facing products, we design and build the system as one connected whole.",
     "items": [
       {
-        "title": "Web Development",
-        "description": "Fast, scalable websites and apps built to convert — not just look good. We ship in weeks, not months.",
-        "features": ["Next.js & React", "E-commerce & Marketplaces", "CMS Integration", "API Development"]
+        "title": "AI Automation & System Integration",
+        "description": "Connect tools, data, and repetitive workflows so teams spend less time moving information by hand.",
+        "features": ["Workflow Automation", "AI-Assisted Operations", "API Integration", "Internal Tools"]
       },
       {
-        "title": "SEO & Content",
-        "description": "Rank on Google before your runway runs out. We build search presence that compounds over time.",
-        "features": ["Technical SEO", "Content Strategy", "On-page Optimization", "Link Building"]
+        "title": "SaaS & Platform Development",
+        "description": "Design and build secure, maintainable platforms for customers, partners, and internal teams.",
+        "features": ["Product Architecture", "Role-Based Workflows", "Dashboards", "API Development"]
       },
       {
-        "title": "Paid Advertising",
-        "description": "Ad spend that actually returns. We run performance campaigns with tight tracking from day one.",
-        "features": ["Google Ads", "Meta (Facebook & Instagram)", "LinkedIn Ads", "Conversion Tracking"]
+        "title": "Websites & Digital Products",
+        "description": "Create fast, accessible websites and product experiences aligned with the way your business sells and serves.",
+        "features": ["Next.js & React", "Product Websites", "CMS Integration", "E-commerce"]
       },
       {
-        "title": "Branding",
-        "description": "A brand that looks serious from launch day. Logo, identity, and guidelines built to scale with you.",
-        "features": ["Logo Design", "Brand Guidelines", "Visual Identity", "Brand Strategy"]
+        "title": "Brand & Product Systems",
+        "description": "Build a coherent identity and interface system that stays consistent across products, teams, and channels.",
+        "features": ["Brand Strategy", "Visual Identity", "Design Systems", "Product UI"]
       },
       {
-        "title": "Growth Consulting",
-        "description": "Strategy first, execution second. We help founders prioritize what actually moves the needle.",
-        "features": ["Market Analysis", "Channel Strategy", "Performance Analytics", "Roadmap Planning"]
+        "title": "Growth Infrastructure",
+        "description": "Set up the technical SEO, analytics, content, and campaign foundations needed to measure and improve demand.",
+        "features": ["Technical SEO", "Analytics", "Content Systems", "Conversion Tracking"]
       },
       {
-        "title": "UI/UX Design",
-        "description": "Interfaces that users actually understand. Research-backed design that reduces churn and increases conversions.",
-        "features": ["User Research", "Wireframing & Flows", "Prototyping", "Usability Testing"]
+        "title": "Product Strategy & UX",
+        "description": "Turn unclear requirements into prioritized workflows, prototypes, and an actionable delivery roadmap.",
+        "features": ["Workflow Audits", "User Research", "Prototyping", "Roadmap Planning"]
       }
     ]
   },
   "portfolio": {
     "heading": "Our Portfolio",
-    "description": "Successful projects across recruitment, consulting, digital marketing, and e-commerce. From brand creation to SEO dominance.",
+    "description": "Selected platforms, websites, and digital systems built for recruitment, consulting, local services, and growing businesses.",
     "visitSite": "Visit Site",
     "projects": [
       {
         "title": "Qianlima",
         "category": "Recruitment Platform",
-        "description": "Cross-border hiring platform connecting Chinese corporations with Indonesian talent. Features multi-language support (ID/CN/EN), advanced candidate filtering, enterprise-grade security, and a comprehensive HR workflow management system.",
+        "description": "Cross-border hiring platform connecting Chinese companies with Indonesian talent through multilingual role-based dashboards, candidate management, interview scheduling, and document workflows.",
         "url": "https://qianlima.co.id",
         "tags": ["Next.js", "Multi-language", "Enterprise"]
       },
@@ -156,8 +156,8 @@
       },
       {
         "title": "Berdi Rental",
-        "category": "Car Rental - SEO Ranked #1",
-        "description": "Car rental landing page that achieved SEO ranking #1 in just 1 week. Built brand identity from scratch with strategic SEO optimization, creating a high-performing website that immediately captured organic search traffic.",
+        "category": "Car Rental Website & Brand",
+        "description": "A focused car-rental landing page and brand foundation designed to make services clear, improve local discoverability, and simplify customer enquiries.",
         "url": "https://berdirental.com",
         "tags": ["SEO", "Landing Page", "Branding"]
       },
@@ -208,11 +208,11 @@
     "formCompanyPlaceholder": "Your company (optional)",
     "formService": "What do you need?",
     "formServiceTooltip": "It's okay if you didn't know what services you need from us, most of our clients has their own demand but they didn't know where to start digitally. So we're here to help.",
-    "formServiceWebsite": "Website",
-    "formServiceSeo": "SEO & Content",
-    "formServiceAds": "Paid Advertising",
-    "formServiceBranding": "Branding",
-    "formServiceUnknown": "I don't know yet",
+    "formServiceWebsite": "Websites & Digital Products",
+    "formServiceSeo": "AI Automation",
+    "formServiceAds": "SaaS & Platforms",
+    "formServiceBranding": "Brand & Product Systems",
+    "formServiceUnknown": "System Integration / Not sure",
     "formBudget": "Budget Range (USD)",
     "formBudgetTooltip": "More budget doesn't always mean more customers coming, but this really helps us ease our work in the future.",
     "formBudgetUnder1k": "Under $1,000",
@@ -249,28 +249,28 @@
   },
   "meta": {
     "home": {
-      "title": "Enztronic — Full-Stack Digital Agency, Jakarta",
-      "description": "One team for web development, SEO, paid ads, and branding. Jakarta-based, globally delivered. 450+ projects, 98% client retention. Start growing today."
+      "title": "AI Automation & SaaS Development Indonesia | Enztronic",
+      "description": "Enztronic builds AI automation, SaaS platforms, system integrations, and digital products for businesses in Indonesia and beyond."
     },
     "about": {
-      "title": "About Enztronic — Full-Stack Digital Agency, Jakarta",
-      "description": "Enztronic is a Jakarta-based full-stack digital agency combining web development, SEO, paid ads, and branding into one team. No vendor chaos, just execution."
+      "title": "About Enztronic | AI Automation & Digital Product Studio",
+      "description": "Meet the Jakarta studio turning operational bottlenecks into AI automation, SaaS platforms, and connected digital products."
     },
     "services": {
-      "title": "Services | Enztronic",
-      "description": "Comprehensive digital services: web development, digital marketing, paid advertising, branding, growth consulting, and UI/UX design."
+      "title": "AI Automation & Digital Product Services | Enztronic",
+      "description": "Explore AI automation, system integration, SaaS development, websites, digital products, brand systems, and growth infrastructure."
     },
     "portfolio": {
-      "title": "Portfolio | Enztronic",
-      "description": "Explore our portfolio of successful projects in recruitment, consulting, digital marketing, e-commerce, and branding across Indonesia and beyond."
+      "title": "Digital Systems & Product Portfolio | Enztronic",
+      "description": "Explore platforms, websites, and connected digital systems built by Enztronic for businesses in Indonesia and international markets."
     },
     "blog": {
-      "title": "Blog | Enztronic",
-      "description": "Articles, case studies, and agency updates on digital transformation, web development, and growth marketing from Enztronic."
+      "title": "Insights on AI, SaaS & Digital Systems | Enztronic",
+      "description": "Practical articles on AI automation, SaaS products, system integration, websites, and digital operations from Enztronic."
     },
     "contact": {
-      "title": "Contact | Enztronic",
-      "description": "Get in touch with Enztronic to start your digital project. Reach us via email or visit our Jakarta office."
+      "title": "Contact Enztronic | Audit Your Operations",
+      "description": "Tell Enztronic where manual work or disconnected systems are slowing your business down, and start with a practical operations audit."
     }
   }
 }

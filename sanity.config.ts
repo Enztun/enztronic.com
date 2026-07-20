@@ -78,5 +78,18 @@ export default defineConfig({
     }),
     visionTool(),
   ],
+  document: {
+    actions: (previous, context) =>
+      context.schemaType === 'inquiry'
+        ? previous.filter(
+            (action) =>
+              action.action !== 'publish' &&
+              action.action !== 'unpublish' &&
+              action.action !== 'duplicate'
+          )
+        : previous,
+    newDocumentOptions: (previous) =>
+      previous.filter((option) => option.templateId !== 'inquiry'),
+  },
   schema: { types: schemaTypes },
 });

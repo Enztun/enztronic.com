@@ -14,6 +14,8 @@ import {
 export default function ContactForm() {
   const t = useTranslations('contact');
   const [form, setForm] = useState<ContactFormData>(emptyContactForm);
+  const [website, setWebsite] = useState('');
+  const [startedAt] = useState(() => Date.now());
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
@@ -32,7 +34,7 @@ export default function ContactForm() {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, website, startedAt }),
       });
       if (!res.ok) throw new Error();
       setSuccess(true);
@@ -55,10 +57,10 @@ export default function ContactForm() {
 
   const services = [
     { label: t('formServiceWebsite'), value: 'website' },
-    { label: t('formServiceSeo'), value: 'seo' },
-    { label: t('formServiceAds'), value: 'ads' },
+    { label: t('formServiceSeo'), value: 'automation' },
+    { label: t('formServiceAds'), value: 'saas' },
     { label: t('formServiceBranding'), value: 'branding' },
-    { label: t('formServiceUnknown'), value: 'unknown' },
+    { label: t('formServiceUnknown'), value: 'integration' },
   ];
 
   const budgets = [
@@ -77,6 +79,21 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-7">
+      <div
+        aria-hidden="true"
+        className="absolute left-[-10000px] top-auto h-px w-px overflow-hidden"
+      >
+        <label htmlFor="contact-website">Website</label>
+        <input
+          id="contact-website"
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={website}
+          onChange={(event) => setWebsite(event.target.value)}
+        />
+      </div>
       {/* Name + Email */}
       <div className="grid gap-4 md:grid-cols-2">
         <div>
@@ -86,6 +103,8 @@ export default function ContactForm() {
           <input
             type="text"
             required
+            maxLength={100}
+            autoComplete="name"
             placeholder={t('formNamePlaceholder')}
             value={form.name}
             onChange={(e) => set('name', e.target.value)}
@@ -99,6 +118,8 @@ export default function ContactForm() {
           <input
             type="email"
             required
+            maxLength={254}
+            autoComplete="email"
             placeholder={t('formEmailPlaceholder')}
             value={form.email}
             onChange={(e) => set('email', e.target.value)}
@@ -112,6 +133,8 @@ export default function ContactForm() {
         <label className="block text-sm font-semibold mb-1.5">{t('formCompany')}</label>
         <input
           type="text"
+          maxLength={120}
+          autoComplete="organization"
           placeholder={t('formCompanyPlaceholder')}
           value={form.company}
           onChange={(e) => set('company', e.target.value)}
@@ -164,6 +187,7 @@ export default function ContactForm() {
         <label className="block text-sm font-semibold mb-1.5">{t('formMessage')}</label>
         <textarea
           rows={4}
+          maxLength={4000}
           placeholder={t('formMessagePlaceholder')}
           value={form.message}
           onChange={(e) => set('message', e.target.value)}
@@ -192,6 +216,8 @@ export default function ContactForm() {
         <label className="block text-sm font-semibold mb-1.5">{t('formCountry')}</label>
         <input
           type="text"
+          maxLength={80}
+          autoComplete="country-name"
           placeholder={t('formCountryPlaceholder')}
           value={form.country}
           onChange={(e) => set('country', e.target.value)}

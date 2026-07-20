@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { Code, Megaphone, Target, Palette, TrendingUp, Users } from 'lucide-react';
 import Navbar from '@/components/Navbar';
@@ -7,41 +6,39 @@ import ModuleRenderer from '@/components/modules/ModuleRenderer';
 import { isSanityConfigured } from '@/sanity/lib/client';
 import { sanityFetch } from '@/sanity/lib/fetch';
 import { pageBySlugQuery } from '@/sanity/lib/queries';
+import { createCorePageMetadata } from '@/lib/seo';
 
-const BASE = 'https://enztronic.com';
 const serviceIcons = [Code, Megaphone, Target, Palette, TrendingUp, Users];
 type ServiceItem = { title: string; description: string; features: string[] };
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'meta.services' });
-  const canonical = locale === 'en' ? `${BASE}/services` : `${BASE}/${locale}/services`;
-  return {
-    title: t('title'),
-    description: t('description'),
-    alternates: { canonical, languages: { en: `${BASE}/services`, id: `${BASE}/id/services`, 'zh-Hans': `${BASE}/zh/services`, 'x-default': `${BASE}/services` } },
-    openGraph: { title: t('title'), description: t('description'), url: canonical },
-  };
+  return createCorePageMetadata(locale, 'services');
 }
 
 export default async function Services({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  let cmsPage;
 
   if (isSanityConfigured) {
     try {
-      const page = await sanityFetch({ query: pageBySlugQuery, params: { slug: 'services', language: locale } });
-      if (page?.modules?.length > 0) {
-        return (
-          <main className="min-h-screen bg-white">
-            <Navbar />
-            {page.modules.map((mod: { _type: string; _key: string }) => (
-              <ModuleRenderer key={mod._key} module={mod} />
-            ))}
-            <Footer />
-          </main>
-        );
-      }
+      cmsPage = await sanityFetch({
+        query: pageBySlugQuery,
+        params: { slug: 'services', language: locale },
+      });
     } catch {}
+  }
+
+  if (cmsPage?.modules?.length > 0) {
+    return (
+      <main className="min-h-screen bg-white">
+        <Navbar />
+        {cmsPage.modules.map((mod: { _type: string; _key: string }) => (
+          <ModuleRenderer key={mod._key} module={mod} />
+        ))}
+        <Footer />
+      </main>
+    );
   }
 
   // Fallback

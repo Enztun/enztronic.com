@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -6,39 +5,36 @@ import ModuleRenderer from '@/components/modules/ModuleRenderer';
 import { isSanityConfigured } from '@/sanity/lib/client';
 import { sanityFetch } from '@/sanity/lib/fetch';
 import { pageBySlugQuery } from '@/sanity/lib/queries';
+import { createCorePageMetadata } from '@/lib/seo';
 
-const BASE = 'https://enztronic.com';
-
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'meta.about' });
-  const canonical = locale === 'en' ? `${BASE}/about` : `${BASE}/${locale}/about`;
-  return {
-    title: t('title'),
-    description: t('description'),
-    alternates: { canonical, languages: { en: `${BASE}/about`, id: `${BASE}/id/about`, 'zh-Hans': `${BASE}/zh/about`, 'x-default': `${BASE}/about` } },
-    openGraph: { title: t('title'), description: t('description'), url: canonical },
-  };
+  return createCorePageMetadata(locale, 'about');
 }
 
 export default async function About({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  let cmsPage;
 
   if (isSanityConfigured) {
     try {
-      const page = await sanityFetch({ query: pageBySlugQuery, params: { slug: 'about', language: locale } });
-      if (page?.modules?.length > 0) {
-        return (
-          <main className="min-h-screen bg-white">
-            <Navbar />
-            {page.modules.map((mod: { _type: string; _key: string }) => (
-              <ModuleRenderer key={mod._key} module={mod} />
-            ))}
-            <Footer />
-          </main>
-        );
-      }
+      cmsPage = await sanityFetch({
+        query: pageBySlugQuery,
+        params: { slug: 'about', language: locale },
+      });
     } catch {}
+  }
+
+  if (cmsPage?.modules?.length > 0) {
+    return (
+      <main className="min-h-screen bg-white">
+        <Navbar />
+        {cmsPage.modules.map((mod: { _type: string; _key: string }) => (
+          <ModuleRenderer key={mod._key} module={mod} />
+        ))}
+        <Footer />
+      </main>
+    );
   }
 
   // Fallback

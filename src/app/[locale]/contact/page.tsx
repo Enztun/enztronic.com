@@ -1,39 +1,16 @@
-import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ContactOptions from '@/components/contact/ContactOptions';
-
-const BASE = 'https://enztronic.com';
+import { createCorePageMetadata } from '@/lib/seo';
 
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+}) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'meta.contact' });
-  const canonical =
-    locale === 'en' ? `${BASE}/contact` : `${BASE}/${locale}/contact`;
-
-  return {
-    title: t('title'),
-    description: t('description'),
-    alternates: {
-      canonical,
-      languages: {
-        en: `${BASE}/contact`,
-        id: `${BASE}/id/contact`,
-        'zh-Hans': `${BASE}/zh/contact`,
-        'x-default': `${BASE}/contact`,
-      },
-    },
-    openGraph: {
-      title: t('title'),
-      description: t('description'),
-      url: canonical,
-    },
-  };
+  return createCorePageMetadata(locale, 'contact');
 }
 
 export default async function ContactPage({

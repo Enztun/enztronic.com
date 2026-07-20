@@ -14,11 +14,13 @@ import { Link } from '@/i18n/navigation';
 import { isSanityConfigured } from '@/sanity/lib/client';
 import { sanityFetch } from '@/sanity/lib/fetch';
 import { urlFor } from '@/sanity/lib/image';
-import { postBySlugQuery, postSlugsQuery } from '@/sanity/lib/queries';
+import { postBySlugQuery } from '@/sanity/lib/queries';
 import { ShareButtons } from '@/components/blog/ShareButtons';
 import { TableOfContents, type TocHeading } from '@/components/blog/TableOfContents';
 
 const BASE = 'https://enztronic.com';
+
+export const dynamic = 'force-dynamic';
 
 // ─── helpers ──────────────────────────────────────────────────────────────────
 
@@ -349,19 +351,6 @@ const portableTextComponents = {
 
 // ─── static params ─────────────────────────────────────────────────────────────
 
-export async function generateStaticParams() {
-  if (!isSanityConfigured) return [];
-  try {
-    const slugs = await sanityFetch<Array<{ slug: string; language: string | null }>>({ query: postSlugsQuery });
-    return slugs.map((item) => ({
-      slug: item.slug,
-      locale: item.language ?? 'en',
-    }));
-  } catch {
-    return [];
-  }
-}
-
 // ─── metadata ─────────────────────────────────────────────────────────────────
 
 export async function generateMetadata({
@@ -373,7 +362,7 @@ export async function generateMetadata({
   if (!isSanityConfigured) return {};
   let post;
   try {
-    post = await sanityFetch({ query: postBySlugQuery, params: { slug } });
+    post = await sanityFetch({ query: postBySlugQuery, params: { slug, locale } });
   } catch {
     return {};
   }
@@ -383,23 +372,23 @@ export async function generateMetadata({
     locale === 'en' ? `${BASE}/blog/${slug}` : `${BASE}/${locale}/blog/${slug}`;
 
   return {
-    title: `${post.title} | Enztronic Blog`,
+    title: { absolute: `${post.title} | Enztronic` },
     description: post.excerpt ?? undefined,
-    alternates: {
-      canonical,
-      languages: {
-        en: `${BASE}/blog/${slug}`,
-        id: `${BASE}/id/blog/${slug}`,
-        'zh-Hans': `${BASE}/zh/blog/${slug}`,
-        'x-default': `${BASE}/blog/${slug}`,
-      },
-    },
+    alternates: { canonical },
     openGraph: {
       title: post.title,
       description: post.excerpt ?? undefined,
       url: canonical,
       type: 'article',
       publishedTime: post.publishedAt ?? undefined,
+      ...(post.mainImage && {
+        images: [urlFor(post.mainImage).width(1200).height(630).fit('crop').url()],
+      }),
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.excerpt ?? undefined,
       ...(post.mainImage && {
         images: [urlFor(post.mainImage).width(1200).height(630).fit('crop').url()],
       }),
@@ -420,7 +409,7 @@ export default async function PostPage({
   if (!isSanityConfigured) notFound();
   let post;
   try {
-    post = await sanityFetch({ query: postBySlugQuery, params: { slug } });
+    post = await sanityFetch({ query: postBySlugQuery, params: { slug, locale } });
   } catch {
     notFound();
   }
@@ -434,9 +423,37 @@ export default async function PostPage({
     locale === 'en' ? `${BASE}/blog/${slug}` : `${BASE}/${locale}/blog/${slug}`;
 
   const authorInitial = post.author?.name?.charAt(0)?.toUpperCase() ?? 'E';
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.title,
+    description: post.excerpt ?? undefined,
+    mainEntityOfPage: canonicalUrl,
+    datePublished: post.publishedAt ?? undefined,
+    dateModified: post._updatedAt ?? post.publishedAt ?? undefined,
+    inLanguage: locale === 'zh' ? 'zh-Hans' : locale,
+    author: {
+      '@type': post.author?.name ? 'Person' : 'Organization',
+      name: post.author?.name ?? 'Enztronic',
+    },
+    publisher: {
+      '@type': 'Organization',
+      '@id': `${BASE}/#organization`,
+      name: 'Enztronic',
+    },
+    ...(post.mainImage && {
+      image: urlFor(post.mainImage).width(1200).height(630).fit('crop').url(),
+    }),
+  };
 
   return (
     <main className="min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(articleJsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
       <Navbar />
 
       {/* ── article header ── */}

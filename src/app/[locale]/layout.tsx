@@ -18,6 +18,8 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
+const BASE = 'https://enztronic.com';
+
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
@@ -31,44 +33,26 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: 'meta.home' });
 
   return {
-    title: {
-      default: t('title'),
-      template: '%s | Enztronic',
-    },
+    title: t('title'),
     description: t('description'),
-    metadataBase: new URL('https://enztronic.com'),
+    metadataBase: new URL(BASE),
     openGraph: {
+      title: t('title'),
+      description: t('description'),
       siteName: 'Enztronic',
       type: 'website',
       locale:
-        locale === 'zh' ? 'zh_Hans_CN' : locale === 'id' ? 'id_ID' : 'en_US',
+        locale === 'zh' ? 'zh_CN' : locale === 'id' ? 'id_ID' : 'en_US',
+      images: [{ url: '/og-image', width: 1200, height: 630, alt: 'Enztronic' }],
     },
     twitter: {
       card: 'summary_large_image',
+      title: t('title'),
+      description: t('description'),
+      images: ['/og-image'],
     },
   };
 }
-
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'ProfessionalService',
-  name: 'Enztronic',
-  url: 'https://enztronic.com',
-  description:
-    'Premium digital agency specializing in web development, digital marketing, paid advertising, and branding.',
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'Jakarta',
-    addressCountry: 'ID',
-  },
-  areaServed: 'Worldwide',
-  serviceType: [
-    'Web Development',
-    'Digital Marketing',
-    'Paid Advertising',
-    'Branding',
-  ],
-};
 
 export default async function LocaleLayout({
   children,
@@ -84,17 +68,51 @@ export default async function LocaleLayout({
   }
 
   const messages = await getMessages();
+  const t = await getTranslations({ locale, namespace: 'meta.home' });
   const { isEnabled: isDraftMode } = await draftMode();
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Organization',
+        '@id': `${BASE}/#organization`,
+        name: 'Enztronic',
+        url: BASE,
+        description: t('description'),
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Jakarta',
+          addressCountry: 'ID',
+        },
+        knowsAbout: [
+          'AI Automation',
+          'System Integration',
+          'SaaS Development',
+          'Digital Product Development',
+        ],
+      },
+      {
+        '@type': 'WebSite',
+        '@id': `${BASE}/#website`,
+        url: BASE,
+        name: 'Enztronic',
+        publisher: { '@id': `${BASE}/#organization` },
+        inLanguage: ['en', 'id', 'zh-Hans'],
+      },
+    ],
+  };
 
   return (
     <html
-      lang={locale}
+      lang={locale === 'zh' ? 'zh-Hans' : locale}
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+          }}
         />
       </head>
       <body className="min-h-full flex flex-col">

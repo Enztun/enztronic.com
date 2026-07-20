@@ -31,8 +31,9 @@ export const postsByLocaleQuery = defineQuery(`
 `);
 
 export const postBySlugQuery = defineQuery(`
-  *[_type == "post" && slug.current == $slug][0] {
+  *[_type == "post" && slug.current == $slug && language == $locale][0] {
     _id,
+    _updatedAt,
     title,
     "slug": slug.current,
     excerpt,
@@ -49,12 +50,27 @@ export const postSlugsQuery = defineQuery(`
   *[_type == "post" && defined(slug.current)] { "slug": slug.current, language }
 `);
 
+export const postSitemapQuery = defineQuery(`
+  *[_type == "post" && defined(slug.current) && publishedAt <= now()] {
+    "slug": slug.current,
+    "locale": coalesce(language, "en"),
+    _updatedAt,
+  }
+`);
+
 export const pageBySlugQuery = defineQuery(`
   *[_type == "page" && slug.current == $slug && language == $language][0] {
     _id,
     title,
     language,
     modules,
+    "seoTitle": seo.title,
+    "seoDescription": seo.description,
+  }
+`);
+
+export const pageSeoBySlugQuery = defineQuery(`
+  *[_type == "page" && slug.current == $slug && language == $language][0] {
     "seoTitle": seo.title,
     "seoDescription": seo.description,
   }

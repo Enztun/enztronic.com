@@ -9,17 +9,17 @@
   },
   "footer": {
     "brand": "ENZTRONIC",
-    "tagline": "为全球企业打造卓越数字体验。",
+    "tagline": "构建企业日常运营所依赖的数字系统。",
     "sections": {
       "services": "服务",
       "company": "公司",
       "connect": "联系我们"
     },
     "links": {
-      "webDev": "网站开发",
-      "digitalMarketing": "数字营销",
-      "paidAds": "付费广告",
-      "branding": "品牌策划",
+      "webDev": "网站与数字产品",
+      "digitalMarketing": "AI 自动化",
+      "paidAds": "SaaS 与平台",
+      "branding": "品牌与产品系统",
       "about": "关于我们",
       "portfolio": "案例集",
       "blog": "博客",
@@ -31,26 +31,26 @@
     "copyright": "© {year} ENZTRONIC. 保留所有权利。"
   },
   "home": {
-    "badge": "全球品质 · 雅加达出品",
-    "headline": "Launch. Rank. Scale.",
-    "description": "一支团队，全栈数字服务。我们负责网站开发、SEO、付费广告和品牌策划——让你专注于做产品。雅加达出品，全球交付，成本远低于西方同类机构。",
-    "ctaPrimary": "开始你的项目",
+    "badge": "AI 自动化与数字产品工作室",
+    "headline": "我们构建企业日常运营所依赖的数字系统。",
+    "description": "Enztronic 为印度尼西亚及全球成长型企业设计 AI 自动化、SaaS 平台、系统集成、网站和数字产品。",
+    "ctaPrimary": "审计您的业务流程",
     "ctaSecondary": "查看案例",
     "stats": {
-      "years": "10+ 年",
-      "yearsLabel": "行业经验",
-      "projects": "450+ 个项目",
-      "projectsLabel": "成功交付",
-      "industries": "15+ 个行业",
-      "industriesLabel": "全球客户覆盖",
-      "retention": "98%",
-      "retentionLabel": "客户留存率"
+      "years": "AI + SaaS",
+      "yearsLabel": "核心能力",
+      "projects": "3 种语言",
+      "projectsLabel": "跨境交付",
+      "industries": "端到端",
+      "industriesLabel": "产品系统",
+      "retention": "雅加达",
+      "retentionLabel": "服务全球团队"
     },
     "hero": {
-      "revenueGrowth": "+145%",
-      "revenueLabel": "平均营收增长",
+      "revenueGrowth": "系统优先",
+      "revenueLabel": "围绕真实运营构建",
       "servicesHeading": "我们的服务",
-      "servicesSubheading": "一支团队，满足您所有数字化需求——网站、SEO、广告和品牌。",
+      "servicesSubheading": "由一支团队负责自动化、平台、产品及其连接系统。",
       "servicesViewAll": "查看全部服务",
       "portfolioHeading": "精选案例",
       "portfolioViewAll": "查看所有项目",
@@ -64,27 +64,27 @@
     "caseStudy": {
       "label": "精选项目",
       "title": "千里马 — 大规模跨境招聘平台",
-      "description": "从零开始为中国企业招募印尼人才而构建。一个多语言招聘平台，处理复杂的候选人筛选、跨境HR工作流程和企业级合规——已上线并持续增长。",
+      "description": "面向在印度尼西亚招聘人才的中国企业打造的多语言招聘平台，包含角色化看板、候选人管理、面试安排、文件流程和跨境运营功能。",
       "feature1": "多语言界面（ID / CN / EN）",
       "feature2": "高级候选人筛选与过滤",
-      "feature3": "企业级安全与合规内置",
+      "feature3": "面试安排与文件流程",
       "cta": "查看项目",
       "screenshot": "项目截图：Qianlima.co.id"
     }
   },
   "about": {
-    "heading": "关于 ENZTRONIC",
-    "p1": "我们是一家高端数字营销机构，致力于通过创新技术和战略营销推动企业转型。",
-    "p2": "凭借10年以上的经验和450多个成功项目，我们已帮助15多个行业的企业通过定制网站开发、数字营销和品牌策划实现卓越增长。",
+    "heading": "我们将运营瓶颈转化为真正可用的数字系统。",
+    "p1": "Enztronic 是一家位于雅加达的 AI 自动化与数字产品工作室。我们帮助创始人和成长型团队构建真正改善业务运营的软件。",
+    "p2": "我们将战略、产品设计、工程、系统集成和增长基础设施整合在一个交付团队中，从流程审计一直做到可落地使用的系统。",
     "stats": {
-      "years": "10+",
-      "yearsLabel": "年卓越经验",
-      "projects": "450+",
-      "projectsLabel": "项目交付",
-      "industries": "15+",
-      "industriesLabel": "服务行业",
-      "retention": "98%",
-      "retentionLabel": "客户留存率"
+      "years": "AI + SaaS",
+      "yearsLabel": "核心能力",
+      "projects": "3 种语言",
+      "projectsLabel": "跨境交付",
+      "industries": "端到端",
+      "industriesLabel": "产品系统",
+      "retention": "雅加达",
+      "retentionLabel": "服务全球团队"
     },
     "founder": {
       "portrait": "Aaron — 创始人照片",
@@ -93,50 +93,50 @@
     }
   },
   "services": {
-    "heading": "我们做什么",
-    "subheading": "初创公司启动、获客、增长所需的一切——尽在一处。",
+    "heading": "围绕真实运营构建数字系统",
+    "subheading": "从工作流自动化到客户产品，我们将各部分设计并构建为一个互联整体。",
     "items": [
       {
-        "title": "网站开发",
-        "description": "快速、可扩展、以转化为导向的网站和应用——不只是好看。我们以周为单位交付，而非数月。",
-        "features": ["Next.js & React", "电商与平台", "CMS集成", "API开发"]
+        "title": "AI 自动化与系统集成",
+        "description": "连接工具、数据和重复工作流，减少团队手动搬运信息的时间。",
+        "features": ["工作流自动化", "AI 辅助运营", "API 集成", "内部工具"]
       },
       {
-        "title": "SEO与内容",
-        "description": "在资金耗尽前登上Google首页。我们构建随时间复利增长的自然搜索流量。",
-        "features": ["技术SEO", "内容策略", "页面优化", "外链建设"]
+        "title": "SaaS 与平台开发",
+        "description": "为客户、合作伙伴和内部团队设计并构建易于维护的平台。",
+        "features": ["产品架构", "角色化流程", "数据看板", "API 开发"]
       },
       {
-        "title": "付费广告",
-        "description": "真正产生回报的广告投放。从第一天起就进行严格的跟踪与绩效管理。",
-        "features": ["Google Ads", "Meta（Facebook & Instagram）", "LinkedIn广告", "转化追踪"]
+        "title": "网站与数字产品",
+        "description": "构建快速、易用的网站和产品体验，使其符合企业销售与服务客户的实际方式。",
+        "features": ["Next.js & React", "产品网站", "CMS 集成", "电子商务"]
       },
       {
-        "title": "品牌策划",
-        "description": "从上线第一天就看起来专业可信。Logo、视觉识别和品牌规范，随你的业务一同成长。",
-        "features": ["Logo设计", "品牌规范", "视觉识别", "品牌战略"]
+        "title": "品牌与产品系统",
+        "description": "建立在产品、团队和渠道之间保持一致的品牌识别与界面系统。",
+        "features": ["品牌战略", "视觉识别", "设计系统", "产品界面"]
       },
       {
-        "title": "增长咨询",
-        "description": "先定战略，再谈执行。我们帮助创始人聚焦真正推动业务增长的优先事项。",
-        "features": ["市场分析", "渠道策略", "绩效分析", "路线图规划"]
+        "title": "增长基础设施",
+        "description": "搭建技术 SEO、数据分析、内容和推广基础，以便持续衡量并改善需求。",
+        "features": ["技术 SEO", "数据分析", "内容系统", "转化追踪"]
       },
       {
-        "title": "UI/UX设计",
-        "description": "用户真正看得懂的界面。基于研究的设计，降低流失率，提升转化率。",
-        "features": ["用户研究", "线框图", "原型设计", "可用性测试"]
+        "title": "产品策略与 UX",
+        "description": "将模糊需求转化为有优先级的流程、原型和可执行的交付路线图。",
+        "features": ["流程审计", "用户研究", "原型设计", "路线图规划"]
       }
     ]
   },
   "portfolio": {
     "heading": "我们的案例集",
-    "description": "招聘、咨询、数字营销和电商领域的成功项目。从品牌创建到SEO主导。",
+    "description": "为招聘、咨询、本地服务和成长型企业打造的平台、网站与数字系统。",
     "visitSite": "访问网站",
     "projects": [
       {
         "title": "千里马",
         "category": "招聘平台",
-        "description": "跨境招聘平台，连接中国企业与印尼人才。具备多语言支持（ID/CN/EN）、高级候选人筛选、企业级安全和综合HR工作流管理系统。",
+        "description": "连接中国企业与印度尼西亚人才的跨境招聘平台，包含多语言角色化看板、候选人管理、面试安排和文件流程。",
         "url": "https://qianlima.co.id",
         "tags": ["Next.js", "多语言", "企业级"]
       },
@@ -156,8 +156,8 @@
       },
       {
         "title": "Berdi Rental",
-        "category": "租车 - SEO排名第1",
-        "description": "租车落地页，仅用1周时间实现SEO排名第1。从零开始打造品牌形象，配合战略性SEO优化，创建高性能网站，立即捕获有机搜索流量。",
+        "category": "租车网站与品牌",
+        "description": "面向租车业务打造的聚焦型落地页与品牌基础，用于清晰展示服务、提升本地可发现性并简化客户咨询。",
         "url": "https://berdirental.com",
         "tags": ["SEO", "落地页", "品牌策划"]
       },
@@ -208,11 +208,11 @@
     "formCompanyPlaceholder": "您的公司（选填）",
     "formService": "您需要什么？",
     "formServiceTooltip": "如果您还不知道需要我们提供哪些服务，完全没关系。我们大多数客户都有自己的需求，但不知道从哪里开始数字化转型。我们在这里帮助您。",
-    "formServiceWebsite": "网站",
-    "formServiceSeo": "SEO与内容",
-    "formServiceAds": "付费广告",
-    "formServiceBranding": "品牌策划",
-    "formServiceUnknown": "我还不确定",
+    "formServiceWebsite": "网站与数字产品",
+    "formServiceSeo": "AI 自动化",
+    "formServiceAds": "SaaS 与平台",
+    "formServiceBranding": "品牌与产品系统",
+    "formServiceUnknown": "系统集成 / 尚不确定",
     "formBudget": "预算范围（美元）",
     "formBudgetTooltip": "更多预算不一定意味着更多客户，但这确实有助于我们为您规划未来的工作。",
     "formBudgetUnder1k": "$1,000以下",
@@ -249,28 +249,28 @@
   },
   "meta": {
     "home": {
-      "title": "Enztronic — 全栈数字机构，雅加达",
-      "description": "网站开发、SEO、付费广告和品牌策划，一支团队全搞定。雅加达出品，全球交付。450+项目，98%留存率。立即开始增长。"
+      "title": "印度尼西亚AI自动化与SaaS开发 | Enztronic",
+      "description": "Enztronic 为印度尼西亚及全球企业提供 AI 自动化、SaaS 平台、系统集成和数字产品开发服务。"
     },
     "about": {
-      "title": "关于我们 | Enztronic",
-      "description": "了解Enztronic——一家拥有10年以上经验的高端数字营销机构，在全球15个以上行业成功交付450多个项目。"
+      "title": "关于 Enztronic | AI 自动化与数字产品工作室",
+      "description": "了解这家位于雅加达的工作室如何将运营瓶颈转化为 AI 自动化、SaaS 平台和互联数字产品。"
     },
     "services": {
-      "title": "服务 | Enztronic",
-      "description": "全面的数字服务：网站开发、数字营销、付费广告、品牌策划、增长咨询和UI/UX设计。"
+      "title": "AI 自动化与数字产品服务 | Enztronic",
+      "description": "了解 AI 自动化、系统集成、SaaS 开发、网站、数字产品、品牌系统和增长基础设施服务。"
     },
     "portfolio": {
-      "title": "案例集 | Enztronic",
-      "description": "探索我们在印尼及海外招聘、咨询、数字营销、电商和品牌策划领域的成功案例。"
+      "title": "数字系统与产品案例 | Enztronic",
+      "description": "探索 Enztronic 为印度尼西亚及国际市场企业打造的平台、网站和互联数字系统。"
     },
     "blog": {
-      "title": "博客 | Enztronic",
-      "description": "来自Enztronic关于数字化转型、网站开发和增长营销的文章、案例研究和机构动态。"
+      "title": "AI、SaaS 与数字系统洞察 | Enztronic",
+      "description": "阅读 Enztronic 关于 AI 自动化、SaaS 产品、系统集成、网站和数字运营的实用文章。"
     },
     "contact": {
-      "title": "联系 | Enztronic",
-      "description": "联系Enztronic开启您的数字项目。通过电子邮件联系我们或访问我们的雅加达办公室。"
+      "title": "联系 Enztronic | 业务运营审计",
+      "description": "告诉我们哪些手工流程或割裂系统正在拖慢业务，并从一次务实的运营审计开始。"
     }
   }
 }

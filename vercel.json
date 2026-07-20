@@ -1,3 +1,12 @@
 {
-  "buildCommand": "npm run build"
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.enztronic.com" }],
+      "destination": "https://enztronic.com/:path*",
+      "permanent": true
+    }
+  ]
 }

@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { ArrowRight, CheckCircle, BarChart, Code, Megaphone, Target, Palette, TrendingUp, Users, MessageCircle } from 'lucide-react';
 import Navbar from '@/components/Navbar';
@@ -10,8 +9,8 @@ import { sanityFetch } from '@/sanity/lib/fetch';
 import { pageBySlugQuery, postsByLocaleQuery } from '@/sanity/lib/queries';
 import { urlFor } from '@/sanity/lib/image';
 import type { PostSummary } from '@/sanity/lib/types';
+import { createCorePageMetadata } from '@/lib/seo';
 
-const BASE = 'https://enztronic.com';
 const WHATSAPP = 'https://wa.me/6289637579728';
 
 const serviceIcons = [Code, Megaphone, Target, Palette, TrendingUp, Users];
@@ -23,19 +22,9 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+}) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'meta.home' });
-  const canonical = locale === 'en' ? BASE : `${BASE}/${locale}`;
-  return {
-    title: t('title'),
-    description: t('description'),
-    alternates: {
-      canonical,
-      languages: { en: BASE, id: `${BASE}/id`, 'zh-Hans': `${BASE}/zh`, 'x-default': BASE },
-    },
-    openGraph: { title: t('title'), description: t('description'), url: canonical },
-  };
+  return createCorePageMetadata(locale, 'home');
 }
 
 function formatDate(iso: string, locale: string) {
@@ -47,22 +36,27 @@ function formatDate(iso: string, locale: string) {
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  let cmsPage;
 
   if (isSanityConfigured) {
     try {
-      const page = await sanityFetch({ query: pageBySlugQuery, params: { slug: 'home', language: locale } });
-      if (page?.modules?.length > 0) {
-        return (
-          <main className="min-h-screen bg-surface selection:bg-primary/10">
-            <Navbar />
-            {page.modules.map((mod: { _type: string; _key: string }) => (
-              <ModuleRenderer key={mod._key} module={mod} />
-            ))}
-            <Footer />
-          </main>
-        );
-      }
+      cmsPage = await sanityFetch({
+        query: pageBySlugQuery,
+        params: { slug: 'home', language: locale },
+      });
     } catch {}
+  }
+
+  if (cmsPage?.modules?.length > 0) {
+    return (
+      <main className="min-h-screen bg-surface selection:bg-primary/10">
+        <Navbar />
+        {cmsPage.modules.map((mod: { _type: string; _key: string }) => (
+          <ModuleRenderer key={mod._key} module={mod} />
+        ))}
+        <Footer />
+      </main>
+    );
   }
 
   // ── Fallback ──────────────────────────────────────────────────────────────
@@ -77,9 +71,6 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   if (isSanityConfigured) {
     try {
       recentPosts = await sanityFetch<PostSummary[]>({ query: postsByLocaleQuery, params: { locale } });
-      if (recentPosts.length === 0 && locale !== 'en') {
-        recentPosts = await sanityFetch<PostSummary[]>({ query: postsByLocaleQuery, params: { locale: 'en' } });
-      }
       recentPosts = recentPosts.slice(0, 3);
     } catch {}
   }
@@ -96,8 +87,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               {t('badge')}
             </span>
             <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
-              {t('headline').split('. ').slice(0, 2).join('. ')}.{' '}
-              <span className="text-primary">{t('headline').split('. ').at(-1)}</span>
+              {t('headline')}
             </h1>
             <p className="text-lg text-gray-600 mb-10 max-w-lg">{t('description')}</p>
             <div className="flex gap-4 flex-wrap">

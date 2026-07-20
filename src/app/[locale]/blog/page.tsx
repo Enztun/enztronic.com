@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { ArrowRight } from 'lucide-react';
 import Navbar from '@/components/Navbar';
@@ -7,34 +6,17 @@ import { Link } from '@/i18n/navigation';
 import { isSanityConfigured } from '@/sanity/lib/client';
 import { sanityFetch } from '@/sanity/lib/fetch';
 import { urlFor } from '@/sanity/lib/image';
-import { postsByLocaleQuery, postsQuery } from '@/sanity/lib/queries';
+import { postsByLocaleQuery } from '@/sanity/lib/queries';
 import type { PostSummary } from '@/sanity/lib/types';
-
-const BASE = 'https://enztronic.com';
+import { createCorePageMetadata } from '@/lib/seo';
 
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+}) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'meta.blog' });
-  const canonical = locale === 'en' ? `${BASE}/blog` : `${BASE}/${locale}/blog`;
-
-  return {
-    title: t('title'),
-    description: t('description'),
-    alternates: {
-      canonical,
-      languages: {
-        en: `${BASE}/blog`,
-        id: `${BASE}/id/blog`,
-        'zh-Hans': `${BASE}/zh/blog`,
-        'x-default': `${BASE}/blog`,
-      },
-    },
-    openGraph: { title: t('title'), description: t('description'), url: canonical },
-  };
+  return createCorePageMetadata(locale, 'blog');
 }
 
 function formatDate(iso: string, locale: string) {
@@ -56,12 +38,6 @@ export default async function BlogPage({
   if (isSanityConfigured) {
     try {
       posts = await sanityFetch<PostSummary[]>({ query: postsByLocaleQuery, params: { locale } });
-      if (posts.length === 0 && locale !== 'en') {
-        posts = await sanityFetch<PostSummary[]>({ query: postsByLocaleQuery, params: { locale: 'en' } });
-      }
-      if (posts.length === 0) {
-        posts = await sanityFetch<PostSummary[]>({ query: postsQuery });
-      }
     } catch {
       // Sanity not reachable — show empty state
     }

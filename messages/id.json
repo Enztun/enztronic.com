@@ -9,17 +9,17 @@
   },
   "footer": {
     "brand": "ENZTRONIC",
-    "tagline": "Membangun keunggulan digital untuk bisnis di seluruh dunia.",
+    "tagline": "Membangun sistem digital yang menjalankan bisnis.",
     "sections": {
       "services": "Layanan",
       "company": "Perusahaan",
       "connect": "Terhubung"
     },
     "links": {
-      "webDev": "Pengembangan Web",
-      "digitalMarketing": "Pemasaran Digital",
-      "paidAds": "Iklan Berbayar",
-      "branding": "Branding",
+      "webDev": "Website & Produk Digital",
+      "digitalMarketing": "Automasi AI",
+      "paidAds": "SaaS & Platform",
+      "branding": "Sistem Brand & Produk",
       "about": "Tentang Kami",
       "portfolio": "Portofolio",
       "blog": "Blog",
@@ -31,26 +31,26 @@
     "copyright": "© {year} ENZTRONIC. Hak cipta dilindungi."
   },
   "home": {
-    "badge": "KUALITAS GLOBAL · DIBANGUN DI JAKARTA",
-    "headline": "Launch. Rank. Scale.",
-    "description": "Satu tim. Stack digital lengkap. Kami menangani web development, SEO, iklan berbayar, dan branding — agar kamu bisa fokus membangun bisnis. Berbasis di Jakarta, dikirim secara global, dengan biaya yang jauh lebih terjangkau dari agensi Barat.",
-    "ctaPrimary": "Mulai Proyek Kamu",
+    "badge": "STUDIO AUTOMASI AI & PRODUK DIGITAL",
+    "headline": "Kami membangun sistem digital yang menjalankan bisnis Anda.",
+    "description": "Enztronic merancang automasi AI, platform SaaS, integrasi sistem, website, dan produk digital untuk bisnis yang berkembang di Indonesia dan pasar global.",
+    "ctaPrimary": "Audit Operasional Anda",
     "ctaSecondary": "Lihat Portofolio",
     "stats": {
-      "years": "10+ Tahun",
-      "yearsLabel": "Pengalaman Industri",
-      "projects": "450+ Proyek",
-      "projectsLabel": "Berhasil Diselesaikan",
-      "industries": "15+ Industri",
-      "industriesLabel": "Klien di Seluruh Dunia",
-      "retention": "98%",
-      "retentionLabel": "Tingkat Retensi Klien"
+      "years": "AI + SaaS",
+      "yearsLabel": "Kapabilitas Utama",
+      "projects": "3 Bahasa",
+      "projectsLabel": "Delivery Lintas Negara",
+      "industries": "End-to-End",
+      "industriesLabel": "Sistem Produk",
+      "retention": "Jakarta",
+      "retentionLabel": "Untuk Tim Global"
     },
     "hero": {
-      "revenueGrowth": "+145%",
-      "revenueLabel": "Rata-rata Pertumbuhan Pendapatan",
+      "revenueGrowth": "Sistem Dulu",
+      "revenueLabel": "Dibangun dari Operasional Nyata",
       "servicesHeading": "Layanan Kami",
-      "servicesSubheading": "Satu tim untuk semua kebutuhan digital Anda — web, SEO, iklan, dan branding.",
+      "servicesSubheading": "Satu tim untuk automasi, platform, produk, dan sistem yang menghubungkannya.",
       "servicesViewAll": "Lihat semua layanan",
       "portfolioHeading": "Karya Pilihan",
       "portfolioViewAll": "Lihat semua proyek",
@@ -64,27 +64,27 @@
     "caseStudy": {
       "label": "Proyek Unggulan",
       "title": "Qianlima — Rekrutmen Lintas Batas di Skala Besar",
-      "description": "Dibangun dari nol untuk perusahaan Tiongkok yang merekrut talenta Indonesia. Platform rekrutmen multi-bahasa yang menangani penyaringan kandidat kompleks, alur kerja HR lintas batas, dan kepatuhan tingkat enterprise — live dan terus berkembang.",
+      "description": "Platform rekrutmen multibahasa untuk perusahaan Tiongkok yang merekrut talenta Indonesia, dengan dashboard berbasis peran, manajemen kandidat, jadwal wawancara, alur dokumen, dan operasi lintas negara.",
       "feature1": "Antarmuka multi-bahasa (ID / CN / EN)",
       "feature2": "Penyaringan & pemfilteran kandidat canggih",
-      "feature3": "Keamanan & kepatuhan enterprise terintegrasi",
+      "feature3": "Jadwal wawancara & alur dokumen",
       "cta": "Lihat Proyek",
       "screenshot": "Screenshot Proyek: Qianlima.co.id"
     }
   },
   "about": {
-    "heading": "Tentang ENZTRONIC",
-    "p1": "Kami adalah agensi digital premium yang berdedikasi untuk mentransformasi bisnis melalui teknologi inovatif dan pemasaran strategis.",
-    "p2": "Dengan pengalaman lebih dari 10 tahun dan 450+ proyek sukses, kami telah membantu perusahaan di 15+ industri mencapai pertumbuhan luar biasa melalui pengembangan web kustom, pemasaran digital, dan solusi branding.",
+    "heading": "Kami mengubah hambatan operasional menjadi sistem digital yang bekerja.",
+    "p1": "Enztronic adalah studio automasi AI dan produk digital berbasis di Jakarta. Kami membantu founder dan tim berkembang membangun software yang memperbaiki cara bisnis beroperasi.",
+    "p2": "Kami menghubungkan strategi, desain produk, engineering, integrasi, dan infrastruktur pertumbuhan dalam satu tim delivery—dari audit alur kerja hingga sistem yang siap digunakan.",
     "stats": {
-      "years": "10+",
-      "yearsLabel": "Tahun Keunggulan",
-      "projects": "450+",
-      "projectsLabel": "Proyek Diselesaikan",
-      "industries": "15+",
-      "industriesLabel": "Industri Dilayani",
-      "retention": "98%",
-      "retentionLabel": "Retensi Klien"
+      "years": "AI + SaaS",
+      "yearsLabel": "Kapabilitas Utama",
+      "projects": "3 Bahasa",
+      "projectsLabel": "Delivery Lintas Negara",
+      "industries": "End-to-End",
+      "industriesLabel": "Sistem Produk",
+      "retention": "Jakarta",
+      "retentionLabel": "Untuk Tim Global"
     },
     "founder": {
       "portrait": "Aaron — Foto Pendiri",
@@ -93,50 +93,50 @@
     }
   },
   "services": {
-    "heading": "Yang Kami Kerjakan",
-    "subheading": "Semua yang dibutuhkan startup untuk launch, ditemukan, dan berkembang — dalam satu atap.",
+    "heading": "Sistem digital yang dibangun dari operasional nyata",
+    "subheading": "Dari automasi alur kerja hingga produk untuk pelanggan, kami merancang dan membangun semuanya sebagai satu sistem terhubung.",
     "items": [
       {
-        "title": "Web Development",
-        "description": "Website dan aplikasi yang cepat, scalable, dan dirancang untuk konversi — bukan sekadar tampilan. Kami ship dalam hitungan minggu, bukan bulan.",
-        "features": ["Next.js & React", "E-commerce & Marketplace", "Integrasi CMS", "Pengembangan API"]
+        "title": "Automasi AI & Integrasi Sistem",
+        "description": "Hubungkan tools, data, dan alur kerja berulang agar tim tidak lagi memindahkan informasi secara manual.",
+        "features": ["Automasi Alur Kerja", "Operasional Berbantuan AI", "Integrasi API", "Tools Internal"]
       },
       {
-        "title": "SEO & Konten",
-        "description": "Ranking di Google sebelum runway kamu habis. Kami membangun kehadiran organik yang terus berkembang seiring waktu.",
-        "features": ["SEO Teknikal", "Strategi Konten", "Optimasi On-page", "Link Building"]
+        "title": "Pengembangan SaaS & Platform",
+        "description": "Rancang dan bangun platform yang mudah dipelihara untuk pelanggan, mitra, dan tim internal.",
+        "features": ["Arsitektur Produk", "Alur Berbasis Peran", "Dashboard", "Pengembangan API"]
       },
       {
-        "title": "Iklan Berbayar",
-        "description": "Belanja iklan yang benar-benar menghasilkan. Kami menjalankan kampanye performa dengan tracking ketat dari hari pertama.",
-        "features": ["Google Ads", "Meta (Facebook & Instagram)", "LinkedIn Ads", "Pelacakan Konversi"]
+        "title": "Website & Produk Digital",
+        "description": "Bangun website cepat dan produk digital yang selaras dengan cara bisnis Anda menjual dan melayani pelanggan.",
+        "features": ["Next.js & React", "Website Produk", "Integrasi CMS", "E-commerce"]
       },
       {
-        "title": "Branding",
-        "description": "Brand yang terlihat serius sejak hari pertama launch. Logo, identitas, dan panduan yang tumbuh bersama bisnismu.",
-        "features": ["Desain Logo", "Panduan Merek", "Identitas Visual", "Strategi Merek"]
+        "title": "Sistem Brand & Produk",
+        "description": "Bangun identitas dan sistem antarmuka yang konsisten di seluruh produk, tim, dan kanal.",
+        "features": ["Strategi Brand", "Identitas Visual", "Design System", "UI Produk"]
       },
       {
-        "title": "Konsultasi Pertumbuhan",
-        "description": "Strategi dulu, eksekusi kemudian. Kami membantu founder memprioritaskan hal-hal yang benar-benar menggerakkan bisnis.",
-        "features": ["Analisis Pasar", "Strategi Channel", "Analitik Performa", "Perencanaan Roadmap"]
+        "title": "Infrastruktur Pertumbuhan",
+        "description": "Siapkan fondasi SEO teknis, analytics, konten, dan kampanye agar demand dapat diukur dan ditingkatkan.",
+        "features": ["SEO Teknikal", "Analytics", "Sistem Konten", "Pelacakan Konversi"]
       },
       {
-        "title": "Desain UI/UX",
-        "description": "Antarmuka yang benar-benar dipahami pengguna. Desain berbasis riset yang mengurangi churn dan meningkatkan konversi.",
-        "features": ["Riset Pengguna", "Wireframing & Flow", "Prototyping", "Pengujian Kegunaan"]
+        "title": "Strategi Produk & UX",
+        "description": "Ubah kebutuhan yang belum jelas menjadi alur prioritas, prototipe, dan roadmap delivery yang dapat dijalankan.",
+        "features": ["Audit Alur Kerja", "Riset Pengguna", "Prototyping", "Perencanaan Roadmap"]
       }
     ]
   },
   "portfolio": {
     "heading": "Portofolio Kami",
-    "description": "Proyek sukses di bidang rekrutmen, konsultasi, pemasaran digital, dan e-commerce. Dari pembuatan merek hingga dominasi SEO.",
+    "description": "Pilihan platform, website, dan sistem digital untuk rekrutmen, konsultasi, layanan lokal, dan bisnis yang berkembang.",
     "visitSite": "Kunjungi Situs",
     "projects": [
       {
         "title": "Qianlima",
         "category": "Platform Rekrutmen",
-        "description": "Platform rekrutmen lintas batas yang menghubungkan perusahaan Tiongkok dengan talenta Indonesia. Fitur dukungan multi-bahasa (ID/CN/EN), penyaringan kandidat canggih, keamanan tingkat enterprise, dan sistem manajemen alur kerja HR komprehensif.",
+        "description": "Platform rekrutmen lintas batas yang menghubungkan perusahaan Tiongkok dengan talenta Indonesia melalui dashboard multibahasa berbasis peran, manajemen kandidat, jadwal wawancara, dan alur dokumen.",
         "url": "https://qianlima.co.id",
         "tags": ["Next.js", "Multi-bahasa", "Enterprise"]
       },
@@ -156,8 +156,8 @@
       },
       {
         "title": "Berdi Rental",
-        "category": "Rental Mobil - Peringkat SEO #1",
-        "description": "Landing page rental mobil yang mencapai peringkat SEO #1 hanya dalam 1 minggu. Membangun identitas merek dari awal dengan optimasi SEO strategis, menciptakan website berkinerja tinggi yang langsung menangkap traffic pencarian organik.",
+        "category": "Website & Brand Rental Mobil",
+        "description": "Landing page rental mobil dan fondasi brand yang dirancang untuk memperjelas layanan, meningkatkan visibilitas lokal, dan mempermudah calon pelanggan menghubungi bisnis.",
         "url": "https://berdirental.com",
         "tags": ["SEO", "Landing Page", "Branding"]
       },
@@ -208,11 +208,11 @@
     "formCompanyPlaceholder": "Nama perusahaan Anda (opsional)",
     "formService": "Apa yang Anda butuhkan?",
     "formServiceTooltip": "Tidak apa-apa jika Anda belum tahu layanan apa yang Anda butuhkan dari kami. Sebagian besar klien kami memiliki kebutuhan sendiri tetapi tidak tahu harus mulai dari mana secara digital. Kami di sini untuk membantu.",
-    "formServiceWebsite": "Website",
-    "formServiceSeo": "SEO & Konten",
-    "formServiceAds": "Iklan Berbayar",
-    "formServiceBranding": "Branding",
-    "formServiceUnknown": "Saya belum tahu",
+    "formServiceWebsite": "Website & Produk Digital",
+    "formServiceSeo": "Automasi AI",
+    "formServiceAds": "SaaS & Platform",
+    "formServiceBranding": "Sistem Brand & Produk",
+    "formServiceUnknown": "Integrasi Sistem / Belum yakin",
     "formBudget": "Kisaran Anggaran (USD)",
     "formBudgetTooltip": "Anggaran lebih besar tidak selalu berarti lebih banyak pelanggan, tetapi ini sangat membantu kami dalam merencanakan pekerjaan ke depan.",
     "formBudgetUnder1k": "Di bawah $1.000",
@@ -249,28 +249,28 @@
   },
   "meta": {
     "home": {
-      "title": "Enztronic — Agensi Digital Full-Stack, Jakarta",
-      "description": "Satu tim untuk web development, SEO, iklan berbayar, dan branding. Berbasis di Jakarta, dikirim secara global. 450+ proyek, retensi klien 98%. Mulai berkembang hari ini."
+      "title": "Jasa Automasi AI & Pembuatan SaaS Indonesia | Enztronic",
+      "description": "Enztronic membangun automasi AI, platform SaaS, integrasi sistem, dan produk digital untuk bisnis di Indonesia dan pasar global."
     },
     "about": {
-      "title": "Tentang | Enztronic",
-      "description": "Pelajari tentang Enztronic — agensi digital premium dengan pengalaman 10+ tahun dalam 450+ proyek di 15+ industri di seluruh dunia."
+      "title": "Tentang Enztronic | Studio Automasi AI & Produk Digital",
+      "description": "Kenali studio Jakarta yang mengubah hambatan operasional menjadi automasi AI, platform SaaS, dan produk digital terhubung."
     },
     "services": {
-      "title": "Layanan | Enztronic",
-      "description": "Layanan digital komprehensif: pengembangan web, pemasaran digital, iklan berbayar, branding, konsultasi pertumbuhan, dan desain UI/UX."
+      "title": "Layanan Automasi AI & Produk Digital | Enztronic",
+      "description": "Jelajahi automasi AI, integrasi sistem, pengembangan SaaS, website, produk digital, sistem brand, dan infrastruktur pertumbuhan."
     },
     "portfolio": {
-      "title": "Portofolio | Enztronic",
-      "description": "Jelajahi portofolio proyek sukses kami di bidang rekrutmen, konsultasi, pemasaran digital, e-commerce, dan branding di Indonesia dan luar negeri."
+      "title": "Portofolio Sistem Digital & Produk | Enztronic",
+      "description": "Jelajahi platform, website, dan sistem digital terhubung yang dibangun Enztronic untuk bisnis Indonesia dan pasar internasional."
     },
     "blog": {
-      "title": "Blog | Enztronic",
-      "description": "Artikel, studi kasus, dan pembaruan agensi tentang transformasi digital, pengembangan web, dan pemasaran pertumbuhan dari Enztronic."
+      "title": "Wawasan AI, SaaS & Sistem Digital | Enztronic",
+      "description": "Artikel praktis tentang automasi AI, produk SaaS, integrasi sistem, website, dan operasional digital dari Enztronic."
     },
     "contact": {
-      "title": "Kontak | Enztronic",
-      "description": "Hubungi Enztronic untuk memulai proyek digital Anda. Kami dapat dihubungi melalui email atau kunjungi kantor kami di Jakarta."
+      "title": "Hubungi Enztronic | Audit Operasional Bisnis",
+      "description": "Ceritakan proses manual atau sistem terputus yang memperlambat bisnis Anda, lalu mulai dengan audit operasional yang praktis."
     }
   }
 }

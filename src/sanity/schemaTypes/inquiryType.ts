@@ -21,11 +21,11 @@ export const inquiryType = defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'Website', value: 'website' },
-          { title: 'SEO & Content', value: 'seo' },
-          { title: 'Paid Advertising', value: 'ads' },
-          { title: 'Branding', value: 'branding' },
-          { title: "I don't know yet", value: 'unknown' },
+          { title: 'Websites & Digital Products', value: 'website' },
+          { title: 'AI Automation', value: 'automation' },
+          { title: 'SaaS & Platforms', value: 'saas' },
+          { title: 'Brand & Product Systems', value: 'branding' },
+          { title: 'System Integration / Not sure', value: 'integration' },
         ],
       },
     }),
