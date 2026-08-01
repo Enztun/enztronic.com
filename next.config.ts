@@ -5,10 +5,12 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 const securityHeaders = [
   {
     key: 'Content-Security-Policy',
-    value: "base-uri 'self'; frame-ancestors 'none'; object-src 'none'",
+    // 'self' lets the embedded Sanity Studio at /studio frame the site for the
+    // Presentation tool's visual editing. Cross-origin framing stays blocked.
+    value: "base-uri 'self'; frame-ancestors 'self'; object-src 'none'",
   },
   { key: 'X-Content-Type-Options', value: 'nosniff' },
-  { key: 'X-Frame-Options', value: 'DENY' },
+  { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
   { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
   {
     key: 'Permissions-Policy',
