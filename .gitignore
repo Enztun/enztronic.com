@@ -1,7 +1,7 @@
-```
 # Build artifacts
 dist/
 build/
+*.tsbuildinfo
 *.js
 *.html
 *.ico
@@ -116,3 +116,6 @@ desktop.ini
 *.tar.bz2
 *.tar.xz
 *.tar.zst
+
+# Local agent config (contains API tokens)
+.claude/
