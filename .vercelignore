@@ -1,0 +1,4 @@
+# The back office runs only on the local PC behind Cloudflare Access.
+# Keep it out of the public enztronic.com Vercel upload/build context.
+apps/backoffice/
+

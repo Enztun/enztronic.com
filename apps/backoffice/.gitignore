@@ -1,0 +1,15 @@
+node_modules/
+.next/
+.env*
+!.env.example
+.runtime/
+.venv/
+.verify-*/
+coverage/
+tmp/
+output/
+*.tsbuildinfo
+
+# Brand assets are intentionally versioned inside this isolated app.
+!public/*.png
+!public/*.svg
