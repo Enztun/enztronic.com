@@ -10,7 +10,9 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { PageHeader } from "@/components/ui/page-header";
 import { StatCard } from "@/components/ui/stat-card";
 import { listClients } from "@/lib/server/clients";
+import { getEarningsSummary } from "@/lib/server/earnings";
 import { listInvoices } from "@/lib/server/invoices";
+import { getAccessScope } from "@/lib/server/session";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -19,7 +21,13 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
-  const [clients, invoices] = await Promise.all([listClients(), listInvoices()]);
+  const scope = await getAccessScope();
+  const isSales = scope.user.role === "sales";
+  const [clients, invoices, earnings] = await Promise.all([
+    listClients(scope),
+    listInvoices(scope),
+    getEarningsSummary(scope),
+  ]);
   const outstandingInvoices = invoices.filter(
     (invoice) =>
       invoice.effectiveStatus === "sent" || invoice.effectiveStatus === "overdue",
@@ -50,15 +58,71 @@ export default async function DashboardPage() {
     <>
       <PageHeader
         eyebrow="Overview"
-        title="Commercial operations"
-        description="A clear view of client records, invoice progress, and payments that need attention."
+        title={isSales ? `Your accounts, ${scope.user.name}` : "Commercial operations"}
+        description={
+          isSales
+            ? "Billing progress and earnings across the clients assigned to you."
+            : "A clear view of client records, invoice progress, and payments that need attention."
+        }
         actions={
           <Link href="/invoices/new" className={buttonStyles()}>
-            Create invoice
+            {isSales ? "Draft invoice" : "Create invoice"}
             <ArrowRight aria-hidden="true" className="size-4" />
           </Link>
         }
       />
+
+      {isSales ? (
+        <section aria-label="Earnings" className="mt-8">
+          <div className="mb-4">
+            <h2 className="text-base font-semibold text-ink">Income</h2>
+            <p className="mt-1 text-sm text-muted">
+              Commission accrues on payments received, at{" "}
+              {(earnings.commissionRateBps / 100).toFixed(2)}%. Unpaid invoices
+              do not count until the client settles them.
+            </p>
+          </div>
+          {earnings.byCurrency.length ? (
+            <div className="grid gap-4 sm:grid-cols-2 2xl:grid-cols-3">
+              {earnings.byCurrency.map((entry) => (
+                <Card key={entry.currency} className="p-5">
+                  <p className="text-xs font-semibold tracking-[0.08em] text-muted uppercase">
+                    {entry.currency}
+                  </p>
+                  <dl className="mt-4 space-y-3">
+                    <div className="flex items-baseline justify-between gap-4">
+                      <dt className="text-sm text-muted">Received</dt>
+                      <dd className="text-lg font-semibold text-ink">
+                        {formatMinorCurrency(entry.receivedMinor, entry.currency)}
+                      </dd>
+                    </div>
+                    <div className="flex items-baseline justify-between gap-4">
+                      <dt className="text-sm text-muted">Outstanding</dt>
+                      <dd className="text-sm font-semibold text-ink">
+                        {formatMinorCurrency(entry.outstandingMinor, entry.currency)}
+                      </dd>
+                    </div>
+                    <div className="flex items-baseline justify-between gap-4 border-t border-line pt-3">
+                      <dt className="text-sm font-semibold text-accent">
+                        Your commission
+                      </dt>
+                      <dd className="text-lg font-semibold text-accent">
+                        {formatMinorCurrency(entry.commissionMinor, entry.currency)}
+                      </dd>
+                    </div>
+                  </dl>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <EmptyState
+              icon={CircleDollarSign}
+              title="No earnings yet"
+              description="Once a client settles an invoice, your commission appears here."
+            />
+          )}
+        </section>
+      ) : null}
 
       <section aria-label="Workspace summary" className="mt-8 grid gap-4 sm:grid-cols-2 2xl:grid-cols-4">
         <StatCard
@@ -111,7 +175,7 @@ export default async function DashboardPage() {
               <Link
                 key={invoice.id}
                 href={`/invoices/${invoice.id}`}
-                className="grid gap-3 px-5 py-4 transition-colors hover:bg-white/[0.025] sm:grid-cols-[minmax(0,1fr)_auto_auto] sm:items-center sm:px-6"
+                className="grid gap-3 px-5 py-4 transition-colors hover:bg-overlay-strong sm:grid-cols-[minmax(0,1fr)_auto_auto] sm:items-center sm:px-6"
               >
                 <div className="min-w-0">
                   <p className="truncate text-sm font-semibold text-ink">

@@ -5,6 +5,7 @@ import { updateClientAction } from "@/actions";
 import { ClientForm } from "@/components/client-form";
 import { PageHeader } from "@/components/ui/page-header";
 import { getClient } from "@/lib/server/clients";
+import { getAccessScope, listAssignableOwners } from "@/lib/server/session";
 
 export const metadata: Metadata = {
   title: "Edit client",
@@ -18,12 +19,17 @@ interface EditClientPageProps {
 
 export default async function EditClientPage({ params }: EditClientPageProps) {
   const { id } = await params;
-  const client = await getClient(id);
+  const scope = await getAccessScope();
+  const client = await getClient(scope, id);
 
   if (!client) {
     notFound();
   }
 
+  // Owner reassignment is an admin-only control, so the list is only
+  // fetched for an admin and the field is simply absent for sales users.
+  const owners =
+    scope.user.role === "admin" ? await listAssignableOwners() : [];
   const updateAction = updateClientAction.bind(null, client.id);
 
   return (
@@ -34,6 +40,12 @@ export default async function EditClientPage({ params }: EditClientPageProps) {
         description="Update this client's contact and billing information."
       />
       <ClientForm
+        owners={owners.map((owner) => ({
+          id: owner.id,
+          name: owner.name,
+          role: owner.role,
+        }))}
+        ownerUserId={client.ownerUserId}
         action={updateAction}
         submitLabel="Save changes"
         initialValues={{

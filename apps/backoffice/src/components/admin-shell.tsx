@@ -2,12 +2,15 @@ import { ShieldCheck } from "lucide-react";
 
 import { MobileNavigation } from "@/components/mobile-navigation";
 import { PrimaryNavigation } from "@/components/primary-navigation";
+import { ThemeToggle } from "@/components/theme-toggle";
+import type { SessionUser } from "@/lib/server/session";
 
 interface AdminShellProps {
   children: React.ReactNode;
+  user: SessionUser;
 }
 
-export function AdminShell({ children }: AdminShellProps) {
+export function AdminShell({ children, user }: AdminShellProps) {
   return (
     <div className="min-h-screen lg:grid lg:grid-cols-[17.5rem_minmax(0,1fr)]">
       <aside className="sticky top-0 hidden h-screen border-r border-line/80 bg-panel/92 px-5 py-6 backdrop-blur-xl lg:flex lg:flex-col">
@@ -30,7 +33,17 @@ export function AdminShell({ children }: AdminShellProps) {
         </div>
 
         <div className="mt-10 flex-1">
-          <PrimaryNavigation />
+          <PrimaryNavigation role={user.role} />
+        </div>
+
+        <div className="mb-4 flex items-center justify-between gap-3 px-1">
+          <div className="min-w-0">
+            <p className="truncate text-sm font-semibold text-ink">{user.name}</p>
+            <p className="mt-0.5 truncate text-xs text-muted capitalize">
+              {user.role}
+            </p>
+          </div>
+          <ThemeToggle />
         </div>
 
         <div className="rounded-2xl border border-line bg-canvas/35 p-4">
@@ -45,7 +58,7 @@ export function AdminShell({ children }: AdminShellProps) {
       </aside>
 
       <div className="min-w-0">
-        <MobileNavigation />
+        <MobileNavigation role={user.role} />
         <main className="mx-auto w-full max-w-[100rem] px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-10 xl:px-12">
           <div className="page-enter">{children}</div>
         </main>

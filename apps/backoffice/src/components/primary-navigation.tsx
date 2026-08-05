@@ -3,10 +3,16 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { navigationItems } from "@/components/navigation-items";
+import { navigationFor } from "@/components/navigation-items";
+import type { UserRole } from "@/lib/server/session";
 
-export function PrimaryNavigation() {
+interface PrimaryNavigationProps {
+  role: UserRole;
+}
+
+export function PrimaryNavigation({ role }: PrimaryNavigationProps) {
   const pathname = usePathname();
+  const items = navigationFor(role);
 
   return (
     <nav aria-label="Primary navigation">
@@ -14,7 +20,7 @@ export function PrimaryNavigation() {
         Workspace
       </p>
       <ul className="mt-3 space-y-1.5">
-        {navigationItems.map((item) => {
+        {items.map((item) => {
           const isActive =
             pathname === item.href || pathname.startsWith(`${item.href}/`);
           const Icon = item.icon;
@@ -27,7 +33,7 @@ export function PrimaryNavigation() {
                 className={`group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors ${
                   isActive
                     ? "bg-accent/14 text-ink ring-1 ring-accent/20"
-                    : "text-muted hover:bg-white/[0.035] hover:text-ink"
+                    : "text-muted hover:bg-overlay-strong hover:text-ink"
                 }`}
               >
                 <Icon

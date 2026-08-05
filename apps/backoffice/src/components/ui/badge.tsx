@@ -3,7 +3,7 @@ import type { HTMLAttributes } from "react";
 export type BadgeTone = "neutral" | "info" | "success" | "warning" | "danger";
 
 const toneClasses: Record<BadgeTone, string> = {
-  neutral: "border-line bg-white/[0.045] text-muted",
+  neutral: "border-line bg-overlay-strong text-muted",
   info: "border-accent/25 bg-accent/10 text-accent",
   success: "border-success/25 bg-success/10 text-success",
   warning: "border-warning/25 bg-warning/10 text-warning",

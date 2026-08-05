@@ -5,11 +5,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-import { navigationItems } from "@/components/navigation-items";
+import { navigationFor } from "@/components/navigation-items";
+import { ThemeToggle } from "@/components/theme-toggle";
+import type { UserRole } from "@/lib/server/session";
 
-export function MobileNavigation() {
+interface MobileNavigationProps {
+  role: UserRole;
+}
+
+export function MobileNavigation({ role }: MobileNavigationProps) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const items = navigationFor(role);
 
   return (
     <header className="sticky top-0 z-40 border-b border-line/80 bg-canvas/88 px-4 py-3 backdrop-blur-xl lg:hidden">
@@ -24,20 +31,25 @@ export function MobileNavigation() {
           </span>
           <span className="text-xs font-bold tracking-[0.15em]">ENZTRONIC</span>
         </Link>
-        <button
-          type="button"
-          aria-expanded={isOpen}
-          aria-controls="mobile-navigation-panel"
-          aria-label={isOpen ? "Close navigation" : "Open navigation"}
-          onClick={() => setIsOpen((current) => !current)}
-          className="grid size-10 place-items-center rounded-xl border border-line bg-panel text-ink transition-colors hover:bg-panel-raised"
-        >
-          {isOpen ? (
-            <X aria-hidden="true" className="size-5" />
-          ) : (
-            <Menu aria-hidden="true" className="size-5" />
-          )}
-        </button>
+        {/* Kept in the bar rather than inside the menu panel: switching theme
+            should not require opening navigation first. */}
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <button
+            type="button"
+            aria-expanded={isOpen}
+            aria-controls="mobile-navigation-panel"
+            aria-label={isOpen ? "Close navigation" : "Open navigation"}
+            onClick={() => setIsOpen((current) => !current)}
+            className="grid size-10 place-items-center rounded-xl border border-line bg-panel text-ink transition-colors hover:bg-panel-raised"
+          >
+            {isOpen ? (
+              <X aria-hidden="true" className="size-5" />
+            ) : (
+              <Menu aria-hidden="true" className="size-5" />
+            )}
+          </button>
+        </div>
       </div>
 
       {isOpen ? (
@@ -47,7 +59,7 @@ export function MobileNavigation() {
           className="absolute inset-x-0 top-full border-b border-line bg-panel p-4 shadow-2xl"
         >
           <ul className="grid gap-2 sm:grid-cols-2">
-            {navigationItems.map((item) => {
+            {items.map((item) => {
               const isActive =
                 pathname === item.href || pathname.startsWith(`${item.href}/`);
               const Icon = item.icon;
@@ -61,7 +73,7 @@ export function MobileNavigation() {
                     className={`flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium ${
                       isActive
                         ? "bg-accent/14 text-ink ring-1 ring-accent/20"
-                        : "text-muted hover:bg-white/[0.04] hover:text-ink"
+                        : "text-muted hover:bg-overlay-strong hover:text-ink"
                     }`}
                   >
                     <Icon

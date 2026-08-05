@@ -5,6 +5,7 @@ import { z } from "zod";
 
 import { minorUnitsToDecimal } from "@/lib/money";
 import type { AuditActor } from "@/lib/server/db";
+import type { AccessScope } from "@/lib/server/session";
 import { getEmailEnv } from "@/lib/env";
 import { sendInvoiceEmail } from "@/lib/server/email";
 import {
@@ -188,6 +189,7 @@ function r2IsConfigured(): boolean {
 }
 
 export async function generateInvoicePdf(
+  scope: AccessScope,
   invoice: InvoiceDetail,
   actor?: AuditActor,
 ): Promise<GeneratedInvoicePdf> {
@@ -219,6 +221,7 @@ export async function generateInvoicePdf(
     },
   });
   await recordInvoicePdf(
+    scope,
     {
       invoiceId: invoice.id,
       snapshotId: record.id,
@@ -241,6 +244,7 @@ export async function generateInvoicePdf(
 }
 
 export async function deliverInvoiceEmail(
+  scope: AccessScope,
   invoice: InvoiceDetail,
   actor?: AuditActor,
 ): Promise<InvoiceDeliveryResult> {
@@ -276,7 +280,7 @@ export async function deliverInvoiceEmail(
   }
 
   try {
-    const pdf = await generateInvoicePdf(invoice, actor);
+    const pdf = await generateInvoicePdf(scope, invoice, actor);
     const totalAmount = minorUnitsToDecimal(
       payload.invoice.totals.totalMinor,
       payload.invoice.currencyFractionDigits,

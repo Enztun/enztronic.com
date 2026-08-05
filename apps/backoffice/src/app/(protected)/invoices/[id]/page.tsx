@@ -34,6 +34,7 @@ import { PageHeader } from "@/components/ui/page-header";
 import { TableShell } from "@/components/ui/table-shell";
 import { listClients } from "@/lib/server/clients";
 import { getInvoice } from "@/lib/server/invoices";
+import { getAccessScope } from "@/lib/server/session";
 
 export const metadata: Metadata = {
   title: "Invoice detail",
@@ -47,13 +48,15 @@ interface InvoiceDetailPageProps {
 
 export default async function InvoiceDetailPage({ params }: InvoiceDetailPageProps) {
   const { id } = await params;
-  const invoice = await getInvoice(id);
+  const scope = await getAccessScope();
+  const invoice = await getInvoice(scope, id);
 
   if (!invoice) {
     notFound();
   }
 
-  const clients = invoice.status === "draft" ? await listClients() : [];
+  const clients = invoice.status === "draft" ? await listClients(scope) : [];
+  const canManageBilling = scope.user.role === "admin";
   const updateAction = updateDraftInvoiceAction.bind(null, invoice.id);
   const finalizeAction = finalizeInvoiceAction.bind(null, invoice.id);
   const voidAction = voidInvoiceAction.bind(null, invoice.id);
@@ -128,6 +131,7 @@ export default async function InvoiceDetailPage({ params }: InvoiceDetailPagePro
           />
           <section className="mt-8 max-w-sm" aria-label="Invoice actions">
             <InvoiceActions
+              canManageBilling={canManageBilling}
               status="draft"
               version={invoice.version}
               currency={invoice.currency}
@@ -178,7 +182,7 @@ export default async function InvoiceDetailPage({ params }: InvoiceDetailPagePro
             </section>
 
             <TableShell label={`Line items for ${invoiceLabel}`}>
-              <thead className="border-b border-line bg-white/[0.018]">
+              <thead className="border-b border-line bg-overlay-strong">
                 <tr className="text-xs font-semibold tracking-[0.08em] text-muted uppercase">
                   <th scope="col" className="px-5 py-4 sm:px-6">Description</th>
                   <th scope="col" className="px-5 py-4 text-right">Qty</th>
@@ -204,7 +208,7 @@ export default async function InvoiceDetailPage({ params }: InvoiceDetailPagePro
                   </tr>
                 ))}
               </tbody>
-              <tfoot className="border-t border-line bg-white/[0.018] text-sm">
+              <tfoot className="border-t border-line bg-overlay-strong text-sm">
                 <tr>
                   <th scope="row" colSpan={4} className="px-5 py-3 text-right font-medium text-muted">
                     Subtotal
@@ -262,7 +266,7 @@ export default async function InvoiceDetailPage({ params }: InvoiceDetailPagePro
                   </p>
                 </div>
                 <TableShell label={`Payments for ${invoiceLabel}`}>
-                  <thead className="border-b border-line bg-white/[0.018]">
+                  <thead className="border-b border-line bg-overlay-strong">
                     <tr className="text-xs font-semibold tracking-[0.08em] text-muted uppercase">
                       <th scope="col" className="px-5 py-4 sm:px-6">Entry</th>
                       <th scope="col" className="px-5 py-4">Date</th>
@@ -300,6 +304,7 @@ export default async function InvoiceDetailPage({ params }: InvoiceDetailPagePro
 
           <aside aria-label="Invoice actions" className="xl:sticky xl:top-10 xl:self-start">
             <InvoiceActions
+              canManageBilling={canManageBilling}
               status={invoice.effectiveStatus}
               version={invoice.version}
               currency={invoice.currency}

@@ -1,6 +1,5 @@
 "use server";
 
-import { headers } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
@@ -9,13 +8,21 @@ import {
   currencyFractionDigits,
   parseMinorUnits,
 } from "@/lib/money";
-import { authenticateAccessHeaders } from "@/lib/server/auth";
 import {
   updateBusinessProfile,
   type BusinessProfileInput,
 } from "@/lib/server/business";
 import { createClient, updateClient, type ClientInput } from "@/lib/server/clients";
 import type { AuditActor } from "@/lib/server/db";
+import {
+  archiveUser,
+  auditActor,
+  createUser,
+  getAccessScope,
+  requireAdmin,
+  updateUser,
+  type AccessScope,
+} from "@/lib/server/session";
 import { deliverInvoiceEmail } from "@/lib/server/invoice-delivery";
 import {
   createDraftInvoice,
@@ -59,9 +66,23 @@ function positiveVersion(formData: FormData): number {
   return value;
 }
 
-async function ownerActor(): Promise<AuditActor> {
-  const identity = await authenticateAccessHeaders(await headers());
-  return { type: "owner", id: identity.email };
+type ActingContext = { scope: AccessScope; actor: AuditActor };
+
+/** Any signed-in, provisioned operator. Reads are still scoped by role. */
+async function acting(): Promise<ActingContext> {
+  const scope = await getAccessScope();
+  return { scope, actor: auditActor(scope.user) };
+}
+
+/**
+ * Admin-only context. Guards the money paths -- finalizing, voiding, recording
+ * payments, emailing an invoice, and business settings -- so that a sales user
+ * can prepare work but never issue an invoice number or move money.
+ */
+async function actingAsAdmin(): Promise<ActingContext> {
+  const context = await acting();
+  requireAdmin(context.scope.user);
+  return context;
 }
 
 function decimalAmountToMinor(value: string, currency: string): bigint {
@@ -95,7 +116,18 @@ function taxPercentToBasisPoints(value: string): number {
   return basisPoints;
 }
 
-function clientInput(formData: FormData): ClientInput {
+function clientInput(formData: FormData, scope: AccessScope): ClientInput {
+  // Only an admin may nominate an owner; the field is not rendered for sales
+  // users, and ignoring it here means a forged form post cannot set it either.
+  const ownerUserId =
+    scope.user.role === "admin"
+      ? z
+          .string()
+          .uuid()
+          .nullable()
+          .parse(optionalFormString(formData, "owner_user_id"))
+      : undefined;
+
   const parsed = z
     .object({
       name: z.string().trim().min(1).max(160),
@@ -130,6 +162,7 @@ function clientInput(formData: FormData): ClientInput {
     email: parsed.email,
     phone: parsed.phone,
     taxId: parsed.taxId,
+    ownerUserId,
     defaultCurrency: "IDR",
     billingAddress: {
       line1: parsed.line1 ?? undefined,
@@ -275,8 +308,8 @@ function businessInput(formData: FormData): {
 }
 
 export async function createClientAction(formData: FormData): Promise<void> {
-  const actor = await ownerActor();
-  const client = await createClient(clientInput(formData), actor);
+  const { scope, actor } = await acting();
+  const client = await createClient(scope, clientInput(formData, scope), actor);
   revalidatePath("/clients");
   redirect(`/clients/${client.id}/edit`);
 }
@@ -285,17 +318,23 @@ export async function updateClientAction(
   id: string,
   formData: FormData,
 ): Promise<void> {
-  const actor = await ownerActor();
+  const { scope, actor } = await acting();
   const clientId = Uuid.parse(id);
-  await updateClient(clientId, clientInput(formData), positiveVersion(formData), actor);
+  await updateClient(
+    scope,
+    clientId,
+    clientInput(formData, scope),
+    positiveVersion(formData),
+    actor,
+  );
   revalidatePath("/clients");
   revalidatePath(`/clients/${clientId}/edit`);
   redirect("/clients");
 }
 
 export async function createInvoiceAction(formData: FormData): Promise<void> {
-  const actor = await ownerActor();
-  const invoice = await createDraftInvoice(invoiceInput(formData), actor);
+  const { scope, actor } = await acting();
+  const invoice = await createDraftInvoice(scope, invoiceInput(formData), actor);
   revalidatePath("/dashboard");
   revalidatePath("/invoices");
   redirect(`/invoices/${invoice.id}`);
@@ -305,9 +344,10 @@ export async function updateDraftInvoiceAction(
   id: string,
   formData: FormData,
 ): Promise<void> {
-  const actor = await ownerActor();
+  const { scope, actor } = await acting();
   const invoiceId = Uuid.parse(id);
   await updateDraftInvoice(
+    scope,
     invoiceId,
     invoiceInput(formData),
     positiveVersion(formData),
@@ -323,10 +363,10 @@ export async function finalizeInvoiceAction(
   id: string,
   formData: FormData,
 ): Promise<void> {
-  const actor = await ownerActor();
+  const { scope, actor } = await actingAsAdmin();
   const invoiceId = Uuid.parse(id);
   const version = positiveVersion(formData);
-  await finalizeInvoice(invoiceId, version, `finalize:${invoiceId}:v${version}`, actor);
+  await finalizeInvoice(scope, invoiceId, version, `finalize:${invoiceId}:v${version}`, actor);
   revalidatePath("/dashboard");
   revalidatePath("/invoices");
   revalidatePath(`/invoices/${invoiceId}`);
@@ -337,7 +377,7 @@ export async function voidInvoiceAction(
   id: string,
   formData: FormData,
 ): Promise<void> {
-  const actor = await ownerActor();
+  const { scope, actor } = await actingAsAdmin();
   const invoiceId = Uuid.parse(id);
   const reason = z
     .string()
@@ -345,7 +385,7 @@ export async function voidInvoiceAction(
     .min(3)
     .max(1_000)
     .parse(formString(formData, "reason"));
-  await voidInvoice(invoiceId, positiveVersion(formData), reason, actor);
+  await voidInvoice(scope, invoiceId, positiveVersion(formData), reason, actor);
   revalidatePath("/dashboard");
   revalidatePath("/invoices");
   revalidatePath(`/invoices/${invoiceId}`);
@@ -356,12 +396,13 @@ export async function recordPaymentAction(
   id: string,
   formData: FormData,
 ): Promise<void> {
-  const actor = await ownerActor();
+  const { scope, actor } = await actingAsAdmin();
   const invoiceId = Uuid.parse(id);
   const currency = Currency.parse(formString(formData, "currency").toUpperCase());
   const paidOn = CalendarDate.parse(formString(formData, "paid_on"));
   const version = positiveVersion(formData);
   await recordPayment(
+    scope,
     {
       invoiceId,
       amountMinor: decimalAmountToMinor(formString(formData, "amount"), currency),
@@ -389,21 +430,69 @@ export async function emailInvoiceAction(
   _formData: FormData,
 ): Promise<void> {
   void _formData;
-  const actor = await ownerActor();
+  const { scope, actor } = await actingAsAdmin();
   const invoiceId = Uuid.parse(id);
-  const invoice = await getInvoice(invoiceId);
+  const invoice = await getInvoice(scope, invoiceId);
   if (!invoice || invoice.status === "draft" || invoice.status === "void") {
     throw new Error("Only a finalized active invoice can be emailed");
   }
-  await deliverInvoiceEmail(invoice, actor);
+  await deliverInvoiceEmail(scope, invoice, actor);
   revalidatePath(`/invoices/${invoiceId}`);
   redirect(`/invoices/${invoiceId}`);
 }
 
 export async function saveSettingsAction(formData: FormData): Promise<void> {
-  const actor = await ownerActor();
+  const { actor } = await actingAsAdmin();
   const { input, version } = businessInput(formData);
   await updateBusinessProfile(input, version, actor);
   revalidatePath("/settings");
   redirect("/settings");
+}
+
+// -- team administration ----------------------------------------------------
+
+function userInput(formData: FormData) {
+  const commissionPercent = optionalFormString(formData, "commission_percent") ?? "0";
+  if (!/^(?:0|[1-9]\d{0,2})(?:\.\d{1,2})?$/.test(commissionPercent)) {
+    throw new Error("Commission must be a percentage between 0 and 100");
+  }
+  const [whole, fraction = ""] = commissionPercent.split(".");
+  const commissionRateBps = Number(whole) * 100 + Number(fraction.padEnd(2, "0"));
+  if (commissionRateBps > 10_000) {
+    throw new Error("Commission must be a percentage between 0 and 100");
+  }
+
+  return {
+    email: formString(formData, "email"),
+    name: formString(formData, "name"),
+    role: z.enum(["admin", "sales"]).parse(formString(formData, "role")),
+    commissionRateBps,
+  };
+}
+
+export async function createUserAction(formData: FormData): Promise<void> {
+  const { actor } = await actingAsAdmin();
+  await createUser(userInput(formData), actor);
+  revalidatePath("/team");
+  redirect("/team");
+}
+
+export async function updateUserAction(
+  id: string,
+  formData: FormData,
+): Promise<void> {
+  const { actor } = await actingAsAdmin();
+  await updateUser(Uuid.parse(id), userInput(formData), positiveVersion(formData), actor);
+  revalidatePath("/team");
+  redirect("/team");
+}
+
+export async function archiveUserAction(
+  id: string,
+  formData: FormData,
+): Promise<void> {
+  const { actor } = await actingAsAdmin();
+  await archiveUser(Uuid.parse(id), positiveVersion(formData), actor);
+  revalidatePath("/team");
+  redirect("/team");
 }

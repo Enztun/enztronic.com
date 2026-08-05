@@ -8,6 +8,7 @@ import {
   getDb,
   type AuditActor,
 } from '@/lib/server/db';
+import { AuthorizationError, type AccessScope } from '@/lib/server/session';
 
 const IdSchema = z.string().uuid();
 const BillingAddressSchema = z
@@ -29,6 +30,7 @@ const ClientInputSchema = z.object({
   taxId: z.string().trim().max(80).nullish(),
   billingAddress: BillingAddressSchema.optional(),
   defaultCurrency: z.string().trim().length(3).optional(),
+  ownerUserId: z.string().uuid().nullish(),
 });
 
 const ClientListOptionsSchema = z.object({
@@ -48,6 +50,7 @@ export type ClientInput = {
   taxId?: string | null;
   billingAddress?: BillingAddress;
   defaultCurrency?: string;
+  ownerUserId?: string | null;
 };
 
 export type ClientListOptions = {
@@ -66,6 +69,8 @@ export type ClientRecord = {
   taxId: string | null;
   billingAddress: BillingAddress;
   defaultCurrency: string;
+  ownerUserId: string | null;
+  ownerName: string | null;
   archivedAt: string | null;
   version: number;
   createdAt: string;
@@ -81,6 +86,8 @@ type ClientRow = {
   tax_id: string | null;
   billing_address: BillingAddress;
   default_currency: string;
+  owner_user_id: string | null;
+  owner_name: string | null;
   archived_at: Date | string | null;
   version: number | string;
   created_at: Date | string;
@@ -102,6 +109,8 @@ function mapClient(row: ClientRow): ClientRecord {
     taxId: row.tax_id,
     billingAddress: row.billing_address ?? {},
     defaultCurrency: row.default_currency,
+    ownerUserId: row.owner_user_id,
+    ownerName: row.owner_name,
     archivedAt: toIso(row.archived_at),
     version: Number(row.version),
     createdAt: toIso(row.created_at)!,
@@ -121,7 +130,15 @@ function actorValues(actor: AuditActor | undefined) {
   } as const;
 }
 
+/**
+ * List clients visible to the caller.
+ *
+ * `scope` is required rather than optional on purpose: an omitted scope would
+ * silently return every client, so the type system is used to make each call
+ * site state whose view it is rendering.
+ */
 export async function listClients(
+  scope: AccessScope,
   options: ClientListOptions = {}
 ): Promise<ClientRecord[]> {
   const parsed = ClientListOptionsSchema.parse(options);
@@ -129,53 +146,95 @@ export async function listClients(
   const search = parsed.search ? `%${parsed.search}%` : null;
   const limit = parsed.limit ?? 50;
   const offset = parsed.offset ?? 0;
+  const owner = scope.ownerUserId;
 
   const rows = await sql<ClientRow[]>`
     SELECT
-      id, name, company_name, email, phone, tax_id, billing_address,
-      default_currency, archived_at, version, created_at, updated_at
-    FROM backoffice.clients
+      c.id, c.name, c.company_name, c.email, c.phone, c.tax_id,
+      c.billing_address, c.default_currency, c.owner_user_id,
+      u.name AS owner_name,
+      c.archived_at, c.version, c.created_at, c.updated_at
+    FROM backoffice.clients c
+    LEFT JOIN backoffice.users u ON u.id = c.owner_user_id
     WHERE
-      (${parsed.includeArchived ?? false} OR archived_at IS NULL)
+      (${parsed.includeArchived ?? false} OR c.archived_at IS NULL)
+      AND (${owner}::uuid IS NULL OR c.owner_user_id = ${owner})
       AND (
         ${search}::text IS NULL
-        OR name ILIKE ${search}
-        OR company_name ILIKE ${search}
-        OR email ILIKE ${search}
+        OR c.name ILIKE ${search}
+        OR c.company_name ILIKE ${search}
+        OR c.email ILIKE ${search}
       )
-    ORDER BY archived_at NULLS FIRST, lower(name), created_at DESC
+    ORDER BY c.archived_at NULLS FIRST, lower(c.name), c.created_at DESC
     LIMIT ${limit}
     OFFSET ${offset}
   `;
   return rows.map(mapClient);
 }
 
-export async function getClient(id: string): Promise<ClientRecord | null> {
+/**
+ * Fetch one client, or null when it does not exist *or* is not visible to the
+ * caller. The two cases are deliberately indistinguishable so that a sales
+ * user cannot probe for the existence of clients they do not own.
+ */
+export async function getClient(
+  scope: AccessScope,
+  id: string
+): Promise<ClientRecord | null> {
   const clientId = IdSchema.parse(id);
   const sql = getDb();
+  const owner = scope.ownerUserId;
+
   const [row] = await sql<ClientRow[]>`
     SELECT
-      id, name, company_name, email, phone, tax_id, billing_address,
-      default_currency, archived_at, version, created_at, updated_at
-    FROM backoffice.clients
-    WHERE id = ${clientId}
+      c.id, c.name, c.company_name, c.email, c.phone, c.tax_id,
+      c.billing_address, c.default_currency, c.owner_user_id,
+      u.name AS owner_name,
+      c.archived_at, c.version, c.created_at, c.updated_at
+    FROM backoffice.clients c
+    LEFT JOIN backoffice.users u ON u.id = c.owner_user_id
+    WHERE c.id = ${clientId}
+      AND (${owner}::uuid IS NULL OR c.owner_user_id = ${owner})
   `;
   return row ? mapClient(row) : null;
 }
 
+/** Guard for write paths: resolves the client or refuses. */
+export async function requireVisibleClient(
+  scope: AccessScope,
+  id: string
+): Promise<ClientRecord> {
+  const client = await getClient(scope, id);
+  if (!client) {
+    throw new AuthorizationError('That client is not available to you');
+  }
+  return client;
+}
+
+/**
+ * Create a client.
+ *
+ * A sales user always owns what they create -- an unassigned client would be
+ * invisible to them the moment it was saved. Only an admin may hand a client
+ * to someone else, or leave it unassigned.
+ */
 export async function createClient(
+  scope: AccessScope,
   input: ClientInput,
   actor?: AuditActor
 ): Promise<ClientRecord> {
   const parsed = ClientInputSchema.parse(input);
   const auditActor = actorValues(actor);
   const currency = normalizeCurrency(parsed.defaultCurrency ?? 'IDR');
+  const ownerUserId =
+    scope.user.role === 'admin' ? parsed.ownerUserId ?? null : scope.user.id;
   const sql = getDb();
 
   const row = await sql.begin(async (transaction) => {
     const [created] = await transaction<ClientRow[]>`
       INSERT INTO backoffice.clients (
-        name, company_name, email, phone, tax_id, billing_address, default_currency
+        name, company_name, email, phone, tax_id, billing_address,
+        default_currency, owner_user_id
       ) VALUES (
         ${parsed.name},
         ${normalizeOptional(parsed.companyName)},
@@ -183,11 +242,13 @@ export async function createClient(
         ${normalizeOptional(parsed.phone)},
         ${normalizeOptional(parsed.taxId)},
         ${transaction.json(parsed.billingAddress ?? {})},
-        ${currency}
+        ${currency},
+        ${ownerUserId}
       )
       RETURNING
         id, name, company_name, email, phone, tax_id, billing_address,
-        default_currency, archived_at, version, created_at, updated_at
+        default_currency, owner_user_id, NULL::text AS owner_name,
+        archived_at, version, created_at, updated_at
     `;
 
     await transaction`
@@ -205,6 +266,7 @@ export async function createClient(
 }
 
 export async function updateClient(
+  scope: AccessScope,
   id: string,
   input: ClientInput,
   expectedVersion: number,
@@ -215,6 +277,13 @@ export async function updateClient(
   if (!Number.isInteger(expectedVersion) || expectedVersion < 1) {
     throw new DomainError('VALIDATION_ERROR', 'Expected version must be positive');
   }
+
+  // Refuses before any write if the client is outside the caller's scope.
+  const current = await requireVisibleClient(scope, clientId);
+  // Reassignment is an admin power; a sales user cannot give a client away
+  // (nor keep one by rewriting the field).
+  const ownerUserId =
+    scope.user.role === 'admin' ? parsed.ownerUserId ?? null : current.ownerUserId;
 
   const auditActor = actorValues(actor);
   const currency = normalizeCurrency(parsed.defaultCurrency ?? 'IDR');
@@ -230,11 +299,13 @@ export async function updateClient(
         tax_id = ${normalizeOptional(parsed.taxId)},
         billing_address = ${transaction.json(parsed.billingAddress ?? {})},
         default_currency = ${currency},
+        owner_user_id = ${ownerUserId},
         version = version + 1
       WHERE id = ${clientId} AND version = ${expectedVersion}
       RETURNING
         id, name, company_name, email, phone, tax_id, billing_address,
-        default_currency, archived_at, version, created_at, updated_at
+        default_currency, owner_user_id, NULL::text AS owner_name,
+        archived_at, version, created_at, updated_at
     `;
 
     if (!updated) {
@@ -263,6 +334,7 @@ export async function updateClient(
 }
 
 export async function archiveClient(
+  scope: AccessScope,
   id: string,
   expectedVersion: number,
   actor?: AuditActor
@@ -271,6 +343,8 @@ export async function archiveClient(
   if (!Number.isInteger(expectedVersion) || expectedVersion < 1) {
     throw new DomainError('VALIDATION_ERROR', 'Expected version must be positive');
   }
+
+  await requireVisibleClient(scope, clientId);
 
   const auditActor = actorValues(actor);
   const sql = getDb();
@@ -281,7 +355,8 @@ export async function archiveClient(
       WHERE id = ${clientId} AND version = ${expectedVersion}
       RETURNING
         id, name, company_name, email, phone, tax_id, billing_address,
-        default_currency, archived_at, version, created_at, updated_at
+        default_currency, owner_user_id, NULL::text AS owner_name,
+        archived_at, version, created_at, updated_at
     `;
 
     if (!archived) {

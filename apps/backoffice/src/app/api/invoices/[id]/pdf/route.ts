@@ -6,6 +6,7 @@ import {
   authenticateAccessHeaders,
 } from "@/lib/server/auth";
 import { generateInvoicePdf } from "@/lib/server/invoice-delivery";
+import { getAccessScope } from "@/lib/server/session";
 import { getInvoice } from "@/lib/server/invoices";
 import { PdfRenderError } from "@/lib/server/pdf";
 
@@ -34,7 +35,8 @@ export async function GET(request: Request, context: PdfRouteContext) {
   const invoiceId = z.string().uuid().safeParse(id);
   if (!invoiceId.success) return new Response("Not found", { status: 404 });
 
-  const invoice = await getInvoice(invoiceId.data);
+  const scope = await getAccessScope();
+  const invoice = await getInvoice(scope, invoiceId.data);
   if (!invoice) return new Response("Not found", { status: 404 });
   if (invoice.status === "draft" || !invoice.snapshot) {
     return new Response("Finalize the invoice before generating its PDF", {
@@ -44,7 +46,7 @@ export async function GET(request: Request, context: PdfRouteContext) {
   }
 
   try {
-    const pdf = await generateInvoicePdf(invoice, {
+    const pdf = await generateInvoicePdf(scope, invoice, {
       type: "owner",
       id: identity.email,
     });

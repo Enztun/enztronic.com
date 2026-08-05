@@ -5,6 +5,7 @@ import { buttonStyles } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { Select } from "@/components/ui/select";
 import { SubmitButton } from "@/components/ui/submit-button";
 
 export interface ClientFormValues {
@@ -23,16 +24,30 @@ export interface ClientFormValues {
   country?: string | null;
 }
 
+export interface ClientOwnerOption {
+  id: string;
+  name: string;
+  role: string;
+}
+
 export interface ClientFormProps {
   action: (formData: FormData) => void | Promise<void>;
   initialValues?: ClientFormValues;
   submitLabel: string;
+  /**
+   * Admin-only. Empty for a sales user, whose clients are always their own --
+   * the server ignores this field for them regardless of what is posted.
+   */
+  owners?: ClientOwnerOption[];
+  ownerUserId?: string | null;
 }
 
 export function ClientForm({
   action,
   initialValues,
   submitLabel,
+  owners = [],
+  ownerUserId,
 }: ClientFormProps) {
   return (
     <form action={action} className="mt-8 max-w-5xl">
@@ -98,6 +113,27 @@ export function ClientForm({
               placeholder="NPWP or local tax identifier"
             />
           </Field>
+          {owners.length ? (
+            <Field
+              label="Account owner"
+              htmlFor="owner_user_id"
+              className="sm:col-span-2"
+            >
+              <Select
+                id="owner_user_id"
+                name="owner_user_id"
+                defaultValue={ownerUserId ?? ""}
+              >
+                <option value="">Unassigned (admins only)</option>
+                {owners.map((owner) => (
+                  <option key={owner.id} value={owner.id}>
+                    {owner.name} &middot; {owner.role}
+                  </option>
+                ))}
+              </Select>
+            </Field>
+          ) : null}
+
           <Field label="Address line 1" htmlFor="address_line1">
             <Input
               id="address_line1"

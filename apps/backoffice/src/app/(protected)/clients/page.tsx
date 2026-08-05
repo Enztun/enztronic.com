@@ -9,6 +9,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { PageHeader } from "@/components/ui/page-header";
 import { TableShell } from "@/components/ui/table-shell";
 import { listClients } from "@/lib/server/clients";
+import { getAccessScope } from "@/lib/server/session";
 
 export const metadata: Metadata = {
   title: "Clients",
@@ -17,7 +18,8 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function ClientsPage() {
-  const clients = await listClients();
+  const scope = await getAccessScope();
+  const clients = await listClients(scope);
 
   return (
     <>
@@ -36,7 +38,7 @@ export default async function ClientsPage() {
       <div className="mt-8">
         {clients.length ? (
           <TableShell label="Clients">
-            <thead className="border-b border-line bg-white/[0.018]">
+            <thead className="border-b border-line bg-overlay-strong">
               <tr className="text-xs font-semibold tracking-[0.08em] text-muted uppercase">
                 <th scope="col" className="px-5 py-4 sm:px-6">Client</th>
                 <th scope="col" className="px-5 py-4">Contact</th>
@@ -52,7 +54,7 @@ export default async function ClientsPage() {
                   .join(", ");
 
                 return (
-                  <tr key={client.id} className="text-sm transition-colors hover:bg-white/[0.02]">
+                  <tr key={client.id} className="text-sm transition-colors hover:bg-overlay-strong">
                     <td className="px-5 py-4 sm:px-6">
                       <div className="flex items-center gap-3">
                         <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-accent/10 text-xs font-bold text-accent">

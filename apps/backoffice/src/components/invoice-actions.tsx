@@ -11,6 +11,12 @@ import { currentDateInTimeZone } from "@/lib/calendar";
 type InvoiceAction = (formData: FormData) => void | Promise<void>;
 
 export interface InvoiceActionsProps {
+  /**
+   * Sales users may prepare drafts but never issue an invoice number, void
+   * one, take a payment, or email a client. The server actions enforce this
+   * independently; hiding the controls just avoids offering dead buttons.
+   */
+  canManageBilling: boolean;
   status: InvoiceStatus;
   version: number;
   currency: string;
@@ -22,6 +28,7 @@ export interface InvoiceActionsProps {
 }
 
 export function InvoiceActions({
+  canManageBilling,
   status,
   version,
   currency,
@@ -32,13 +39,16 @@ export function InvoiceActions({
   emailAction,
 }: InvoiceActionsProps) {
   const paymentDateInputValue = currentDateInTimeZone("Asia/Jakarta");
-  const canCollectPayment = status === "sent" || status === "overdue";
-  const canEmail = status !== "draft" && status !== "void";
-  const canVoid = status === "sent" || status === "overdue";
+  const canCollectPayment =
+    canManageBilling && (status === "sent" || status === "overdue");
+  const canEmail =
+    canManageBilling && status !== "draft" && status !== "void";
+  const canVoid =
+    canManageBilling && (status === "sent" || status === "overdue");
 
   return (
     <div className="space-y-4">
-      {status === "draft" ? (
+      {status === "draft" && canManageBilling ? (
         <Card className="p-5">
           <div className="flex items-start gap-3">
             <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-accent/10 text-accent">

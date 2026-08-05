@@ -16,6 +16,7 @@ import {
   getDb,
   type AuditActor,
 } from '@/lib/server/db';
+import type { AccessScope } from '@/lib/server/session';
 
 export type PersistedInvoiceStatus = 'draft' | 'sent' | 'paid' | 'void';
 export type InvoiceDisplayStatus = PersistedInvoiceStatus | 'overdue';
@@ -560,13 +561,18 @@ function canonicalJson(value: unknown): string {
     .join(',')}}`;
 }
 
-async function requireInvoice(id: string) {
-  const invoice = await getInvoice(id);
+async function requireInvoice(scope: AccessScope, id: string) {
+  const invoice = await getInvoice(scope, id);
   if (!invoice) throw new DomainError('NOT_FOUND', 'Invoice not found');
   return invoice;
 }
 
+/**
+ * List invoices visible to the caller. Invoice visibility follows the owning
+ * client, so a sales user sees billing only for their own accounts.
+ */
 export async function listInvoices(
+  scope: AccessScope,
   options: InvoiceListOptions = {}
 ): Promise<InvoiceSummary[]> {
   const parsed = InvoiceListOptionsSchema.parse(options);
@@ -575,6 +581,7 @@ export async function listInvoices(
   const status = parsed.status ?? 'all';
   const limit = parsed.limit ?? 50;
   const offset = parsed.offset ?? 0;
+  const owner = scope.ownerUserId;
 
   const rows = await sql<InvoiceSummaryRow[]>`
     SELECT
@@ -612,7 +619,8 @@ export async function listInvoices(
       WHERE p.invoice_id = i.id
     ) payments ON true
     WHERE
-      (${parsed.clientId ?? null}::uuid IS NULL OR i.client_id = ${parsed.clientId ?? null})
+      (${owner}::uuid IS NULL OR c.owner_user_id = ${owner})
+      AND (${parsed.clientId ?? null}::uuid IS NULL OR i.client_id = ${parsed.clientId ?? null})
       AND (
         ${search}::text IS NULL
         OR i.invoice_number ILIKE ${search}
@@ -644,9 +652,17 @@ export async function listInvoices(
   return rows.map(mapInvoiceSummary);
 }
 
-export async function getInvoice(id: string): Promise<InvoiceDetail | null> {
+/**
+ * Fetch one invoice, or null when it does not exist *or* belongs to a client
+ * outside the caller's scope. Indistinguishable by design.
+ */
+export async function getInvoice(
+  scope: AccessScope,
+  id: string
+): Promise<InvoiceDetail | null> {
   const invoiceId = UuidSchema.parse(id);
   const sql = getDb();
+  const owner = scope.ownerUserId;
   const [row] = await sql<InvoiceSummaryRow[]>`
     SELECT
       i.id,
@@ -683,6 +699,7 @@ export async function getInvoice(id: string): Promise<InvoiceDetail | null> {
       WHERE p.invoice_id = i.id
     ) payments ON true
     WHERE i.id = ${invoiceId}
+      AND (${owner}::uuid IS NULL OR c.owner_user_id = ${owner})
   `;
   if (!row) return null;
 
@@ -723,6 +740,7 @@ export async function getInvoice(id: string): Promise<InvoiceDetail | null> {
 }
 
 export async function createDraftInvoice(
+  scope: AccessScope,
   input: InvoiceDraftInput,
   actor?: AuditActor
 ): Promise<InvoiceDetail> {
@@ -730,9 +748,12 @@ export async function createDraftInvoice(
   const auditActor = actorValues(actor);
   const sql = getDb();
   const invoiceId = await sql.begin(async (transaction) => {
+    // The owner predicate belongs in this query, not in the caller: it stops a
+    // sales user from billing a client they do not own by supplying its id.
     const [client] = await transaction<{ id: string }[]>`
       SELECT id FROM backoffice.clients
       WHERE id = ${draft.clientId} AND archived_at IS NULL
+        AND (${scope.ownerUserId}::uuid IS NULL OR owner_user_id = ${scope.ownerUserId})
     `;
     if (!client) throw new DomainError('NOT_FOUND', 'Active client not found');
 
@@ -774,10 +795,11 @@ export async function createDraftInvoice(
     `;
     return invoice.id;
   });
-  return requireInvoice(invoiceId);
+  return requireInvoice(scope, invoiceId);
 }
 
 export async function updateDraftInvoice(
+  scope: AccessScope,
   id: string,
   input: InvoiceDraftInput,
   expectedVersion: number,
@@ -806,9 +828,12 @@ export async function updateDraftInvoice(
       throw new DomainError('CONFLICT', 'Invoice was changed by another request');
     }
 
+    // The owner predicate belongs in this query, not in the caller: it stops a
+    // sales user from billing a client they do not own by supplying its id.
     const [client] = await transaction<{ id: string }[]>`
       SELECT id FROM backoffice.clients
       WHERE id = ${draft.clientId} AND archived_at IS NULL
+        AND (${scope.ownerUserId}::uuid IS NULL OR owner_user_id = ${scope.ownerUserId})
     `;
     if (!client) throw new DomainError('NOT_FOUND', 'Active client not found');
 
@@ -850,7 +875,7 @@ export async function updateDraftInvoice(
       )
     `;
   });
-  return requireInvoice(invoiceId);
+  return requireInvoice(scope, invoiceId);
 }
 
 type FinalizeRow = {
@@ -881,6 +906,7 @@ type FinalizeRow = {
 };
 
 export async function finalizeInvoice(
+  scope: AccessScope,
   id: string,
   expectedVersion: number,
   idempotencyKey: string,
@@ -1062,10 +1088,11 @@ export async function finalizeInvoice(
     `;
   });
 
-  return requireInvoice(invoiceId);
+  return requireInvoice(scope, invoiceId);
 }
 
 export async function voidInvoice(
+  scope: AccessScope,
   id: string,
   expectedVersion: number,
   reason: string,
@@ -1131,10 +1158,11 @@ export async function voidInvoice(
       )
     `;
   });
-  return requireInvoice(invoiceId);
+  return requireInvoice(scope, invoiceId);
 }
 
 export async function recordPayment(
+  scope: AccessScope,
   input: RecordPaymentInput,
   actor?: AuditActor
 ): Promise<InvoiceDetail> {
@@ -1227,10 +1255,11 @@ export async function recordPayment(
     `;
     return invoice.id;
   });
-  return requireInvoice(invoiceId);
+  return requireInvoice(scope, invoiceId);
 }
 
 export async function reversePayment(
+  scope: AccessScope,
   paymentId: string,
   idempotencyKey: string,
   reason?: string | null,
@@ -1315,10 +1344,11 @@ export async function reversePayment(
     `;
     return original.invoice_id;
   });
-  return requireInvoice(invoiceId);
+  return requireInvoice(scope, invoiceId);
 }
 
 export async function recordInvoicePdf(
+  scope: AccessScope,
   input: RecordInvoicePdfInput,
   actor?: AuditActor
 ): Promise<InvoiceDocumentRecord> {

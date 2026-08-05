@@ -14,9 +14,12 @@
   --color-success: var(--success);
   --color-warning: var(--warning);
   --color-danger: var(--danger);
+  --color-overlay-soft: var(--overlay-soft);
+  --color-overlay-strong: var(--overlay-strong);
 }
 
-:root {
+:root,
+:root[data-theme="dark"] {
   --canvas: #08111f;
   --panel: #0d1929;
   --panel-raised: #122137;
@@ -28,6 +31,26 @@
   --success: #49d6a3;
   --warning: #f4bd63;
   --danger: #fb7d8e;
+  /* Tinted overlay for hover and header fills. Components use this instead of
+     a hardcoded white alpha, which would wash out on a light canvas. */
+  --overlay-soft: rgba(255, 255, 255, 0.02);
+  --overlay-strong: rgba(255, 255, 255, 0.045);
+}
+
+:root[data-theme="light"] {
+  --canvas: #f6f8fc;
+  --panel: #ffffff;
+  --panel-raised: #eef2f9;
+  --line: #d8e0ed;
+  --ink: #0e1a2b;
+  --muted: #5a6a82;
+  --accent: #2f6fe0;
+  --accent-strong: #1d54b8;
+  --success: #14875f;
+  --warning: #a86a10;
+  --danger: #c2384c;
+  --overlay-soft: rgba(14, 26, 43, 0.025);
+  --overlay-strong: rgba(14, 26, 43, 0.05);
 }
 
 * {

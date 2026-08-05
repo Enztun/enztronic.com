@@ -9,6 +9,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { PageHeader } from "@/components/ui/page-header";
 import { TableShell } from "@/components/ui/table-shell";
 import { listInvoices } from "@/lib/server/invoices";
+import { getAccessScope } from "@/lib/server/session";
 
 export const metadata: Metadata = {
   title: "Invoices",
@@ -17,7 +18,8 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function InvoicesPage() {
-  const invoices = await listInvoices();
+  const scope = await getAccessScope();
+  const invoices = await listInvoices(scope);
 
   return (
     <>
@@ -36,7 +38,7 @@ export default async function InvoicesPage() {
       <div className="mt-8">
         {invoices.length ? (
           <TableShell label="Invoices">
-            <thead className="border-b border-line bg-white/[0.018]">
+            <thead className="border-b border-line bg-overlay-strong">
               <tr className="text-xs font-semibold tracking-[0.08em] text-muted uppercase">
                 <th scope="col" className="px-5 py-4 sm:px-6">Invoice</th>
                 <th scope="col" className="px-5 py-4">Client</th>
@@ -48,7 +50,7 @@ export default async function InvoicesPage() {
             </thead>
             <tbody className="divide-y divide-line">
               {invoices.map((invoice) => (
-                <tr key={invoice.id} className="text-sm transition-colors hover:bg-white/[0.02]">
+                <tr key={invoice.id} className="text-sm transition-colors hover:bg-overlay-strong">
                   <td className="px-5 py-4 sm:px-6">
                     <Link
                       href={`/invoices/${invoice.id}`}

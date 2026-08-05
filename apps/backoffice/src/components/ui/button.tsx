@@ -14,7 +14,7 @@ const variantClasses: Record<ButtonVariant, string> = {
     "bg-accent-strong text-white shadow-[0_10px_30px_rgba(47,116,223,0.24)] hover:bg-accent",
   secondary:
     "border border-line bg-panel-raised text-ink hover:border-accent/45 hover:bg-panel-raised/75",
-  quiet: "text-muted hover:bg-white/[0.05] hover:text-ink",
+  quiet: "text-muted hover:bg-overlay-strong hover:text-ink",
   danger:
     "border border-danger/35 bg-danger/10 text-danger hover:bg-danger/16",
 };

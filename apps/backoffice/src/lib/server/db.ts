@@ -7,7 +7,11 @@ import { getDatabaseEnv } from '@/lib/env';
 export type DbClient = ReturnType<typeof postgres>;
 
 export type AuditActor = {
-  type: 'owner' | 'system';
+  /**
+   * 'owner' is retained only for rows written before named users existed;
+   * new writes use the actor's role.
+   */
+  type: 'owner' | 'admin' | 'sales' | 'system';
   id?: string;
 };
 

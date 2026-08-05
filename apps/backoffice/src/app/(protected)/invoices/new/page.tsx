@@ -10,6 +10,7 @@ import { PageHeader } from "@/components/ui/page-header";
 import { addCalendarDays, currentDateInTimeZone } from "@/lib/calendar";
 import { getBusinessProfile } from "@/lib/server/business";
 import { listClients } from "@/lib/server/clients";
+import { getAccessScope } from "@/lib/server/session";
 
 export const metadata: Metadata = {
   title: "New invoice",
@@ -18,8 +19,9 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function NewInvoicePage() {
+  const scope = await getAccessScope();
   const [clients, profile] = await Promise.all([
-    listClients(),
+    listClients(scope),
     getBusinessProfile(),
   ]);
   const issueDate = currentDateInTimeZone(profile.timezone);

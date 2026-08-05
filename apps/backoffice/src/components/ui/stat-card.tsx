@@ -12,7 +12,7 @@ const toneClasses = {
   accent: "bg-accent/10 text-accent ring-accent/20",
   success: "bg-success/10 text-success ring-success/20",
   warning: "bg-warning/10 text-warning ring-warning/20",
-  neutral: "bg-white/[0.045] text-muted ring-line",
+  neutral: "bg-overlay-strong text-muted ring-line",
 };
 
 export function StatCard({
