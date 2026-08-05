@@ -1,21 +1,21 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Montserrat } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { draftMode } from 'next/headers';
 import { VisualEditing } from 'next-sanity/visual-editing';
 import { routing } from '@/i18n/routing';
+import { ThemeScript } from '@/components/ThemeToggle';
 import '../globals.css';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+// Montserrat is the single brand typeface. The site previously loaded Geist
+// while the stylesheet asked for Inter, so neither was applied consistently.
+const montserrat = Montserrat({
+  variable: '--font-montserrat',
   subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
+  display: 'swap',
+  weight: ['400', '500', '600', '700', '800'],
 });
 
 const BASE = 'https://enztronic.com';
@@ -105,9 +105,11 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale === 'zh' ? 'zh-Hans' : locale}
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${montserrat.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <head>
+        <ThemeScript />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

@@ -25,7 +25,7 @@ export function OpenGraphCard() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            background: '#2563eb',
+            background: '#1260FE',
             color: '#ffffff',
             fontSize: 30,
             fontWeight: 800,
@@ -54,7 +54,7 @@ export function OpenGraphCard() {
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 22 }}>
-        <div style={{ color: '#2563eb', fontWeight: 700 }}>Jakarta, Indonesia</div>
+        <div style={{ color: '#1260FE', fontWeight: 700 }}>Jakarta, Indonesia</div>
         <div style={{ color: '#64748b' }}>enztronic.com</div>
       </div>
     </div>

@@ -194,7 +194,7 @@ function SideBySideBlock({ value }: { value: SideBySideValue }) {
         {value.ctaText && value.ctaHref && (
           <a
             href={value.ctaHref}
-            className="inline-flex items-center gap-2 mt-4 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 transition-colors"
+            className="inline-flex items-center gap-2 mt-4 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-strong transition-colors"
           >
             {value.ctaText}
           </a>
@@ -212,7 +212,7 @@ function ctaBtnClass(style?: string) {
     case 'whatsapp': return 'bg-green-500 hover:bg-green-600 text-white inline-flex items-center gap-2';
     case 'phone': return 'bg-white/10 border border-white/30 text-white hover:bg-white/20 inline-flex items-center gap-2';
     case 'outline': return 'border-2 border-white text-white hover:bg-white/10 inline-flex items-center gap-2';
-    default: return 'bg-primary hover:bg-blue-700 text-white inline-flex items-center gap-2';
+    default: return 'bg-primary hover:bg-brand-strong text-white inline-flex items-center gap-2';
   }
 }
 

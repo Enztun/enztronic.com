@@ -83,7 +83,7 @@ export default async function Portfolio({ params }: { params: Promise<{ locale: 
                       <div className="flex flex-wrap gap-2">{project.tags.map((tag, idx) => (<span key={idx} className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-700">{tag}</span>))}</div>
                     </div>
                   </div>
-                  <a href={project.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 w-fit">{t('visitSite')} <ArrowRight className="h-4 w-4" /></a>
+                  <a href={project.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-strong w-fit">{t('visitSite')} <ArrowRight className="h-4 w-4" /></a>
                 </div>
               </div>
             </article>

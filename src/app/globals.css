@@ -1,11 +1,58 @@
 @import "tailwindcss";
 
+/*
+ * ENZTRONIC brand tokens.
+ *
+ * Royal blue is #1260FE, sampled from the approved logo rather than the
+ * generic royal blue printed on the guideline poster. Navy is the logo's dark
+ * surface colour -- the master logo file is the source of truth for it, not
+ * the generated poster.
+ */
+@theme inline {
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-navy: var(--navy);
+  --color-navy-soft: var(--navy-soft);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-on-surface: var(--on-surface);
+  --color-on-surface-variant: var(--on-surface-variant);
+  --color-line: var(--line);
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+}
+
 :root {
-  --primary: #2563eb;
-  --primary-dark: #1d4ed8;
+  --brand: #1260fe;
+  --brand-strong: #0b48c8;
+  --navy: #001133;
+  --navy-soft: #0a1f45;
   --surface: #ffffff;
-  --on-surface: #1f2937;
-  --on-surface-variant: #6b7280;
+  --surface-muted: #f5f7fb;
+  --on-surface: #001133;
+  --on-surface-variant: #4a5a72;
+  --line: #dbe2ee;
+
+  /* Kept so any rule not yet migrated resolves to brand colours instead of
+     the old generic blue. */
+  --primary: var(--brand);
+  --primary-dark: var(--brand-strong);
+}
+
+/*
+ * Dark theme. The canvas is the brand navy, so the site's dark mode and the
+ * logo's inverse variant share the same background colour. Blue is lifted a
+ * little because #1260FE on navy is too close in luminance to read cleanly.
+ */
+:root[data-theme="dark"] {
+  --brand: #4b86ff;
+  --brand-strong: #7aa6ff;
+  --navy: #001133;
+  --navy-soft: #0a1f45;
+  --surface: #001133;
+  --surface-muted: #041b3d;
+  --on-surface: #eef3fb;
+  --on-surface-variant: #a7b6cd;
+  --line: #16305a;
 }
 
 html,
@@ -15,16 +62,86 @@ body {
 
 body {
   margin: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-montserrat), -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, sans-serif;
   color: var(--on-surface);
   background: var(--surface);
 }
 
+/* Montserrat Bold for headings, per the guideline's typography section. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--navy);
+}
+
 .text-primary {
-  color: var(--primary);
+  color: var(--brand);
 }
 
 .bg-primary {
-  background-color: var(--primary);
+  background-color: var(--brand);
 }
 
+.hover\:bg-primary:hover {
+  background-color: var(--brand-strong);
+}
+
+/*
+ * Dark surfaces invert navy elements to white and leave the blue untouched,
+ * mirroring how the logo's inverse variant works.
+ */
+.surface-dark {
+  background-color: var(--navy);
+  color: var(--surface);
+}
+
+.surface-dark h1,
+.surface-dark h2,
+.surface-dark h3,
+.surface-dark h4,
+.surface-dark h5,
+.surface-dark h6 {
+  color: var(--surface);
+}
+
+/*
+ * In dark mode headings sit on navy, so they invert to white -- the same rule
+ * the logo follows.
+ */
+:root[data-theme="dark"] h1,
+:root[data-theme="dark"] h2,
+:root[data-theme="dark"] h3,
+:root[data-theme="dark"] h4,
+:root[data-theme="dark"] h5,
+:root[data-theme="dark"] h6 {
+  color: var(--on-surface);
+}
+
+/*
+ * The footer is already a dark surface in light mode. In dark mode the page
+ * canvas is the same navy, so it is lifted slightly to stay distinguishable
+ * from the body instead of merging into it.
+ */
+:root[data-theme="dark"] .surface-dark {
+  background-color: var(--surface-muted);
+}
+
+/* Logo variants are both rendered; CSS reveals the one matching the theme.
+   This avoids a client round-trip and any hydration mismatch. */
+.brand-logo-dark {
+  display: none;
+}
+
+:root[data-theme="dark"] .brand-logo-light {
+  display: none;
+}
+
+:root[data-theme="dark"] .brand-logo-dark {
+  display: block;
+}

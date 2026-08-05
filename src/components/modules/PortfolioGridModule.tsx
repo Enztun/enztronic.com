@@ -107,7 +107,7 @@ export default function PortfolioGridModule({ data }: { data: PortfolioGridData 
                         href={project.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 w-fit"
+                        className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-strong w-fit"
                       >
                         {data.visitSiteLabel ?? 'Visit Site'}{' '}
                         <ArrowRight className="h-4 w-4" />

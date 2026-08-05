@@ -93,7 +93,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             <div className="flex gap-4 flex-wrap">
               <Link
                 href="/contact"
-                className="bg-primary text-white px-8 py-4 rounded-full font-bold hover:bg-blue-700 transition-colors"
+                className="bg-primary text-white px-8 py-4 rounded-full font-bold hover:bg-brand-strong transition-colors"
               >
                 {t('ctaPrimary')}
               </Link>
