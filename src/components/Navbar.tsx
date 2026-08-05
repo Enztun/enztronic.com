@@ -23,9 +23,9 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 w-full bg-surface/70 backdrop-blur-xl z-50 border-b border-line/60">
       <div className="px-6 md:px-12 max-w-7xl mx-auto h-20 flex justify-between items-center">
-        <Link href="/" className="flex items-center gap-3">
+        <Link href="/" className="flex shrink-0 items-center gap-3">
           <BrandLogo variant="mark" height={40} priority />
-          <span className="text-lg font-extrabold tracking-[0.14em] text-on-surface">
+          <span className="hidden text-lg font-extrabold tracking-[0.14em] text-on-surface sm:block">
             ENZTRONIC
           </span>
         </Link>
@@ -54,8 +54,8 @@ export default function Navbar() {
 
         {/* Mobile: theme toggle stays in the bar so switching does not
             require opening navigation first. */}
-        <div className="flex items-center gap-2 md:hidden">
-          <ThemeToggle />
+        <div className="flex items-center gap-1 md:hidden">
+          <ThemeToggle compact />
           <button
             onClick={() => setIsOpen((v) => !v)}
             className="p-2 rounded-lg hover:bg-surface-muted transition-colors"

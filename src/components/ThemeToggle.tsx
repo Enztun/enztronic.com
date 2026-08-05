@@ -51,7 +51,23 @@ function setPreference(preference: ThemePreference) {
   for (const listener of listeners) listener();
 }
 
-export function ThemeToggle({ className = '' }: { className?: string }) {
+const NEXT_IN_CYCLE: Record<ThemePreference, ThemePreference> = {
+  light: 'dark',
+  dark: 'system',
+  system: 'light',
+};
+
+interface ThemeToggleProps {
+  className?: string;
+  /**
+   * Renders a single cycling button instead of three radios. Three 32px
+   * targets alongside a wordmark and a menu button overflow a narrow phone
+   * header, so the mobile bar uses this form.
+   */
+  compact?: boolean;
+}
+
+export function ThemeToggle({ className = '', compact = false }: ThemeToggleProps) {
   const preference = useSyncExternalStore(
     subscribe,
     getSnapshot,
@@ -65,6 +81,23 @@ export function ThemeToggle({ className = '' }: { className?: string }) {
     query.addEventListener('change', onChange);
     return () => query.removeEventListener('change', onChange);
   }, [preference]);
+
+  if (compact) {
+    const active = OPTIONS.find((option) => option.value === preference) ?? OPTIONS[2];
+    const ActiveIcon = active.icon;
+    const next = NEXT_IN_CYCLE[preference];
+    return (
+      <button
+        type="button"
+        onClick={() => setPreference(next)}
+        aria-label={`Colour theme: ${active.label}. Switch to ${next}.`}
+        title={`Theme: ${active.label}`}
+        className={`grid size-10 shrink-0 place-items-center rounded-lg text-on-surface-variant transition-colors hover:bg-surface-muted hover:text-brand ${className}`}
+      >
+        <ActiveIcon aria-hidden="true" className="w-5 h-5" />
+      </button>
+    );
+  }
 
   return (
     <div

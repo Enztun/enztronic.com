@@ -9,6 +9,13 @@ build/
 *.png
 *.webmanifest
 
+# Brand logo assets are versioned deliberately -- the global *.png rule above
+# would otherwise drop them silently and ship a site with no logo.
+!public/brand/
+!public/brand/*.png
+!public/brand/*.svg
+!public/brand/*.webp
+
 # Allow committed screenshot assets in public/screenshots
 !public/screenshots/
 !public/screenshots/*.svg
