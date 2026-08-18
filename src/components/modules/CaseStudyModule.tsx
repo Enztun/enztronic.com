@@ -14,7 +14,7 @@ export default function CaseStudyModule({ data }: { data: CaseStudyData }) {
     <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
       <div className="bg-gray-50 rounded-3xl overflow-hidden grid grid-cols-1 lg:grid-cols-2 border border-gray-200">
         <div className="bg-gray-200/50 flex items-center justify-center p-12">
-          <div className="w-full h-[400px] bg-white/50 backdrop-blur-sm rounded-xl border border-white flex items-center justify-center text-gray-500 italic">
+          <div className="w-full h-[400px] bg-white/50 dark:bg-white/5 backdrop-blur-sm rounded-xl border border-white dark:border-white/10 flex items-center justify-center text-gray-500 italic">
             {data.title}
           </div>
         </div>

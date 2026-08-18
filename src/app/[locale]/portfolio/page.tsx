@@ -33,7 +33,7 @@ export default async function Portfolio({ params }: { params: Promise<{ locale: 
 
   if (cmsPage?.modules?.length > 0) {
     return (
-      <main className="min-h-screen bg-white">
+      <main className="min-h-screen bg-surface">
         <Navbar />
         {cmsPage.modules.map((mod: { _type: string; _key: string }) => (
           <ModuleRenderer key={mod._key} module={mod} />
@@ -47,7 +47,7 @@ export default async function Portfolio({ params }: { params: Promise<{ locale: 
   const t = await getTranslations({ locale, namespace: 'portfolio' });
   const projects = t.raw('projects') as Project[];
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-surface">
       <Navbar />
       <section className="pt-32 pb-20 px-6 md:px-12 max-w-7xl mx-auto">
         <div className="text-center mb-16">
@@ -80,10 +80,10 @@ export default async function Portfolio({ params }: { params: Promise<{ locale: 
                     <span className="inline-flex rounded-full bg-primary/10 px-4 py-2 text-sm font-semibold text-primary">{project.category}</span>
                     <div className="space-y-3">
                       <p className="text-gray-700">{project.description}</p>
-                      <div className="flex flex-wrap gap-2">{project.tags.map((tag, idx) => (<span key={idx} className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-700">{tag}</span>))}</div>
+                      <div className="flex flex-wrap gap-2">{project.tags.map((tag, idx) => (<span key={idx} className="rounded-full border border-slate-200 bg-surface px-3 py-1 text-xs font-medium text-slate-700 dark:text-gray-700">{tag}</span>))}</div>
                     </div>
                   </div>
-                  <a href={project.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-strong w-fit">{t('visitSite')} <ArrowRight className="h-4 w-4" /></a>
+                  <a href={project.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full bg-brand-fill px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-fill-strong w-fit">{t('visitSite')} <ArrowRight className="h-4 w-4" /></a>
                 </div>
               </div>
             </article>

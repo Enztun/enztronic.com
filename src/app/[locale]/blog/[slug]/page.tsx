@@ -194,7 +194,7 @@ function SideBySideBlock({ value }: { value: SideBySideValue }) {
         {value.ctaText && value.ctaHref && (
           <a
             href={value.ctaHref}
-            className="inline-flex items-center gap-2 mt-4 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-strong transition-colors"
+            className="inline-flex items-center gap-2 mt-4 rounded-full bg-brand-fill px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-fill-strong transition-colors"
           >
             {value.ctaText}
           </a>
@@ -212,17 +212,17 @@ function ctaBtnClass(style?: string) {
     case 'whatsapp': return 'bg-green-500 hover:bg-green-600 text-white inline-flex items-center gap-2';
     case 'phone': return 'bg-white/10 border border-white/30 text-white hover:bg-white/20 inline-flex items-center gap-2';
     case 'outline': return 'border-2 border-white text-white hover:bg-white/10 inline-flex items-center gap-2';
-    default: return 'bg-primary hover:bg-brand-strong text-white inline-flex items-center gap-2';
+    default: return 'bg-brand-fill hover:bg-brand-fill-strong text-white inline-flex items-center gap-2';
   }
 }
 
 function CtaBlockComponent({ value }: { value: CtaBlockValue }) {
   const bg =
     value.theme === 'primary'
-      ? 'bg-primary'
+      ? 'bg-brand-fill'
       : value.theme === 'light'
       ? 'bg-gray-100'
-      : 'bg-gray-900';
+      : 'bg-gray-900 dark:bg-navy-soft';
   const textColor = value.theme === 'light' ? 'text-gray-900' : 'text-white';
   const subColor = value.theme === 'light' ? 'text-gray-600' : 'text-white/70';
 
@@ -447,7 +447,7 @@ export default async function PostPage({
   };
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-surface">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -488,7 +488,7 @@ export default async function PostPage({
         )}
 
         <div className="flex items-center gap-3 text-sm text-gray-400">
-          <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white font-bold text-sm">
+          <div className="w-8 h-8 rounded-full bg-brand-fill flex items-center justify-center text-white font-bold text-sm">
             {authorInitial}
           </div>
           <span className="font-medium text-gray-700">

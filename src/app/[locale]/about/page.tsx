@@ -27,7 +27,7 @@ export default async function About({ params }: { params: Promise<{ locale: stri
 
   if (cmsPage?.modules?.length > 0) {
     return (
-      <main className="min-h-screen bg-white">
+      <main className="min-h-screen bg-surface">
         <Navbar />
         {cmsPage.modules.map((mod: { _type: string; _key: string }) => (
           <ModuleRenderer key={mod._key} module={mod} />
@@ -40,7 +40,7 @@ export default async function About({ params }: { params: Promise<{ locale: stri
   // Fallback
   const t = await getTranslations({ locale, namespace: 'about' });
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-surface">
       <Navbar />
       <section className="pt-32 pb-20 px-6 md:px-12 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">

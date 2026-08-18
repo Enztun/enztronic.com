@@ -230,7 +230,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={loading}
-        className="w-full bg-primary text-white font-semibold py-4 rounded-2xl hover:opacity-90 transition disabled:opacity-60"
+        className="w-full bg-brand-fill text-white font-semibold py-4 rounded-2xl hover:opacity-90 transition disabled:opacity-60"
       >
         {loading ? t('formSubmitting') : t('formSubmit')}
       </button>

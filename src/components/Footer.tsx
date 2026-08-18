@@ -114,7 +114,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-12 pt-8 text-center text-white/70 text-sm">
+        <div className="border-t border-white/15 mt-12 pt-8 text-center text-white/70 text-sm">
           <p>{t('copyright', { year: new Date().getFullYear() })}</p>
         </div>
       </div>

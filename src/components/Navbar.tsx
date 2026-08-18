@@ -45,7 +45,7 @@ export default function Navbar() {
           <ThemeToggle />
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 bg-navy text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-brand transition-colors"
+            className="inline-flex items-center gap-2 bg-navy dark:bg-brand-fill text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-brand-fill dark:hover:bg-brand-fill-strong transition-colors"
           >
             <MessageCircle className="w-4 h-4" />
             {t('cta')}
@@ -84,7 +84,7 @@ export default function Navbar() {
               <LocaleSwitcher />
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 bg-gray-900 text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-primary transition-colors"
+                className="inline-flex items-center gap-2 bg-navy dark:bg-brand-fill text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-brand-fill dark:hover:bg-brand-fill-strong transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 <MessageCircle className="w-4 h-4" />

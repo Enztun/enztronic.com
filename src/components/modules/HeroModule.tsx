@@ -37,7 +37,7 @@ export default function HeroModule({ data }: { data: HeroModuleData }) {
             {data.ctaPrimaryText && data.ctaPrimaryHref && (
               <Link
                 href={data.ctaPrimaryHref as '/'}
-                className="bg-primary text-white px-8 py-4 rounded-lg font-bold hover:shadow-lg transition-all"
+                className="bg-brand-fill text-white px-8 py-4 rounded-lg font-bold hover:shadow-lg transition-all"
               >
                 {data.ctaPrimaryText}
               </Link>
@@ -53,11 +53,11 @@ export default function HeroModule({ data }: { data: HeroModuleData }) {
           </div>
         </div>
         <div className="relative bg-gray-50 rounded-2xl p-8 border border-gray-200">
-          <div className="aspect-video bg-white rounded-xl shadow-sm overflow-hidden flex items-center justify-center">
+          <div className="aspect-video bg-card rounded-xl shadow-sm overflow-hidden flex items-center justify-center">
             <BarChart className="w-20 h-20 text-gray-300" />
           </div>
           {(data.revenueGrowth || data.revenueLabel) && (
-            <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-xl border border-gray-200">
+            <div className="absolute -bottom-6 -left-6 bg-card p-6 rounded-xl shadow-xl border border-gray-200">
               {data.revenueGrowth && (
                 <p className="text-3xl font-bold text-primary">{data.revenueGrowth}</p>
               )}

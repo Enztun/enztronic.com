@@ -274,7 +274,7 @@ export default function ContactJourney() {
           <button
             type="button"
             onClick={() => setStep((s) => Math.min(TOTAL_STEPS, s + 1))}
-            className="inline-flex items-center gap-1.5 bg-primary text-white font-semibold py-3 px-6 rounded-2xl hover:opacity-90 transition"
+            className="inline-flex items-center gap-1.5 bg-brand-fill text-white font-semibold py-3 px-6 rounded-2xl hover:opacity-90 transition"
           >
             {t('journeyNext')}
             <ChevronRight className="w-4 h-4" />
@@ -283,7 +283,7 @@ export default function ContactJourney() {
           <button
             type="submit"
             disabled={loading || !canSubmit}
-            className="bg-primary text-white font-semibold py-3 px-8 rounded-2xl hover:opacity-90 transition disabled:opacity-60"
+            className="bg-brand-fill text-white font-semibold py-3 px-8 rounded-2xl hover:opacity-90 transition disabled:opacity-60"
           >
             {loading ? t('formSubmitting') : t('formSubmit')}
           </button>

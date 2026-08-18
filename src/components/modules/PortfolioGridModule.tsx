@@ -92,7 +92,7 @@ export default function PortfolioGridModule({ data }: { data: PortfolioGridData 
                           {project.tags.map((tag, idx) => (
                             <span
                               key={idx}
-                              className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-700"
+                              className="rounded-full border border-slate-200 bg-surface px-3 py-1 text-xs font-medium text-slate-700 dark:text-gray-700"
                             >
                               {tag}
                             </span>
@@ -107,7 +107,7 @@ export default function PortfolioGridModule({ data }: { data: PortfolioGridData 
                         href={project.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-strong w-fit"
+                        className="inline-flex items-center justify-center gap-2 rounded-full bg-brand-fill px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-fill-strong w-fit"
                       >
                         {data.visitSiteLabel ?? 'Visit Site'}{' '}
                         <ArrowRight className="h-4 w-4" />

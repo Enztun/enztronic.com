@@ -118,7 +118,7 @@ export function ThemeToggle({ className = '', compact = false }: ThemeToggleProp
             onClick={() => setPreference(value)}
             className={`grid size-8 place-items-center rounded-full transition-colors ${
               isActive
-                ? 'bg-brand text-white'
+                ? 'bg-brand-fill text-white'
                 : 'text-on-surface-variant hover:text-brand'
             }`}
           >

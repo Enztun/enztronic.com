@@ -44,7 +44,7 @@ export default async function BlogPage({
   }
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-surface">
       <Navbar />
 
       <section className="pt-32 pb-24 px-6 md:px-12 max-w-4xl mx-auto">
@@ -71,7 +71,7 @@ export default async function BlogPage({
             {posts.map((post: PostSummary) => (
               <article
                 key={post._id}
-                className="group rounded-2xl border border-gray-200 bg-white overflow-hidden hover:shadow-lg transition-shadow"
+                className="group rounded-2xl border border-gray-200 bg-card overflow-hidden hover:shadow-lg transition-shadow"
               >
                 <Link href={`/blog/${post.slug}`} className="block">
                   {post.mainImage && (

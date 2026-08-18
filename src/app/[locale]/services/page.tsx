@@ -31,7 +31,7 @@ export default async function Services({ params }: { params: Promise<{ locale: s
 
   if (cmsPage?.modules?.length > 0) {
     return (
-      <main className="min-h-screen bg-white">
+      <main className="min-h-screen bg-surface">
         <Navbar />
         {cmsPage.modules.map((mod: { _type: string; _key: string }) => (
           <ModuleRenderer key={mod._key} module={mod} />
@@ -45,7 +45,7 @@ export default async function Services({ params }: { params: Promise<{ locale: s
   const t = await getTranslations({ locale, namespace: 'services' });
   const items = t.raw('items') as ServiceItem[];
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-surface">
       <Navbar />
       <section className="pt-32 pb-20 px-6 md:px-12 max-w-7xl mx-auto">
         <div className="text-center mb-16">

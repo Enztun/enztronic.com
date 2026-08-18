@@ -29,7 +29,7 @@ export function Tooltip({ text }: { text: string }) {
         <Info className="w-4 h-4" />
       </button>
       {open && (
-        <span className="absolute left-0 top-6 z-20 w-72 bg-gray-900 text-white text-xs rounded-xl p-3 leading-relaxed shadow-xl">
+        <span className="absolute left-0 top-6 z-20 w-72 bg-gray-900 dark:bg-line text-white text-xs rounded-xl p-3 leading-relaxed shadow-xl">
           {text}
         </span>
       )}
@@ -60,11 +60,11 @@ export const emptyContactForm: ContactFormData = {
 };
 
 export const inputClass =
-  'w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition bg-white';
+  'w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition bg-card';
 
 export const pillClass = (active: boolean) =>
   `px-4 py-2 rounded-full text-sm font-medium border transition-all cursor-pointer ${
     active
-      ? 'bg-primary text-white border-primary'
+      ? 'bg-brand-fill text-white border-primary'
       : 'bg-gray-50 text-gray-700 border-gray-200 hover:border-primary/50'
   }`;

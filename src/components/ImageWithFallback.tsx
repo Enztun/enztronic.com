@@ -25,7 +25,7 @@ export default function ImageWithFallback({ src, alt, className }: ImageWithFall
         <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200">
           <div className="text-center p-4">
             <div className="text-4xl mb-2">🖼️</div>
-            <p className="text-sm text-slate-500">Screenshot coming soon</p>
+            <p className="text-sm text-slate-500 dark:text-gray-500">Screenshot coming soon</p>
           </div>
         </div>
       )}

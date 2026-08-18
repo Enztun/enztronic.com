@@ -93,7 +93,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             <div className="flex gap-4 flex-wrap">
               <Link
                 href="/contact"
-                className="bg-primary text-white px-8 py-4 rounded-full font-bold hover:bg-brand-strong transition-colors"
+                className="bg-brand-fill text-white px-8 py-4 rounded-full font-bold hover:bg-brand-fill-strong transition-colors"
               >
                 {t('ctaPrimary')}
               </Link>
@@ -106,10 +106,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             </div>
           </div>
           <div className="relative bg-gray-50 rounded-2xl p-8 border border-gray-200">
-            <div className="aspect-video bg-white rounded-xl shadow-sm overflow-hidden flex items-center justify-center">
+            <div className="aspect-video bg-card rounded-xl shadow-sm overflow-hidden flex items-center justify-center">
               <BarChart className="w-20 h-20 text-gray-300" />
             </div>
-            <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-xl border border-gray-200">
+            <div className="absolute -bottom-6 -left-6 bg-card p-6 rounded-xl shadow-xl border border-gray-200">
               <p className="text-3xl font-bold text-primary">{t('hero.revenueGrowth')}</p>
               <p className="text-sm text-gray-500">{t('hero.revenueLabel')}</p>
             </div>
@@ -166,7 +166,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
         <div className="bg-gray-50 rounded-3xl overflow-hidden grid grid-cols-1 lg:grid-cols-2 border border-gray-200">
           <div className="bg-gray-200/50 flex items-center justify-center p-12">
-            <div className="w-full h-[400px] bg-white/50 backdrop-blur-sm rounded-xl border border-white flex items-center justify-center text-gray-500 italic">
+            <div className="w-full h-[400px] bg-white/50 dark:bg-white/5 backdrop-blur-sm rounded-xl border border-white dark:border-white/10 flex items-center justify-center text-gray-500 italic">
               {t('caseStudy.screenshot')}
             </div>
           </div>
@@ -232,7 +232,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 {project.tags.map((tag, j) => (
                   <span
                     key={j}
-                    className="text-xs px-2 py-0.5 rounded-full bg-white border border-gray-200 text-gray-500"
+                    className="text-xs px-2 py-0.5 rounded-full bg-surface border border-gray-200 text-gray-500"
                   >
                     {tag}
                   </span>
@@ -301,7 +301,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
       {/* ── Bottom CTA ── */}
       <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
-        <div className="bg-gray-900 rounded-3xl px-8 md:px-16 py-16 text-center">
+        <div className="bg-gray-900 dark:bg-navy-soft rounded-3xl px-8 md:px-16 py-16 text-center">
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 max-w-2xl mx-auto leading-tight">
             {t('hero.ctaHeading')}
           </h2>
@@ -318,7 +318,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             </a>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 bg-white text-gray-900 font-semibold px-7 py-4 rounded-full hover:bg-gray-100 transition-colors"
+              className="inline-flex items-center gap-2 bg-white text-gray-900 dark:text-navy font-semibold px-7 py-4 rounded-full hover:bg-gray-100 dark:hover:bg-white/85 transition-colors"
             >
               {t('hero.ctaContact')}
             </Link>

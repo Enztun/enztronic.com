@@ -1,20 +1,40 @@
 @import "tailwindcss";
 
 /*
+ * `dark:` follows the `data-theme` attribute that ThemeScript stamps on <html>
+ * before first paint, not the OS media query -- the site has a three-way
+ * light/dark/system switch, so the media query alone would ignore an explicit
+ * choice. Registering it as a variant lets the handful of genuinely
+ * theme-specific call sites say so inline instead of growing more overrides
+ * down here.
+ */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/*
  * ENZTRONIC brand tokens.
  *
  * Royal blue is #1260FE, sampled from the approved logo rather than the
  * generic royal blue printed on the guideline poster. Navy is the logo's dark
  * surface colour -- the master logo file is the source of truth for it, not
  * the generated poster.
+ *
+ * Blue splits into two roles because one value cannot serve both on a navy
+ * canvas: `brand` is the accent that has to read *against* a dark background
+ * (links, labels, icons), while `brand-fill` is the solid a white label sits
+ * *on top of*. Lifting one lowers the other, so buttons take `brand-fill` and
+ * text takes `brand`.
  */
 @theme inline {
   --color-brand: var(--brand);
   --color-brand-strong: var(--brand-strong);
+  --color-brand-fill: var(--brand-fill);
+  --color-brand-fill-strong: var(--brand-fill-strong);
+  --color-primary: var(--brand);
   --color-navy: var(--navy);
   --color-navy-soft: var(--navy-soft);
   --color-surface: var(--surface);
   --color-surface-muted: var(--surface-muted);
+  --color-card: var(--card);
   --color-on-surface: var(--on-surface);
   --color-on-surface-variant: var(--on-surface-variant);
   --color-line: var(--line);
@@ -24,10 +44,19 @@
 :root {
   --brand: #1260fe;
   --brand-strong: #0b48c8;
+  --brand-fill: #1260fe;
+  --brand-fill-strong: #0b48c8;
   --navy: #001133;
   --navy-soft: #0a1f45;
   --surface: #ffffff;
   --surface-muted: #f5f7fb;
+  --card: #ffffff;
+  /*
+   * Content on a navy surface. Deliberately *not* redefined in the dark block:
+   * `.surface-dark` is dark in both themes, so its text must not follow
+   * `--surface`, which flips to navy and put navy on navy in the footer.
+   */
+  --on-navy: #eef3fb;
   --on-surface: #001133;
   --on-surface-variant: #4a5a72;
   --line: #dbe2ee;
@@ -39,109 +68,145 @@
 }
 
 /*
- * Dark theme. The canvas is the brand navy, so the site's dark mode and the
- * logo's inverse variant share the same background colour. Blue is lifted a
- * little because #1260FE on navy is too close in luminance to read cleanly.
+ * Dark theme.
+ *
+ * The canvas is brand navy, so the site's dark mode and the logo's inverse
+ * variant share the same background. Flipping the semantic tokens below is
+ * only half the job, and doing only that half is what made this theme
+ * unreadable: most of the site is still written in `text-gray-600`,
+ * `bg-gray-50` and `border-gray-200`, and those utilities resolve through
+ * `var(--color-gray-*)`. Left at their light-mode values they put mid-grey
+ * body copy directly onto navy.
+ *
+ * So Tailwind's neutral ramp is re-cut here against the navy canvas. It is
+ * deliberately not a straight inversion. In this codebase steps 50-300 are
+ * only ever surfaces and borders, so they stay dark and become navy tints,
+ * while 400-950 are only ever text, so they lift to blue-greys that clear
+ * 4.5:1 on every surface they land on (the tightest pairing, gray-400 on a
+ * gray-100 panel, measures 5.8:1). The two steps used for both roles --
+ * gray-300 and gray-900 -- are resolved at the call site with `dark:`.
  */
 :root[data-theme="dark"] {
-  --brand: #4b86ff;
+  --brand: #5a90ff;
   --brand-strong: #7aa6ff;
+  --brand-fill: #1a5ae8;
+  --brand-fill-strong: #2a68f8;
   --navy: #001133;
   --navy-soft: #0a1f45;
   --surface: #001133;
-  --surface-muted: #041b3d;
+  --surface-muted: #0a1f45;
+  --card: #0a1f45;
   --on-surface: #eef3fb;
-  --on-surface-variant: #a7b6cd;
-  --line: #16305a;
-}
+  --on-surface-variant: #a3b4cf;
+  --line: #1b3560;
 
-html,
-body {
-  min-height: 100%;
-}
+  /* Surfaces and borders: navy tints, lifted just enough to separate. */
+  --color-gray-50: #0a1f45;
+  --color-gray-100: #0e2650;
+  --color-gray-200: #1b3560;
+  --color-gray-300: #24406f;
+  --color-slate-50: #0a1f45;
+  --color-slate-100: #0e2650;
+  --color-slate-200: #1b3560;
 
-body {
-  margin: 0;
-  font-family: var(--font-montserrat), -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, sans-serif;
-  color: var(--on-surface);
-  background: var(--surface);
-}
-
-/* Montserrat Bold for headings, per the guideline's typography section. */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-weight: 700;
-  letter-spacing: -0.015em;
-  color: var(--navy);
-}
-
-.text-primary {
-  color: var(--brand);
-}
-
-.bg-primary {
-  background-color: var(--brand);
-}
-
-.hover\:bg-primary:hover {
-  background-color: var(--brand-strong);
+  /* Text tiers: blue-greys rather than pure white, so long copy on navy does
+     not glare. */
+  --color-gray-400: #8ea3c2;
+  --color-gray-500: #a3b4cf;
+  --color-gray-600: #b9c7dd;
+  --color-gray-700: #ccd7e8;
+  --color-gray-800: #dfe7f3;
+  --color-gray-900: #eef3fb;
+  --color-gray-950: #f7faff;
 }
 
 /*
- * Dark surfaces invert navy elements to white and leave the blue untouched,
- * mirroring how the logo's inverse variant works.
+ * These sit in Tailwind's own layers rather than outside them. Unlayered CSS
+ * beats every layered rule regardless of specificity, so an unlayered
+ * `h1 { color: ... }` silently outranks `text-white` on the same element --
+ * which is how the dark CTA panels ended up with navy headings on navy.
+ * Inside `base`, a utility always wins; inside `components`, a utility still
+ * wins but the rule beats `base`.
  */
-.surface-dark {
-  background-color: var(--navy);
-  color: var(--surface);
+@layer base {
+  html,
+  body {
+    min-height: 100%;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-montserrat), -apple-system, BlinkMacSystemFont,
+      "Segoe UI", Roboto, sans-serif;
+    color: var(--on-surface);
+    background: var(--surface);
+  }
+
+  /* Montserrat Bold for headings, per the guideline's typography section. */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: var(--navy);
+  }
+
+  /*
+   * In dark mode headings sit on navy, so they invert to white -- the same
+   * rule the logo follows.
+   */
+  :root[data-theme="dark"] h1,
+  :root[data-theme="dark"] h2,
+  :root[data-theme="dark"] h3,
+  :root[data-theme="dark"] h4,
+  :root[data-theme="dark"] h5,
+  :root[data-theme="dark"] h6 {
+    color: var(--on-surface);
+  }
 }
 
-.surface-dark h1,
-.surface-dark h2,
-.surface-dark h3,
-.surface-dark h4,
-.surface-dark h5,
-.surface-dark h6 {
-  color: var(--surface);
-}
+@layer components {
+  /*
+   * Dark surfaces invert navy elements to white and leave the blue untouched,
+   * mirroring how the logo's inverse variant works.
+   */
+  .surface-dark {
+    background-color: var(--navy);
+    color: var(--on-navy);
+  }
 
-/*
- * In dark mode headings sit on navy, so they invert to white -- the same rule
- * the logo follows.
- */
-:root[data-theme="dark"] h1,
-:root[data-theme="dark"] h2,
-:root[data-theme="dark"] h3,
-:root[data-theme="dark"] h4,
-:root[data-theme="dark"] h5,
-:root[data-theme="dark"] h6 {
-  color: var(--on-surface);
-}
+  .surface-dark h1,
+  .surface-dark h2,
+  .surface-dark h3,
+  .surface-dark h4,
+  .surface-dark h5,
+  .surface-dark h6 {
+    color: var(--on-navy);
+  }
 
-/*
- * The footer is already a dark surface in light mode. In dark mode the page
- * canvas is the same navy, so it is lifted slightly to stay distinguishable
- * from the body instead of merging into it.
- */
-:root[data-theme="dark"] .surface-dark {
-  background-color: var(--surface-muted);
-}
+  /*
+   * The footer is already a dark surface in light mode. In dark mode the page
+   * canvas is the same navy, so it is lifted slightly to stay distinguishable
+   * from the body instead of merging into it.
+   */
+  :root[data-theme="dark"] .surface-dark {
+    background-color: var(--surface-muted);
+  }
 
-/* Logo variants are both rendered; CSS reveals the one matching the theme.
-   This avoids a client round-trip and any hydration mismatch. */
-.brand-logo-dark {
-  display: none;
-}
+  /* Logo variants are both rendered; CSS reveals the one matching the theme.
+     This avoids a client round-trip and any hydration mismatch. */
+  .brand-logo-dark {
+    display: none;
+  }
 
-:root[data-theme="dark"] .brand-logo-light {
-  display: none;
-}
+  :root[data-theme="dark"] .brand-logo-light {
+    display: none;
+  }
 
-:root[data-theme="dark"] .brand-logo-dark {
-  display: block;
+  :root[data-theme="dark"] .brand-logo-dark {
+    display: block;
+  }
 }

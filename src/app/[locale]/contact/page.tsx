@@ -22,7 +22,7 @@ export default async function ContactPage({
   const t = await getTranslations({ locale, namespace: 'contact' });
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-surface">
       <Navbar />
       <section className="pt-32 pb-24 px-6 md:px-12 max-w-3xl mx-auto">
         <div className="text-center mb-12">
@@ -38,7 +38,7 @@ export default async function ContactPage({
         </div>
 
         <div className="grid gap-4 md:grid-cols-3">
-          <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-200">
+          <div className="rounded-2xl bg-card p-6 shadow-sm border border-gray-200">
             <p className="text-xs uppercase tracking-wider text-gray-400 font-semibold mb-1">
               Email
             </p>
@@ -46,13 +46,13 @@ export default async function ContactPage({
               {t('email')}
             </a>
           </div>
-          <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-200">
+          <div className="rounded-2xl bg-card p-6 shadow-sm border border-gray-200">
             <p className="text-xs uppercase tracking-wider text-gray-400 font-semibold mb-1">
               {t('office')}
             </p>
             <p className="text-sm text-gray-700">{t('officeLocation')}</p>
           </div>
-          <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-200">
+          <div className="rounded-2xl bg-card p-6 shadow-sm border border-gray-200">
             <p className="text-xs uppercase tracking-wider text-gray-400 font-semibold mb-1">
               {t('phone')}
             </p>
