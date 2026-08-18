@@ -9,22 +9,20 @@ import Image from 'next/image';
  * rotate, or stretch the asset. Choosing by `surface` here keeps that decision
  * in one place instead of at every call site.
  *
- * The current PNGs have an opaque background baked in, so a variant must be
- * placed on a surface matching its own background. Once transparent SVGs
- * replace them, the files can be swapped without touching this component.
+ * The assets are transparent WebP, so a variant no longer has to sit on a
+ * surface matching its own background -- only one light enough or dark enough
+ * to hold it. That is still the caller's choice, which is why `surface` exists.
  */
 export type BrandSurface = 'light' | 'dark';
 
 const ASSETS = {
   mark: {
-    light: { src: '/brand/enztronic-mark-primary.png', width: 1200, height: 1200 },
-    dark: { src: '/brand/enztronic-mark-inverse.png', width: 1200, height: 1200 },
+    light: { src: '/brand/enztronic-mark-primary.webp', width: 1200, height: 1200 },
+    dark: { src: '/brand/enztronic-mark-inverse.webp', width: 1200, height: 1200 },
   },
   lockup: {
-    // No light-surface lockup exists yet; the mark is used instead rather than
-    // placing the inverse lockup on a light background.
-    light: { src: '/brand/enztronic-mark-primary.png', width: 1200, height: 1200 },
-    dark: { src: '/brand/enztronic-lockup-inverse.png', width: 2079, height: 756 },
+    light: { src: '/brand/enztronic-lockup-primary.webp', width: 2079, height: 756 },
+    dark: { src: '/brand/enztronic-lockup-inverse.webp', width: 2079, height: 756 },
   },
 } as const;
 
