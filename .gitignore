@@ -16,6 +16,11 @@ build/
 !public/brand/*.svg
 !public/brand/*.webp
 
+# App-router icons. The global *.png rule above would drop them and ship the
+# default Vercel favicon instead.
+!src/app/icon.png
+!src/app/apple-icon.png
+
 # Allow committed screenshot assets in public/screenshots
 !public/screenshots/
 !public/screenshots/*.svg
