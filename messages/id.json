@@ -59,7 +59,8 @@
       "ctaHeading": "Siap mengembangkan bisnis Anda?",
       "ctaBody": "Kebanyakan agensi hanya mengeksekusi. Kami berpikir, merencanakan, dan mengeksekusi. Mari diskusikan tujuan Anda.",
       "ctaWhatsapp": "WhatsApp Kami",
-      "ctaContact": "Hubungi Kami"
+      "ctaContact": "Hubungi Kami",
+      "featuredAlt": "Platform rekrutmen Qianlima, salah satu sistem yang dibangun Enztronic"
     },
     "caseStudy": {
       "label": "Proyek Unggulan",
@@ -99,32 +100,62 @@
       {
         "title": "Automasi AI & Integrasi Sistem",
         "description": "Hubungkan tools, data, dan alur kerja berulang agar tim tidak lagi memindahkan informasi secara manual.",
-        "features": ["Automasi Alur Kerja", "Operasional Berbantuan AI", "Integrasi API", "Tools Internal"]
+        "features": [
+          "Automasi Alur Kerja",
+          "Operasional Berbantuan AI",
+          "Integrasi API",
+          "Tools Internal"
+        ]
       },
       {
         "title": "Pengembangan SaaS & Platform",
         "description": "Rancang dan bangun platform yang mudah dipelihara untuk pelanggan, mitra, dan tim internal.",
-        "features": ["Arsitektur Produk", "Alur Berbasis Peran", "Dashboard", "Pengembangan API"]
+        "features": [
+          "Arsitektur Produk",
+          "Alur Berbasis Peran",
+          "Dashboard",
+          "Pengembangan API"
+        ]
       },
       {
         "title": "Website & Produk Digital",
         "description": "Bangun website cepat dan produk digital yang selaras dengan cara bisnis Anda menjual dan melayani pelanggan.",
-        "features": ["Next.js & React", "Website Produk", "Integrasi CMS", "E-commerce"]
+        "features": [
+          "Next.js & React",
+          "Website Produk",
+          "Integrasi CMS",
+          "E-commerce"
+        ]
       },
       {
         "title": "Sistem Brand & Produk",
         "description": "Bangun identitas dan sistem antarmuka yang konsisten di seluruh produk, tim, dan kanal.",
-        "features": ["Strategi Brand", "Identitas Visual", "Design System", "UI Produk"]
+        "features": [
+          "Strategi Brand",
+          "Identitas Visual",
+          "Design System",
+          "UI Produk"
+        ]
       },
       {
         "title": "Infrastruktur Pertumbuhan",
         "description": "Siapkan fondasi SEO teknis, analytics, konten, dan kampanye agar demand dapat diukur dan ditingkatkan.",
-        "features": ["SEO Teknikal", "Analytics", "Sistem Konten", "Pelacakan Konversi"]
+        "features": [
+          "SEO Teknikal",
+          "Analytics",
+          "Sistem Konten",
+          "Pelacakan Konversi"
+        ]
       },
       {
         "title": "Strategi Produk & UX",
         "description": "Ubah kebutuhan yang belum jelas menjadi alur prioritas, prototipe, dan roadmap delivery yang dapat dijalankan.",
-        "features": ["Audit Alur Kerja", "Riset Pengguna", "Prototyping", "Perencanaan Roadmap"]
+        "features": [
+          "Audit Alur Kerja",
+          "Riset Pengguna",
+          "Prototyping",
+          "Perencanaan Roadmap"
+        ]
       }
     ]
   },
@@ -138,42 +169,66 @@
         "category": "Platform Rekrutmen",
         "description": "Platform rekrutmen lintas batas yang menghubungkan perusahaan Tiongkok dengan talenta Indonesia melalui dashboard multibahasa berbasis peran, manajemen kandidat, jadwal wawancara, dan alur dokumen.",
         "url": "https://qianlima.co.id",
-        "tags": ["Next.js", "Multi-bahasa", "Enterprise"]
+        "tags": [
+          "Next.js",
+          "Multi-bahasa",
+          "Enterprise"
+        ]
       },
       {
         "title": "Monopole Consulting",
         "category": "Konsultasi Wine - Bilingual",
         "description": "Website layanan konsultasi wine mewah yang dirancang untuk klien Taiwan dan AS. Antarmuka bilingual (Inggris/Mandarin Tradisional), katalog daftar wine, layanan konsultasi, manajemen acara, dan catatan pencicipan - dikembangkan dari awal dengan branding klien.",
         "url": "https://monopoleconsulting.com",
-        "tags": ["Bilingual", "React", "E-commerce"]
+        "tags": [
+          "Bilingual",
+          "React",
+          "E-commerce"
+        ]
       },
       {
         "title": "Setia Karya (AC Mobil Murah)",
         "category": "Pemasaran Digital Penuh",
         "description": "Transformasi merek lengkap dan kampanye pemasaran digital. Menciptakan jargon merek ikonik \"Car, Bus, Truck & Heavy Equipment Air Conditioning Service\". Membangun website, mengimplementasikan strategi Google Ads, dan mengelola saluran media sosial termasuk YouTube, Instagram, dan Facebook.",
         "url": "https://acmobilmurah.com",
-        "tags": ["Branding", "Google Ads", "Media Sosial"]
+        "tags": [
+          "Branding",
+          "Google Ads",
+          "Media Sosial"
+        ]
       },
       {
         "title": "Berdi Rental",
         "category": "Website & Brand Rental Mobil",
         "description": "Landing page rental mobil dan fondasi brand yang dirancang untuk memperjelas layanan, meningkatkan visibilitas lokal, dan mempermudah calon pelanggan menghubungi bisnis.",
         "url": "https://berdirental.com",
-        "tags": ["SEO", "Landing Page", "Branding"]
+        "tags": [
+          "SEO",
+          "Landing Page",
+          "Branding"
+        ]
       },
       {
         "title": "ShortPro",
         "category": "Branding Lokal & Lingkungan Digital",
         "description": "Pengaturan ekosistem digital lengkap termasuk pengembangan website, infrastruktur FTP, konfigurasi domain email, dan produksi konten. Mengelola kehadiran Instagram resmi, iklan berbayar, dan acara digital berkelanjutan untuk penetapan pasar lokal.",
         "url": "https://shortpro.co.id",
-        "tags": ["Branding", "Infrastruktur", "Konten"]
+        "tags": [
+          "Branding",
+          "Infrastruktur",
+          "Konten"
+        ]
       },
       {
         "title": "Salim Berkat Sejahtera",
         "category": "Branding PT & Kehadiran Web",
         "description": "Pengaturan website dan domain email untuk PT. Salim Berkat Sejahtera di Balikpapan, Kalimantan Timur. Fokus pada membangun kehadiran online profesional dan identitas merek perusahaan.",
         "url": "https://salimberkatsejahtera.com",
-        "tags": ["Branding", "Desain Web", "Email"]
+        "tags": [
+          "Branding",
+          "Desain Web",
+          "Email"
+        ]
       }
     ]
   },

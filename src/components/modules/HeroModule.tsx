@@ -1,4 +1,5 @@
-import { BarChart, ArrowRight } from 'lucide-react';
+import Image from 'next/image';
+import { FEATURED_SCREENSHOT } from '@/lib/screenshots';
 import { Link } from '@/i18n/navigation';
 
 type HeroModuleData = {
@@ -54,8 +55,16 @@ export default function HeroModule({ data }: { data: HeroModuleData }) {
           </div>
         </div>
         <div className="relative bg-gray-50 rounded-2xl p-8 border border-gray-200">
-          <div className="aspect-video bg-card rounded-xl shadow-sm overflow-hidden flex items-center justify-center">
-            <BarChart className="w-20 h-20 text-gray-300" />
+          <div className="aspect-video bg-card rounded-xl shadow-sm overflow-hidden">
+            <Image
+              src={FEATURED_SCREENSHOT}
+              alt="A platform built by Enztronic"
+              width={1440}
+              height={900}
+              priority
+              sizes="(min-width: 1024px) 40vw, 90vw"
+              className="h-full w-full object-cover object-top"
+            />
           </div>
           {(data.revenueGrowth || data.revenueLabel) && (
             <div className="absolute -bottom-6 -left-6 bg-card p-6 rounded-xl shadow-xl border border-gray-200">

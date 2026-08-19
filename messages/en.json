@@ -59,7 +59,8 @@
       "ctaHeading": "Where is manual work slowing your business down?",
       "ctaBody": "We map the bottleneck, design the right system, and build a practical path from operations to launch.",
       "ctaWhatsapp": "WhatsApp Us",
-      "ctaContact": "Get in Touch"
+      "ctaContact": "Get in Touch",
+      "featuredAlt": "The Qianlima recruitment platform, one of the systems Enztronic built"
     },
     "caseStudy": {
       "label": "Featured Project",
@@ -99,32 +100,62 @@
       {
         "title": "AI Automation & System Integration",
         "description": "Connect tools, data, and repetitive workflows so teams spend less time moving information by hand.",
-        "features": ["Workflow Automation", "AI-Assisted Operations", "API Integration", "Internal Tools"]
+        "features": [
+          "Workflow Automation",
+          "AI-Assisted Operations",
+          "API Integration",
+          "Internal Tools"
+        ]
       },
       {
         "title": "SaaS & Platform Development",
         "description": "Design and build secure, maintainable platforms for customers, partners, and internal teams.",
-        "features": ["Product Architecture", "Role-Based Workflows", "Dashboards", "API Development"]
+        "features": [
+          "Product Architecture",
+          "Role-Based Workflows",
+          "Dashboards",
+          "API Development"
+        ]
       },
       {
         "title": "Websites & Digital Products",
         "description": "Create fast, accessible websites and product experiences aligned with the way your business sells and serves.",
-        "features": ["Next.js & React", "Product Websites", "CMS Integration", "E-commerce"]
+        "features": [
+          "Next.js & React",
+          "Product Websites",
+          "CMS Integration",
+          "E-commerce"
+        ]
       },
       {
         "title": "Brand & Product Systems",
         "description": "Build a coherent identity and interface system that stays consistent across products, teams, and channels.",
-        "features": ["Brand Strategy", "Visual Identity", "Design Systems", "Product UI"]
+        "features": [
+          "Brand Strategy",
+          "Visual Identity",
+          "Design Systems",
+          "Product UI"
+        ]
       },
       {
         "title": "Growth Infrastructure",
         "description": "Set up the technical SEO, analytics, content, and campaign foundations needed to measure and improve demand.",
-        "features": ["Technical SEO", "Analytics", "Content Systems", "Conversion Tracking"]
+        "features": [
+          "Technical SEO",
+          "Analytics",
+          "Content Systems",
+          "Conversion Tracking"
+        ]
       },
       {
         "title": "Product Strategy & UX",
         "description": "Turn unclear requirements into prioritized workflows, prototypes, and an actionable delivery roadmap.",
-        "features": ["Workflow Audits", "User Research", "Prototyping", "Roadmap Planning"]
+        "features": [
+          "Workflow Audits",
+          "User Research",
+          "Prototyping",
+          "Roadmap Planning"
+        ]
       }
     ]
   },
@@ -138,42 +169,66 @@
         "category": "Recruitment Platform",
         "description": "Cross-border hiring platform connecting Chinese companies with Indonesian talent through multilingual role-based dashboards, candidate management, interview scheduling, and document workflows.",
         "url": "https://qianlima.co.id",
-        "tags": ["Next.js", "Multi-language", "Enterprise"]
+        "tags": [
+          "Next.js",
+          "Multi-language",
+          "Enterprise"
+        ]
       },
       {
         "title": "Monopole Consulting",
         "category": "Wine Consulting - Bilingual",
         "description": "Fine and rare wine consultation services website designed for both Taiwanese and US clients. Bilingual interface (English/Traditional Chinese), wine list catalog, consulting services, events management, and tasting notes - developed from scratch with client branding.",
         "url": "https://monopoleconsulting.com",
-        "tags": ["Bilingual", "React", "E-commerce"]
+        "tags": [
+          "Bilingual",
+          "React",
+          "E-commerce"
+        ]
       },
       {
         "title": "Setia Karya (AC Mobil Murah)",
         "category": "Full Digital Marketing",
         "description": "Complete brand transformation and digital marketing campaign. Created the iconic brand jargon \"Car, Bus, Truck & Heavy Equipment Air Conditioning Service\". Built website, implemented Google Ads strategy, and managed social media channels including YouTube, Instagram, and Facebook.",
         "url": "https://acmobilmurah.com",
-        "tags": ["Branding", "Google Ads", "Social Media"]
+        "tags": [
+          "Branding",
+          "Google Ads",
+          "Social Media"
+        ]
       },
       {
         "title": "Berdi Rental",
         "category": "Car Rental Website & Brand",
         "description": "A focused car-rental landing page and brand foundation designed to make services clear, improve local discoverability, and simplify customer enquiries.",
         "url": "https://berdirental.com",
-        "tags": ["SEO", "Landing Page", "Branding"]
+        "tags": [
+          "SEO",
+          "Landing Page",
+          "Branding"
+        ]
       },
       {
         "title": "ShortPro",
         "category": "Local Branding & Digital Environment",
         "description": "Complete digital ecosystem setup including website development, FTP infrastructure, email domain configuration, and content production. Managed official Instagram presence, paid advertising, and ongoing digital events for local market establishment.",
         "url": "https://shortpro.co.id",
-        "tags": ["Branding", "Infrastructure", "Content"]
+        "tags": [
+          "Branding",
+          "Infrastructure",
+          "Content"
+        ]
       },
       {
         "title": "Salim Berkat Sejahtera",
         "category": "PT Branding & Web Presence",
         "description": "Website and email domain setup for PT. Salim Berkat Sejahtera in Balikpapan, Kalimantan Timur. Focused on establishing professional online presence and brand identity for the company.",
         "url": "https://salimberkatsejahtera.com",
-        "tags": ["Branding", "Web Design", "Email"]
+        "tags": [
+          "Branding",
+          "Web Design",
+          "Email"
+        ]
       }
     ]
   },

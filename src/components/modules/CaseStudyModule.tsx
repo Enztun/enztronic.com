@@ -1,4 +1,6 @@
+import Image from 'next/image';
 import { CheckCircle, ArrowRight } from 'lucide-react';
+import { FEATURED_SCREENSHOT } from '@/lib/screenshots';
 
 type CaseStudyData = {
   label?: string;
@@ -14,8 +16,15 @@ export default function CaseStudyModule({ data }: { data: CaseStudyData }) {
     <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
       <div className="bg-gray-50 rounded-3xl overflow-hidden grid grid-cols-1 lg:grid-cols-2 border border-gray-200">
         <div className="bg-gray-200/50 flex items-center justify-center p-12">
-          <div className="w-full h-[400px] bg-white/50 dark:bg-white/5 backdrop-blur-sm rounded-xl border border-white dark:border-white/10 flex items-center justify-center text-gray-500 italic">
-            {data.title}
+          <div className="w-full h-[400px] overflow-hidden rounded-xl border border-white/70 dark:border-white/10 shadow-lg">
+            <Image
+              src={FEATURED_SCREENSHOT}
+              alt={data.title ?? 'Featured project'}
+              width={1440}
+              height={900}
+              sizes="(min-width: 1024px) 45vw, 90vw"
+              className="h-full w-full object-cover object-top"
+            />
           </div>
         </div>
         <div className="p-16 flex flex-col justify-center">

@@ -59,7 +59,8 @@
       "ctaHeading": "准备好发展您的业务了吗？",
       "ctaBody": "大多数机构只是执行。我们思考、规划并执行。让我们来谈谈您的目标。",
       "ctaWhatsapp": "WhatsApp 咨询",
-      "ctaContact": "立即联系"
+      "ctaContact": "立即联系",
+      "featuredAlt": "千里马招聘平台，Enztronic 打造的系统之一"
     },
     "caseStudy": {
       "label": "精选项目",
@@ -99,32 +100,62 @@
       {
         "title": "AI 自动化与系统集成",
         "description": "连接工具、数据和重复工作流，减少团队手动搬运信息的时间。",
-        "features": ["工作流自动化", "AI 辅助运营", "API 集成", "内部工具"]
+        "features": [
+          "工作流自动化",
+          "AI 辅助运营",
+          "API 集成",
+          "内部工具"
+        ]
       },
       {
         "title": "SaaS 与平台开发",
         "description": "为客户、合作伙伴和内部团队设计并构建易于维护的平台。",
-        "features": ["产品架构", "角色化流程", "数据看板", "API 开发"]
+        "features": [
+          "产品架构",
+          "角色化流程",
+          "数据看板",
+          "API 开发"
+        ]
       },
       {
         "title": "网站与数字产品",
         "description": "构建快速、易用的网站和产品体验，使其符合企业销售与服务客户的实际方式。",
-        "features": ["Next.js & React", "产品网站", "CMS 集成", "电子商务"]
+        "features": [
+          "Next.js & React",
+          "产品网站",
+          "CMS 集成",
+          "电子商务"
+        ]
       },
       {
         "title": "品牌与产品系统",
         "description": "建立在产品、团队和渠道之间保持一致的品牌识别与界面系统。",
-        "features": ["品牌战略", "视觉识别", "设计系统", "产品界面"]
+        "features": [
+          "品牌战略",
+          "视觉识别",
+          "设计系统",
+          "产品界面"
+        ]
       },
       {
         "title": "增长基础设施",
         "description": "搭建技术 SEO、数据分析、内容和推广基础，以便持续衡量并改善需求。",
-        "features": ["技术 SEO", "数据分析", "内容系统", "转化追踪"]
+        "features": [
+          "技术 SEO",
+          "数据分析",
+          "内容系统",
+          "转化追踪"
+        ]
       },
       {
         "title": "产品策略与 UX",
         "description": "将模糊需求转化为有优先级的流程、原型和可执行的交付路线图。",
-        "features": ["流程审计", "用户研究", "原型设计", "路线图规划"]
+        "features": [
+          "流程审计",
+          "用户研究",
+          "原型设计",
+          "路线图规划"
+        ]
       }
     ]
   },
@@ -138,42 +169,66 @@
         "category": "招聘平台",
         "description": "连接中国企业与印度尼西亚人才的跨境招聘平台，包含多语言角色化看板、候选人管理、面试安排和文件流程。",
         "url": "https://qianlima.co.id",
-        "tags": ["Next.js", "多语言", "企业级"]
+        "tags": [
+          "Next.js",
+          "多语言",
+          "企业级"
+        ]
       },
       {
         "title": "Monopole Consulting",
         "category": "葡萄酒咨询 - 双语",
         "description": "为台湾和美国客户设计的精品葡萄酒咨询服务网站。双语界面（英语/繁体中文）、酒单目录、咨询服务、活动管理和品鉴笔记 - 从零开始开发，融入客户品牌。",
         "url": "https://monopoleconsulting.com",
-        "tags": ["双语", "React", "电商"]
+        "tags": [
+          "双语",
+          "React",
+          "电商"
+        ]
       },
       {
         "title": "Setia Karya (AC Mobil Murah)",
         "category": "全面数字营销",
         "description": "完整的品牌转型和数字营销活动。创造了标志性品牌口号 Car, Bus, Truck & Heavy Equipment Air Conditioning Service。建立网站，实施Google Ads策略，管理YouTube、Instagram和Facebook等社交媒体渠道。",
         "url": "https://acmobilmurah.com",
-        "tags": ["品牌策划", "Google Ads", "社交媒体"]
+        "tags": [
+          "品牌策划",
+          "Google Ads",
+          "社交媒体"
+        ]
       },
       {
         "title": "Berdi Rental",
         "category": "租车网站与品牌",
         "description": "面向租车业务打造的聚焦型落地页与品牌基础，用于清晰展示服务、提升本地可发现性并简化客户咨询。",
         "url": "https://berdirental.com",
-        "tags": ["SEO", "落地页", "品牌策划"]
+        "tags": [
+          "SEO",
+          "落地页",
+          "品牌策划"
+        ]
       },
       {
         "title": "ShortPro",
         "category": "本地品牌与数字生态",
         "description": "完整的数字生态系统搭建，包括网站开发、FTP基础设施、邮件域名配置和内容制作。管理官方Instagram账号、付费广告和持续的数字活动，助力本地市场建立。",
         "url": "https://shortpro.co.id",
-        "tags": ["品牌策划", "基础设施", "内容"]
+        "tags": [
+          "品牌策划",
+          "基础设施",
+          "内容"
+        ]
       },
       {
         "title": "Salim Berkat Sejahtera",
         "category": "PT品牌与网络存在",
         "description": "为位于东加里曼丹巴厘巴板的PT. Salim Berkat Sejahtera建立网站和邮件域名。专注于为公司建立专业的线上形象和品牌识别。",
         "url": "https://salimberkatsejahtera.com",
-        "tags": ["品牌策划", "网站设计", "邮件"]
+        "tags": [
+          "品牌策划",
+          "网站设计",
+          "邮件"
+        ]
       }
     ]
   },

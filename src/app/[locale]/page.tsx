@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server';
-import { ArrowRight, CheckCircle, BarChart, Code, Megaphone, Target, Palette, TrendingUp, Users, MessageCircle } from 'lucide-react';
+import Image from 'next/image';
+import { ArrowRight, CheckCircle, Code, Megaphone, Target, Palette, TrendingUp, Users, MessageCircle } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ModuleRenderer from '@/components/modules/ModuleRenderer';
@@ -10,6 +11,7 @@ import { pageBySlugQuery, postsByLocaleQuery } from '@/sanity/lib/queries';
 import { urlFor } from '@/sanity/lib/image';
 import type { PostSummary } from '@/sanity/lib/types';
 import { createCorePageMetadata } from '@/lib/seo';
+import { FEATURED_SCREENSHOT } from '@/lib/screenshots';
 
 const WHATSAPP = 'https://wa.me/6289637579728';
 
@@ -107,8 +109,16 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             </div>
           </div>
           <div className="relative bg-gray-50 rounded-2xl p-8 border border-gray-200">
-            <div className="aspect-video bg-card rounded-xl shadow-sm overflow-hidden flex items-center justify-center">
-              <BarChart className="w-20 h-20 text-gray-300" />
+            <div className="aspect-video bg-card rounded-xl shadow-sm overflow-hidden">
+              <Image
+                src={FEATURED_SCREENSHOT}
+                alt={t('hero.featuredAlt')}
+                width={1440}
+                height={900}
+                priority
+                sizes="(min-width: 1024px) 40vw, 90vw"
+                className="h-full w-full object-cover object-top"
+              />
             </div>
             <div className="absolute -bottom-6 -left-6 bg-card p-6 rounded-xl shadow-xl border border-gray-200">
               <p className="text-3xl font-bold text-primary">{t('hero.revenueGrowth')}</p>
@@ -168,8 +178,15 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
         <div className="bg-gray-50 rounded-3xl overflow-hidden grid grid-cols-1 lg:grid-cols-2 border border-gray-200">
           <div className="bg-gray-200/50 flex items-center justify-center p-12">
-            <div className="w-full h-[400px] bg-white/50 dark:bg-white/5 backdrop-blur-sm rounded-xl border border-white dark:border-white/10 flex items-center justify-center text-gray-500 italic">
-              {t('caseStudy.screenshot')}
+            <div className="w-full h-[400px] overflow-hidden rounded-xl border border-white/70 dark:border-white/10 shadow-lg">
+              <Image
+                src={FEATURED_SCREENSHOT}
+                alt={t('caseStudy.screenshot')}
+                width={1440}
+                height={900}
+                sizes="(min-width: 1024px) 45vw, 90vw"
+                className="h-full w-full object-cover object-top"
+              />
             </div>
           </div>
           <div className="p-16 flex flex-col justify-center">
