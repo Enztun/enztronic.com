@@ -26,8 +26,6 @@ build/
 !public/screenshots/*.svg
 !public/screenshots/*.png
 
-# Allow anniversary proposal HTML
-!public/shortpro-anniversary/index.html
 
 # Dependencies
 node_modules/
