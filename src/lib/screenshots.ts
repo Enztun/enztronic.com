@@ -7,13 +7,18 @@
  * `ImageWithFallback` could swap in its placeholder. Adding a project here is
  * a one-line change once its two WebPs land in `public/screenshots/`.
  *
- * Not captured, and why:
- *  - monopoleconsulting.com and berdirental.com sit behind a Cloudflare bot
- *    challenge that does not clear for an automated browser.
- *  - shortpro.co.id now redirects to shortmaxdl.github.io, an unrelated
- *    app-download page, so there is nothing of ours left there to show.
+ * monopoleconsulting.com and berdirental.com sit behind a Cloudflare challenge
+ * that a headless browser never clears; both were captured with a headed
+ * browser on a persistent profile, which the challenge accepts. Re-shooting
+ * them later needs the same treatment.
  */
-const CAPTURED = new Set(['qianlima', 'acmobilmurah', 'salimberkatsejahtera']);
+const CAPTURED = new Set([
+  'qianlima',
+  'acmobilmurah',
+  'salimberkatsejahtera',
+  'berdirental',
+  'monopoleconsulting',
+]);
 
 export type ScreenshotKind = 'laptop' | 'mobile';
 
