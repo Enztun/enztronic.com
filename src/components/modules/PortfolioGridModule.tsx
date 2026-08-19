@@ -1,8 +1,7 @@
 import { ArrowRight } from 'lucide-react';
 import ImageWithFallback from '@/components/ImageWithFallback';
+import { screenshotFor } from '@/lib/screenshots';
 
-const defaultLaptopScreenshot = '/screenshots/placeholder-laptop.svg';
-const defaultMobileScreenshot = '/screenshots/placeholder-mobile.svg';
 
 type Project = {
   _key?: string;
@@ -48,7 +47,7 @@ export default function PortfolioGridModule({ data }: { data: PortfolioGridData 
                       <div className="rounded-lg bg-slate-800 p-1">
                         <div className="overflow-hidden rounded-md bg-white aspect-video relative">
                           <ImageWithFallback
-                            src={defaultLaptopScreenshot}
+                            src={screenshotFor(project.url, 'laptop')}
                             alt={`${project.title} laptop preview`}
                             className="w-full h-full object-cover"
                           />
@@ -65,7 +64,7 @@ export default function PortfolioGridModule({ data }: { data: PortfolioGridData 
                       <div className="absolute left-1/2 top-3 h-7 w-28 -translate-x-1/2 bg-black rounded-full z-10" />
                       <div className="h-full w-full rounded-[2.5rem] bg-white overflow-hidden relative">
                         <ImageWithFallback
-                          src={defaultMobileScreenshot}
+                          src={screenshotFor(project.url, 'mobile')}
                           alt={`${project.title} mobile preview`}
                           className="w-full h-full object-cover"
                         />

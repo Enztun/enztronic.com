@@ -4,13 +4,12 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ModuleRenderer from '@/components/modules/ModuleRenderer';
 import ImageWithFallback from '@/components/ImageWithFallback';
+import { screenshotFor } from '@/lib/screenshots';
 import { isSanityConfigured } from '@/sanity/lib/client';
 import { sanityFetch } from '@/sanity/lib/fetch';
 import { pageBySlugQuery } from '@/sanity/lib/queries';
 import { createCorePageMetadata } from '@/lib/seo';
 
-const defaultLaptopScreenshot = '/screenshots/placeholder-laptop.svg';
-const defaultMobileScreenshot = '/screenshots/placeholder-mobile.svg';
 type Project = { title: string; category: string; description: string; url: string; tags: string[] };
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
@@ -62,7 +61,7 @@ export default async function Portfolio({ params }: { params: Promise<{ locale: 
                   <div className="relative w-full max-w-lg">
                     <div className="relative rounded-xl bg-slate-900 p-2 shadow-2xl">
                       <div className="absolute left-1/2 top-0 h-3 w-20 -translate-x-1/2 -translate-y-1/2 rounded-b-lg bg-slate-800 z-10"><div className="mx-auto mt-1.5 h-1.5 w-1.5 rounded-full bg-slate-700" /></div>
-                      <div className="rounded-lg bg-slate-800 p-1"><div className="overflow-hidden rounded-md bg-white aspect-video relative"><ImageWithFallback src={defaultLaptopScreenshot} alt={`${project.title} laptop preview`} className="w-full h-full object-cover" /></div></div>
+                      <div className="rounded-lg bg-slate-800 p-1"><div className="overflow-hidden rounded-md bg-white aspect-video relative"><ImageWithFallback src={screenshotFor(project.url, 'laptop')} alt={`${project.title} laptop preview`} className="w-full h-full object-cover" /></div></div>
                     </div>
                     <div className="mt-0 h-3 bg-gradient-to-b from-slate-400 to-slate-500 rounded-b-xl shadow-lg" />
                     <div className="h-1 bg-slate-600 rounded-b-lg" />
@@ -71,7 +70,7 @@ export default async function Portfolio({ params }: { params: Promise<{ locale: 
                 <div className="relative flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200 rounded-2xl p-8">
                   <div className="relative w-[280px] h-[560px] bg-slate-900 rounded-[3rem] p-3 shadow-2xl border-4 border-slate-800">
                     <div className="absolute left-1/2 top-3 h-7 w-28 -translate-x-1/2 bg-black rounded-full z-10" />
-                    <div className="h-full w-full rounded-[2.5rem] bg-white overflow-hidden relative"><ImageWithFallback src={defaultMobileScreenshot} alt={`${project.title} mobile preview`} className="w-full h-full object-cover" /></div>
+                    <div className="h-full w-full rounded-[2.5rem] bg-white overflow-hidden relative"><ImageWithFallback src={screenshotFor(project.url, 'mobile')} alt={`${project.title} mobile preview`} className="w-full h-full object-cover" /></div>
                     <div className="absolute left-0 top-20 h-8 w-1 bg-slate-700 rounded-l" /><div className="absolute left-0 top-32 h-12 w-1 bg-slate-700 rounded-l" /><div className="absolute right-0 top-28 h-16 w-1 bg-slate-700 rounded-r" />
                   </div>
                 </div>
