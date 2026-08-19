@@ -1,3 +1,6 @@
+import Image from 'next/image';
+import { FOUNDER_PORTRAIT } from '@/lib/screenshots';
+
 type StatItem = { _key?: string; value: string; label: string };
 
 type AboutIntroData = {
@@ -35,12 +38,15 @@ export default function AboutIntroModule({ data }: { data: AboutIntroData }) {
         </div>
         <div className="bg-gray-100 rounded-3xl p-12 flex items-center justify-center min-h-[500px]">
           <div className="text-center">
-            <div className="w-64 h-64 bg-gray-300 rounded-full mx-auto mb-8 flex items-center justify-center overflow-hidden">
-              {data.founder?.name && (
-                <span className="text-gray-500 text-4xl font-bold">
-                  {data.founder.name.charAt(0)}
-                </span>
-              )}
+            <div className="relative mx-auto mb-8 h-64 w-64 overflow-hidden rounded-full ring-1 ring-line shadow-lg">
+              <Image
+                src={FOUNDER_PORTRAIT}
+                alt={data.founder?.name ?? 'Founder portrait'}
+                width={640}
+                height={640}
+                sizes="256px"
+                className="h-full w-full object-cover"
+              />
             </div>
             {data.founder?.name && (
               <h3 className="text-2xl font-bold mb-2">{data.founder.name}</h3>

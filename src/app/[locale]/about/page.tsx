@@ -1,4 +1,6 @@
 import { getTranslations } from 'next-intl/server';
+import Image from 'next/image';
+import { FOUNDER_PORTRAIT } from '@/lib/screenshots';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ModuleRenderer from '@/components/modules/ModuleRenderer';
@@ -59,8 +61,15 @@ export default async function About({ params }: { params: Promise<{ locale: stri
           </div>
           <div className="bg-gray-100 rounded-3xl p-12 flex items-center justify-center min-h-[500px]">
             <div className="text-center">
-              <div className="w-64 h-64 bg-gray-300 rounded-full mx-auto mb-8 flex items-center justify-center">
-                <span className="text-gray-500">{t('founder.portrait')}</span>
+              <div className="relative mx-auto mb-8 h-64 w-64 overflow-hidden rounded-full ring-1 ring-line shadow-lg">
+                <Image
+                  src={FOUNDER_PORTRAIT}
+                  alt={t('founder.name')}
+                  width={640}
+                  height={640}
+                  sizes="256px"
+                  className="h-full w-full object-cover"
+                />
               </div>
               <h3 className="text-2xl font-bold mb-2">{t('founder.name')}</h3>
               <p className="text-gray-600">{t('founder.title')}</p>

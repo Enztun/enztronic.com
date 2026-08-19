@@ -47,3 +47,6 @@ export function screenshotFor(url: string | undefined, kind: ScreenshotKind): st
 
 /** The flagship shot, used where the page speaks about the work in general. */
 export const FEATURED_SCREENSHOT = '/screenshots/qianlima-laptop.webp';
+
+/** Founder portrait, square-cropped for the circular slot on /about. */
+export const FOUNDER_PORTRAIT = '/team/founder.webp';
