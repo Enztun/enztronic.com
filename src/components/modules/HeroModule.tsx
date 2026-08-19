@@ -16,6 +16,7 @@ type HeroModuleData = {
 
 export default function HeroModule({ data }: { data: HeroModuleData }) {
   return (
+    <div className="brand-glow">
     <section className="pt-32 pb-20 px-6 md:px-12 max-w-7xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div>
@@ -69,5 +70,6 @@ export default function HeroModule({ data }: { data: HeroModuleData }) {
         </div>
       </div>
     </section>
+    </div>
   );
 }

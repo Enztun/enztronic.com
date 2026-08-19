@@ -71,6 +71,17 @@
   --color-gray-400: #6b7280;
   --color-gray-500: #59616f;
 
+  /*
+   * Glow strength, as the mix percentage of `--brand` in the wash. Both themes
+   * run the same values deliberately -- the wash reads as a weaker effect in
+   * light, but matching the numbers keeps the two themes the same design
+   * rather than two. This is the dial to turn down if the contrast audit ever
+   * starts failing under it.
+   */
+  --glow-a: 15%;
+  --glow-b: 10%;
+  --glow-grain: 0.05;
+
   /* Kept so any rule not yet migrated resolves to brand colours instead of
      the old generic blue. */
   --primary: var(--brand);
@@ -204,6 +215,52 @@
    */
   :root[data-theme="dark"] .surface-dark {
     background-color: var(--surface-muted);
+  }
+
+  /*
+   * One accent wash anchored in a corner -- not a page-wide gradient. It is
+   * deliberately scoped to the hero and the CTA panel: a luminance ramp
+   * underneath long-form copy would invalidate the contrast the neutral ramp
+   * above was tuned for.
+   *
+   * Two radials at different radii rather than one, with grain on top. A
+   * single soft blue ramp over navy bands visibly on 8-bit panels; the
+   * tighter second stop and the noise break the steps up.
+   *
+   * Both layers ride on pseudo-elements behind the content, so the wash never
+   * touches text colour -- only what sits behind it.
+   */
+  .brand-glow {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .brand-glow::before,
+  .brand-glow::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .brand-glow::before {
+    background:
+      radial-gradient(
+        58% 66% at 78% 16%,
+        color-mix(in oklab, var(--brand) var(--glow-a), transparent) 0%,
+        transparent 64%
+      ),
+      radial-gradient(
+        32% 42% at 90% 4%,
+        color-mix(in oklab, var(--brand) var(--glow-b), transparent) 0%,
+        transparent 60%
+      );
+  }
+
+  .brand-glow::after {
+    opacity: var(--glow-grain);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23g)'/%3E%3C/svg%3E");
   }
 
   /* Logo variants are both rendered; CSS reveals the one matching the theme.

@@ -80,6 +80,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <Navbar />
 
       {/* ── Hero ── */}
+      <div className="brand-glow">
       <section className="pt-32 pb-20 px-6 md:px-12 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
@@ -116,6 +117,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           </div>
         </div>
       </section>
+      </div>
 
       {/* ── Stats bar ── */}
       <section className="py-16 bg-gray-50 border-y border-gray-200">
@@ -301,7 +303,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
       {/* ── Bottom CTA ── */}
       <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
-        <div className="bg-gray-900 dark:bg-navy-soft rounded-3xl px-8 md:px-16 py-16 text-center">
+        <div className="brand-glow overflow-hidden bg-gray-900 dark:bg-navy-soft rounded-3xl px-8 md:px-16 py-16 text-center">
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 max-w-2xl mx-auto leading-tight">
             {t('hero.ctaHeading')}
           </h2>
