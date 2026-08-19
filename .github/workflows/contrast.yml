@@ -1,0 +1,31 @@
+name: contrast
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+
+      # No Sanity credentials here on purpose. Without them the pages render
+      # from the locale files, which is the path nobody looks at in a browser
+      # and therefore the one most likely to rot.
+      - run: npm run build
+
+      - name: Start server
+        run: |
+          npm start &
+          npx wait-on http://localhost:3000/en --timeout 90000
+
+      - run: npm run audit:contrast -- --base http://localhost:3000
