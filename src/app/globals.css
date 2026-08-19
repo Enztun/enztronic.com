@@ -61,6 +61,16 @@
   --on-surface-variant: #4a5a72;
   --line: #dbe2ee;
 
+  /*
+   * Every `text-gray-400` on the site is a functional label -- eyebrows,
+   * dates, figcaptions, form hints -- never decoration, and Tailwind's stock
+   * #99a1af manages only 2.6:1 on white. 400 and 500 are pulled down far
+   * enough to clear 4.5:1 on white, on gray-50 cards and on surface-muted,
+   * while keeping a visible step between the tiers. 600 upwards already pass.
+   */
+  --color-gray-400: #6b7280;
+  --color-gray-500: #59616f;
+
   /* Kept so any rule not yet migrated resolves to brand colours instead of
      the old generic blue. */
   --primary: var(--brand);

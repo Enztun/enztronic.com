@@ -79,7 +79,7 @@ export default function PortfolioGridModule({ data }: { data: PortfolioGridData 
                 <div className="md:col-span-2 flex flex-col justify-between gap-6 pt-4">
                   <div className="space-y-5">
                     {project.category && (
-                      <span className="inline-flex rounded-full bg-primary/10 px-4 py-2 text-sm font-semibold text-primary">
+                      <span className="inline-flex rounded-full bg-primary/10 px-4 py-2 text-sm font-semibold text-brand-strong">
                         {project.category}
                       </span>
                     )}
