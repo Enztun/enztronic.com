@@ -1,6 +1,5 @@
 import { getTranslations } from 'next-intl/server';
-import Image from 'next/image';
-import { FOUNDER_PORTRAIT } from '@/lib/screenshots';
+import AboutIntroSection from '@/components/sections/AboutIntroSection';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ModuleRenderer from '@/components/modules/ModuleRenderer';
@@ -44,39 +43,15 @@ export default async function About({ params }: { params: Promise<{ locale: stri
   return (
     <main className="min-h-screen bg-surface">
       <Navbar />
-      <section className="pt-32 pb-20 px-6 md:px-12 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">{t('heading')}</h1>
-            <p className="text-lg text-gray-600 mb-6">{t('p1')}</p>
-            <p className="text-lg text-gray-600 mb-8">{t('p2')}</p>
-            <div className="grid grid-cols-2 gap-6 mt-12">
-              {(['years','projects','industries','retention'] as const).map((key) => (
-                <div key={key} className="bg-gray-50 p-6 rounded-xl border border-gray-200">
-                  <p className="text-3xl font-bold text-primary mb-2">{t(`stats.${key}`)}</p>
-                  <p className="text-gray-600">{t(`stats.${key}Label`)}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="bg-gray-100 rounded-3xl p-12 flex items-center justify-center min-h-[500px]">
-            <div className="text-center">
-              <div className="relative mx-auto mb-8 h-64 w-64 overflow-hidden rounded-full ring-1 ring-line shadow-lg">
-                <Image
-                  src={FOUNDER_PORTRAIT}
-                  alt={t('founder.name')}
-                  width={640}
-                  height={640}
-                  sizes="256px"
-                  className="h-full w-full object-cover"
-                />
-              </div>
-              <h3 className="text-2xl font-bold mb-2">{t('founder.name')}</h3>
-              <p className="text-gray-600">{t('founder.title')}</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <AboutIntroSection
+        heading={t('heading')}
+        paragraphs={[t('p1'), t('p2')]}
+        stats={(['years', 'projects', 'industries', 'retention'] as const).map((key) => ({
+          value: t(`stats.${key}`),
+          label: t(`stats.${key}Label`),
+        }))}
+        founder={{ name: t('founder.name'), role: t('founder.title') }}
+      />
       <Footer />
     </main>
   );

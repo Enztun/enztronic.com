@@ -1,6 +1,5 @@
 import { getTranslations } from 'next-intl/server';
-import Image from 'next/image';
-import { ArrowRight, CheckCircle, Code, Megaphone, Target, Palette, TrendingUp, Users, MessageCircle } from 'lucide-react';
+import { ArrowRight, Code, Megaphone, Target, Palette, TrendingUp, Users, MessageCircle } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ModuleRenderer from '@/components/modules/ModuleRenderer';
@@ -11,7 +10,9 @@ import { pageBySlugQuery, postsByLocaleQuery } from '@/sanity/lib/queries';
 import { urlFor } from '@/sanity/lib/image';
 import type { PostSummary } from '@/sanity/lib/types';
 import { createCorePageMetadata } from '@/lib/seo';
-import { FEATURED_SCREENSHOT } from '@/lib/screenshots';
+import HeroSection from '@/components/sections/HeroSection';
+import StatsBand from '@/components/sections/StatsBand';
+import CaseStudySection from '@/components/sections/CaseStudySection';
 
 const WHATSAPP = 'https://wa.me/6289637579728';
 
@@ -81,67 +82,22 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     <main className="min-h-screen bg-surface selection:bg-primary/10">
       <Navbar />
 
-      {/* ── Hero ── */}
-      <div className="brand-glow">
-      <section className="pt-32 pb-20 px-6 md:px-12 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <span className="inline-block px-3 py-1 bg-primary/5 text-primary text-sm font-bold rounded-full mb-6">
-              {t('badge')}
-            </span>
-            <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
-              {t('headline')}
-            </h1>
-            <p className="text-lg text-gray-600 mb-10 max-w-lg">{t('description')}</p>
-            <div className="flex gap-4 flex-wrap">
-              <Link
-                href="/contact"
-                className="bg-brand-fill text-white px-8 py-4 rounded-full font-bold hover:bg-brand-fill-strong transition-colors"
-              >
-                {t('ctaPrimary')}
-              </Link>
-              <Link
-                href="/portfolio"
-                className="border border-gray-300 text-gray-800 px-8 py-4 rounded-full font-bold hover:bg-gray-50 transition-colors"
-              >
-                {t('ctaSecondary')}
-              </Link>
-            </div>
-          </div>
-          <div className="relative bg-gray-50 rounded-2xl p-8 border border-gray-200">
-            <div className="aspect-video bg-card rounded-xl shadow-sm overflow-hidden">
-              <Image
-                src={FEATURED_SCREENSHOT}
-                alt={t('hero.featuredAlt')}
-                width={1440}
-                height={900}
-                priority
-                sizes="(min-width: 1024px) 40vw, 90vw"
-                className="h-full w-full object-cover object-top"
-              />
-            </div>
-            <div className="absolute -bottom-6 -left-6 bg-card p-6 rounded-xl shadow-xl border border-gray-200">
-              <p className="text-3xl font-bold text-primary">{t('hero.revenueGrowth')}</p>
-              <p className="text-sm text-gray-500">{t('hero.revenueLabel')}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-      </div>
+      <HeroSection
+        badge={t('badge')}
+        headline={t('headline')}
+        description={t('description')}
+        ctaPrimary={{ text: t('ctaPrimary'), href: '/contact' }}
+        ctaSecondary={{ text: t('ctaSecondary'), href: '/portfolio' }}
+        highlight={{ value: t('hero.revenueGrowth'), label: t('hero.revenueLabel') }}
+        imageAlt={t('hero.featuredAlt')}
+      />
 
-      {/* ── Stats bar ── */}
-      <section className="py-16 bg-gray-50 border-y border-gray-200">
-        <div className="px-6 md:px-12 max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          {(['years', 'projects', 'industries', 'retention'] as const).map((key) => (
-            <div key={key}>
-              <p className="text-3xl md:text-4xl font-bold">{t(`stats.${key}`)}</p>
-              <p className="text-sm text-gray-500 uppercase tracking-wider mt-2">
-                {t(`stats.${key}Label`)}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
+      <StatsBand
+        items={(['years', 'projects', 'industries', 'retention'] as const).map((key) => ({
+          value: t(`stats.${key}`),
+          label: t(`stats.${key}Label`),
+        }))}
+      />
 
       {/* ── Services overview ── */}
       <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
@@ -174,49 +130,14 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         </div>
       </section>
 
-      {/* ── Case study ── */}
-      <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
-        <div className="bg-gray-50 rounded-3xl overflow-hidden grid grid-cols-1 lg:grid-cols-2 border border-gray-200">
-          <div className="bg-gray-200/50 flex items-center justify-center p-12">
-            <div className="w-full h-[400px] overflow-hidden rounded-xl border border-white/70 dark:border-white/10 shadow-lg">
-              <Image
-                src={FEATURED_SCREENSHOT}
-                alt={t('caseStudy.screenshot')}
-                width={1440}
-                height={900}
-                sizes="(min-width: 1024px) 45vw, 90vw"
-                className="h-full w-full object-cover object-top"
-              />
-            </div>
-          </div>
-          <div className="p-16 flex flex-col justify-center">
-            <span className="text-primary font-bold tracking-widest text-sm mb-4 uppercase">
-              {t('caseStudy.label')}
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">{t('caseStudy.title')}</h2>
-            <p className="text-base text-gray-600 mb-8 leading-relaxed">
-              {t('caseStudy.description')}
-            </p>
-            <ul className="space-y-4 mb-10">
-              {(['feature1', 'feature2', 'feature3'] as const).map((f) => (
-                <li key={f} className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-primary shrink-0" />
-                  <span>{t(`caseStudy.${f}`)}</span>
-                </li>
-              ))}
-            </ul>
-            <a
-              href="https://qianlima.co.id"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-primary font-bold group w-fit"
-            >
-              {t('caseStudy.cta')}{' '}
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </a>
-          </div>
-        </div>
-      </section>
+      <CaseStudySection
+        label={t('caseStudy.label')}
+        title={t('caseStudy.title')}
+        description={t('caseStudy.description')}
+        features={[t('caseStudy.feature1'), t('caseStudy.feature2'), t('caseStudy.feature3')]}
+        cta={{ text: t('caseStudy.cta'), href: 'https://qianlima.co.id' }}
+        imageAlt={t('caseStudy.screenshot')}
+      />
 
       {/* ── Portfolio preview ── */}
       <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
