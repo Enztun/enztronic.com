@@ -278,6 +278,7 @@
     "formSuccessTitle": "我们会尽快联系您！",
     "formSuccessMessage": "我们已收到您的消息，将在24小时内审核您的项目并与您联系。",
     "formError": "出现问题，请直接发邮件给我们。",
+    "formRateLimited": "连续发送了几条消息 — 请等待几分钟后再试。",
     "optionFormTitle": "填写表单",
     "optionFormDescription": "快速直接 — 在一个页面上回答所有问题。",
     "optionJourneyTitle": "引导式问卷",

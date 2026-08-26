@@ -8,6 +8,7 @@ import {
   inputClass,
   pillClass,
   emptyContactForm,
+  submitInquiry,
   type ContactFormData,
 } from './contact/shared';
 
@@ -30,19 +31,13 @@ export default function ContactForm() {
     e.preventDefault();
     setLoading(true);
     setError('');
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, website, startedAt }),
-      });
-      if (!res.ok) throw new Error();
+    const outcome = await submitInquiry({ ...form, website, startedAt });
+    if (outcome.ok) {
       setSuccess(true);
-    } catch {
-      setError(t('formError'));
-    } finally {
-      setLoading(false);
+    } else {
+      setError(outcome.reason === 'rateLimited' ? t('formRateLimited') : t('formError'));
     }
+    setLoading(false);
   }
 
   if (success) {

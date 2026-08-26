@@ -278,6 +278,7 @@
     "formSuccessTitle": "Kami akan segera menghubungi Anda!",
     "formSuccessMessage": "Pesan Anda telah diterima. Kami akan meninjau proyek Anda dan menghubungi Anda dalam 24 jam.",
     "formError": "Terjadi kesalahan. Silakan email kami langsung.",
+    "formRateLimited": "Sudah beberapa pesan berturut-turut — mohon tunggu satu dua menit lalu coba lagi.",
     "optionFormTitle": "Isi Formulir",
     "optionFormDescription": "Cepat dan langsung — jawab semuanya dalam satu halaman.",
     "optionJourneyTitle": "Kuesioner Terpandu",

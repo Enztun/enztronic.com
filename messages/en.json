@@ -278,6 +278,7 @@
     "formSuccessTitle": "We'll be in touch!",
     "formSuccessMessage": "Your message has been received. We'll review your project and reach out within 24 hours.",
     "formError": "Something went wrong. Please email us directly.",
+    "formRateLimited": "That's a few messages in a row — please wait a couple of minutes and try again.",
     "optionFormTitle": "Fill a Form",
     "optionFormDescription": "Straightforward and quick — answer everything on one page.",
     "optionJourneyTitle": "Guided Questionnaire",

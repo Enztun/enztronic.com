@@ -3,6 +3,12 @@ import 'server-only';
 import { randomUUID } from 'node:crypto';
 import { createClient } from 'next-sanity';
 import { NextRequest, NextResponse } from 'next/server';
+import {
+  CONTACT_RULE,
+  checkRateLimit,
+  clientKey,
+  rateLimitHeaders,
+} from '@/lib/rate-limit';
 
 const MAX_BODY_BYTES = 16 * 1024;
 const MAX_FORM_AGE_MS = 7 * 24 * 60 * 60 * 1000;
@@ -49,10 +55,14 @@ class RequestError extends Error {
   }
 }
 
-function json(data: Record<string, unknown>, status = 200) {
+function json(
+  data: Record<string, unknown>,
+  status = 200,
+  extraHeaders: Record<string, string> = {}
+) {
   return NextResponse.json(data, {
     status,
-    headers: { 'Cache-Control': 'no-store' },
+    headers: { 'Cache-Control': 'no-store', ...extraHeaders },
   });
 }
 
@@ -187,18 +197,26 @@ function isLikelyBot(input: ContactInput) {
 }
 
 export async function POST(req: NextRequest) {
+  // Checked before the body is read so a flood costs us a header lookup rather
+  // than a parse and a Sanity round trip.
+  const limit = checkRateLimit(clientKey(req), CONTACT_RULE);
+  const limitHeaders = rateLimitHeaders(limit);
+  if (!limit.ok) {
+    return json({ error: 'Too many submissions. Please try again shortly.' }, 429, limitHeaders);
+  }
+
   try {
     const input = validateInput(await readLimitedJson(req));
 
     // Return the normal response so automated submitters do not learn which trap fired.
-    if (isLikelyBot(input)) return json({ success: true });
+    if (isLikelyBot(input)) return json({ success: true }, 200, limitHeaders);
 
     const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
     const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
     const token = process.env.SANITY_API_TOKEN;
     if (!projectId || !dataset || !token) {
       console.error('[contact] Sanity writer is not configured');
-      return json({ error: 'Contact service is temporarily unavailable' }, 503);
+      return json({ error: 'Contact service is temporarily unavailable' }, 503, limitHeaders);
     }
 
     const writer = createClient({
@@ -225,12 +243,12 @@ export async function POST(req: NextRequest) {
       submittedAt: new Date().toISOString(),
     });
 
-    return json({ success: true });
+    return json({ success: true }, 200, limitHeaders);
   } catch (error) {
     if (error instanceof RequestError) {
-      return json({ error: error.message }, error.status);
+      return json({ error: error.message }, error.status, limitHeaders);
     }
     console.error('[contact] Failed to store inquiry');
-    return json({ error: 'Contact service is temporarily unavailable' }, 503);
+    return json({ error: 'Contact service is temporarily unavailable' }, 503, limitHeaders);
   }
 }
