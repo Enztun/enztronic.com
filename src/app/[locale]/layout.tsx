@@ -7,6 +7,7 @@ import { draftMode } from 'next/headers';
 import { VisualEditing } from 'next-sanity/visual-editing';
 import { routing } from '@/i18n/routing';
 import { ThemeScript } from '@/components/ThemeToggle';
+import ChatWidget from '@/components/chat/ChatWidget';
 import '../globals.css';
 
 // Montserrat is the single brand typeface. The site previously loaded Geist
@@ -120,6 +121,7 @@ export default async function LocaleLayout({
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider messages={messages}>
           {children}
+          <ChatWidget />
           {isDraftMode && <VisualEditing />}
         </NextIntlClientProvider>
       </body>

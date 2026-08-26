@@ -11,6 +11,7 @@
     "shots": "node scripts/capture-screenshots.mjs"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.120.0",
     "@sanity/presentation": "^2.0.0",
     "@sanity/vision": "^5.31.1",
     "lucide-react": "^1.16.0",

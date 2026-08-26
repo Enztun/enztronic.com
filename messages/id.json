@@ -317,5 +317,26 @@
       "title": "Hubungi Enztronic | Audit Operasional Bisnis",
       "description": "Ceritakan proses manual atau sistem terputus yang memperlambat bisnis Anda, lalu mulai dengan audit operasional yang praktis."
     }
+  },
+  "chat": {
+    "title": "Tanya Enztronic",
+    "disclaimer": "Asisten AI — bisa saja keliru.",
+    "launcher": "Buka obrolan",
+    "close": "Tutup obrolan",
+    "greeting": "Halo! Tanyakan apa saja tentang layanan kami, atau ceritakan proyek Anda dan saya teruskan ke tim.",
+    "placeholder": "Tulis pesan Anda...",
+    "send": "Kirim",
+    "thinking": "Mengetik...",
+    "error": "Terjadi kesalahan. Silakan coba lagi, atau email enztun@enztronic.com.",
+    "errorBusy": "Anda mengirim cukup banyak pesan. Mohon tunggu sebentar.",
+    "cardTitle": "Kirim ini ke tim?",
+    "cardName": "Nama",
+    "cardEmail": "Email",
+    "cardCompany": "Perusahaan",
+    "cardMessage": "Tentang",
+    "cardSend": "Kirim ke Enztronic",
+    "cardSending": "Mengirim...",
+    "cardSent": "Terkirim — kami akan menghubungi Anda dalam 24 jam.",
+    "cardError": "Pengiriman gagal. Silakan coba lagi."
   }
 }

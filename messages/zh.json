@@ -317,5 +317,26 @@
       "title": "联系 Enztronic | 业务运营审计",
       "description": "告诉我们哪些手工流程或割裂系统正在拖慢业务，并从一次务实的运营审计开始。"
     }
+  },
+  "chat": {
+    "title": "咨询 Enztronic",
+    "disclaimer": "AI 助手 — 可能会出错。",
+    "launcher": "打开聊天",
+    "close": "关闭聊天",
+    "greeting": "您好！有任何关于我们服务的问题都可以问我，或者介绍一下您的项目，我会转达给团队。",
+    "placeholder": "输入您的消息...",
+    "send": "发送",
+    "thinking": "正在输入...",
+    "error": "出现问题。请重试，或发邮件至 enztun@enztronic.com。",
+    "errorBusy": "您发送的消息较多，请稍候片刻。",
+    "cardTitle": "将此发送给团队？",
+    "cardName": "姓名",
+    "cardEmail": "邮箱",
+    "cardCompany": "公司",
+    "cardMessage": "关于",
+    "cardSend": "发送给 Enztronic",
+    "cardSending": "发送中...",
+    "cardSent": "已发送 — 我们将在24小时内与您联系。",
+    "cardError": "发送失败，请重试。"
   }
 }

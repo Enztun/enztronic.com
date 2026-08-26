@@ -58,6 +58,21 @@ export const inquiryType = defineType({
     }),
     defineField({ name: 'country', title: 'Country', type: 'string' }),
     defineField({
+      name: 'source',
+      title: 'Came From',
+      type: 'string',
+      readOnly: true,
+      // Inquiries created before the chat agent shipped carry no source.
+      initialValue: 'form',
+      options: {
+        list: [
+          { title: 'Contact form', value: 'form' },
+          { title: 'Site chat', value: 'chat' },
+        ],
+        layout: 'radio',
+      },
+    }),
+    defineField({
       name: 'status',
       title: 'Status',
       type: 'string',
@@ -84,11 +99,14 @@ export const inquiryType = defineType({
       subtitle: 'email',
       service: 'service',
       status: 'status',
+      source: 'source',
     },
-    prepare({ title, subtitle, service, status }) {
+    prepare({ title, subtitle, service, status, source }) {
       return {
         title: title ?? 'Unknown',
-        subtitle: [subtitle, service, status].filter(Boolean).join(' · '),
+        subtitle: [subtitle, service, status, source && `via ${source}`]
+          .filter(Boolean)
+          .join(' · '),
       };
     },
   },

@@ -16,6 +16,11 @@ import 'server-only';
  */
 
 export type RateLimitRule = {
+  /**
+   * Bucket namespace. Rules share one store, so without this a visitor's chat
+   * messages would spend the contact form's budget and lock them out of it.
+   */
+  name: string;
   /** Requests allowed per window. */
   limit: number;
   /** Window length in ms. Must not exceed SWEEP_HORIZON_MS. */
@@ -33,7 +38,19 @@ export type RateLimitResult = {
 };
 
 /** Contact form: generous for a human filling it twice, tight for a script. */
-export const CONTACT_RULE: RateLimitRule = { limit: 5, windowMs: 10 * 60 * 1000 };
+export const CONTACT_RULE: RateLimitRule = {
+  name: 'contact',
+  limit: 5,
+  windowMs: 10 * 60 * 1000,
+};
+
+/**
+ * Chat: room for a real back-and-forth, but every one of these costs a model
+ * call, so this is the throttle that protects the bill rather than the data.
+ * Because the store is per instance it is a floor, not a ceiling — pair it with
+ * a hard monthly cap in the Anthropic Console.
+ */
+export const CHAT_RULE: RateLimitRule = { name: 'chat', limit: 30, windowMs: 10 * 60 * 1000 };
 
 /** Keys whose newest hit is older than this are dropped during a sweep. */
 const SWEEP_HORIZON_MS = 60 * 60 * 1000;
@@ -53,10 +70,11 @@ function sweep(now: number) {
 }
 
 export function checkRateLimit(
-  key: string,
+  client: string,
   rule: RateLimitRule,
   now = Date.now()
 ): RateLimitResult {
+  const key = `${rule.name}:${client}`;
   const windowStart = now - rule.windowMs;
   // Timestamps are appended in order, so everything still in the window is a
   // suffix of the array.

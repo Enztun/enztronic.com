@@ -317,5 +317,26 @@
       "title": "Contact Enztronic | Audit Your Operations",
       "description": "Tell Enztronic where manual work or disconnected systems are slowing your business down, and start with a practical operations audit."
     }
+  },
+  "chat": {
+    "title": "Ask Enztronic",
+    "disclaimer": "AI assistant — it can make mistakes.",
+    "launcher": "Open chat",
+    "close": "Close chat",
+    "greeting": "Hi! Ask me anything about what we do, or tell me about your project and I will pass it to the team.",
+    "placeholder": "Type your message...",
+    "send": "Send",
+    "thinking": "Typing...",
+    "error": "Something went wrong. Please try again, or email enztun@enztronic.com.",
+    "errorBusy": "You have sent a lot of messages. Please wait a moment.",
+    "cardTitle": "Send this to the team?",
+    "cardName": "Name",
+    "cardEmail": "Email",
+    "cardCompany": "Company",
+    "cardMessage": "About",
+    "cardSend": "Send to Enztronic",
+    "cardSending": "Sending...",
+    "cardSent": "Sent — we will be in touch within 24 hours.",
+    "cardError": "That did not go through. Please try again."
   }
 }
