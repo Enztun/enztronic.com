@@ -4,11 +4,21 @@ param(
     [switch]$SkipPostgres,
     [ValidateRange(1024, 65535)]
     [int]$PostgresPort = 54329,
-    [string]$PostgresBin
+    [string]$PostgresBin,
+    # Set by the startup task, which runs without a console: failures and app output go to .runtime/logs.
+    [switch]$Background
 )
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
+$startLog = $null
+
+trap {
+    if ($startLog) {
+        Add-Content -LiteralPath $startLog -Value "$(Get-Date -Format o) $_"
+    }
+    break
+}
 
 function Resolve-PostgresTool {
     param(
@@ -52,6 +62,12 @@ if (-not $dataDirectory.StartsWith($appPrefix, [System.StringComparison]::Ordina
     throw "The PostgreSQL data directory resolved outside the backoffice app."
 }
 
+$logDirectory = Join-Path $runtimeRoot "logs"
+New-Item -ItemType Directory -Path $logDirectory -Force | Out-Null
+if ($Background) {
+    $startLog = Join-Path $logDirectory "start-backoffice.log"
+}
+
 if (-not $SkipPostgres) {
     if (-not (Test-Path -LiteralPath (Join-Path $dataDirectory "PG_VERSION") -PathType Leaf)) {
         throw "Dedicated PostgreSQL data is not initialized. Run scripts/setup-local.ps1 first."
@@ -67,8 +83,6 @@ if (-not $SkipPostgres) {
             throw "Port $PostgresPort is already occupied by another process."
         }
 
-        $logDirectory = Join-Path $runtimeRoot "logs"
-        New-Item -ItemType Directory -Path $logDirectory -Force | Out-Null
         $postgresLog = Join-Path $logDirectory "postgres.log"
         $serverOptions = "-h 127.0.0.1 -p $PostgresPort"
         & $pgCtl start -D $dataDirectory -l $postgresLog -w -t 30 -o $serverOptions
@@ -115,9 +129,21 @@ try {
     $env:NODE_ENV = "production"
     $env:BACKOFFICE_HOST = "127.0.0.1"
     $env:BACKOFFICE_PORT = "3100"
-    & $npm.Source run start
-    if ($LASTEXITCODE -ne 0) {
-        throw "The backoffice process exited with code $LASTEXITCODE."
+    if ($Background) {
+        $process = Start-Process -FilePath $npm.Source -ArgumentList "run", "start" -NoNewWindow -PassThru `
+            -RedirectStandardOutput (Join-Path $logDirectory "backoffice.out.log") `
+            -RedirectStandardError (Join-Path $logDirectory "backoffice.err.log")
+        # Reading Handle keeps ExitCode available after the process exits.
+        $null = $process.Handle
+        $process.WaitForExit()
+        $exitCode = $process.ExitCode
+    }
+    else {
+        & $npm.Source run start
+        $exitCode = $LASTEXITCODE
+    }
+    if ($exitCode -ne 0) {
+        throw "The backoffice process exited with code $exitCode."
     }
 }
 finally {

@@ -38,9 +38,11 @@ if ($existing -and -not $Force) {
     throw "Scheduled task '$TaskName' already exists. Re-run with -Force to replace it."
 }
 
-$arguments = "-NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -File `"$startScript`""
+# conhost --headless gives PowerShell a console that is never shown, so no window appears at logon.
+$powershell = "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe"
+$arguments = "--headless `"$powershell`" -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -File `"$startScript`" -Background"
 $action = New-ScheduledTaskAction `
-    -Execute "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe" `
+    -Execute "$env:SystemRoot\System32\conhost.exe" `
     -Argument $arguments `
     -WorkingDirectory $appRoot
 $trigger = New-ScheduledTaskTrigger -AtLogOn -User $currentUser

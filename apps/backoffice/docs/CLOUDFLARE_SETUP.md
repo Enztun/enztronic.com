@@ -109,7 +109,7 @@ First produce a successful build, then install the current-user, limited-privile
 .\scripts\install-startup-task.ps1
 ```
 
-Use `-Force` only when intentionally replacing the existing task with the same name. At logon the task starts `.runtime/postgres-data` if needed, verifies database readiness on `54329`, and launches the existing production build on `127.0.0.1:3100`.
+Use `-Force` only when intentionally replacing the existing task with the same name. At logon the task starts `.runtime/postgres-data` if needed, verifies database readiness on `54329`, and launches the existing production build on `127.0.0.1:3100`. The task runs without a visible window; startup failures go to `.runtime/logs/start-backoffice.log` and app output to `.runtime/logs/backoffice.out.log` and `backoffice.err.log`.
 
 ## 8. Verification checklist
 
