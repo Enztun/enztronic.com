@@ -14,6 +14,7 @@ The same billing annotation was present on the preceding main commit. GitHub bil
 
 ### Non-blocking notices
 
+- Both enztronic.com and www.enztronic.com served HTTP 200 during the live checks. The configured www-to-apex redirect was not observed; canonical-host enforcement remains an existing configuration issue to investigate separately.
 - Existing ESLint warning: unused title in scripts/capture-screenshots.mjs:59.
 - Vercel clone warning: failed to fetch one or more git submodules. The public frontend built and deployed successfully.
 - npm reported five packages with install scripts not yet covered by allowScripts (@parcel/watcher, esbuild, @swc/core, sharp, unrs-resolver). No build failure resulted; no blanket script approval was added.

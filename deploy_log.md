@@ -4,7 +4,7 @@
 
 - Release requested and authorized by the user; branch: main.
 - Application commit: bf02db24cfe72ea9776fd7cd7f353cdb573bca7e.
-- Production: https://enztronic.com (www redirects to the canonical domain).
+- Production: https://enztronic.com; both the apex and www host returned HTTP 200 in the live checks. A www redirect is configured in vercel.json but was not observed, so no redirect success is claimed.
 - Vercel project: enztronic-com / prj_6GPBlrgP67fHNk4KApKC4vL9ppvW.
 - Deployment: dpl_7Vu4FeFS2W6Pfp1rhPXWY89VMEFU, READY.
 - Immutable deployment URL: https://enztronic-e2eptla8w-ellendon-aaron-tingons-projects.vercel.app.
