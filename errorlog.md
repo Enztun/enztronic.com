@@ -1,3 +1,29 @@
+# Error and release notices
+
+## 2026-09-24 - UX release bf02db2
+
+Production deployment dpl_7Vu4FeFS2W6Pfp1rhPXWY89VMEFU is READY. Local build/TypeScript, 28 UX groups, and both-theme contrast checks passed. The live smoke checks observed no browser exceptions; Vercel's error query returned no entries during the release window.
+
+### Outstanding operational issue
+
+GitHub Actions contrast run 35905086667 failed before any job steps executed. Check annotation 107330641423 reports: "The job was not started because your account is locked due to a billing issue."
+
+Run: https://github.com/Enztun/enztronic.com/actions/runs/35905086667
+
+The same billing annotation was present on the preceding main commit. GitHub billing/account status needs resolution before hosted CI can run; Vercel's independent production build and the local checks passed.
+
+### Non-blocking notices
+
+- Existing ESLint warning: unused title in scripts/capture-screenshots.mjs:59.
+- Vercel clone warning: failed to fetch one or more git submodules. The public frontend built and deployed successfully.
+- npm reported five packages with install scripts not yet covered by allowScripts (@parcel/watcher, esbuild, @swc/core, sharp, unrs-resolver). No build failure resulted; no blanket script approval was added.
+
+### Verification limits
+
+Production enquiries and paid AI calls were not sent. Failure/retry/success form and chat flows were tested locally with intercepted requests. Physical-device behavior and long-term runtime monitoring are outside this release verification. Reporting integration remains deferred by user choice.
+
+## Historical output (preserved)
+
 17:50:38.531 Running build in Washington, D.C., USA (East) – iad1
 17:50:38.532 Build machine configuration: 2 cores, 8 GB
 17:50:38.664 Cloning github.com/Enztun/enztronic.com (Branch: main, Commit: 18fc4a7)

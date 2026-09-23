@@ -36,7 +36,7 @@ Events cover contact entry links (form/email/WhatsApp), form steps and submissio
 - A new case study describes documented capabilities, not independently measured business impact.
 - Process and FAQ copy describes how scope can be agreed; it does not create unapproved service guarantees.
 
-Before release, run keyboard, reduced-motion, both-theme, and physical-device checks. The development regression suite exercises viewport emulation; it does not certify every browser or assistive technology.
+Keyboard, reduced-motion and both-theme checks are covered by the verification below. The development regression suite exercises viewport emulation; it does not certify physical devices, every browser, or every assistive technology.
 
 ## Verification completed on 24 September 2026
 
@@ -48,4 +48,15 @@ Before release, run keyboard, reduced-motion, both-theme, and physical-device ch
 - New translation bundles have matching EN/ID/ZH key structure. Git whitespace check passed.
 - Browser screenshots inspected for phone About cards, contact flow, homepage, and desktop case study.
 
-The website has not been deployed by this change. All automated enquiry/chat POST requests were intercepted with synthetic responses; real CMS delivery, AI reply quality, and physical-device behavior were not certified. The local production preview runs on port 3101.
+## Production release on 24 September 2026 (WIB)
+
+- Application commit: `bf02db24cfe72ea9776fd7cd7f353cdb573bca7e`, pushed to `main`.
+- Vercel deployment: `dpl_7Vu4FeFS2W6Pfp1rhPXWY89VMEFU`, status `READY`, production aliases `enztronic.com` and `www.enztronic.com`.
+- [Deployment URL](https://enztronic-e2eptla8w-ellendon-aaron-tingons-projects.vercel.app); build completed at 01:50:55 WIB (23 September 18:50:55 UTC).
+- Remote Next.js 16.2.10 build, TypeScript check and generation of 37 static pages passed.
+- All 18 production checks passed: home, services, contact, blog, case study and workflow guide in EN/ID/ZH returned HTTP 200 with expected new visible content. Sitemap includes all six new localized routes; the optimized Sanity image returned HTTP 200 with `image/webp`.
+- Live browser checks passed: 375px contact mode switching preserves draft text; mobile language menu fits and dismisses with Escape; 820px navigation fits; 1440px case study renders correctly; English article switching to Chinese opens the localized translation-unavailable notice. No browser exceptions were observed.
+- Vercel's runtime error query for this deployment returned no entries during the release smoke window. This is a short observation window, not long-term monitoring.
+- [GitHub Actions run](https://github.com/Enztun/enztronic.com/actions/runs/35905086667) did not start because GitHub reports an account billing lock. Local checks and the independent Vercel build passed; GitHub CI is not green.
+
+All automated enquiry/chat POST requests were intercepted with synthetic responses locally, and production checks sent no enquiries or chat messages. Real CMS delivery, AI reply quality, and physical-device behavior were not certified. Reporting-provider integration remains deferred as requested. See `deploy_log.md` and `errorlog.md` for the release record and outstanding operational notices.

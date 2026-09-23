@@ -1,3 +1,34 @@
+# Deployment log
+
+## 2026-09-24 - Multilingual UX release
+
+- Release requested and authorized by the user; branch: main.
+- Application commit: bf02db24cfe72ea9776fd7cd7f353cdb573bca7e.
+- Production: https://enztronic.com (www redirects to the canonical domain).
+- Vercel project: enztronic-com / prj_6GPBlrgP67fHNk4KApKC4vL9ppvW.
+- Deployment: dpl_7Vu4FeFS2W6Pfp1rhPXWY89VMEFU, READY.
+- Immutable deployment URL: https://enztronic-e2eptla8w-ellendon-aaron-tingons-projects.vercel.app.
+- Git integration deployed main; created 01:49:06 WIB, completed 01:50:55 WIB (2026-09-23 18:50:55 UTC), approximately 109 seconds.
+- Remote Next.js 16.2.10 production build, TypeScript and 37-page static generation passed.
+
+### Shipped
+
+Responsive and keyboard-accessible navigation; localized loading/error/not-found recovery; clearer service and project journeys; workflow guide and Qianlima case study in three languages; quick/guided enquiry forms with shared drafts; chat confirmation and recovery improvements; subtle transitions and reduced-motion support; non-personal enquiry-funnel events with reporting integration deferred.
+
+### Verification
+
+- Local: lint and TypeScript pass; production build passes; 28 UX groups pass; eight routes in both themes pass pixel contrast with zero failures or accepted exceptions.
+- Production: 18 routes across EN/ID/ZH return 200 with expected content; six new sitemap entries present; optimized Sanity image returns 200 image/webp.
+- Browser: mobile form draft retention, language menu fit/Escape, tablet navigation fit, desktop case-study presentation and article translation fallback pass. No browser exceptions observed.
+- Runtime error query returned no entries during the release smoke window.
+- No production enquiry/chat POSTs sent. Real delivery and AI quality were not tested by this release.
+- GitHub Actions is blocked before job startup by an account billing issue; see errorlog.md. Local checks and Vercel build are independent of that block.
+- Detailed verification: docs/ux-verification.md.
+
+This entry records the application deployment above. A following documentation-only commit records these results and may trigger Vercel's normal main-branch deployment; it does not change application behavior.
+
+## Historical build output (preserved)
+
 22:23:00.648 Running build in Washington, D.C., USA (East) – iad1
 22:23:00.652 Build machine configuration: 2 cores, 8 GB
 22:23:00.855 Cloning github.com/Enztun/enztronic.com (Branch: main, Commit: 91a1e74)
