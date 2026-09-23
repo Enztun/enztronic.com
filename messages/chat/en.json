@@ -1,0 +1,19 @@
+{
+  "chat": {
+    "greeting": "Hi! Ask about our services or tell me what you would like to improve. You can review and edit an enquiry before sending it to the team.",
+    "cardSent": "Your enquiry has been sent. The team will review it and contact you about the next step.",
+    "restart": "Start a new conversation",
+    "limit": "This conversation has reached its limit. Start a new conversation to continue. Your enquiry draft and unsent text will stay available.",
+    "history": "Conversation",
+    "contactAlternative": "Prefer a form? Contact the team",
+    "edit": "Edit details",
+    "save": "Review these details",
+    "cancel": "Discard enquiry",
+    "notSpecified": "Not specified",
+    "integration": "System Integration",
+    "cardService": "Service",
+    "cardBudget": "Budget (USD)",
+    "cardTime": "Preferred time (Jakarta, UTC+7)",
+    "cardCountry": "Country"
+  }
+}

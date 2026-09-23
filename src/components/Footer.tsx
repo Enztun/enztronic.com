@@ -3,117 +3,88 @@
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { BrandLogo } from '@/components/BrandLogo';
+import { SERVICE_LINKS } from '@/components/sections/service-links';
 
 export default function Footer() {
   const t = useTranslations('footer');
+  const services = useTranslations('services').raw('items') as {
+    title: string;
+  }[];
+  const contact = useTranslations('contact');
 
   return (
     <footer className="surface-dark py-16">
       <div className="px-6 md:px-12 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
-          <div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+          <div className="min-w-0">
             <BrandLogo variant="lockup" surface="dark" height={44} />
-            <p className="mt-4 text-sm text-white/70">{t('tagline')}</p>
+            <p className="mt-4 text-base leading-relaxed text-white/70">
+              {t('tagline')}
+            </p>
           </div>
-
           <div>
-            <h4 className="font-bold mb-4">{t('sections.services')}</h4>
-            <ul className="space-y-2 text-white/70 text-sm">
-              <li>
-                <Link
-                  href="/services"
-                  className="hover:text-primary transition-colors"
-                >
-                  {t('links.webDev')}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services"
-                  className="hover:text-primary transition-colors"
-                >
-                  {t('links.digitalMarketing')}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services"
-                  className="hover:text-primary transition-colors"
-                >
-                  {t('links.paidAds')}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services"
-                  className="hover:text-primary transition-colors"
-                >
-                  {t('links.branding')}
-                </Link>
-              </li>
+            <h2 className="font-bold text-base mb-4">
+              {t('sections.services')}
+            </h2>
+            <ul className="space-y-3 text-white/75 text-base">
+              {services.map((service, index) => (
+                <li key={service.title}>
+                  <Link
+                    href={`/services#${SERVICE_LINKS[index]?.id ?? 'how-we-work'}`}
+                    className="hover:text-white transition-colors"
+                  >
+                    {service.title}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
-
           <div>
-            <h4 className="font-bold mb-4">{t('sections.company')}</h4>
-            <ul className="space-y-2 text-white/70 text-sm">
-              <li>
-                <Link
-                  href="/about"
-                  className="hover:text-primary transition-colors"
-                >
-                  {t('links.about')}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/portfolio"
-                  className="hover:text-primary transition-colors"
-                >
-                  {t('links.portfolio')}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/blog"
-                  className="hover:text-primary transition-colors"
-                >
-                  {t('links.blog')}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="hover:text-primary transition-colors"
-                >
-                  {t('links.contact')}
-                </Link>
-              </li>
+            <h2 className="font-bold text-base mb-4">
+              {t('sections.company')}
+            </h2>
+            <ul className="space-y-3 text-white/75 text-base">
+              {(['about', 'portfolio', 'blog', 'contact'] as const).map(
+                (page) => (
+                  <li key={page}>
+                    <Link
+                      href={`/${page}`}
+                      className="hover:text-white transition-colors"
+                    >
+                      {t(`links.${page}`)}
+                    </Link>
+                  </li>
+                ),
+              )}
             </ul>
           </div>
-
-          <div>
-            <h4 className="font-bold mb-4">{t('sections.connect')}</h4>
-            <ul className="space-y-2 text-white/70 text-sm">
+          <div className="min-w-0">
+            <h2 className="font-bold text-base mb-4">
+              {t('sections.connect')}
+            </h2>
+            <ul className="space-y-3 text-white/75 text-base">
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  {t('links.linkedin')}
+                <a
+                  href="mailto:enztun@enztronic.com"
+                  className="break-words hover:text-white transition-colors"
+                >
+                  enztun@enztronic.com
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  {t('links.twitter')}
+                <a
+                  href="https://wa.me/6289637579728"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  {contact('phone')}
                 </a>
               </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  {t('links.instagram')}
-                </a>
-              </li>
+              <li>{contact('officeLocation')}</li>
             </ul>
           </div>
         </div>
-
         <div className="border-t border-white/15 mt-12 pt-8 text-center text-white/70 text-sm">
           <p>{t('copyright', { year: new Date().getFullYear() })}</p>
         </div>

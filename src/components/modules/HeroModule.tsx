@@ -1,4 +1,5 @@
 import HeroSection from '@/components/sections/HeroSection';
+import { getTranslations } from 'next-intl/server';
 
 type HeroModuleData = {
   badge?: string;
@@ -14,7 +15,8 @@ type HeroModuleData = {
 };
 
 /** Sanity's flat field names, mapped onto the shared section. */
-export default function HeroModule({ data }: { data: HeroModuleData }) {
+export default async function HeroModule({ data }: { data: HeroModuleData }) {
+  const t = await getTranslations('home');
   return (
     <HeroSection
       badge={data.badge}
@@ -22,9 +24,12 @@ export default function HeroModule({ data }: { data: HeroModuleData }) {
       headlineHighlight={data.headlineHighlight}
       description={data.description}
       ctaPrimary={{ text: data.ctaPrimaryText, href: data.ctaPrimaryHref }}
-      ctaSecondary={{ text: data.ctaSecondaryText, href: data.ctaSecondaryHref }}
+      ctaSecondary={{
+        text: data.ctaSecondaryText,
+        href: data.ctaSecondaryHref,
+      }}
       highlight={{ value: data.revenueGrowth, label: data.revenueLabel }}
-      imageAlt="A platform built by Enztronic"
+      imageAlt={t('hero.featuredAlt')}
     />
   );
 }

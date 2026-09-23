@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Link2, Check } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 const FacebookSVG = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4" aria-hidden="true">
@@ -30,7 +31,8 @@ interface ShareButtonsProps {
 }
 
 export function ShareButtons({ url, title, label }: ShareButtonsProps) {
-  const [copied, setCopied] = useState(false);
+  const [copyState, setCopyState] = useState<'idle' | 'copied' | 'failed'>('idle');
+  const t = useTranslations('blogUx');
 
   const encoded = encodeURIComponent(url);
   const encodedTitle = encodeURIComponent(title);
@@ -56,10 +58,9 @@ export function ShareButtons({ url, title, label }: ShareButtonsProps) {
   async function copyLink() {
     try {
       await navigator.clipboard.writeText(url);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      setCopyState('copied');
     } catch {
-      // clipboard not available
+      setCopyState('failed');
     }
   }
 
@@ -73,24 +74,37 @@ export function ShareButtons({ url, title, label }: ShareButtonsProps) {
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={`Share on ${name}`}
-            className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:border-primary hover:text-primary transition-colors"
+            aria-label={t('shareOn', { name })}
+            title={t('shareOn', { name })}
+            className="w-11 h-11 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:border-primary hover:text-primary transition-colors"
           >
             <Icon />
           </a>
         ))}
         <button
+          type="button"
           onClick={copyLink}
-          aria-label="Copy link"
-          className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:border-primary hover:text-primary transition-colors"
+          aria-label={copyState === 'copied' ? t('copied') : t('copyLink')}
+          title={t('copyLink')}
+          className="w-11 h-11 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:border-primary hover:text-primary transition-colors"
         >
-          {copied ? (
-            <Check className="w-4 h-4 text-green-500" />
+          {copyState === 'copied' ? (
+            <Check aria-hidden="true" className="w-4 h-4 text-brand" />
           ) : (
-            <Link2 className="w-4 h-4" />
+            <Link2 aria-hidden="true" className="w-4 h-4" />
           )}
         </button>
       </div>
+      <p role="status" className="mt-2 text-sm text-on-surface-variant">
+        {copyState === 'copied' ? t('copied') : copyState === 'failed' ? t('copyFailed') : ''}
+      </p>
+      {copyState === 'failed' && (
+        <label className="mt-2 block text-sm text-on-surface-variant">
+          {t('manualCopy')}
+          <input readOnly value={url} onFocus={(event) => event.currentTarget.select()}
+            className="mt-2 w-full rounded-lg border border-line bg-surface px-3 py-2 text-base" />
+        </label>
+      )}
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { client, isSanityConfigured } from '@/sanity/lib/client';
 import { postSitemapQuery } from '@/sanity/lib/queries';
 
 const BASE = 'https://enztronic.com';
-const PAGES = ['', '/about', '/services', '/portfolio', '/blog', '/contact'];
+const PAGES = ['', '/about', '/services', '/portfolio', '/portfolio/qianlima', '/guides/workflow-audit', '/blog', '/contact'];
 const LOCALES = ['en', 'id', 'zh'] as const;
 
 type Locale = (typeof LOCALES)[number];

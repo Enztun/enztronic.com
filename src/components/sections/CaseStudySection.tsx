@@ -2,6 +2,8 @@ import Image from 'next/image';
 import { CheckCircle, ArrowRight } from 'lucide-react';
 import { FEATURED_SCREENSHOT } from '@/lib/screenshots';
 import type { Cta } from './types';
+import { Link } from '@/i18n/navigation';
+import { getTranslations } from 'next-intl/server';
 
 interface CaseStudySectionProps {
   label?: string;
@@ -13,7 +15,7 @@ interface CaseStudySectionProps {
 }
 
 /** The featured-project panel: the work on one side, the story on the other. */
-export default function CaseStudySection({
+export default async function CaseStudySection({
   label,
   title,
   description,
@@ -21,11 +23,13 @@ export default function CaseStudySection({
   cta,
   imageAlt,
 }: CaseStudySectionProps) {
+  const t = await getTranslations('experience.caseStudy');
+  const isQianlima = !cta?.href || cta.href.includes('qianlima');
   return (
-    <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
+    <section className="py-16 md:py-20 px-6 md:px-12 max-w-7xl mx-auto">
       <div className="bg-gray-50 rounded-3xl overflow-hidden grid grid-cols-1 lg:grid-cols-2 border border-gray-200">
-        <div className="bg-gray-200/50 flex items-center justify-center p-12">
-          <div className="w-full h-[400px] overflow-hidden rounded-xl border border-white/70 dark:border-white/10 shadow-lg">
+        <div className="bg-gray-200/50 flex items-center justify-center p-4 sm:p-8 lg:p-10">
+          <div className="w-full aspect-[16/10] overflow-hidden rounded-xl border border-white/70 dark:border-white/10 shadow-lg">
             <Image
               src={FEATURED_SCREENSHOT}
               alt={imageAlt ?? title ?? 'Featured project'}
@@ -36,36 +40,51 @@ export default function CaseStudySection({
             />
           </div>
         </div>
-        <div className="p-16 flex flex-col justify-center">
+        <div className="p-6 sm:p-10 lg:p-12 flex flex-col justify-center min-w-0">
           {label && (
             <span className="text-primary font-bold tracking-widest text-sm mb-4 uppercase">
               {label}
             </span>
           )}
-          {title && <h2 className="text-3xl md:text-4xl font-bold mb-6">{title}</h2>}
+          {title && (
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">{title}</h2>
+          )}
           {description && (
-            <p className="text-base text-gray-600 mb-8 leading-relaxed">{description}</p>
+            <p className="text-base text-gray-600 mb-8 leading-relaxed">
+              {description}
+            </p>
           )}
           {features && features.length > 0 && (
             <ul className="space-y-4 mb-10">
               {features.map((feature) => (
-                <li key={feature} className="flex items-center gap-3">
+                <li key={feature} className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
                   <span className="text-base">{feature}</span>
                 </li>
               ))}
             </ul>
           )}
-          {cta?.text && cta.href && (
-            <a
-              href={cta.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-primary font-bold group w-fit"
+          {isQianlima ? (
+            <Link
+              href="/portfolio/qianlima"
+              className="inline-flex items-center gap-2 text-brand font-bold w-fit"
             >
-              {cta.text}{' '}
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </a>
+              {t('read')}{' '}
+              <ArrowRight aria-hidden="true" className="w-4 h-4 shrink-0" />
+            </Link>
+          ) : (
+            cta?.text &&
+            cta.href && (
+              <a
+                href={cta.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-primary font-bold group w-fit"
+              >
+                {cta.text}{' '}
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </a>
+            )
           )}
         </div>
       </div>

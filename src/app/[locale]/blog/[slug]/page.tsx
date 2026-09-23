@@ -27,21 +27,25 @@ export const dynamic = 'force-dynamic';
 function slugify(text: string) {
   return text
     .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/[^\p{L}\p{N}\s-]/gu, '')
     .trim()
     .replace(/\s+/g, '-');
 }
 
 function extractHeadings(body: unknown): TocHeading[] {
   if (!Array.isArray(body)) return [];
+  const occurrences = new Map<string, number>();
   return body
     .filter(
       (b: { _type?: string; style?: string }) =>
         b._type === 'block' && (b.style === 'h2' || b.style === 'h3')
     )
-    .map((b: { style: string; children?: Array<{ text?: string }> }) => {
+    .map((b: { _key?: string; style: string; children?: Array<{ text?: string }> }) => {
       const text = (b.children ?? []).map((c) => c.text ?? '').join('');
-      return { id: slugify(text), text, level: b.style === 'h2' ? 2 : 3 } as TocHeading;
+      const base = slugify(text) || 'section';
+      const occurrence = (occurrences.get(base) ?? 0) + 1;
+      occurrences.set(base, occurrence);
+      return { id: occurrence === 1 ? base : `${base}-${occurrence}`, key: b._key, text, level: b.style === 'h2' ? 2 : 3 } as TocHeading;
     })
     .filter((h) => h.text.length > 0);
 }
@@ -411,13 +415,23 @@ export default async function PostPage({
   try {
     post = await sanityFetch({ query: postBySlugQuery, params: { slug, locale } });
   } catch {
-    notFound();
+    throw new Error('Article content is temporarily unavailable');
   }
   if (!post) notFound();
 
   const mainImageRef = (post.mainImage as { asset?: { _ref?: string } } | null)?.asset?._ref;
   const dedupedBody = deduplicateBody(post.body, mainImageRef);
   const headings = extractHeadings(dedupedBody);
+  const headingIds = new Map(headings.filter((heading) => heading.key).map((heading) => [heading.key, heading.id]));
+  // The current CMS models translations as published documents sharing a slug.
+  // Verify availability rather than assuming every language has this article.
+  let articleLocales = [locale];
+  try {
+    articleLocales = await sanityFetch<string[]>({
+      query: '*[_type == "post" && slug.current == $slug && publishedAt <= now()].language',
+      params: { slug },
+    });
+  } catch { /* An unverified translation routes to the localized article index. */ }
   const mins = readTime(dedupedBody);
   const canonicalUrl =
     locale === 'en' ? `${BASE}/blog/${slug}` : `${BASE}/${locale}/blog/${slug}`;
@@ -447,14 +461,15 @@ export default async function PostPage({
   };
 
   return (
-    <main className="min-h-screen bg-surface">
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(articleJsonLd).replace(/</g, '\\u003c'),
         }}
       />
-      <Navbar />
+      <Navbar articleLocales={articleLocales} />
+      <main id="main-content" tabIndex={-1} className="min-h-screen bg-surface">
 
       {/* ── article header ── */}
       <div className="pt-32 pb-8 px-6 md:px-12 max-w-6xl mx-auto">
@@ -487,7 +502,7 @@ export default async function PostPage({
           <p className="text-lg text-gray-500 max-w-2xl mb-6 leading-relaxed">{post.excerpt}</p>
         )}
 
-        <div className="flex items-center gap-3 text-sm text-gray-400">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-gray-400">
           <div className="w-8 h-8 rounded-full bg-brand-fill flex items-center justify-center text-white font-bold text-sm">
             {authorInitial}
           </div>
@@ -523,12 +538,25 @@ export default async function PostPage({
 
       {/* ── 2-col content ── */}
       <div className="px-6 md:px-12 max-w-6xl mx-auto pb-24">
+        <div className="mb-8 space-y-6 lg:hidden">
+          {headings.length > 0 && (
+            <details className="rounded-xl border border-line p-5">
+              <summary className="cursor-pointer font-semibold text-on-surface">{t('toc')}</summary>
+              <div className="mt-4"><TableOfContents headings={headings} label={t('toc')} /></div>
+            </details>
+          )}
+          <ShareButtons url={canonicalUrl} title={post.title} label={t('share')} />
+        </div>
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-16">
           {/* main body */}
           <div className="min-w-0">
             {Array.isArray(dedupedBody) && dedupedBody.length > 0 && (
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              <PortableText value={dedupedBody as any} components={portableTextComponents} />
+              <PortableText value={dedupedBody as any} components={{ ...portableTextComponents, block: {
+                ...portableTextComponents.block,
+                h2: ({ children, value }) => <h2 id={headingIds.get(value._key) ?? slugify((value.children ?? []).map((child) => typeof child.text === 'string' ? child.text : '').join(''))} className="text-2xl font-bold mt-12 mb-4 scroll-mt-24">{children}</h2>,
+                h3: ({ children, value }) => <h3 id={headingIds.get(value._key) ?? slugify((value.children ?? []).map((child) => typeof child.text === 'string' ? child.text : '').join(''))} className="text-xl font-bold mt-8 mb-3 scroll-mt-24">{children}</h3>,
+              } }} />
             )}
           </div>
 
@@ -548,7 +576,8 @@ export default async function PostPage({
         </div>
       </div>
 
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }

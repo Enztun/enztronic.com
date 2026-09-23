@@ -1,42 +1,5 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
-import { Info } from 'lucide-react';
-
-export function Tooltip({ text }: { text: string }) {
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    if (!open) return;
-    function onOutsideClick(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    }
-    document.addEventListener('mousedown', onOutsideClick);
-    return () => document.removeEventListener('mousedown', onOutsideClick);
-  }, [open]);
-
-  return (
-    <span ref={ref} className="relative inline-flex items-center ml-1.5">
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        className="text-gray-400 hover:text-primary transition-colors"
-        aria-label="More info"
-      >
-        <Info className="w-4 h-4" />
-      </button>
-      {open && (
-        <span className="absolute left-0 top-6 z-20 w-72 bg-gray-900 dark:bg-line text-white text-xs rounded-xl p-3 leading-relaxed shadow-xl">
-          {text}
-        </span>
-      )}
-    </span>
-  );
-}
-
 export type ContactFormData = {
   name: string;
   email: string;
@@ -48,23 +11,27 @@ export type ContactFormData = {
   country: string;
 };
 
-export const emptyContactForm: ContactFormData = {
-  name: '',
-  email: '',
-  company: '',
-  service: '',
-  budget: '',
-  message: '',
-  preferredTime: '',
-  country: '',
+export type RequiredContactField = 'message' | 'name' | 'email';
+export type ContactErrors = Partial<Record<RequiredContactField, string>>;
+export type ContactFieldsProps = {
+  form: ContactFormData;
+  onChange: (key: keyof ContactFormData, value: string) => void;
+  errors: ContactErrors;
 };
 
-/**
- * Both contact surfaces post the same payload, so the transport lives here to
- * keep the two in step. `rateLimited` is split out from `error` because the
- * advice differs: the generic failure tells people to email instead, which is
- * the wrong thing to say to someone who only needs to wait a minute.
- */
+export const emptyContactForm: ContactFormData = {
+  name: '', email: '', company: '', service: '', budget: '', message: '', preferredTime: '', country: '',
+};
+
+export function contactValidation(form: ContactFormData) {
+  const errors: Partial<Record<RequiredContactField, 'validationMessage' | 'validationName' | 'validationEmail'>> = {};
+  if (!form.message.trim()) errors.message = 'validationMessage';
+  if (form.name.trim().length < 2) errors.name = 'validationName';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) errors.email = 'validationEmail';
+  return errors;
+}
+
+/** The same transport and anti-spam payload serve both contact interfaces. */
 export type SubmitOutcome = { ok: true } | { ok: false; reason: 'rateLimited' | 'error' };
 
 export async function submitInquiry(
@@ -85,11 +52,14 @@ export async function submitInquiry(
 }
 
 export const inputClass =
-  'w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition bg-card';
+  'w-full min-w-0 rounded-xl border border-gray-300 bg-card px-4 py-3 text-base text-gray-900 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary aria-invalid:border-red-500';
 
-export const pillClass = (active: boolean) =>
-  `px-4 py-2 rounded-full text-sm font-medium border transition-all cursor-pointer ${
-    active
-      ? 'bg-brand-fill text-white border-primary'
-      : 'bg-gray-50 text-gray-700 border-gray-200 hover:border-primary/50'
-  }`;
+export const primaryButtonClass =
+  'inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-brand-fill px-6 py-3 font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary disabled:cursor-wait disabled:opacity-60';
+
+export const secondaryButtonClass =
+  'inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 transition-colors hover:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary';
+
+export function focusContactField(field: RequiredContactField) {
+  requestAnimationFrame(() => document.getElementById(`contact-${field}`)?.focus());
+}

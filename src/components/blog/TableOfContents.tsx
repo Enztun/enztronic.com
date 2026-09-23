@@ -6,6 +6,7 @@ export interface TocHeading {
   id: string;
   text: string;
   level: 2 | 3;
+  key?: string;
 }
 
 interface TableOfContentsProps {
@@ -41,14 +42,15 @@ export function TableOfContents({ headings, label }: TableOfContentsProps) {
   return (
     <div>
       <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">{label}</p>
-      <nav aria-label="Table of contents">
+      <nav aria-label={label}>
         <ul className="space-y-0.5">
           {headings.map(({ id, text, level }) => (
             <li key={id}>
               <a
                 href={`#${id}`}
+                aria-current={activeId === id ? 'location' : undefined}
                 className={[
-                  'block text-sm leading-snug py-1.5 border-l-2 transition-colors',
+                  'block text-base leading-snug py-2.5 border-l-2 transition-colors',
                   level === 3 ? 'pl-5' : 'pl-3',
                   activeId === id
                     ? 'border-primary text-primary font-medium'

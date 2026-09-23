@@ -1,0 +1,43 @@
+{
+  "navigationUx": {
+    "mainNavigation": "Main navigation",
+    "home": "Enztronic home",
+    "openMenu": "Open navigation",
+    "closeMenu": "Close navigation",
+    "switchLanguage": "Change language. Current language: {language}",
+    "languageMenu": "Choose a language",
+    "changingLanguage": "Changing language…",
+    "themeGroup": "Colour theme",
+    "theme": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "themeCycle": "Theme: {current}. Switch to {next}.",
+    "themeLabel": "Theme: {current}",
+    "notFoundTitle": "We couldn’t find that page",
+    "notFoundBody": "The link may have changed, or this page may not be available in your language. You can return home, explore our insights, or contact us.",
+    "backHome": "Back to home",
+    "browseInsights": "Browse insights",
+    "contactUs": "Contact us",
+    "errorTitle": "This page is temporarily unavailable",
+    "errorBody": "We couldn’t load the page just now. Please try again, or contact us if you need help.",
+    "tryAgain": "Try again",
+    "loading": "Loading your page…"
+  },
+  "blogUx": {
+    "translationUnavailable": "This article is not available in the selected language. You can explore our guides and published insights below.",
+    "practicalGuide": "Practical guide",
+    "unavailableTitle": "We couldn’t load the latest articles",
+    "unavailableBody": "Our article service is temporarily unavailable. The guide above is still available; please try again for the latest articles.",
+    "retry": "Try again",
+    "retrying": "Loading articles…",
+    "moreSoonTitle": "More insights are on the way",
+    "moreSoonBody": "Start with our workflow audit guide above. We’ll add more practical articles as they’re ready.",
+    "shareOn": "Share on {name} (opens a new tab)",
+    "copyLink": "Copy article link",
+    "copied": "Link copied",
+    "copyFailed": "The link couldn’t be copied automatically.",
+    "manualCopy": "Select and copy this link:"
+  }
+}

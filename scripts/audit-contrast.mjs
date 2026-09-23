@@ -21,7 +21,7 @@ const arg = (name, fallback) => {
 };
 
 const BASE = arg('base', process.env.BASE_URL ?? 'http://localhost:3000');
-const PAGES = ['/en', '/en/about', '/en/services', '/en/portfolio', '/en/contact', '/en/blog'];
+const PAGES = ['/en', '/en/about', '/en/services', '/en/portfolio', '/en/contact', '/en/blog', '/en/portfolio/qianlima', '/en/guides/workflow-audit'];
 const THEMES = ['dark', 'light'];
 
 /**

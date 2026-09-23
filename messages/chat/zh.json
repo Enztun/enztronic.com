@@ -1,0 +1,19 @@
+{
+  "chat": {
+    "greeting": "您好！您可以咨询我们的服务，或介绍想要改进的业务流程。发送给团队之前，您可以检查并修改咨询内容。",
+    "cardSent": "咨询已发送。团队将审核您的需求，并联系您商定下一步。",
+    "restart": "开始新对话",
+    "limit": "本次对话已达到长度上限。请开始新对话继续交流。咨询草稿和未发送的文字仍会保留。",
+    "history": "对话记录",
+    "contactAlternative": "想使用表单？联系团队",
+    "edit": "修改详情",
+    "save": "检查这些详情",
+    "cancel": "删除咨询草稿",
+    "notSpecified": "未指定",
+    "integration": "系统集成",
+    "cardService": "服务",
+    "cardBudget": "预算（美元）",
+    "cardTime": "期望联系时间（雅加达，UTC+7）",
+    "cardCountry": "国家"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "navigationUx": {
+    "mainNavigation": "主导航",
+    "home": "Enztronic 首页",
+    "openMenu": "打开导航",
+    "closeMenu": "关闭导航",
+    "switchLanguage": "切换语言。当前语言：{language}",
+    "languageMenu": "选择语言",
+    "changingLanguage": "正在切换语言…",
+    "themeGroup": "颜色主题",
+    "theme": {
+      "light": "浅色",
+      "dark": "深色",
+      "system": "跟随系统"
+    },
+    "themeCycle": "当前主题：{current}。切换到{next}。",
+    "themeLabel": "主题：{current}",
+    "notFoundTitle": "未找到此页面",
+    "notFoundBody": "链接可能已更改，或此页面尚无您所选语言的版本。您可以返回首页、浏览我们的文章，或联系我们。",
+    "backHome": "返回首页",
+    "browseInsights": "浏览文章",
+    "contactUs": "联系我们",
+    "errorTitle": "此页面暂时无法访问",
+    "errorBody": "目前无法加载此页面。请重试，如需帮助，请联系我们。",
+    "tryAgain": "重试",
+    "loading": "正在加载页面…"
+  },
+  "blogUx": {
+    "translationUnavailable": "这篇文章尚无您所选语言的版本。您可以在下方浏览现有指南和文章。",
+    "practicalGuide": "实用指南",
+    "unavailableTitle": "暂时无法加载最新文章",
+    "unavailableBody": "文章服务暂时不可用。您仍可阅读上方的指南，请稍后重试以获取最新文章。",
+    "retry": "重试",
+    "retrying": "正在加载文章…",
+    "moreSoonTitle": "更多实用文章即将发布",
+    "moreSoonBody": "先阅读上方的工作流程审计指南。我们将在准备就绪后发布更多实用文章。",
+    "shareOn": "分享到 {name}（在新标签页打开）",
+    "copyLink": "复制文章链接",
+    "copied": "链接已复制",
+    "copyFailed": "无法自动复制链接。",
+    "manualCopy": "请选择并复制此链接："
+  }
+}

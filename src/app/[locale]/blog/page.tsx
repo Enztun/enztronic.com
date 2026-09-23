@@ -9,6 +9,7 @@ import { urlFor } from '@/sanity/lib/image';
 import { postsByLocaleQuery } from '@/sanity/lib/queries';
 import type { PostSummary } from '@/sanity/lib/types';
 import { createCorePageMetadata } from '@/lib/seo';
+import { RetryButton } from '@/components/blog/RetryButton';
 
 export async function generateMetadata({
   params,
@@ -28,25 +29,31 @@ function formatDate(iso: string, locale: string) {
 
 export default async function BlogPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ notice?: string }>;
 }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'blog' });
+  const ux = await getTranslations({ locale, namespace: 'blogUx' });
+  const guide = await getTranslations({ locale, namespace: 'experience.guide' });
+  const { notice } = await searchParams;
 
   let posts: PostSummary[] = [];
+  let unavailable = false;
   if (isSanityConfigured) {
     try {
       posts = await sanityFetch<PostSummary[]>({ query: postsByLocaleQuery, params: { locale } });
     } catch {
-      // Sanity not reachable — show empty state
+      unavailable = true;
     }
   }
 
   return (
-    <main className="min-h-screen bg-surface">
+    <>
       <Navbar />
-
+      <main id="main-content" tabIndex={-1} className="min-h-screen bg-surface">
       <section className="pt-32 pb-24 px-6 md:px-12 max-w-4xl mx-auto">
         <div className="mb-16">
           <p className="text-sm uppercase tracking-[0.4em] text-primary font-bold">
@@ -58,13 +65,31 @@ export default async function BlogPage({
           <p className="text-gray-600 max-w-2xl">{t('description')}</p>
         </div>
 
-        {posts.length === 0 ? (
+        {notice === 'translation-unavailable' && (
+          <p role="status" className="mb-8 rounded-xl border border-line bg-surface-muted p-5 text-base text-on-surface-variant">
+            {ux('translationUnavailable')}
+          </p>
+        )}
+
+        <article className="mb-10 rounded-2xl border border-line bg-surface-muted p-6 md:p-8">
+          <p className="mb-3 text-sm font-bold uppercase tracking-wider text-brand">{ux('practicalGuide')}</p>
+          <h2 className="mb-4 text-2xl md:text-3xl">{guide('title')}</h2>
+          <p className="mb-6 text-base leading-relaxed text-on-surface-variant">{guide('description')}</p>
+          <Link href="/guides/workflow-audit" className="inline-flex items-center gap-2 rounded-lg py-2 font-semibold text-brand hover:underline underline-offset-4">
+            {guide('read')} <ArrowRight aria-hidden="true" className="size-4" />
+          </Link>
+        </article>
+
+        {unavailable ? (
+          <div className="rounded-2xl border border-line bg-card p-6 md:p-8">
+            <h2 className="mb-3 text-2xl">{ux('unavailableTitle')}</h2>
+            <p role="status" className="mb-6 text-base text-on-surface-variant">{ux('unavailableBody')}</p>
+            <RetryButton />
+          </div>
+        ) : posts.length === 0 ? (
           <div className="rounded-3xl border border-gray-200 p-10 bg-gray-50 text-center">
-            <p className="text-sm text-gray-400 uppercase tracking-[0.2em] mb-3">
-              {t('comingSoon')}
-            </p>
-            <h2 className="text-2xl font-semibold mb-3">{t('placeholder')}</h2>
-            <p className="text-gray-500 max-w-md mx-auto">{t('placeholderDetail')}</p>
+            <h2 className="text-2xl font-semibold mb-3">{ux('moreSoonTitle')}</h2>
+            <p className="text-gray-500 max-w-md mx-auto">{ux('moreSoonBody')}</p>
           </div>
         ) : (
           <div className="grid gap-8">
@@ -80,6 +105,8 @@ export default async function BlogPage({
                       <img
                         src={urlFor(post.mainImage).width(800).height(350).fit('crop').url()}
                         alt={(post.mainImage as { alt?: string }).alt ?? post.title}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     </div>
@@ -107,7 +134,7 @@ export default async function BlogPage({
                       </p>
                     )}
 
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-wrap items-center justify-between gap-4">
                       <div className="text-sm text-gray-400">
                         {post.publishedAt && formatDate(post.publishedAt, locale)}
                         {post.author?.name && (
@@ -125,8 +152,8 @@ export default async function BlogPage({
           </div>
         )}
       </section>
-
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }

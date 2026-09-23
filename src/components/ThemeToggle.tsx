@@ -2,15 +2,17 @@
 
 import { Monitor, Moon, Sun } from 'lucide-react';
 import { useEffect, useSyncExternalStore } from 'react';
+import { useTranslations } from 'next-intl';
 
 export type ThemePreference = 'system' | 'light' | 'dark';
 
 const STORAGE_KEY = 'enztronic-site-theme';
-const OPTIONS: { value: ThemePreference; label: string; icon: typeof Sun }[] = [
-  { value: 'light', label: 'Light', icon: Sun },
-  { value: 'dark', label: 'Dark', icon: Moon },
-  { value: 'system', label: 'System', icon: Monitor },
+const OPTIONS: { value: ThemePreference; icon: typeof Sun }[] = [
+  { value: 'light', icon: Sun },
+  { value: 'dark', icon: Moon },
+  { value: 'system', icon: Monitor },
 ];
+let sessionPreference: ThemePreference = 'system';
 
 function applyTheme(preference: ThemePreference) {
   const dark =
@@ -27,18 +29,24 @@ const listeners = new Set<() => void>();
 
 function subscribe(onChange: () => void) {
   listeners.add(onChange);
-  window.addEventListener('storage', onChange);
+  const onStorage = () => {
+    applyTheme(getSnapshot());
+    onChange();
+  };
+  window.addEventListener('storage', onStorage);
   return () => {
     listeners.delete(onChange);
-    window.removeEventListener('storage', onChange);
+    window.removeEventListener('storage', onStorage);
   };
 }
 
 function getSnapshot(): ThemePreference {
-  const stored = window.localStorage.getItem(STORAGE_KEY);
-  return stored === 'light' || stored === 'dark' || stored === 'system'
-    ? stored
-    : 'system';
+  try {
+    const stored = window.localStorage.getItem(STORAGE_KEY);
+    return stored === 'light' || stored === 'dark' || stored === 'system' ? stored : sessionPreference;
+  } catch {
+    return sessionPreference;
+  }
 }
 
 function getServerSnapshot(): ThemePreference {
@@ -46,7 +54,8 @@ function getServerSnapshot(): ThemePreference {
 }
 
 function setPreference(preference: ThemePreference) {
-  window.localStorage.setItem(STORAGE_KEY, preference);
+  sessionPreference = preference;
+  try { window.localStorage.setItem(STORAGE_KEY, preference); } catch { /* Session preference still works. */ }
   applyTheme(preference);
   for (const listener of listeners) listener();
 }
@@ -68,6 +77,7 @@ interface ThemeToggleProps {
 }
 
 export function ThemeToggle({ className = '', compact = false }: ThemeToggleProps) {
+  const t = useTranslations('navigationUx');
   const preference = useSyncExternalStore(
     subscribe,
     getSnapshot,
@@ -90,9 +100,9 @@ export function ThemeToggle({ className = '', compact = false }: ThemeToggleProp
       <button
         type="button"
         onClick={() => setPreference(next)}
-        aria-label={`Colour theme: ${active.label}. Switch to ${next}.`}
-        title={`Theme: ${active.label}`}
-        className={`grid size-10 shrink-0 place-items-center rounded-lg text-on-surface-variant transition-colors hover:bg-surface-muted hover:text-brand ${className}`}
+        aria-label={t('themeCycle', { current: t(`theme.${active.value}`), next: t(`theme.${next}`) })}
+        title={t('themeLabel', { current: t(`theme.${active.value}`) })}
+        className={`grid size-11 shrink-0 place-items-center rounded-lg text-on-surface-variant transition-colors hover:bg-surface-muted hover:text-brand ${className}`}
       >
         <ActiveIcon aria-hidden="true" className="w-5 h-5" />
       </button>
@@ -102,10 +112,19 @@ export function ThemeToggle({ className = '', compact = false }: ThemeToggleProp
   return (
     <div
       role="radiogroup"
-      aria-label="Colour theme"
+      aria-label={t('themeGroup')}
       className={`inline-flex items-center gap-0.5 rounded-full border border-line/70 p-0.5 ${className}`}
+      onKeyDown={(event) => {
+        if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)) return;
+        event.preventDefault();
+        const index = OPTIONS.findIndex((option) => option.value === preference);
+        const next = event.key === 'Home' ? 0 : event.key === 'End' ? OPTIONS.length - 1
+          : (index + (event.key === 'ArrowRight' || event.key === 'ArrowDown' ? 1 : -1) + OPTIONS.length) % OPTIONS.length;
+        setPreference(OPTIONS[next].value);
+        event.currentTarget.querySelectorAll<HTMLButtonElement>('[role="radio"]')[next]?.focus();
+      }}
     >
-      {OPTIONS.map(({ value, label, icon: Icon }) => {
+      {OPTIONS.map(({ value, icon: Icon }) => {
         const isActive = preference === value;
         return (
           <button
@@ -113,10 +132,11 @@ export function ThemeToggle({ className = '', compact = false }: ThemeToggleProp
             type="button"
             role="radio"
             aria-checked={isActive}
-            aria-label={label}
-            title={label}
+            aria-label={t(`theme.${value}`)}
+            title={t(`theme.${value}`)}
+            tabIndex={isActive ? 0 : -1}
             onClick={() => setPreference(value)}
-            className={`grid size-8 place-items-center rounded-full transition-colors ${
+            className={`grid size-9 place-items-center rounded-full transition-colors ${
               isActive
                 ? 'bg-brand-fill text-white'
                 : 'text-on-surface-variant hover:text-brand'

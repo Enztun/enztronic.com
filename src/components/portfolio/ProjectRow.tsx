@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import { ArrowUpRight } from 'lucide-react';
 import { screenshotFor } from '@/lib/screenshots';
+import { getTranslations } from 'next-intl/server';
+import { Link } from '@/i18n/navigation';
 
 export type PortfolioProject = {
   title?: string;
@@ -32,7 +34,14 @@ interface ProjectRowProps {
  * as an inset, which shows the responsive build without costing a second
  * full-size slot.
  */
-export default function ProjectRow({ project, index, total, visitLabel }: ProjectRowProps) {
+export default async function ProjectRow({
+  project,
+  index,
+  total,
+  visitLabel,
+}: ProjectRowProps) {
+  const t = await getTranslations('experience.caseStudy');
+  const isQianlima = project.url?.includes('qianlima.co.id');
   const flipped = index % 2 === 1;
   const number = String(index + 1).padStart(2, '0');
   const totalLabel = String(total).padStart(2, '0');
@@ -47,17 +56,23 @@ export default function ProjectRow({ project, index, total, visitLabel }: Projec
         {/* ── Copy ── */}
         <div className="lg:col-span-5">
           <div className="mb-5 flex items-baseline gap-3">
-            <span className="text-sm font-bold tabular-nums text-brand">{number}</span>
+            <span className="text-sm font-bold tabular-nums text-brand">
+              {number}
+            </span>
             <span className="h-px w-8 bg-gray-300" aria-hidden="true" />
             <span className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">
               {project.category}
             </span>
           </div>
 
-          <h2 className="mb-5 text-3xl font-bold leading-tight md:text-4xl">{project.title}</h2>
+          <h2 className="mb-5 text-3xl font-bold leading-tight md:text-4xl">
+            {project.title}
+          </h2>
 
           {project.description && (
-            <p className="mb-7 max-w-md leading-relaxed text-gray-600">{project.description}</p>
+            <p className="mb-7 max-w-md leading-relaxed text-gray-600">
+              {project.description}
+            </p>
           )}
 
           {project.tags && project.tags.length > 0 && (
@@ -73,6 +88,15 @@ export default function ProjectRow({ project, index, total, visitLabel }: Projec
             </ul>
           )}
 
+          {isQianlima && (
+            <Link
+              href="/portfolio/qianlima"
+              className="inline-flex items-center gap-2 font-bold text-brand mr-6 mb-4"
+            >
+              {t('read')}
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+            </Link>
+          )}
           {project.url && (
             <a
               href={project.url}
@@ -107,7 +131,11 @@ export default function ProjectRow({ project, index, total, visitLabel }: Projec
               </div>
               <Image
                 src={screenshotFor(project.url, 'laptop')}
-                alt={project.title ? `${project.title} website` : 'Project screenshot'}
+                alt={
+                  project.title
+                    ? `${project.title} website`
+                    : 'Project screenshot'
+                }
                 width={1440}
                 height={900}
                 sizes="(min-width: 1024px) 58vw, 92vw"

@@ -1,0 +1,19 @@
+{
+  "chat": {
+    "greeting": "Halo! Tanyakan layanan kami atau ceritakan proses yang ingin Anda perbaiki. Anda dapat meninjau dan mengubah detail sebelum mengirimkannya ke tim.",
+    "cardSent": "Pesan Anda telah terkirim. Tim akan meninjaunya dan menghubungi Anda untuk langkah berikutnya.",
+    "restart": "Mulai percakapan baru",
+    "limit": "Percakapan ini telah mencapai batasnya. Mulai percakapan baru untuk melanjutkan. Draf pertanyaan dan teks yang belum dikirim tetap tersedia.",
+    "history": "Percakapan",
+    "contactAlternative": "Lebih suka formulir? Hubungi tim",
+    "edit": "Ubah detail",
+    "save": "Tinjau detail ini",
+    "cancel": "Hapus draf pertanyaan",
+    "notSpecified": "Belum ditentukan",
+    "integration": "Integrasi Sistem",
+    "cardService": "Layanan",
+    "cardBudget": "Anggaran (USD)",
+    "cardTime": "Waktu yang diinginkan (Jakarta, UTC+7)",
+    "cardCountry": "Negara"
+  }
+}

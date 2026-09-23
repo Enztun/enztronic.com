@@ -1,0 +1,224 @@
+{
+  "experience": {
+    "services": {
+      "heading": "Find the right starting point",
+      "explore": "Explore this service",
+      "discuss": "Discuss this need",
+      "approach": "What we can build",
+      "result": "What to evaluate",
+      "example": "Example workflow",
+      "items": [
+        {
+          "problem": "Your team copies information between tools, follows up manually, or cannot see where work gets stuck.",
+          "approach": "Connect existing systems through APIs, automate repeatable steps, and add AI where a human can review the result.",
+          "result": "Less duplicate entry, clear ownership of exceptions, and a workflow the team can monitor.",
+          "example": "A new enquiry enters a shared pipeline, is assigned to an owner, and creates a follow-up task. Unclear requests go to a person."
+        },
+        {
+          "problem": "Customers, partners, or staff need one place to manage a process with different roles and permissions.",
+          "approach": "Design the data model, role-based dashboards, account journeys, and the APIs that connect the platform to your operations.",
+          "result": "People can complete their task, find the right information, and understand what happens next.",
+          "example": "Recruitment operations: candidate records, interview scheduling, and document workflows, as shown in Qianlima."
+        },
+        {
+          "problem": "Your website makes your offer difficult to understand or creates friction between interest and enquiry.",
+          "approach": "Plan the information structure, build responsive pages and product flows, and connect content management or commerce where needed.",
+          "result": "Clear service information, accessible navigation, and an enquiry path that works on phones as well as desktops.",
+          "example": "A local service website explains its coverage and services, then gives customers a direct route to ask for help."
+        },
+        {
+          "problem": "Your brand and interface change from page to page, making the product harder to recognize and use.",
+          "approach": "Create a visual identity, shared interface patterns, and reusable design components for your website or product.",
+          "result": "A consistent experience with practical rules your team can apply as the product grows.",
+          "example": "One system for typography, color, buttons, forms, and feedback across public pages and account dashboards."
+        },
+        {
+          "problem": "You publish content or run campaigns without a reliable view of which journeys lead to meaningful enquiries.",
+          "approach": "Set up technical SEO, content structures, and purposeful analytics events around the enquiry journey.",
+          "result": "A clearer view of where visitors continue or drop off, with a basis for testing improvements.",
+          "example": "Track service views, contact starts, and successful enquiries without putting personal form details into analytics."
+        },
+        {
+          "problem": "You know a process needs to improve, but the requirements and first useful release are still unclear.",
+          "approach": "Map the current workflow, identify users and constraints, prototype important steps, and prioritize a delivery roadmap.",
+          "result": "An agreed problem, a manageable first scope, and clear acceptance criteria before a larger build.",
+          "example": "Map an approval process, identify who can decide at each step, and prototype the handoff before choosing tools."
+        }
+      ]
+    },
+    "workflow": {
+      "label": "A connected workflow",
+      "heading": "From a request to a clear next action",
+      "description": "An example of how the tools your team already uses can work together. The starting point is a real process and the people responsible for it.",
+      "steps": [
+        {
+          "title": "Receive",
+          "body": "A form, inbox, or existing system captures the request."
+        },
+        {
+          "title": "Connect",
+          "body": "Check the information and pass it to the right record or tool."
+        },
+        {
+          "title": "Review",
+          "body": "A person handles approvals, missing details, and exceptions."
+        },
+        {
+          "title": "Act & learn",
+          "body": "Create the next task and make its status visible to the team."
+        }
+      ],
+      "note": "Start with one useful workflow. Keep human review where the decision needs judgment.",
+      "guide": "Use our workflow audit checklist"
+    },
+    "process": {
+      "heading": "How we work together",
+      "description": "Start with the operational problem, then agree on a practical first release and what it needs to prove.",
+      "steps": [
+        {
+          "title": "Understand",
+          "body": "Walk through the current process, users, tools, and points where work slows down."
+        },
+        {
+          "title": "Define",
+          "body": "Agree on scope, responsibilities, priorities, and acceptance criteria before committing to a build."
+        },
+        {
+          "title": "Build & review",
+          "body": "Develop the experience and connected workflows, then review them against real user tasks."
+        },
+        {
+          "title": "Launch & hand over",
+          "body": "Plan release checks, documentation, access, and the support responsibilities included in your scope."
+        }
+      ]
+    },
+    "faq": {
+      "heading": "Before we start",
+      "items": [
+        {
+          "question": "What does an operations audit start with?",
+          "answer": "Share one process that is slow or repetitive, the tools involved, and the result you want. We can use that context to discuss the bottleneck and a suitable next step. The depth, deliverables, timing, and fee for any audit are agreed before work starts."
+        },
+        {
+          "question": "Do we need a finished brief or a chosen technology?",
+          "answer": "No. Start with the problem, who experiences it, and how the process works today. Existing tools and constraints help shape the scope; you do not need to choose a platform first."
+        },
+        {
+          "question": "How are cost and delivery time decided?",
+          "answer": "They depend on the workflows, integrations, content, and review requirements. Ask for a scoped proposal with milestones, assumptions, and what is included before committing."
+        },
+        {
+          "question": "Can you work with our existing systems?",
+          "answer": "Integration is part of our services. Compatibility depends on available APIs, access, data quality, and the rules of each system. These should be checked during discovery."
+        },
+        {
+          "question": "Who owns the accounts, code, and content?",
+          "answer": "Ownership, licenses, account access, and handover arrangements should be explicit in your proposal and agreement. Raise any existing supplier or hosting constraints before the build begins."
+        },
+        {
+          "question": "What happens after launch?",
+          "answer": "Agree on documentation, training, bug fixes, maintenance, and response expectations as part of the scope. Ongoing support and future features should be defined clearly rather than assumed."
+        }
+      ]
+    },
+    "next": {
+      "heading": "Tell us where the work gets stuck.",
+      "body": "Start an operations audit conversation with one workflow. We will review your context and discuss the appropriate next step.",
+      "points": [
+        "The task your team repeats",
+        "The tools and people involved",
+        "What a better outcome would look like"
+      ],
+      "cta": "Discuss your workflow",
+      "whatsapp": "Message on WhatsApp",
+      "note": "Scope, timing, and fees are agreed before any work begins."
+    },
+    "caseStudy": {
+      "read": "Read the case study",
+      "back": "All projects",
+      "label": "Qianlima · Recruitment platform",
+      "title": "Bringing cross-border hiring into one platform",
+      "description": "A multilingual recruitment platform for Chinese companies hiring Indonesian talent, built around the people, records, and handoffs involved in recruitment.",
+      "imageAlt": "Qianlima recruitment platform on a desktop screen",
+      "live": "Visit Qianlima",
+      "contextHeading": "The business context",
+      "context": "Cross-border recruitment involves candidates and hiring teams working across languages. Candidate information, interviews, and documents need a clear place in that journey.",
+      "scopeHeading": "Enztronic's contribution",
+      "scope": "The project brings multilingual interfaces, role-based dashboards, candidate management, interview scheduling, and document workflows into a recruitment platform.",
+      "capabilities": [
+        {
+          "title": "Three interface languages",
+          "body": "Indonesian, Chinese, and English support the cross-border hiring experience."
+        },
+        {
+          "title": "Role-based workspaces",
+          "body": "Dashboards organize the experience around the people using the recruitment platform."
+        },
+        {
+          "title": "Candidate management",
+          "body": "Screening and filtering support the review of candidate information."
+        },
+        {
+          "title": "Interviews & documents",
+          "body": "Scheduling and document workflows connect the next stages of the hiring process."
+        }
+      ],
+      "workflowHeading": "The workflow it supports",
+      "workflow": [
+        "Organize candidate information",
+        "Screen and filter candidates",
+        "Schedule interviews",
+        "Manage document workflows"
+      ],
+      "outcomeHeading": "What the project demonstrates",
+      "outcome": "Qianlima is a concrete example of multilingual product design and connected recruitment workflows. The desktop and mobile screenshots show the delivered interface; the live platform provides further product context.",
+      "related": "Explore platform development",
+      "discuss": "Discuss a similar platform"
+    },
+    "guide": {
+      "label": "Practical guide",
+      "title": "Before you automate: map one workflow",
+      "description": "A short checklist to identify a useful first automation, the exceptions it must handle, and what success should mean.",
+      "read": "Read the workflow guide",
+      "back": "Back to insights",
+      "intro": "Start with a task people already do. A clear map of the current process makes it easier to choose what to automate, what to keep manual, and what to measure.",
+      "steps": [
+        {
+          "title": "Choose one repeatable task",
+          "body": "Pick a specific starting point and finishing point. “A new enquiry arrives and gets an owner” is easier to scope than “automate sales.” Note who does the work and how often it happens."
+        },
+        {
+          "title": "Write down the current handoffs",
+          "body": "List each tool, the information entering it, and the person responsible for the next step. Include spreadsheets, messages, and the informal checks that make the process work today."
+        },
+        {
+          "title": "Record the exceptions",
+          "body": "What happens when information is missing, a request is duplicated, or someone does not respond? Decide who handles these cases. A useful automation needs a visible recovery path."
+        },
+        {
+          "title": "Decide where people stay involved",
+          "body": "Keep a person responsible for decisions that need judgment. If AI drafts or classifies information, define how someone reviews it and corrects a mistake before it triggers a consequential action."
+        },
+        {
+          "title": "Define a small success measure",
+          "body": "Record a baseline such as handling time, duplicate entry, or missed follow-ups. Choose one or two measures you can compare after a pilot. Avoid promising a result before you have evidence."
+        },
+        {
+          "title": "Test a limited pilot",
+          "body": "Use a small, agreed set of cases. Check normal requests and exceptions, confirm access rules, and define how to pause the workflow. Review the results with the people who use it before expanding."
+        }
+      ],
+      "exampleHeading": "Example: enquiry follow-up",
+      "example": "A website form creates a shared record. A rule assigns an owner, and a task reminds them to follow up. Missing information goes to a review queue. The team checks unassigned enquiries and completed follow-ups to see whether the change helps.",
+      "checklistHeading": "Bring these to an initial conversation",
+      "checklist": [
+        "One task and its owner",
+        "The tools and information involved",
+        "Common exceptions and approvals",
+        "A baseline and the outcome you want"
+      ],
+      "cta": "Discuss your first workflow"
+    }
+  }
+}

@@ -8,15 +8,30 @@ import { pageBySlugQuery } from '@/sanity/lib/queries';
 import { createCorePageMetadata } from '@/lib/seo';
 import ServicesSection from '@/components/sections/ServicesSection';
 import { serviceIcon } from '@/lib/service-icons';
+import {
+  FaqSection,
+  NextStepSection,
+  ProcessSection,
+  ServiceDetails,
+  WorkflowSection,
+} from '@/components/sections/ExperienceSections';
 
 type ServiceItem = { title: string; description: string; features: string[] };
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
   return createCorePageMetadata(locale, 'services');
 }
 
-export default async function Services({ params }: { params: Promise<{ locale: string }> }) {
+export default async function Services({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
   let cmsPage;
 
@@ -31,13 +46,20 @@ export default async function Services({ params }: { params: Promise<{ locale: s
 
   if (cmsPage?.modules?.length > 0) {
     return (
-      <main className="min-h-screen bg-surface">
-        <Navbar />
+      <>
+      <Navbar />
+      <main id="main-content" tabIndex={-1} className="min-h-screen bg-surface">
         {cmsPage.modules.map((mod: { _type: string; _key: string }) => (
           <ModuleRenderer key={mod._key} module={mod} />
         ))}
-        <Footer />
-      </main>
+        <ServiceDetails />
+        <WorkflowSection />
+        <ProcessSection />
+        <FaqSection />
+        <NextStepSection />
+        </main>
+      <Footer />
+    </>
     );
   }
 
@@ -45,14 +67,24 @@ export default async function Services({ params }: { params: Promise<{ locale: s
   const t = await getTranslations({ locale, namespace: 'services' });
   const items = t.raw('items') as ServiceItem[];
   return (
-    <main className="min-h-screen bg-surface">
+    <>
       <Navbar />
+      <main id="main-content" tabIndex={-1} className="min-h-screen bg-surface">
       <ServicesSection
         heading={t('heading')}
         subheading={t('subheading')}
-        services={items.map((service, index) => ({ ...service, icon: serviceIcon(index) }))}
+        services={items.map((service, index) => ({
+          ...service,
+          icon: serviceIcon(index),
+        }))}
       />
+      <ServiceDetails />
+      <WorkflowSection />
+      <ProcessSection />
+      <FaqSection />
+      <NextStepSection />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }

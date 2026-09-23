@@ -1,0 +1,224 @@
+{
+  "experience": {
+    "services": {
+      "heading": "Temukan titik awal yang tepat",
+      "explore": "Jelajahi layanan ini",
+      "discuss": "Diskusikan kebutuhan ini",
+      "approach": "Yang dapat kami bangun",
+      "result": "Yang perlu dievaluasi",
+      "example": "Contoh alur kerja",
+      "items": [
+        {
+          "problem": "Tim menyalin informasi antaralat, melakukan tindak lanjut secara manual, atau sulit melihat di mana pekerjaan terhambat.",
+          "approach": "Hubungkan sistem melalui API, otomatisasikan langkah berulang, dan gunakan AI saat hasilnya dapat ditinjau manusia.",
+          "result": "Mengurangi input ganda, memperjelas penanggung jawab kasus khusus, dan membuat alur kerja mudah dipantau.",
+          "example": "Permintaan baru masuk ke pipeline bersama, ditugaskan kepada penanggung jawab, lalu membuat tugas tindak lanjut. Permintaan yang belum jelas ditinjau oleh tim."
+        },
+        {
+          "problem": "Pelanggan, mitra, atau staf memerlukan satu tempat untuk menjalankan proses dengan peran dan izin yang berbeda.",
+          "approach": "Rancang model data, dasbor berbasis peran, alur akun, dan API yang menghubungkan platform dengan operasional.",
+          "result": "Pengguna dapat menyelesaikan tugas, menemukan informasi yang sesuai, dan memahami langkah berikutnya.",
+          "example": "Operasional rekrutmen: data kandidat, penjadwalan wawancara, dan alur dokumen seperti pada Qianlima."
+        },
+        {
+          "problem": "Website membuat penawaran sulit dipahami atau menyulitkan pengunjung yang ingin menghubungi bisnis.",
+          "approach": "Susun struktur informasi, bangun halaman dan alur produk yang responsif, serta hubungkan pengelolaan konten atau perdagangan sesuai kebutuhan.",
+          "result": "Informasi layanan yang jelas, navigasi yang aksesibel, dan alur kontak yang bekerja baik di ponsel maupun desktop.",
+          "example": "Website layanan lokal menjelaskan cakupan dan layanannya, lalu menyediakan jalur langsung bagi pelanggan untuk meminta bantuan."
+        },
+        {
+          "problem": "Identitas merek dan antarmuka berubah dari satu halaman ke halaman lain sehingga produk sulit dikenali dan digunakan.",
+          "approach": "Buat identitas visual, pola antarmuka bersama, dan komponen desain yang dapat digunakan kembali untuk website atau produk.",
+          "result": "Pengalaman yang konsisten dengan panduan praktis yang dapat diterapkan tim saat produk berkembang.",
+          "example": "Satu sistem tipografi, warna, tombol, formulir, dan umpan balik untuk halaman publik serta dasbor akun."
+        },
+        {
+          "problem": "Konten dan kampanye berjalan tanpa gambaran yang jelas tentang alur mana yang menghasilkan pertanyaan berkualitas.",
+          "approach": "Siapkan SEO teknis, struktur konten, dan pengukuran analitik yang relevan di sepanjang alur kontak.",
+          "result": "Gambaran yang lebih jelas tentang titik pengunjung melanjutkan atau berhenti, sebagai dasar menguji perbaikan.",
+          "example": "Ukur kunjungan layanan, dimulainya formulir, dan pengiriman berhasil tanpa memasukkan data pribadi formulir ke analitik."
+        },
+        {
+          "problem": "Sebuah proses perlu diperbaiki, tetapi kebutuhan dan versi awal yang bermanfaat belum jelas.",
+          "approach": "Petakan alur saat ini, identifikasi pengguna dan batasan, buat prototipe langkah penting, lalu susun prioritas pengembangan.",
+          "result": "Masalah yang disepakati, cakupan awal yang terkendali, dan kriteria penerimaan sebelum membangun lebih jauh.",
+          "example": "Petakan proses persetujuan, tentukan siapa yang berwenang di setiap tahap, dan uji perpindahan tugas melalui prototipe sebelum memilih alat."
+        }
+      ]
+    },
+    "workflow": {
+      "label": "Alur kerja yang terhubung",
+      "heading": "Dari permintaan ke tindakan yang jelas",
+      "description": "Contoh bagaimana alat yang sudah digunakan tim dapat saling terhubung. Mulailah dari proses nyata dan orang yang bertanggung jawab.",
+      "steps": [
+        {
+          "title": "Terima",
+          "body": "Formulir, kotak masuk, atau sistem yang ada menerima permintaan."
+        },
+        {
+          "title": "Hubungkan",
+          "body": "Periksa informasi dan teruskan ke catatan atau alat yang sesuai."
+        },
+        {
+          "title": "Tinjau",
+          "body": "Tim menangani persetujuan, informasi yang kurang, dan kasus khusus."
+        },
+        {
+          "title": "Jalankan & pelajari",
+          "body": "Buat tugas berikutnya dan tampilkan statusnya kepada tim."
+        }
+      ],
+      "note": "Mulai dengan satu alur yang bermanfaat. Pertahankan tinjauan manusia untuk keputusan yang membutuhkan pertimbangan.",
+      "guide": "Gunakan daftar periksa audit alur kerja"
+    },
+    "process": {
+      "heading": "Cara kita bekerja sama",
+      "description": "Mulai dari masalah operasional, lalu sepakati versi awal yang praktis dan hal yang perlu dibuktikan.",
+      "steps": [
+        {
+          "title": "Pahami",
+          "body": "Telusuri proses saat ini, pengguna, alat, dan titik yang memperlambat pekerjaan."
+        },
+        {
+          "title": "Tentukan",
+          "body": "Sepakati cakupan, tanggung jawab, prioritas, dan kriteria penerimaan sebelum memulai pengembangan."
+        },
+        {
+          "title": "Bangun & tinjau",
+          "body": "Kembangkan pengalaman dan alur yang terhubung, lalu tinjau berdasarkan tugas pengguna yang nyata."
+        },
+        {
+          "title": "Rilis & serahkan",
+          "body": "Rencanakan pemeriksaan rilis, dokumentasi, akses, dan tanggung jawab dukungan yang termasuk dalam cakupan."
+        }
+      ]
+    },
+    "faq": {
+      "heading": "Sebelum kita mulai",
+      "items": [
+        {
+          "question": "Apa titik awal audit operasional?",
+          "answer": "Ceritakan satu proses yang lambat atau berulang, alat yang digunakan, dan hasil yang diinginkan. Konteks ini membantu kita mendiskusikan hambatan serta langkah selanjutnya. Kedalaman audit, hasil kerja, jadwal, dan biayanya disepakati sebelum pekerjaan dimulai."
+        },
+        {
+          "question": "Apakah kami harus punya brief lengkap atau pilihan teknologi?",
+          "answer": "Tidak. Mulai dari masalah, siapa yang mengalaminya, dan bagaimana proses berjalan sekarang. Alat serta batasan yang ada membantu menentukan cakupan; Anda tidak perlu memilih platform terlebih dahulu."
+        },
+        {
+          "question": "Bagaimana biaya dan waktu pengerjaan ditentukan?",
+          "answer": "Keduanya bergantung pada alur kerja, integrasi, konten, dan kebutuhan peninjauan. Mintalah proposal dengan cakupan, tahapan, asumsi, dan rincian yang termasuk sebelum membuat komitmen."
+        },
+        {
+          "question": "Bisakah Anda bekerja dengan sistem yang sudah kami gunakan?",
+          "answer": "Integrasi merupakan bagian dari layanan kami. Kecocokan bergantung pada ketersediaan API, akses, kualitas data, dan aturan setiap sistem. Hal-hal ini perlu diperiksa pada tahap awal."
+        },
+        {
+          "question": "Siapa yang memiliki akun, kode, dan konten?",
+          "answer": "Kepemilikan, lisensi, akses akun, dan mekanisme serah terima harus dijelaskan dalam proposal serta perjanjian. Sampaikan batasan penyedia atau hosting yang sudah ada sebelum pengembangan dimulai."
+        },
+        {
+          "question": "Apa yang terjadi setelah peluncuran?",
+          "answer": "Sepakati dokumentasi, pelatihan, perbaikan bug, pemeliharaan, dan ekspektasi respons dalam cakupan pekerjaan. Dukungan lanjutan dan fitur mendatang perlu ditentukan secara jelas."
+        }
+      ]
+    },
+    "next": {
+      "heading": "Ceritakan di mana pekerjaan terhambat.",
+      "body": "Mulai percakapan audit operasional dengan satu alur kerja. Kami akan meninjau konteks Anda dan mendiskusikan langkah yang sesuai.",
+      "points": [
+        "Tugas yang berulang dalam tim",
+        "Alat dan orang yang terlibat",
+        "Hasil yang ingin diperbaiki"
+      ],
+      "cta": "Diskusikan alur kerja Anda",
+      "whatsapp": "Hubungi melalui WhatsApp",
+      "note": "Cakupan, jadwal, dan biaya disepakati sebelum pekerjaan dimulai."
+    },
+    "caseStudy": {
+      "read": "Baca studi kasus",
+      "back": "Semua proyek",
+      "label": "Qianlima · Platform rekrutmen",
+      "title": "Menghubungkan rekrutmen lintas negara dalam satu platform",
+      "description": "Platform rekrutmen multibahasa untuk perusahaan Tiongkok yang merekrut talenta Indonesia, dirancang untuk pengguna, data, dan perpindahan tugas dalam rekrutmen.",
+      "imageAlt": "Platform rekrutmen Qianlima pada layar desktop",
+      "live": "Kunjungi Qianlima",
+      "contextHeading": "Konteks bisnis",
+      "context": "Rekrutmen lintas negara melibatkan kandidat dan tim perekrutan dengan bahasa berbeda. Informasi kandidat, wawancara, serta dokumen membutuhkan tempat yang jelas dalam proses tersebut.",
+      "scopeHeading": "Kontribusi Enztronic",
+      "scope": "Proyek ini menyatukan antarmuka multibahasa, dasbor berbasis peran, pengelolaan kandidat, penjadwalan wawancara, dan alur dokumen dalam sebuah platform rekrutmen.",
+      "capabilities": [
+        {
+          "title": "Tiga bahasa antarmuka",
+          "body": "Bahasa Indonesia, Mandarin, dan Inggris mendukung pengalaman rekrutmen lintas negara."
+        },
+        {
+          "title": "Ruang kerja berbasis peran",
+          "body": "Dasbor menyusun pengalaman sesuai pengguna platform rekrutmen."
+        },
+        {
+          "title": "Pengelolaan kandidat",
+          "body": "Penyaringan dan filter membantu peninjauan informasi kandidat."
+        },
+        {
+          "title": "Wawancara & dokumen",
+          "body": "Penjadwalan dan alur dokumen menghubungkan tahap berikutnya dalam proses rekrutmen."
+        }
+      ],
+      "workflowHeading": "Alur kerja yang didukung",
+      "workflow": [
+        "Susun informasi kandidat",
+        "Saring dan pilih kandidat",
+        "Jadwalkan wawancara",
+        "Kelola alur dokumen"
+      ],
+      "outcomeHeading": "Yang ditunjukkan oleh proyek ini",
+      "outcome": "Qianlima merupakan contoh konkret desain produk multibahasa dan alur rekrutmen yang terhubung. Tangkapan layar desktop serta ponsel memperlihatkan antarmuka yang telah dibangun; platform langsung memberikan konteks produk lebih lanjut.",
+      "related": "Jelajahi pengembangan platform",
+      "discuss": "Diskusikan platform serupa"
+    },
+    "guide": {
+      "label": "Panduan praktis",
+      "title": "Sebelum otomatisasi: petakan satu alur kerja",
+      "description": "Daftar periksa singkat untuk memilih otomatisasi pertama yang berguna, menangani kasus khusus, dan menetapkan ukuran keberhasilan.",
+      "read": "Baca panduan alur kerja",
+      "back": "Kembali ke wawasan",
+      "intro": "Mulai dari tugas yang sudah dilakukan tim. Peta proses yang jelas membantu menentukan bagian yang dapat diotomatisasikan, yang tetap manual, dan yang perlu diukur.",
+      "steps": [
+        {
+          "title": "Pilih satu tugas berulang",
+          "body": "Tentukan awal dan akhir yang spesifik. “Permintaan baru masuk dan mendapat penanggung jawab” lebih mudah dibatasi daripada “otomatisasi penjualan.” Catat siapa yang mengerjakannya dan seberapa sering tugas terjadi."
+        },
+        {
+          "title": "Catat perpindahan tugas saat ini",
+          "body": "Daftarkan setiap alat, informasi yang masuk, dan penanggung jawab tahap berikutnya. Sertakan spreadsheet, pesan, serta pemeriksaan informal yang membuat proses berjalan sekarang."
+        },
+        {
+          "title": "Catat kasus khusus",
+          "body": "Apa yang terjadi saat informasi kurang, permintaan ganda, atau tidak ada respons? Tentukan siapa yang menanganinya. Otomatisasi yang berguna perlu jalur pemulihan yang terlihat."
+        },
+        {
+          "title": "Tentukan peran manusia",
+          "body": "Tetapkan penanggung jawab untuk keputusan yang membutuhkan pertimbangan. Jika AI membuat draf atau mengelompokkan informasi, tentukan cara meninjau dan memperbaikinya sebelum memicu tindakan yang berdampak."
+        },
+        {
+          "title": "Tetapkan ukuran keberhasilan sederhana",
+          "body": "Catat kondisi awal seperti waktu penanganan, input ganda, atau tindak lanjut yang terlewat. Pilih satu atau dua ukuran untuk dibandingkan setelah uji coba. Jangan menjanjikan hasil sebelum ada bukti."
+        },
+        {
+          "title": "Uji dalam lingkup terbatas",
+          "body": "Gunakan beberapa kasus yang disepakati. Periksa permintaan normal dan kasus khusus, konfirmasi aturan akses, lalu tentukan cara menjeda alur. Tinjau hasil bersama pengguna sebelum memperluasnya."
+        }
+      ],
+      "exampleHeading": "Contoh: tindak lanjut permintaan",
+      "example": "Formulir website membuat catatan bersama. Aturan menentukan penanggung jawab, lalu tugas mengingatkan mereka untuk menindaklanjuti. Informasi yang kurang masuk ke antrean tinjauan. Tim memeriksa permintaan tanpa penanggung jawab dan tindak lanjut yang selesai untuk menilai manfaat perubahan.",
+      "checklistHeading": "Siapkan ini untuk percakapan awal",
+      "checklist": [
+        "Satu tugas dan penanggung jawabnya",
+        "Alat serta informasi yang terlibat",
+        "Kasus khusus dan persetujuan yang sering muncul",
+        "Kondisi awal dan hasil yang diinginkan"
+      ],
+      "cta": "Diskusikan alur kerja pertama Anda"
+    }
+  }
+}

@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getKnowledgeBase } from '@/lib/knowledge';
 import { CHAT_BUDGET_VALUES, CHAT_SERVICE_VALUES, CHAT_TIME_VALUES } from '@/lib/inquiry';
 import { CHAT_RULE, checkRateLimit, clientKey, rateLimitHeaders } from '@/lib/rate-limit';
+import { MAX_CHAT_MESSAGES, MAX_CHAT_MESSAGE_CHARS, MAX_CHAT_BODY_BYTES } from '@/lib/chat-limits';
 
 /**
  * The site's customer-service agent.
@@ -22,9 +23,9 @@ import { CHAT_RULE, checkRateLimit, clientKey, rateLimitHeaders } from '@/lib/ra
  */
 
 const MODEL = 'claude-opus-5';
-const MAX_BODY_BYTES = 32 * 1024;
-const MAX_TURNS = 24;
-const MAX_MESSAGE_CHARS = 2_000;
+const MAX_BODY_BYTES = MAX_CHAT_BODY_BYTES;
+const MAX_TURNS = MAX_CHAT_MESSAGES;
+const MAX_MESSAGE_CHARS = MAX_CHAT_MESSAGE_CHARS;
 /** Cap on model round trips in one request, so a tool loop cannot run away. */
 const MAX_ITERATIONS = 4;
 
@@ -72,6 +73,8 @@ Reply in ${language}. Keep answers short — two or three sentences unless asked
 Answer only from the reference below. If it does not cover something — pricing for a specific project, timelines, availability — say you are not sure and offer to pass the question to the team. Never invent a price, a delivery date, a client name, or a capability.
 
 When someone wants to work with Enztronic, get in touch, or asks to be contacted, collect what you need conversationally and then call prepare_inquiry. Name and email are required; everything else is optional, so do not interrogate people for it. prepare_inquiry does not send anything — it shows the visitor a summary they confirm themselves. After calling it, tell them to review it and tap send.
+
+Do not promise a fixed response time, a free audit, or a booked appointment. The team reviews the enquiry and agrees the next step. Budget ranges are USD. Preferred-time choices refer to Jakarta (UTC+7); if the visitor specifies another timezone, preserve their request in the message and omit preferredTime.
 
 If a visitor would rather not use the chat, the team is reachable at enztun@enztronic.com or on WhatsApp at +62 8963 7579 728.
 

@@ -8,6 +8,7 @@ import { VisualEditing } from 'next-sanity/visual-editing';
 import { routing } from '@/i18n/routing';
 import { ThemeScript } from '@/components/ThemeToggle';
 import ChatWidget from '@/components/chat/ChatWidget';
+import FunnelEvents from '@/components/FunnelEvents';
 import '../globals.css';
 
 // Montserrat is the single brand typeface. The site previously loaded Geist
@@ -120,8 +121,12 @@ export default async function LocaleLayout({
       </head>
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider messages={messages}>
+          <a href="#main-content" className="skip-link">
+            {locale === 'id' ? 'Lewati ke konten utama' : locale === 'zh' ? '跳至主要内容' : 'Skip to main content'}
+          </a>
           {children}
           <ChatWidget />
+          <FunnelEvents />
           {isDraftMode && <VisualEditing />}
         </NextIntlClientProvider>
       </body>

@@ -1,0 +1,43 @@
+{
+  "navigationUx": {
+    "mainNavigation": "Navigasi utama",
+    "home": "Beranda Enztronic",
+    "openMenu": "Buka navigasi",
+    "closeMenu": "Tutup navigasi",
+    "switchLanguage": "Ganti bahasa. Bahasa saat ini: {language}",
+    "languageMenu": "Pilih bahasa",
+    "changingLanguage": "Mengganti bahasa…",
+    "themeGroup": "Tema warna",
+    "theme": {
+      "light": "Terang",
+      "dark": "Gelap",
+      "system": "Sistem"
+    },
+    "themeCycle": "Tema: {current}. Ganti ke {next}.",
+    "themeLabel": "Tema: {current}",
+    "notFoundTitle": "Halaman tidak ditemukan",
+    "notFoundBody": "Tautan mungkin telah berubah, atau halaman ini belum tersedia dalam bahasa Anda. Kembali ke beranda, jelajahi wawasan kami, atau hubungi kami.",
+    "backHome": "Kembali ke beranda",
+    "browseInsights": "Jelajahi wawasan",
+    "contactUs": "Hubungi kami",
+    "errorTitle": "Halaman sementara tidak tersedia",
+    "errorBody": "Kami belum dapat memuat halaman ini. Silakan coba lagi atau hubungi kami jika Anda membutuhkan bantuan.",
+    "tryAgain": "Coba lagi",
+    "loading": "Memuat halaman…"
+  },
+  "blogUx": {
+    "translationUnavailable": "Artikel ini belum tersedia dalam bahasa yang dipilih. Anda dapat menjelajahi panduan dan artikel yang tersedia di bawah.",
+    "practicalGuide": "Panduan praktis",
+    "unavailableTitle": "Artikel terbaru belum dapat dimuat",
+    "unavailableBody": "Layanan artikel kami sementara tidak tersedia. Panduan di atas tetap dapat dibaca. Silakan coba lagi untuk memuat artikel terbaru.",
+    "retry": "Coba lagi",
+    "retrying": "Memuat artikel…",
+    "moreSoonTitle": "Wawasan lainnya segera hadir",
+    "moreSoonBody": "Mulai dengan panduan audit alur kerja di atas. Kami akan menambahkan artikel praktis lainnya setelah siap.",
+    "shareOn": "Bagikan ke {name} (membuka tab baru)",
+    "copyLink": "Salin tautan artikel",
+    "copied": "Tautan disalin",
+    "copyFailed": "Tautan tidak dapat disalin secara otomatis.",
+    "manualCopy": "Pilih dan salin tautan ini:"
+  }
+}

@@ -16,9 +16,16 @@ type ServicesGridData = {
 };
 
 /** Sanity stores the icon by name; the section wants the component. */
-export default function ServicesGridModule({ data }: { data: ServicesGridData }) {
+export default function ServicesGridModule({
+  data,
+  pageHeading = true,
+}: {
+  data: ServicesGridData;
+  pageHeading?: boolean;
+}) {
   return (
     <ServicesSection
+      pageHeading={pageHeading}
       heading={data.heading}
       subheading={data.subheading}
       services={(data.services ?? []).map((s, i) => ({

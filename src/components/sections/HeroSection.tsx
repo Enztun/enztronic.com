@@ -49,7 +49,11 @@ export default function HeroSection({
                 </>
               )}
             </h1>
-            {description && <p className="text-lg text-gray-600 mb-10 max-w-lg">{description}</p>}
+            {description && (
+              <p className="text-lg text-gray-600 mb-10 max-w-lg">
+                {description}
+              </p>
+            )}
             <div className="flex gap-4 flex-wrap">
               {ctaPrimary?.text && ctaPrimary.href && (
                 <Link
@@ -69,7 +73,7 @@ export default function HeroSection({
               )}
             </div>
           </div>
-          <div className="relative bg-gray-50 rounded-2xl p-8 border border-gray-200">
+          <div className="relative min-w-0 bg-surface-muted rounded-2xl p-4 sm:p-8 border border-line">
             <div className="aspect-video bg-card rounded-xl shadow-sm overflow-hidden">
               <Image
                 src={FEATURED_SCREENSHOT}
@@ -82,11 +86,15 @@ export default function HeroSection({
               />
             </div>
             {(highlight?.value || highlight?.label) && (
-              <div className="absolute -bottom-6 -left-6 bg-card p-6 rounded-xl shadow-xl border border-gray-200">
+              <div className="relative mt-4 sm:absolute sm:mt-0 sm:-bottom-6 sm:-left-6 bg-card p-4 sm:p-6 rounded-xl shadow-xl border border-line">
                 {highlight.value && (
-                  <p className="text-3xl font-bold text-primary">{highlight.value}</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-primary">
+                    {highlight.value}
+                  </p>
                 )}
-                {highlight.label && <p className="text-sm text-gray-500">{highlight.label}</p>}
+                {highlight.label && (
+                  <p className="text-sm text-gray-500">{highlight.label}</p>
+                )}
               </div>
             )}
           </div>

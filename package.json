@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "audit:contrast": "node scripts/audit-contrast.mjs",
-    "shots": "node scripts/capture-screenshots.mjs"
+    "shots": "node scripts/capture-screenshots.mjs",
+    "test:ux": "node scripts/verify-ux.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.120.0",
