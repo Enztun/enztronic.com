@@ -50,11 +50,11 @@ process.stdout.write(JSON.stringify(fixture.trace?{report,calls}:report));
 UX_HARNESS = r'''
 const fs=require('node:fs'),vm=require('node:vm'),{EventEmitter}=require('node:events');
 const fixture=JSON.parse(fs.readFileSync(0,'utf8'));
-let report,clock=0,nextTimer=0;
+let report,diagnostics,clock=0,nextTimer=0;
 const children=[],calls=[],kills=[],timers=new Set();
 const sandbox={
   Buffer,
-  Date:class extends Date {static now(){return fixture.readiness_timeout?(clock+=100000):Date.now();}},
+  Date:class extends Date {static now(){if(fixture.readiness_timeout)return clock+=100000;if(fixture.readiness_status)return clock+=50000;return Date.now();}},
   setTimeout(callback,milliseconds){
     const timer=++nextTimer;timers.add(timer);
     if(milliseconds===600000 && !fixture.test_timeout) return timer;
@@ -69,14 +69,15 @@ const sandbox={
   }},
   require(name){
     if(name==='node:fs') return {writeFileSync(path,text){
+      if(path==='/workspace/.audit-ux-diagnostics.json') {if(text.length>256*1024)throw Error('Unbounded diagnostics');diagnostics=JSON.parse(text);return;}
       if(path!=='/workspace/.audit-ux-checks.json'||text.length>4096) throw Error('Unexpected report');
       report=JSON.parse(text);
     }};
     if(name==='node:http') return {get(url,options,callback){
-      if(url!=='http://127.0.0.1:3100/en'||options.timeout!==2000) throw Error('Unexpected probe');
+      if(url!=='http://127.0.0.1:3100/'||options.timeout!==2000) throw Error('Unexpected probe');
       const request=new EventEmitter();request.destroy=()=>request.emit('error',new Error('timeout'));
       queueMicrotask(()=>{
-        const response=new EventEmitter();response.statusCode=200;response.resume=()=>{};
+        const response=new EventEmitter();response.statusCode=fixture.readiness_status??200;response.resume=()=>{};
         callback(response);queueMicrotask(()=>response.emit('end'));
       });return request;
     }};
@@ -93,6 +94,7 @@ const sandbox={
         if(fixture.test_error){child.emit('error',new Error('fixture-private-output'));child.emit('close',-2);return;}
         if(fixture.test_timeout) return;
         child.stdout.emit('data',Buffer.from(fixture.output??'Verified 28 UX groups. All write requests were intercepted.\n'));
+        if(fixture.stderr) child.stderr.emit('data',Buffer.from(fixture.stderr));
         if(fixture.test_overflow) child.stderr.emit('data',Buffer.alloc(1024*1024+1));
         child.emit('close',fixture.code??0);
       });return child;
@@ -102,7 +104,7 @@ const sandbox={
 };
 (async()=>{
   await vm.runInNewContext(fixture.driver,sandbox);
-  process.stdout.write(JSON.stringify({report,calls,kills,timers:timers.size,exitCode:sandbox.process.exitCode}));
+  process.stdout.write(JSON.stringify({report,diagnostics,calls,kills,timers:timers.size,exitCode:sandbox.process.exitCode}));
 })().catch(()=>{process.exitCode=1;});
 '''
 
@@ -203,6 +205,7 @@ class RepositoryDriverTests(unittest.TestCase):
         self.assertNotIn('NEXT_PUBLIC_SANITY_DATASET', commands[1]['env'])
         toolchain = next(call for call in trace['calls'] if call['command'].startswith('node -e'))
         self.assertIn("version!=='1.62.1'", toolchain['command'])
+        self.assertIn('node --test --test-reporter=tap scripts/ux-network-guard.test.mjs', [call['command'] for call in trace['calls']])
         rows = driver(kind='enztronic', fail_fixture_build=True)
         self.assertEqual(next(row for row in rows if row['name'] == 'enztronic production build')['status'], 'pass')
         self.assertEqual(next(row for row in rows if row['name'] == 'Enz offline UX fixture build')['status'], 'fail')
@@ -215,6 +218,7 @@ class EnzBrowserDriverTests(unittest.TestCase):
         self.assertEqual(check['status'], 'pass')
         self.assertEqual(check['metrics']['passed'], 28)
         self.assertEqual(actual['exitCode'], 0)
+        self.assertNotIn('diagnostics', actual)
         self.assertEqual(actual['timers'], 0)
         self.assertIn({'pid': -101, 'signal': 'SIGTERM'}, actual['kills'])
         server, suite = actual['calls']
@@ -238,11 +242,23 @@ class EnzBrowserDriverTests(unittest.TestCase):
             self.assertIn({'pid': -101, 'signal': 'SIGTERM'}, actual['kills'])
 
     def test_readiness_and_server_errors_do_not_start_browser_suite(self):
-        for fixture in [{'readiness_timeout': True}, {'server_error': True}, {'server_overflow': True}]:
+        for fixture in [{'readiness_timeout': True}, {'readiness_status': 307}, {'server_error': True}, {'server_overflow': True}]:
             actual = ux_driver(**fixture)
             self.assertEqual(actual['report'][0]['status'], 'fail')
             self.assertTrue(actual['report'][0]['metrics']['readiness_failed'])
             self.assertEqual(len(actual['calls']), 1)
+
+    def test_browser_assertion_reports_only_a_fixed_error_code(self):
+        actual = ux_driver(code=1, stderr='AssertionError [ERR_ASSERTION]: fixture-private-form-value\nprivate stack trace')
+        self.assertEqual(actual['report'][0]['status'], 'fail')
+        self.assertEqual(actual['report'][0]['metrics']['first_error_code'], 1)
+        self.assertNotIn('fixture-private-form-value', json.dumps(actual['report']))
+        self.assertIn('fixture-private-form-value', actual['diagnostics']['test']['stderr'])
+
+    def test_failure_diagnostics_keep_only_bounded_private_stream_tails(self):
+        actual = ux_driver(code=1, output='old-prefix' + 'x' * 10000, stderr='old-prefix' + 'y' * 10000)
+        self.assertEqual(actual['diagnostics']['test'], {'stdout': 'x' * 8192, 'stderr': 'y' * 8192})
+        self.assertNotIn('old-prefix', json.dumps(actual['diagnostics']))
 
     def test_suite_timeout_kills_its_process_group_and_still_stops_next(self):
         actual = ux_driver(test_timeout=True)
@@ -253,6 +269,74 @@ class EnzBrowserDriverTests(unittest.TestCase):
 
 
 class RepositoryHostTests(unittest.TestCase):
+    def test_failure_diagnostics_survive_work_cleanup_privately_and_never_enter_bundle(self):
+        with tempfile.TemporaryDirectory() as temporary, mock.patch.object(repository, 'ROOT', Path(temporary)):
+            work = Path(temporary) / 'work-enztronic-fixture'
+            work.mkdir()
+            tails = {'server': {'stdout': 'fixture startup', 'stderr': ''}, 'test': {'stdout': '', 'stderr': 'fixture-private-failure'}}
+            (work / '.audit-ux-diagnostics.json').write_text(json.dumps(tails), encoding='utf-8')
+            repository.retain_browser_diagnostics(work, 'enztronic', 'a' * 40)
+            with mock.patch.object(repository, 'capture', return_value=(0, '')):
+                repository.cleanup_resources('enztronic', 'owned-container', work, None, {})
+            path = Path(temporary) / 'state/enztronic/offline-ux-diagnostics.json'
+            self.assertEqual(json.loads(path.read_text(encoding='utf-8')), {'revision': 'a' * 40, 'diagnostics': tails})
+            self.assertFalse(work.exists())
+            if os.name == 'posix':
+                self.assertEqual(path.stat().st_mode & 0o777, 0o600)
+
+    def test_missing_head_ignore_never_reads_git_show_or_creates_a_blank_policy(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            tools = Path(temporary)
+            with mock.patch.object(repository, 'capture', return_value=(0, '')) as capture:
+                self.assertIsNone(repository.source_gitleaks_ignore(tools / 'mirror.git', 'a' * 40, tools, {}))
+            self.assertEqual(capture.call_count, 1)
+            self.assertIn('ls-tree', capture.call_args.args[0])
+            self.assertEqual(list(tools.iterdir()), [])
+
+    def test_exact_head_fingerprints_are_bounded_private_and_comments_are_not_copied(self):
+        fingerprint = 'a' * 40 + ':src/components/example.tsx:generic-api-key:19'
+        listing = '100644 blob ' + 'b' * 40 + '\t.gitleaksignore\n'
+        with tempfile.TemporaryDirectory() as temporary:
+            tools = Path(temporary)
+            with mock.patch.object(repository, 'capture', side_effect=[(0, listing), (0, '# Reviewed fixture only\n\n' + fingerprint + '\n')]) as capture:
+                path = repository.source_gitleaks_ignore(tools / 'mirror.git', 'c' * 40, tools, {'FIXTURE': 'public'})
+            self.assertEqual(path.read_text(encoding='utf-8'), fingerprint + '\n')
+            self.assertEqual(capture.call_args.kwargs['limit'], 32 * 1024)
+            self.assertEqual(capture.call_args.args[0][-1], 'c' * 40 + ':.gitleaksignore')
+            if os.name == 'posix':
+                self.assertEqual(path.stat().st_mode & 0o777, 0o600)
+
+    def test_wildcards_prefixes_rule_only_and_path_traversal_ignore_lines_are_rejected(self):
+        listing = '100644 blob ' + 'b' * 40 + '\t.gitleaksignore\n'
+        for entry in [
+            'generic-api-key', 'a' * 40 + ':src/*:generic-api-key:19',
+            'a' * 40 + ':src/example.tsx:generic*:19', 'a' * 40 + ':src/example.tsx:generic-api-key:0',
+            'a' * 40 + ':../example.tsx:generic-api-key:19', 'a' * 40 + ':/example.tsx:generic-api-key:19',
+            'a' * 40 + ':src/exam?le.tsx:generic-api-key:19', 'a' * 40 + ':src/example.tsx:generic-api-key',
+            'a' * 39 + ':src/example.tsx:generic-api-key:19', '[allowlist]\nrules=["generic-api-key"]',
+        ]:
+            with self.subTest(entry=entry), tempfile.TemporaryDirectory() as temporary:
+                tools = Path(temporary)
+                with mock.patch.object(repository, 'capture', side_effect=[(0, listing), (0, entry)]):
+                    with self.assertRaises(ValueError):
+                        repository.source_gitleaks_ignore(tools / 'mirror.git', 'c' * 40, tools, {})
+                self.assertEqual(list(tools.iterdir()), [])
+
+    def test_ignore_git_errors_and_ambient_mirror_policy_fail_closed(self):
+        listing = '100644 blob ' + 'b' * 40 + '\t.gitleaksignore\n'
+        for replies in [[(128, 'fixture-private-output')], [(0, listing), (128, 'fixture-private-output')]]:
+            with tempfile.TemporaryDirectory() as temporary, mock.patch.object(repository, 'capture', side_effect=replies):
+                with self.assertRaises(RuntimeError) as error:
+                    repository.source_gitleaks_ignore(Path(temporary) / 'mirror.git', 'c' * 40, Path(temporary), {})
+                self.assertNotIn('fixture-private-output', str(error.exception))
+        with tempfile.TemporaryDirectory() as temporary, mock.patch.object(repository, 'capture') as capture:
+            mirror = Path(temporary) / 'mirror.git'
+            mirror.mkdir()
+            (mirror / '.gitleaksignore').write_text('*', encoding='utf-8')
+            with self.assertRaises(ValueError):
+                repository.source_gitleaks_ignore(mirror, 'c' * 40, Path(temporary), {})
+            capture.assert_not_called()
+
     def test_enz_browser_container_is_offline_reuses_pinned_image_and_cleans_both_containers(self):
         for failed_build in [None, 'enztronic production build', 'Enz offline UX fixture build']:
             with self.subTest(failed_build=failed_build), tempfile.TemporaryDirectory() as temporary, mock.patch.object(repository, 'ROOT', Path(temporary)):
@@ -266,7 +350,14 @@ class RepositoryHostTests(unittest.TestCase):
                     return ''
                 def capture(command, **_kwargs):
                     commands.append(command)
+                    if 'ls-tree' in command:
+                        return 0, '100644 blob ' + 'b' * 40 + '\t.gitleaksignore\n'
+                    if 'show' in command:
+                        return 0, 'a' * 40 + ':src/fixture.ts:generic-api-key:12\n'
                     if str(command[0]).endswith('gitleaks'):
+                        ignore = Path(command[command.index('--gitleaks-ignore-path') + 1])
+                        self.assertEqual(ignore.read_text(encoding='utf-8'), 'a' * 40 + ':src/fixture.ts:generic-api-key:12\n')
+                        self.assertEqual(_kwargs['cwd'], ignore.parent)
                         Path(command[command.index('--report-path') + 1]).write_text('[]', encoding='utf-8')
                     if command[:2] == ['docker', 'run']:
                         source = Path(next(value.removesuffix(':/workspace') for value in command if value.endswith(':/workspace')))
@@ -312,6 +403,12 @@ class RepositoryHostTests(unittest.TestCase):
             safe = repository.browser_result(path, 0)
             self.assertEqual(safe['status'], 'pass')
             self.assertNotIn('fixture-private-output', json.dumps(safe))
+            check = repository.result('Enztronic offline browser UX', 'unit', 'fail', passed=0, failed=1, errors=1, exit_code=-1, readiness_failed=True, timed_out=True, first_error_code=1)
+            path.write_text(json.dumps([check]), encoding='utf-8')
+            safe = repository.browser_result(path, 1)
+            self.assertTrue(safe['metrics']['readiness_failed'])
+            self.assertTrue(safe['metrics']['timed_out'])
+            self.assertEqual(safe['metrics']['first_error_code'], 1)
 
     def test_timeout_and_output_limits_fail_without_echoing_payload(self):
         began = time.monotonic()
@@ -372,6 +469,8 @@ class RepositoryHostTests(unittest.TestCase):
                 self.assertNotIn('DISCORD_WEBHOOK_URL', kwargs['env'])
                 if str(command[0]).endswith('gitleaks'):
                     self.assertIn('--redact=100', command)
+                    self.assertNotIn('--gitleaks-ignore-path', command)
+                    self.assertTrue(Path(kwargs['cwd']).name.startswith('tools-qianlima-frontend-'))
                     report = Path(command[command.index('--report-path') + 1])
                     report.write_text(json.dumps([
                         {'RuleID': 'fixture', 'File': 'test.txt', 'StartLine': 3, 'Commit': 'A' * 40,

@@ -226,6 +226,30 @@ class AuditTests(unittest.TestCase):
         message = audit.summary(report)
         self.assertIn("secret-scan: fail", message)
         self.assertLess(message.index("secret-scan: fail"), message.index("host-0: warn"))
+        self.assertLessEqual(len(message), 1900)
+
+    def test_summary_renders_actionable_counts_without_string_or_raw_metrics(self):
+        checks = [audit.result("source", "repository", "fail", "Isolated check fail",
+                               findings=9, high=3, critical=0, raw_log="private-log-canary",
+                               errors="secret-metric-canary", warnings=WEBHOOK,
+                               revision="a" * 40, low={"high": 500})]
+        report = {"site": "fixture", "timestamp": audit.iso(NOW), "status": "fail", "full": True, "checks": checks}
+        message = audit.summary(report)
+        self.assertIn("findings=9", message)
+        self.assertIn("high=3", message)
+        self.assertIn("critical=0", message)
+        for withheld in ("private-log-canary", "secret-metric-canary", WEBHOOK, "fixture-secret-token", "https://", "a" * 40, "high=500"):
+            self.assertNotIn(withheld, message)
+
+    def test_summary_bounds_metric_count_and_rejects_negative_or_noninteger_values(self):
+        metrics = {key: n for n, key in enumerate(("findings", "critical", "high", "moderate", "low", "total", "packages", "errors"))}
+        rendered = audit.summary_metrics(metrics)
+        self.assertEqual(rendered, "findings=0, critical=1, high=2, moderate=3, low=4, total=5")
+        rendered = audit.summary_metrics({"findings": -1, "critical": float("inf"), "high": float("nan"),
+                                          "low": 0.5, "total": "4", "packages": False, "available_packages": 12,
+                                          "required": True})
+        self.assertEqual(rendered, "packages=false, available_packages=12, required=true")
+        self.assertEqual(audit.summary_metrics(["private-metric-canary"]), "")
 
     def test_full_failure_persists_until_a_real_full_check_clears_it(self):
         audit.run_site(self.config, self.root, "full", True, NOW, self.collect([check("fail")]))
@@ -267,9 +291,13 @@ class AuditTests(unittest.TestCase):
     def test_bundle_uses_only_validated_categories_and_allowlisted_metrics(self):
         payload = bundle()
         payload["checks"][0]["metrics"]["raw_log"] = "password=do-not-output"
+        payload["checks"][0]["metrics"].update(readiness_failed=True, timed_out=True, first_error_code=1)
         checks = audit.bundle_results("frontend", payload, 0)
         self.assertEqual(len(checks), 8)
         self.assertEqual(checks[0]["metrics"]["revision"], "a" * 40)
+        self.assertTrue(checks[0]["metrics"]["readiness_failed"])
+        self.assertTrue(checks[0]["metrics"]["timed_out"])
+        self.assertEqual(checks[0]["metrics"]["first_error_code"], 1)
         self.assertNotIn("do-not-output", json.dumps(checks))
         payload["checks"][0]["metrics"]["errors"] = WEBHOOK
         self.assertEqual(audit.bundle_results("frontend", payload, 0)[0]["status"], "error")

@@ -141,6 +141,44 @@ def read_report(path, limit=8 * 1024 * 1024):
     return json.loads(path.read_text(encoding='utf-8'))
 
 
+def source_gitleaks_ignore(mirror, revision, tools, env):
+    """Only exact fingerprints reviewed in this trusted HEAD may suppress findings."""
+    if (mirror / '.gitleaksignore').exists():
+        raise ValueError('An unreviewed audit mirror ignore file is present')
+    code, listing = capture(['git', '--git-dir', str(mirror), 'ls-tree', revision, '--', '.gitleaksignore'],
+                            env=env, timeout=30, limit=2048)
+    if code:
+        raise RuntimeError('Could not inspect source ignore policy')
+    if not listing.strip():
+        return None
+    if not re.fullmatch(r'100(?:644|755) blob [0-9a-f]{40}\t\.gitleaksignore\n?', listing):
+        raise ValueError('Source ignore policy must be a regular file')
+    code, content = capture(['git', '--git-dir', str(mirror), 'show', revision + ':.gitleaksignore'],
+                            env=env, timeout=30, limit=32 * 1024)
+    if code:
+        raise RuntimeError('Could not read source ignore policy')
+    fingerprints = []
+    for line in content.splitlines():
+        fingerprint = line.strip()
+        if not fingerprint or fingerprint.startswith('#'):
+            continue
+        match = re.fullmatch(r'([0-9a-fA-F]{40}):([^:]+):([A-Za-z0-9][A-Za-z0-9_-]{0,127}):([1-9][0-9]*)', fingerprint)
+        if not match:
+            raise ValueError('Source ignore policy must contain exact fingerprints only')
+        path = match[2]
+        if (path.startswith(('/', '!', '~')) or any(part in ('', '.', '..') for part in path.split('/'))
+                or re.search(r'[\x00-\x1f\x7f*?\[\]{}\\]', path)):
+            raise ValueError('Source ignore policy contains a nonliteral path')
+        fingerprints.append(fingerprint)
+    if not fingerprints:
+        return None
+    destination = tools / 'reviewed-gitleaksignore'
+    descriptor = os.open(destination, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+    with os.fdopen(descriptor, 'w', encoding='utf-8') as output:
+        output.write('\n'.join(fingerprints) + '\n')
+    return destination
+
+
 def browser_result(path, code):
     name = 'Enztronic offline browser UX'
     try:
@@ -168,9 +206,34 @@ def browser_result(path, code):
         for key in ['readiness_failed', 'execution_error', 'output_limit', 'timed_out', 'cleanup_failed']:
             if metrics.get(key) is True:
                 counters[key] = True
+        if type(metrics.get('first_error_code')) is int and metrics['first_error_code'] in (1, 2, 3):
+            counters['first_error_code'] = metrics['first_error_code']
         return result(name, 'unit', check['status'], **counters)
     except (ValueError, TypeError, AttributeError):
         return result(name, 'unit', 'fail', errors=1, invalid_report=True)
+
+
+def retain_browser_diagnostics(work, repository, revision):
+    """Private offline-fixture failure tails; never returned in check bundles."""
+    source = work / '.audit-ux-diagnostics.json'
+    if not source.exists():
+        return
+    if source.is_symlink() or not source.is_file():
+        raise ValueError('Invalid browser diagnostics file')
+    diagnostics = read_report(source, limit=256 * 1024)
+    if not isinstance(diagnostics, dict) or set(diagnostics) != {'server', 'test'}:
+        raise ValueError('Invalid browser diagnostics shape')
+    for streams in diagnostics.values():
+        if streams is not None and (not isinstance(streams, dict) or set(streams) != {'stdout', 'stderr'}
+                or any(not isinstance(text, str) or len(text) > 8192 for text in streams.values())):
+            raise ValueError('Invalid browser diagnostics tail')
+    report_dir = ROOT / 'state' / repository
+    report_dir.mkdir(mode=0o700, parents=True, exist_ok=True)
+    destination = report_dir / 'offline-ux-diagnostics.json'
+    descriptor = os.open(destination, os.O_WRONLY | os.O_CREAT | os.O_TRUNC | getattr(os, 'O_NOFOLLOW', 0), 0o600)
+    with os.fdopen(descriptor, 'w', encoding='utf-8') as output:
+        destination.chmod(0o600)
+        json.dump({'revision': revision, 'diagnostics': diagnostics}, output)
 
 
 def cleanup_resources(repository, container, work, tools, env, image=None, extra_containers=()):
@@ -281,7 +344,7 @@ if(results[0].status!=='pass') {
       run('Frontend HR tests','unit',['npm','run','test:hr'],'tests');
     } else if(kind==='enztronic') {
       run('Enztronic browser toolchain','setup',['node','-e',"const fs=require('node:fs');const lock=JSON.parse(fs.readFileSync('package-lock.json','utf8'));const installed=JSON.parse(fs.readFileSync('node_modules/playwright/package.json','utf8'));if(lock.packages?.['node_modules/playwright']?.version!=='1.62.1'||installed.version!=='1.62.1')process.exit(1)"]);
-      run('Enz UX network policy tests','unit',['node','--test','scripts/ux-network-guard.test.mjs'],'tests');
+      run('Enz UX network policy tests','unit',['node','--test','--test-reporter=tap','scripts/ux-network-guard.test.mjs'],'tests');
     }
     const primaryBuild=run(kind+' production build','build',['npm','run','build']);
     if(kind==='enztronic' && primaryBuild==='pass') {
@@ -320,15 +383,23 @@ function signalGroup(state,signal) {
 }
 function launch(command,args) {
   const child=spawn(command,args,{detached:true,stdio:['ignore','pipe','pipe'],env:{...process.env,BASE_URL,NODE_ENV:'production'}});
-  const state={child,closed:false,error:false,overflow:false,code:null,stdout:'',bytes:0};
+  const state={child,closed:false,error:false,overflow:false,code:null,stdout:'',bytes:0,firstErrorCode:0,tails:{stdout:'',stderr:''}};
   state.done=new Promise(resolve=>{
     child.once('error',()=>{state.error=true;});
     child.once('close',code=>{state.closed=true;state.code=code;resolve();});
   });
   for(const [stream,retain] of [[child.stdout,true],[child.stderr,false]]) stream?.on('data',chunk=>{
+    const name=retain?'stdout':'stderr';
+    state.tails[name]=(state.tails[name]+chunk.toString('utf8')).slice(-8192);
     state.bytes+=Buffer.byteLength(chunk);
     if(state.bytes>OUTPUT_LIMIT) {state.overflow=true;signalGroup(state,'SIGKILL');return;}
     if(retain) state.stdout+=chunk.toString('utf8');
+    // Fixed codes only: 1=assertion, 2=Playwright wait timeout, 3=browser launch.
+    // No assertion text, local form values or stack traces cross this boundary.
+    if(!retain && !state.firstErrorCode) {
+      const text=chunk.toString('utf8');
+      state.firstErrorCode=/ERR_ASSERTION/.test(text)?1:/TimeoutError|Timeout [0-9]+ms exceeded/.test(text)?2:/browserType\.launch/.test(text)?3:0;
+    }
   });
   return state;
 }
@@ -349,7 +420,7 @@ async function stop(state) {
 }
 function probe() {
   return new Promise(resolve=>{
-    const request=http.get(BASE_URL+'/en',{timeout:2000},response=>{
+    const request=http.get(BASE_URL+'/',{timeout:2000},response=>{
       response.resume();
       response.once('end',()=>resolve(response.statusCode===200));
       response.once('error',()=>resolve(false));
@@ -384,6 +455,7 @@ async function main() {
       check.metrics.execution_error=!!test.error;
       check.metrics.output_limit=!!(test.overflow||server.overflow);
       check.metrics.timed_out=!!test.timedOut;
+      if(test.firstErrorCode) check.metrics.first_error_code=test.firstErrorCode;
     }
   } catch {
     check.metrics.execution_error=true;
@@ -392,6 +464,12 @@ async function main() {
     for(const child of [test,server]) {
       try {await stop(child);}
       catch {check.status='fail';check.metrics.errors=1;check.metrics.failed=1;check.metrics.cleanup_failed=true;}
+    }
+    if(check.status==='fail') {
+      // Synthetic network-none fixture only. Python moves bounded tails to
+      // private state before removing work; no raw text enters the check report.
+      try {fs.writeFileSync('/workspace/.audit-ux-diagnostics.json',JSON.stringify({server:server?.tails??null,test:test?.tails??null}),{mode:0o600});}
+      catch {check.metrics.execution_error=true;}
     }
     fs.writeFileSync('/workspace/.audit-ux-checks.json',JSON.stringify([check]),{mode:0o600});
     process.exitCode=check.status==='pass'?0:1;
@@ -433,10 +511,17 @@ def _audit_repository(repository, *, check_build=True):
     image = None
     try:
         tools = Path(tempfile.mkdtemp(prefix='tools-' + repository + '-', dir=ROOT))
+        ignore = source_gitleaks_ignore(mirror, revision, tools, env)
         secret_report = work / 'secrets.json'
-        code, _ = capture([str(ROOT / 'bin/gitleaks'), 'git', '--no-banner', '--redact=100',
+        scanner = [str(ROOT / 'bin/gitleaks'), 'git', '--no-banner', '--redact=100',
             '--report-format', 'json', '--report-path', str(secret_report),
-            '--log-opts=refs/heads/main', str(mirror)], env=env, timeout=300)
+            '--log-opts=refs/heads/main']
+        if ignore:
+            scanner += ['--gitleaks-ignore-path', str(ignore)]
+        scanner.append(str(mirror))
+        # Gitleaks defaults to a cwd ignore file; the private tools directory has
+        # no ambient policy and the bare mirror is checked above.
+        code, _ = capture(scanner, env=env, cwd=tools, timeout=300)
         if code not in (0, 1) or not secret_report.exists():
             checks.append(result(repository + ' secret/history scan', 'gitleaks', 'fail', scanner_failed=True))
         else:
@@ -522,6 +607,8 @@ def _audit_repository(repository, *, check_build=True):
                     checks.append(result('Enztronic offline browser UX', 'unit', 'fail', errors=1, container_failed=True))
                 else:
                     checks.append(browser_result(browser_output, browser_code))
+                if checks[-1]['status'] != 'pass':
+                    retain_browser_diagnostics(work, repository, revision)
         if kind == 'backend' and check_build:
             image = 'qianlima-backend:audit-' + revision[:12] + '-' + str(os.getpid())
             code, _ = capture(['docker', 'build', '--tag', image, str(work)], env=env, timeout=1200)

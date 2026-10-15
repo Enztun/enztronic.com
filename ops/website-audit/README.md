@@ -145,3 +145,13 @@ protected-page nonces, spoof rejection, anonymous CV/session read rejection,
 CV preview isolation headers and public-catalog offset pagination. It performs
 only bounded, credential-free GETs and prints booleans; it never submits a job,
 form, payment, uploaded document or login attempt against production.
+
+
+A reviewed `.gitleaksignore` in the exact trusted Git HEAD may contain only
+full `commit:path:rule:line` fingerprints. The wrapper reads at most32KiB,
+validates literal relative paths/rules/positive line numbers, and passes a private
+copy explicitly to the scanner. Wildcard, traversal, rule-only and broad directory
+exclusions are rejected. Missing files add no suppression. Ambient mirror ignore
+files are rejected and scanning runs from a private tools directory. Per-repository
+reviewed fingerprints do not suppress findings in other repositories. Re-review
+new findings individually.

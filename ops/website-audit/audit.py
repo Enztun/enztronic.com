@@ -30,7 +30,7 @@ UTC = dt.timezone.utc
 MAX_OUTPUT = 512 * 1024
 MAX_BODY = 128 * 1024
 FULL_CATEGORIES = {"audit-prod", "audit-full", "outdated", "lint", "typecheck", "unit", "build", "gitleaks"}
-METRIC_KEYS = {"exit_code", "errors", "warnings", "findings", "packages", "info", "low", "moderate", "high", "critical", "total", "vulnerabilities", "tests", "passed", "failed", "skipped", "duration_seconds", "revision", "cache_age_days", "available_packages", "execution_error", "known_dev_advisory", "invalid_report", "install_failed", "dedicated_browser_test_environment_required", "scanner_failed", "potential_secrets", "history_scanned", "container_failed", "credential_required", "query_failed", "truncated"}
+METRIC_KEYS = {"exit_code", "errors", "warnings", "findings", "packages", "info", "low", "moderate", "high", "critical", "total", "vulnerabilities", "tests", "passed", "failed", "skipped", "duration_seconds", "revision", "cache_age_days", "available_packages", "execution_error", "known_dev_advisory", "invalid_report", "install_failed", "dedicated_browser_test_environment_required", "scanner_failed", "potential_secrets", "history_scanned", "container_failed", "credential_required", "query_failed", "truncated", "readiness_failed", "timed_out", "output_limit", "cleanup_failed", "prerequisites_failed", "first_error_code"}
 WEBHOOK_PATH = re.compile(r"^/api/(?:v\d+/)?webhooks/\d+/[A-Za-z0-9._-]+/?$")
 WEBHOOK_RE = re.compile(r"https?://(?:[\w-]+\.)?discord(?:app)?\.com/api/(?:v\d+/)?webhooks/[^\s\"'<>]+", re.I)
 ENV_EXPOSURE = re.compile(rb"(?m)^\s*(?:DATABASE_URL|JWT_SECRET|APP_KEY|NEXTAUTH_SECRET|DB_PASSWORD|AWS_SECRET_ACCESS_KEY|[A-Z_]*PRIVATE_KEY|[A-Z_]*API_KEY)\s*=\s*[^\r\n]{6,}")
@@ -581,6 +581,24 @@ def send_discord(webhook, content, transport=webhook_transport, sleep=time.sleep
     return False
 
 
+def summary_metrics(metrics):
+    """Only allowlisted scalar counts cross into the public notification text."""
+    if not isinstance(metrics, dict):
+        return ""
+    keys = ("findings", "critical", "high", "moderate", "low", "total", "packages", "available_packages",
+            "error", "warn", "unstructured", "errors", "warnings", "passed", "failed", "required")
+    details = []
+    for key in keys:
+        value = metrics.get(key)
+        if isinstance(value, bool):
+            details.append(f"{key}={str(value).lower()}")
+        elif isinstance(value, int) and value >= 0:
+            details.append(f"{key}={value}")
+        if len(details) == 6:
+            break
+    return ", ".join(details)
+
+
 def summary(report):
     checks = report["checks"] + report.get("previous_full_issues", [])
     counts = {key: sum(c["status"] == key for c in checks) for key in ("pass", "warn", "fail", "error", "skipped")}
@@ -590,7 +608,10 @@ def summary(report):
     kind_priority = {"repository": 0, "exposure": 1, "tls": 2, "http": 3, "docker": 4, "server": 5}
     issues = sorted((c for c in checks if c["status"] != "pass"),
                     key=lambda c: (status_priority.get(c["status"], 4), kind_priority.get(c["kind"], 6), c["name"]))
-    lines += [f"- {c['name']}: {c['status']} — {c['message']}" for c in issues][:12]
+    for check in issues[:12]:
+        details = summary_metrics(check.get("metrics"))
+        suffix = f" ({details})" if details else ""
+        lines.append(f"- {check['name']}: {check['status']} — {check['message']}{suffix}")
     lines.append("Private reports retained on the audit host. Read-only checks; no updates or deployment performed.")
     return redact("\n".join(lines))[:1900]
 
