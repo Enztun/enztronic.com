@@ -48,6 +48,32 @@ desired, and exercise real provider-backed workflows with dedicated test data.
 The independent local `apps/**` installations are outside this public website
 dependency audit; the back office remains excluded from public Vercel uploads.
 
+## Reviewed Git-history scanner false positives
+
+The first history scan reported nine `generic-api-key` candidates. Each exact
+historical match was inspected in memory without printing candidate values or
+reading environment files. The repository `.gitleaksignore` records only these
+nine commit/path/rule/line fingerprints; no path-wide or rule-wide exclusion is
+used, and credential findings remain reportable.
+
+Seven matches in commit `4871fcaa4462cded988f5b15813d137d3d5bffa7`,
+`apps/meteora-lp/src/lib/mock-data.ts` lines 17, 42, 67, 164, 182, 200 and 218,
+are `tokenBMint` fields in exported `mockPositions` and `mockCandidates` demo
+data. The domain contracts define them as token-mint strings. Three values recur
+in both arrays and have 32-byte public-address shape; the final value is a mock
+placeholder. No private-key, secret-key or signing operation occurs in that
+fixture. These are public mint identifiers or mock data, not authentication keys.
+
+Two matches in commit `bf195dcd2fed7a4f2e1ec6f305a9aa165006dec5`,
+`dist/static/sanity-BAlIdGYY.js` lines 1380 and 1626, come from generated Sanity
+vendor code. The first is unquoted JavaScript member access and a comparison,
+not a credential literal. The second is a static 12-character array-item `_key`;
+the exact value also occurs in installed Sanity source, where AST inspection
+places it inside the nested `PATHS` array. The generated historical bundle is
+no longer tracked. These exceptions do not suppress dependency advisories, new
+findings or any Qianlima credentials. A fresh history scan must verify the
+remaining unsuppressed findings after the reviewed allowlist is committed.
+
 References: [Next release](https://github.com/vercel/next.js/releases/tag/v16.4.2),
 [Sharp advisory](https://github.com/lovell/sharp/security/advisories/GHSA-wq5f-xc86-pv6w),
 [PostCSS advisory](https://github.com/postcss/postcss/security/advisories/GHSA-fxqj-rqcc-2cmp),

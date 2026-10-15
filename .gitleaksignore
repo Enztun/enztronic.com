@@ -1,0 +1,12 @@
+# Reviewed generic-api-key false positives only; no credential findings ignored.
+# Public token mint identifiers / mock placeholders in demo liquidity-pool data.
+4871fcaa4462cded988f5b15813d137d3d5bffa7:apps/meteora-lp/src/lib/mock-data.ts:generic-api-key:17
+4871fcaa4462cded988f5b15813d137d3d5bffa7:apps/meteora-lp/src/lib/mock-data.ts:generic-api-key:42
+4871fcaa4462cded988f5b15813d137d3d5bffa7:apps/meteora-lp/src/lib/mock-data.ts:generic-api-key:67
+4871fcaa4462cded988f5b15813d137d3d5bffa7:apps/meteora-lp/src/lib/mock-data.ts:generic-api-key:164
+4871fcaa4462cded988f5b15813d137d3d5bffa7:apps/meteora-lp/src/lib/mock-data.ts:generic-api-key:182
+4871fcaa4462cded988f5b15813d137d3d5bffa7:apps/meteora-lp/src/lib/mock-data.ts:generic-api-key:200
+4871fcaa4462cded988f5b15813d137d3d5bffa7:apps/meteora-lp/src/lib/mock-data.ts:generic-api-key:218
+# Generated Sanity vendor code: a JavaScript expression and a static PATHS array _key.
+bf195dcd2fed7a4f2e1ec6f305a9aa165006dec5:dist/static/sanity-BAlIdGYY.js:generic-api-key:1380
+bf195dcd2fed7a4f2e1ec6f305a9aa165006dec5:dist/static/sanity-BAlIdGYY.js:generic-api-key:1626
