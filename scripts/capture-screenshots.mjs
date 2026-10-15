@@ -56,7 +56,7 @@ if (!targets.length) {
 fs.mkdirSync(OUT, { recursive: true });
 
 const results = [];
-for (const { slug, url, title } of targets) {
+for (const { slug, url } of targets) {
   for (const v of VARIANTS) {
     const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'enz-shot-'));
     const ctx = await chromium.launchPersistentContext(profile, {

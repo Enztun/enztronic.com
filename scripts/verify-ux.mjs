@@ -1,13 +1,15 @@
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
+import { localUxOrigin, localUxRouteGuard } from './ux-network-guard.mjs';
 
 // Real UI regressions with intercepted writes: never create leads or call an AI.
-const base = process.env.BASE_URL ?? 'http://localhost:3100';
-assert(['localhost', '127.0.0.1'].includes(new URL(base).hostname), 'Run UX tests against a local server');
+const base = localUxOrigin(process.env.BASE_URL ?? 'http://localhost:3100');
+// launch/newContext creates an isolated temporary session, with no user profile
+// or saved authentication. The audit runner supplies a sanitized environment.
 const browser = await chromium.launch();
-const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+let page;
 const errors = [];
-page.on('pageerror', (error) => errors.push(error.message));
+const unmatchedWrites = [];
 let passed = 0;
 const check = (name) => { passed++; console.log(`PASS ${name}`); };
 
@@ -32,6 +34,16 @@ async function fits(label) {
 }
 
 try {
+  const context = await browser.newContext({
+    viewport: { width: 1440, height: 1000 },
+    serviceWorkers: 'block',
+    acceptDownloads: false,
+    storageState: { cookies: [], origins: [] },
+  });
+  await context.route('**/*', localUxRouteGuard(base, unmatchedWrites));
+  await context.routeWebSocket('**/*', (socket) => socket.close());
+  page = await context.newPage();
+  page.on('pageerror', (error) => errors.push(error.message));
   for (const locale of ['en', 'id', 'zh']) {
     await navigate(`/${locale}`);
     for (const width of [320, 375, 390, 768, 820, 1024, 1440]) {
@@ -78,7 +90,7 @@ try {
 
   let formRequest;
   let formAttempts = 0;
-  await page.route('**/api/contact', async (route) => {
+  await page.route(`${base}/api/contact`, async (route) => {
     formRequest = route.request().postDataJSON();
     formAttempts++;
     return route.fulfill(formAttempts === 1
@@ -120,7 +132,7 @@ try {
   let chatCount = 0;
   let failChat = true;
   let sentInquiry;
-  await page.route('**/api/chat', async (route) => {
+  await page.route(`${base}/api/chat`, async (route) => {
     chatCount++;
     const body = route.request().postDataJSON();
     assert(body.messages.length <= 24, 'Chat must never send excess history');
@@ -130,7 +142,7 @@ try {
       budget: '1k_5k', preferredTime: 'morning', country: 'Indonesia', message: 'Synthetic test enquiry',
     } } : {}) } });
   });
-  await page.route('**/api/chat/confirm', async (route) => {
+  await page.route(`${base}/api/chat/confirm`, async (route) => {
     sentInquiry = route.request().postDataJSON();
     return route.fulfill({ json: { success: true } });
   });
@@ -169,6 +181,7 @@ try {
   assert.equal(await page.getByRole('button', { name: 'Open chat', exact: true }).evaluate((el) => el === document.activeElement), true);
   check('Chat error retry, editable complete enquiry, limit recovery, and focus');
   assert.deepEqual(errors, [], 'No uncaught browser errors');
+  assert.deepEqual(unmatchedWrites, [], 'Every mutating request must have an explicit local mock');
   console.log(`Verified ${passed} UX groups. All write requests were intercepted.`);
 } finally {
   await browser.close();
