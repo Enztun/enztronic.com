@@ -203,9 +203,12 @@ def browser_result(path, code):
             counters['tests'] = counters['passed']
         elif not counters['errors'] or not counters['failed']:
             raise ValueError('Browser failure must remain explicit')
-        for key in ['readiness_failed', 'execution_error', 'output_limit', 'timed_out', 'cleanup_failed']:
+        for key in ['readiness_failed', 'readiness_error', 'execution_error', 'output_limit', 'timed_out', 'cleanup_failed']:
             if metrics.get(key) is True:
                 counters[key] = True
+        readiness_status = metrics.get('readiness_status')
+        if type(readiness_status) is int and (readiness_status == 0 or 100 <= readiness_status <= 599):
+            counters['readiness_status'] = readiness_status
         if type(metrics.get('first_error_code')) is int and metrics['first_error_code'] in (1, 2, 3):
             counters['first_error_code'] = metrics['first_error_code']
         return result(name, 'unit', check['status'], **counters)
@@ -371,7 +374,9 @@ UX_DRIVER = r'''
 const {spawn}=require('node:child_process');
 const fs=require('node:fs');
 const http=require('node:http');
-const BASE_URL='http://127.0.0.1:3100';
+// Match the bind host to NextURL's loopback canonicalization so next-intl's
+// default-locale rewrite remains same-origin instead of redirecting in a loop.
+const BASE_URL='http://localhost:3100';
 const OUTPUT_LIMIT=1024*1024;
 const check={name:'Enztronic offline browser UX',category:'unit',status:'fail',metrics:{errors:1,passed:0,failed:1,exit_code:-1}};
 const pause=milliseconds=>new Promise(resolve=>setTimeout(resolve,milliseconds));
@@ -418,15 +423,25 @@ async function stop(state) {
   }
   if(!state.closed) throw Error('Child cleanup failed');
 }
+let lastProbe={status:0,error:false};
 function probe() {
   return new Promise(resolve=>{
-    const request=http.get(BASE_URL+'/',{timeout:2000},response=>{
+    let request,timer,settled=false;
+    lastProbe={status:0,error:false};
+    function finish(ok,error=false) {
+      if(settled) return;
+      settled=true;clearTimeout(timer);lastProbe.error=error;resolve(ok);
+    }
+    // A static HEAD avoids localized redirects and streamed page completion.
+    // This is a wall-clock deadline, independent of socket activity/body data.
+    timer=setTimeout(()=>{finish(false,true);request?.destroy();},2000);
+    request=http.request(BASE_URL+'/icon.png',{method:'HEAD'},response=>{
+      lastProbe.status=Number.isInteger(response.statusCode)?response.statusCode:0;
       response.resume();
-      response.once('end',()=>resolve(response.statusCode===200));
-      response.once('error',()=>resolve(false));
+      finish(response.statusCode===200);
     });
-    request.once('timeout',()=>request.destroy());
-    request.once('error',()=>resolve(false));
+    request.once('error',()=>finish(false,true));
+    request.end();
   });
 }
 async function ready(server) {
@@ -441,8 +456,13 @@ async function ready(server) {
 async function main() {
   let server,test,timer;
   try {
-    server=launch(process.execPath,['node_modules/next/dist/bin/next','start','--hostname','127.0.0.1','--port','3100']);
-    if(!await ready(server)) {check.metrics.readiness_failed=true;return;}
+    server=launch(process.execPath,['node_modules/next/dist/bin/next','start','--hostname','localhost','--port','3100']);
+    if(!await ready(server)) {
+      check.metrics.readiness_failed=true;
+      check.metrics.readiness_status=lastProbe.status;
+      if(lastProbe.error) check.metrics.readiness_error=true;
+      return;
+    }
     test=launch('npm',['run','test:ux']);
     timer=setTimeout(()=>{test.timedOut=true;signalGroup(test,'SIGKILL');},600000);
     await test.done;

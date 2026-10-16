@@ -54,10 +54,11 @@ let report,diagnostics,clock=0,nextTimer=0;
 const children=[],calls=[],kills=[],timers=new Set();
 const sandbox={
   Buffer,
-  Date:class extends Date {static now(){if(fixture.readiness_timeout)return clock+=100000;if(fixture.readiness_status)return clock+=50000;return Date.now();}},
+  Date:class extends Date {static now(){if(fixture.readiness_timeout)return clock+=100000;if(fixture.readiness_status||fixture.probe_timeout||fixture.probe_error)return clock+=50000;return Date.now();}},
   setTimeout(callback,milliseconds){
     const timer=++nextTimer;timers.add(timer);
     if(milliseconds===600000 && !fixture.test_timeout) return timer;
+    if(milliseconds===2000 && !fixture.probe_timeout) return timer;
     queueMicrotask(()=>{if(timers.delete(timer)) callback();});
     return timer;
   },
@@ -73,12 +74,15 @@ const sandbox={
       if(path!=='/workspace/.audit-ux-checks.json'||text.length>4096) throw Error('Unexpected report');
       report=JSON.parse(text);
     }};
-    if(name==='node:http') return {get(url,options,callback){
-      if(url!=='http://127.0.0.1:3100/'||options.timeout!==2000) throw Error('Unexpected probe');
+    if(name==='node:http') return {request(url,options,callback){
+      if(url!=='http://localhost:3100/icon.png'||options.method!=='HEAD') throw Error('Unexpected probe');
       const request=new EventEmitter();request.destroy=()=>request.emit('error',new Error('timeout'));
-      queueMicrotask(()=>{
+      request.end=()=>queueMicrotask(()=>{
+        if(fixture.probe_timeout) return;
+        if(fixture.probe_error){request.emit('error',new Error('fixture-private-error'));return;}
         const response=new EventEmitter();response.statusCode=fixture.readiness_status??200;response.resume=()=>{};
-        callback(response);queueMicrotask(()=>response.emit('end'));
+        callback(response);
+        if(!fixture.no_response_end) queueMicrotask(()=>response.emit('end'));
       });return request;
     }};
     if(name==='node:child_process') return {spawn(command,args,options){
@@ -222,9 +226,10 @@ class EnzBrowserDriverTests(unittest.TestCase):
         self.assertEqual(actual['timers'], 0)
         self.assertIn({'pid': -101, 'signal': 'SIGTERM'}, actual['kills'])
         server, suite = actual['calls']
-        self.assertEqual(server['args'][-4:], ['--hostname', '127.0.0.1', '--port', '3100'])
+        self.assertEqual(server['args'][-4:], ['--hostname', 'localhost', '--port', '3100'])
         self.assertEqual((suite['command'], suite['args']), ('npm', ['run', 'test:ux']))
-        self.assertEqual(suite['options']['env']['BASE_URL'], 'http://127.0.0.1:3100')
+        self.assertEqual(suite['options']['env']['BASE_URL'], 'http://localhost:3100')
+        self.assertEqual(server['options']['env']['BASE_URL'], suite['options']['env']['BASE_URL'])
 
     def test_missing_zero_duplicate_or_failed_summaries_never_pass(self):
         for fixture in [
@@ -242,11 +247,21 @@ class EnzBrowserDriverTests(unittest.TestCase):
             self.assertIn({'pid': -101, 'signal': 'SIGTERM'}, actual['kills'])
 
     def test_readiness_and_server_errors_do_not_start_browser_suite(self):
-        for fixture in [{'readiness_timeout': True}, {'readiness_status': 307}, {'server_error': True}, {'server_overflow': True}]:
+        for fixture in [{'readiness_timeout': True}, {'readiness_status': 307}, {'server_error': True}, {'server_overflow': True}, {'probe_timeout': True}, {'probe_error': True}]:
             actual = ux_driver(**fixture)
             self.assertEqual(actual['report'][0]['status'], 'fail')
             self.assertTrue(actual['report'][0]['metrics']['readiness_failed'])
             self.assertEqual(len(actual['calls']), 1)
+            if fixture.get('readiness_status'):
+                self.assertEqual(actual['report'][0]['metrics']['readiness_status'], 307)
+            if fixture.get('probe_timeout') or fixture.get('probe_error'):
+                self.assertTrue(actual['report'][0]['metrics']['readiness_error'])
+                self.assertEqual(actual['report'][0]['metrics']['readiness_status'], 0)
+
+    def test_static_head_readiness_completes_at_headers_without_a_body_end_event(self):
+        actual = ux_driver(no_response_end=True)
+        self.assertEqual(actual['report'][0]['status'], 'pass')
+        self.assertEqual(actual['timers'], 0)
 
     def test_browser_assertion_reports_only_a_fixed_error_code(self):
         actual = ux_driver(code=1, stderr='AssertionError [ERR_ASSERTION]: fixture-private-form-value\nprivate stack trace')
@@ -403,10 +418,12 @@ class RepositoryHostTests(unittest.TestCase):
             safe = repository.browser_result(path, 0)
             self.assertEqual(safe['status'], 'pass')
             self.assertNotIn('fixture-private-output', json.dumps(safe))
-            check = repository.result('Enztronic offline browser UX', 'unit', 'fail', passed=0, failed=1, errors=1, exit_code=-1, readiness_failed=True, timed_out=True, first_error_code=1)
+            check = repository.result('Enztronic offline browser UX', 'unit', 'fail', passed=0, failed=1, errors=1, exit_code=-1, readiness_failed=True, readiness_status=307, readiness_error=True, timed_out=True, first_error_code=1)
             path.write_text(json.dumps([check]), encoding='utf-8')
             safe = repository.browser_result(path, 1)
             self.assertTrue(safe['metrics']['readiness_failed'])
+            self.assertEqual(safe['metrics']['readiness_status'], 307)
+            self.assertTrue(safe['metrics']['readiness_error'])
             self.assertTrue(safe['metrics']['timed_out'])
             self.assertEqual(safe['metrics']['first_error_code'], 1)
 

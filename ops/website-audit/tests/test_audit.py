@@ -291,11 +291,13 @@ class AuditTests(unittest.TestCase):
     def test_bundle_uses_only_validated_categories_and_allowlisted_metrics(self):
         payload = bundle()
         payload["checks"][0]["metrics"]["raw_log"] = "password=do-not-output"
-        payload["checks"][0]["metrics"].update(readiness_failed=True, timed_out=True, first_error_code=1)
+        payload["checks"][0]["metrics"].update(readiness_failed=True, readiness_status=307, readiness_error=True, timed_out=True, first_error_code=1)
         checks = audit.bundle_results("frontend", payload, 0)
         self.assertEqual(len(checks), 8)
         self.assertEqual(checks[0]["metrics"]["revision"], "a" * 40)
         self.assertTrue(checks[0]["metrics"]["readiness_failed"])
+        self.assertEqual(checks[0]["metrics"]["readiness_status"], 307)
+        self.assertTrue(checks[0]["metrics"]["readiness_error"])
         self.assertTrue(checks[0]["metrics"]["timed_out"])
         self.assertEqual(checks[0]["metrics"]["first_error_code"], 1)
         self.assertNotIn("do-not-output", json.dumps(checks))

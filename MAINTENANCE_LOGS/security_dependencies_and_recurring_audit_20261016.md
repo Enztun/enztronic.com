@@ -27,13 +27,20 @@ The full audit runs it in a second container with network access disabled.
 CMS-backed primary builds and the separate offline UI fixture build are labeled
 independently. Real CMS/providers/email submissions are outside offline UI coverage.
 
-The shared `ops/website-audit` engine and site profile run on the Qianlima VPS:
-daily at **19:30 UTC / 02:30 Asia/Jakarta**, full scans every **14 UTC calendar
-days**. Actual scheduler/first-run/Discord acceptance evidence is appended after
-verification. Full scans include dependency advisories, available updates,
+The shared `ops/website-audit` engine and site profile are active on the Qianlima
+VPS: daily at **19:30 UTC / 02:30 WIB (Asia/Jakarta)**, with full scans every
+**14 UTC calendar days**. The next scheduled full audit is **30 October 2026 at
+02:30 WIB** (29 October at 19:30 UTC), subject to host availability. The first
+full summary was accepted by Discord; this confirms delivery, not a clean audit.
+Full scans include dependency advisories, available updates,
 Git-history secret detection, lint/type/build and local UI tests. Daily checks
 cover public routes, TLS/expiry, configured headers, exposure signatures and
 host maintenance status. No GitHub Actions or paid AI API is used.
+
+The shared engine is synchronized byte-identically across both repositories and
+the VPS installation. The final operations regression suite ran **78 tests:
+77 passed and one skipped** because Windows lacked filesystem-symlink permission;
+separate mocked symlink-rejection coverage passed.
 
 Private Vercel runtime logs are excluded by the user's explicit choice. The
 monitoring host has no Enztronic private runtime-log credential. Keep webhook
@@ -70,11 +77,49 @@ vendor code. The first is unquoted JavaScript member access and a comparison,
 not a credential literal. The second is a static 12-character array-item `_key`;
 the exact value also occurs in installed Sanity source, where AST inspection
 places it inside the nested `PATHS` array. The generated historical bundle is
-no longer tracked. These exceptions do not suppress dependency advisories, new
-findings or any Qianlima credentials. A fresh history scan must verify the
-remaining unsuppressed findings after the reviewed allowlist is committed.
+no longer tracked. These exceptions do not suppress dependency advisories or new
+findings. The subsequent normal full-run history scan reported **zero remaining
+unsuppressed findings** with the reviewed allowlist. This is scanner coverage
+evidence, not proof that all credentials or all history are safe.
 
 References: [Next release](https://github.com/vercel/next.js/releases/tag/v16.4.2),
 [Sharp advisory](https://github.com/lovell/sharp/security/advisories/GHSA-wq5f-xc86-pv6w),
 [PostCSS advisory](https://github.com/postcss/postcss/security/advisories/GHSA-fxqj-rqcc-2cmp),
 [unpatched braces advisory](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm).
+
+
+## Live release checks
+
+The dependency release `1cf41112` passed its Vercel preview and production build;
+production deployment `dpl_CwRgyvqeo2jYMebkcVhFn3sUaJMc` was READY. Later source
+changes contain the shared audit engine and the exact false-positive list; they
+preserve the same application code. GET-only production smoke passed home,
+Indonesian/Chinese locales, contact, portfolio, blog and studio. English `/en/*`
+redirects to the canonical unprefixed routes and HTTP upgrades to HTTPS.
+
+The existing `www` hostname still serves HTTP 200 with an apex canonical tag;
+a forced www-to-apex redirect remains follow-up SEO/host consistency work. The
+existing CSP header contains base/frame/object protection but no script/default-source
+restriction; broader public script policy hardening remains open.
+
+Using `localhost` consistently for the server bind and the harness's exact local
+origin restored the expected English HTTP 200 response. A direct retained-build
+rerun passed, followed by a verified normal full run started at
+`2026-10-15T23:57:28+00:00` against source
+`718cc18f5882c427a609f8495b4ee4c15168cd76`.
+
+That normal run passed installation, ESLint with zero errors and warnings,
+TypeScript, browser toolchain, four network-guard tests, the primary production
+build and the separate offline fixture build. The actual browser phase passed
+**28 UI test groups with zero errors** in a Docker container with network access
+disabled. The previous UI finding cleared. These checks do not verify live
+provider, email or customer-data workflows.
+
+The history scan reported **zero unsuppressed findings**. Production dependency
+audit still reports **17 entries: 0 critical, 10 high, 7 moderate**; full audit
+reports **19 entries: 0 critical, 12 high, 7 moderate**. These advisories keep the
+overall result **FAIL**. Available updates for 17 packages and routine host
+maintenance checks remain warnings. Discord accepted the full summary and the
+outbox was empty afterward. Cleanup left no audit work directories, tool
+directories or containers; the shared scheduler retained one managed entry and
+seven existing jobs.
