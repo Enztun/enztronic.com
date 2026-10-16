@@ -5,9 +5,9 @@
 The user selected this Windows PC because no separate server was provisioned,
 then explicitly chose native monitoring and deferred Docker/WSL tests. The PC
 has Windows 11, Python 3.13, Node 22.22.0/npm 10.9.4 and Git. WSL and Docker are
-absent. Native support and a current-user, windowless Task Scheduler definition
-are prepared in this repository; actual first-run/activation evidence follows
-after verification. No Docker/WSL installation or reboot is performed.
+absent. Native monitoring is **installed and scheduled on this PC**. The current-user,
+windowless task is named `Enztronic Website Audit`. No Docker/WSL installation
+or reboot was performed.
 
 Daily public checks and 14-date lockfile advisory/update/history scans run
 without installing or executing project packages. Linux lint/type/build/browser
@@ -20,8 +20,41 @@ The Windows native Gitleaks 8.30.1 ZIP SHA256 was verified against the official
 release manifest: `d29144deff3a68aa93ced33dddf84b7fdc26070add4aa0f4513094c8332afc4e`.
 The verified executable SHA256 is
 `17157e2ee8b76fc8b1d8bee607a250e34b8a8023c8bc81822d4b5ee4d78fcb7c`.
-Local operations regression suite: 123 run, 122 passed, one Windows symlink
+Local operations regression suite: 127 run, 126 passed, one Windows symlink
 permission skip. Actual NTFS owner/inheritance and broad-access rejection pass.
+
+### Verified native operation
+
+- The completed native full report began **16 October 2026 at 12:06 WIB**
+  (`2026-10-16T05:06:29+00:00`) and scanned trusted main `38929c1f`.
+  Public HTTP/header/TLS and bounded environment/Git exposure checks passed.
+  Gitleaks reported **zero unsuppressed history findings**. Production audit
+  remains 17 entries (0 critical, 10 high, 7 moderate); full audit remains 19
+  (0 critical, 12 high, 7 moderate). Declared lockfile versions have 17 available
+  updates. No dependency was installed or updated by these checks.
+- Discord accepted the native full summary and the durable outbox was empty.
+  The earlier initial native report's update count was corrected and superseded
+  by this completed run. npm10's workspace filter is omitted for this explicitly
+  non-workspace metadata fixture, so direct updates are not silently hidden.
+- The actual registered Windows definition was exported and verified after
+  accounting for documented schema defaults and account-name/SID normalization.
+  It uses the current signed-in user, limited privileges, no stored password,
+  daily **02:30 WIB**, and a current-user logon trigger delayed two minutes.
+  Windows wake/catch-up settings are enabled; powered-off or signed-out checks
+  wait for startup/sign-in and cannot provide always-on monitoring.
+- An on-demand invocation through Windows Task Scheduler completed at
+  **12:09 WIB**. Its saved daily report has zero new daily failures, retained
+  the existing full-audit risks, and left no pending Discord messages. The
+  windowless launcher recorded start/completion only; no raw output or tokens.
+  Task result `1` is expected for retained security findings/incomplete coverage,
+  rather than a failure to launch. No generic retry loop is configured.
+- The next regular daily trigger is **17 October 2026 at 02:30 WIB**. The next
+  regular 02:30 full-security slot is **31 October 2026**, subject to PC availability.
+  A logon catch-up may run the full scan earlier once its 14-UTC-date due day
+  starts. Native lint/type/unit/build coverage remains explicitly deferred.
+- Private runtime ACLs and pinned scanner checksums were verified. All temporary
+  metadata workspaces were removed. Runtime snapshots/configuration stay outside
+  Git. The website remains on Vercel; Qianlima's server is not used for these jobs.
 
 ## Earlier separation preparation
 

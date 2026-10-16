@@ -368,7 +368,9 @@ def run_native(root, runner=capture):
             project = work / 'metadata'
             declared = manifests(git, mirror, revision, project, runner, options)
             npm = [tools['node'], tools['npm_cli']]
-            flags = ['--json', '--ignore-scripts', '--registry=' + REGISTRY, '--workspaces=false', '--fetch-retries=0', '--fetch-timeout=30000']
+            # Workspaces were rejected above. npm10's --workspaces=false filters
+            # inert actual trees and can otherwise hide every direct update.
+            flags = ['--json', '--ignore-scripts', '--registry=' + REGISTRY, '--fetch-retries=0', '--fetch-timeout=30000']
             npm_options = {'cwd': project, 'env': env, 'timeout': 180}
             for production, category in [(True, 'audit-prod'), (False, 'audit-full')]:
                 code, output = runner(npm + ['audit', '--package-lock-only', *(['--omit=dev'] if production else []), *flags], **npm_options)

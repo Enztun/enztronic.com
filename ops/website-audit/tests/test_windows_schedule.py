@@ -139,7 +139,7 @@ function Export-ScheduledTask {
                                  '[ordered]@{first=$first.activated;second=$second.activated;registered=$global:FixtureRegistrations;exports=$global:FixtureExports;xml=$global:FixtureStoredXml} | ConvertTo-Json -Depth 4')
         self.assertTrue(output['first'] and output['second'])
         self.assertEqual(output['registered'], 2)
-        self.assertEqual(output['exports'], 3)  # Two post-register reads plus the existing-task ownership read.
+        self.assertEqual(output['exports'], 4)  # Exact pre/post reads for each registration.
         self.assertIn('Enztronic.website-audit.windows.v1', output['xml'])
 
     def test_foreign_task_is_never_overwritten(self):
@@ -150,11 +150,73 @@ function Export-ScheduledTask {
                                  '[ordered]@{refused=$refused;registered=$global:FixtureRegistrations;unchanged=($original -ceq $global:FixtureStoredXml)} | ConvertTo-Json')
         self.assertEqual(output, {'refused': True, 'registered': 0, 'unchanged': True})
 
+    def test_empty_root_folder_not_found_allows_first_registration(self):
+        output = self.powershell(r'''
+function Export-ScheduledTask {
+    [CmdletBinding()]param([string]$TaskName,[string]$TaskPath)
+    if ($global:FixtureStoredXml) { return $global:FixtureStoredXml }
+    $errorRecord = New-Object Management.Automation.ErrorRecord(
+        (New-Object IO.FileNotFoundException('Fixture empty folder')),
+        'HRESULT 0x80070002', [Management.Automation.ErrorCategory]::ObjectNotFound, $null)
+    $PSCmdlet.ThrowTerminatingError($errorRecord)
+}
+$result = ''' + self.command(True) + r''' | ConvertFrom-Json
+[ordered]@{activated=$result.activated;registered=$global:FixtureRegistrations} | ConvertTo-Json
+''')
+        self.assertEqual(output, {'activated': True, 'registered': 1})
+
+    def test_permission_errors_are_not_treated_as_empty_task_folders(self):
+        output = self.powershell(r'''
+function Export-ScheduledTask {
+    [CmdletBinding()]param([string]$TaskName,[string]$TaskPath)
+    $errorRecord = New-Object Management.Automation.ErrorRecord(
+        (New-Object UnauthorizedAccessException('Fixture denied')),
+        'HRESULT 0x80070005', [Management.Automation.ErrorCategory]::PermissionDenied, $null)
+    $PSCmdlet.ThrowTerminatingError($errorRecord)
+}
+$refused=$false
+try { $null = ''' + self.command(True) + r''' } catch { $refused=$true }
+[ordered]@{refused=$refused;registered=$global:FixtureRegistrations} | ConvertTo-Json
+''')
+        self.assertEqual(output, {'refused': True, 'registered': 0})
+
     def test_post_registration_mismatch_is_not_reported_as_success(self):
         output = self.powershell(r'''
 function Export-ScheduledTask {
     [CmdletBinding()]param([string]$TaskName,[string]$TaskPath)
+    if (-not $global:FixtureStoredXml) { return }
     $global:FixtureStoredXml.Replace('<WakeToRun>true</WakeToRun>','<WakeToRun>false</WakeToRun>')
+}
+$refused=$false
+try { $null = ''' + self.command(True) + r''' } catch { $refused=$true }
+[ordered]@{refused=$refused;registered=$global:FixtureRegistrations} | ConvertTo-Json
+''')
+        self.assertEqual(output, {'refused': True, 'registered': 1})
+
+    def test_exported_schema_defaults_and_resolved_logon_account_are_equivalent(self):
+        output = self.powershell(r'''
+function Export-ScheduledTask {
+    [CmdletBinding()]param([string]$TaskName,[string]$TaskPath)
+    if (-not $global:FixtureStoredXml) { return }
+    $text=$global:FixtureStoredXml
+    foreach($element in @('Enabled','AllowStartOnDemand')) { $text=$text.Replace('<'+$element+'>true</'+$element+'>','') }
+    foreach($element in @('Hidden','RunOnlyIfIdle','RunOnlyIfNetworkAvailable')) { $text=$text.Replace('<'+$element+'>false</'+$element+'>','') }
+    $text=$text.Replace('<RunLevel>LeastPrivilege</RunLevel>','').Replace('<Priority>7</Priority>','')
+    $document=[xml]$text
+    $document.Task.Triggers.LogonTrigger.UserId=[Security.Principal.WindowsIdentity]::GetCurrent().Name
+    $document.OuterXml
+}
+$result = ''' + self.command(True) + r''' | ConvertFrom-Json
+[ordered]@{activated=$result.activated;registered=$global:FixtureRegistrations} | ConvertTo-Json
+''')
+        self.assertEqual(output, {'activated': True, 'registered': 1})
+
+    def test_missing_nondefault_wake_setting_is_not_accepted_as_success(self):
+        output = self.powershell(r'''
+function Export-ScheduledTask {
+    [CmdletBinding()]param([string]$TaskName,[string]$TaskPath)
+    if (-not $global:FixtureStoredXml) { return }
+    $global:FixtureStoredXml.Replace('<WakeToRun>true</WakeToRun>','')
 }
 $refused=$false
 try { $null = ''' + self.command(True) + r''' } catch { $refused=$true }

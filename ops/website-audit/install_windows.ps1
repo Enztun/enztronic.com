@@ -58,8 +58,28 @@ function Get-TaskNodeText($Document, [string]$Path) {
     $namespace = New-Object System.Xml.XmlNamespaceManager($Document.NameTable)
     $namespace.AddNamespace('t', 'http://schemas.microsoft.com/windows/2004/02/mit/task')
     $nodes = $Document.SelectNodes($Path, $namespace)
+    # Windows omits schema-default values when it exports a registered task.
+    # Only these documented defaults may stand in for an absent element:
+    # https://learn.microsoft.com/windows/win32/taskschd/task-scheduler-schema
+    $defaults = @{
+        '/t:Task/t:Triggers/t:CalendarTrigger/t:Enabled' = 'true'
+        '/t:Task/t:Triggers/t:LogonTrigger/t:Enabled' = 'true'
+        '/t:Task/t:Principals/t:Principal/t:RunLevel' = 'LeastPrivilege'
+        '/t:Task/t:Settings/t:RunOnlyIfNetworkAvailable' = 'false'
+        '/t:Task/t:Settings/t:AllowStartOnDemand' = 'true'
+        '/t:Task/t:Settings/t:Enabled' = 'true'
+        '/t:Task/t:Settings/t:Hidden' = 'false'
+        '/t:Task/t:Settings/t:RunOnlyIfIdle' = 'false'
+        '/t:Task/t:Settings/t:Priority' = '7'
+    }
+    if ($nodes.Count -eq 0 -and $defaults.ContainsKey($Path)) { return $defaults[$Path] }
     if ($nodes.Count -ne 1) { throw 'Task definition has a missing or duplicate required field.' }
-    return $nodes[0].InnerText
+    $value = $nodes[0].InnerText
+    if ($Path.EndsWith('/t:UserId') -and $value -notmatch '^S-1-') {
+        # The scheduler may export the logon identity as DOMAIN\name.
+        $value = (New-Object Security.Principal.NTAccount($value)).Translate([Security.Principal.SecurityIdentifier]).Value
+    }
+    return $value
 }
 
 function Assert-TaskOwnership($Document, [string]$Sid) {
@@ -129,13 +149,23 @@ $xml = @"
 
 $activated = $false
 if ($ActivateSchedule) {
-    $existing = @(Get-ScheduledTask -TaskPath $TaskPath -ErrorAction Stop | Where-Object { $_.TaskName -eq $TaskName })
-    if ($existing.Count -gt 1) { throw 'Unexpected duplicate task registrations.' }
-    if ($existing.Count -eq 1) {
-        Assert-TaskOwnership (Read-TaskXml (Export-ScheduledTask -TaskName $TaskName -TaskPath $TaskPath -ErrorAction Stop)) $sid
+    $existingXml = $null
+    try {
+        # Query the exact task rather than enumerate the root folder. Some
+        # Windows11 builds return not-found for CIM enumeration of owned tasks.
+        $existingXml = Export-ScheduledTask -TaskName $TaskName -TaskPath $TaskPath -ErrorAction Stop
+    } catch {
+        # An empty root task folder returns the same documented not-found error
+        # as an absent task. Permission/provider errors must still stop setup.
+        if ($_.CategoryInfo.Category -ne [System.Management.Automation.ErrorCategory]::ObjectNotFound -or
+            $_.FullyQualifiedErrorId -notmatch '0x80070002') { throw }
+        $existingXml = $null
+    }
+    if ($existingXml) {
+        Assert-TaskOwnership (Read-TaskXml $existingXml) $sid
     }
     $registration = @{TaskName = $TaskName; TaskPath = $TaskPath; Xml = $xml; ErrorAction = 'Stop'}
-    if ($existing.Count -eq 1) { $registration.Force = $true }
+    if ($existingXml) { $registration.Force = $true }
     Register-ScheduledTask @registration | Out-Null
     $planned = Read-TaskXml $xml
     $namespace = New-Object System.Xml.XmlNamespaceManager($planned.NameTable)

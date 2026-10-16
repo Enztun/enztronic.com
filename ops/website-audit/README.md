@@ -52,6 +52,8 @@ current-user logon catch-up trigger. The engine runs security scans when due;
 the first full attempt establishes the 14-date cadence. A windowless `pythonw`
 launcher suppresses raw output and writes bounded fixed-status launcher logs.
 The task uses the signed-in user with limited privileges and no stored password.
+An audit exit/task result of `1` means findings or incomplete coverage; inspect
+the private report. It is not automatically retried as a launcher failure.
 
 Windows tries to wake a sleeping PC if wake timers permit. A powered-off or
 signed-out PC cannot run the checks; catch-up waits for startup/sign-in.
