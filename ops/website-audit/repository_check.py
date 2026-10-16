@@ -7,7 +7,6 @@ import os
 from pathlib import Path
 import re
 import shutil
-import shlex
 import signal
 import stat
 import subprocess
@@ -16,19 +15,16 @@ import tempfile
 import threading
 import time
 
+from runner_config import PROJECT_ID, REPOSITORY_URL, ensure_private_directory, prepare_runtime, public_build_settings, runtime_root
+from audit import atomic_json
+
 try:
     import fcntl
 except ImportError:  # The deployed wrapper is Linux-only; local tests mock flock.
     fcntl = None
 
-ROOT = Path('/home/deploy/website-audit')
-NODE_IMAGE = 'node:22.23.3-alpine3.23@sha256:baf676f7d0e552f3231945c2f979055ca121bce128c152f7a34e6bd1728b1c5a'
+ROOT = Path.home() / '.local/share/enztronic-audit'
 PLAYWRIGHT_IMAGE = 'mcr.microsoft.com/playwright:v1.62.1-noble@sha256:dcc5531e97840b9b5e794f2814476b21571c5124a3fca2267d73041f56e7580e'
-REPOSITORIES = {
-    'qianlima-frontend': ('Enztun/qianlima-frontend', '/home/deploy/.ssh/qianlima-frontend-ro', 'frontend'),
-    'qianlima-backend': ('Enztun/qianlima-backend', '/home/deploy/.ssh/qianlima-backend-ro', 'backend'),
-    'enztronic': ('Enztun/enztronic.com', '/home/deploy/.ssh/enztronic-audit-ro', 'enztronic'),
-}
 
 
 class PipelineBusyError(RuntimeError):
@@ -41,9 +37,9 @@ class PipelineLockUnavailableError(RuntimeError):
 
 @contextlib.contextmanager
 def pipeline_lock(path=None, timeout=180):
-    path = Path(path or os.environ.get('WEBSITE_AUDIT_PIPELINE_LOCK', '/var/www/qianlima/.pipeline/pipeline.lock'))
+    path = Path(path or ROOT / 'locks/repository.lock')
     if fcntl is None or not path.parent.is_dir():
-        raise PipelineLockUnavailableError('Deployment lock must be provisioned before audits run')
+        raise PipelineLockUnavailableError('Independent runner lock must be provisioned before audits run')
     descriptor = None
     acquired = False
     try:
@@ -60,7 +56,7 @@ def pipeline_lock(path=None, timeout=180):
                 except BlockingIOError:
                     remaining = deadline - time.monotonic()
                     if remaining <= 0:
-                        raise PipelineBusyError('Deployment pipeline is still running') from None
+                        raise PipelineBusyError('An Enztronic repository audit is still running') from None
                     time.sleep(min(0.2, remaining))
         except OSError:
             raise PipelineLockUnavailableError('Deployment lock is not accessible') from None
@@ -271,7 +267,7 @@ def cleanup_resources(repository, container, work, tools, env, image=None, extra
 NODE_DRIVER = r'''
 const {spawnSync}=require('node:child_process');
 const fs=require('node:fs');
-const kind=process.argv[2];
+const kind='enztronic';
 const results=[];
 function counters(value, keys) {
   if(!value || typeof value!=='object' || Array.isArray(value)) throw Error();
@@ -291,13 +287,8 @@ function run(name,category,args,parser,env=process.env) {
       for(const level of ['critical','high','moderate','low']) metrics[level]=counts[level]||0;
       metrics.total=counts.total;
       if(counts.total!==['info','low','moderate','high','critical'].reduce((sum,key)=>sum+counts[key],0)) throw Error();
-      const direct=Object.values(data.vulnerabilities).flatMap(item=>item.via||[]).filter(item=>typeof item==='object');
-      const onlyKnown=direct.length>0&&direct.every(item=>item.url==='https://github.com/advisories/GHSA-vfj7-8cjw-p6xm');
-      const acceptanceCurrent=Date.now()<Date.parse('2026-10-31T00:00:00Z');
       if(counts.total===0) status='pass';
-      else if(name.endsWith('full audit') && onlyKnown && acceptanceCurrent && prodClean) {
-        status='warn'; metrics.known_dev_advisory=true; metrics.review_due_utc='2026-10-30';
-      } else status=(counts.critical||counts.high)?'fail':'warn';
+      else status=(counts.critical||counts.high)?'fail':'warn';
     } catch { status='fail'; metrics.invalid_report=true; }
   } else if(parser==='outdated') {
     try {
@@ -325,30 +316,19 @@ function run(name,category,args,parser,env=process.env) {
   results.push({name,category,status,metrics});
   return status;
 }
-let prodClean=false;
 run(kind+' install','install',['npm','ci']);
 if(results[0].status!=='pass') {
   for(const category of ['audit-prod','audit-full','outdated','lint','typecheck','unit','build'])
     results.push({name:kind+' '+category,category,status:'blocked',metrics:{install_failed:true}});
 } else {
-  prodClean=run(kind+' production audit','audit-prod',['npm','audit','--omit=dev','--json'],'audit')==='pass';
+  run(kind+' production audit','audit-prod',['npm','audit','--omit=dev','--json'],'audit');
   run(kind+' full audit','audit-full',['npm','audit','--json'],'audit');
   run(kind+' available updates','outdated',['npm','outdated','--json'],'outdated');
-  if(kind==='backend') {
-    run('Backend syntax checks','lint',['npm','run','check']);
-    run('Prisma schema validation','schema',['npx','--no-install','prisma','validate']);
-    run('Backend unit tests','unit',['npm','test'],'tests');
-  } else {
     run(kind+' lint','lint',['node','node_modules/eslint/bin/eslint.js','--format','json'],'lint');
     run(kind+' route type generation','typecheck',['node','node_modules/next/dist/bin/next','typegen']);
     run(kind+' TypeScript','typecheck',['node','node_modules/typescript/bin/tsc','--noEmit','--pretty','false']);
-    if(kind==='frontend') {
-      run('Frontend security tests','unit',['npm','run','test:security'],'tests');
-      run('Frontend HR tests','unit',['npm','run','test:hr'],'tests');
-    } else if(kind==='enztronic') {
       run('Enztronic browser toolchain','setup',['node','-e',"const fs=require('node:fs');const lock=JSON.parse(fs.readFileSync('package-lock.json','utf8'));const installed=JSON.parse(fs.readFileSync('node_modules/playwright/package.json','utf8'));if(lock.packages?.['node_modules/playwright']?.version!=='1.62.1'||installed.version!=='1.62.1')process.exit(1)"]);
       run('Enz UX network policy tests','unit',['node','--test','--test-reporter=tap','scripts/ux-network-guard.test.mjs'],'tests');
-    }
     const primaryBuild=run(kind+' production build','build',['npm','run','build']);
     if(kind==='enztronic' && primaryBuild==='pass') {
       // Keep the representative public-CMS build result. Browser assertions use
@@ -363,7 +343,6 @@ if(results[0].status!=='pass') {
         results.push({name:'Enz offline UX fixture build',category:'build',status:'fail',metrics:{errors:1}});
       }
     }
-  }
 }
 fs.writeFileSync('/workspace/.audit-checks.json',JSON.stringify(results));
 '''
@@ -499,21 +478,31 @@ main().catch(()=>{process.exitCode=1;});
 '''
 
 
-def audit_repository(repository, *, check_build=True):
+def audit_repository(repository=PROJECT_ID):
+    if repository != PROJECT_ID:
+        raise ValueError('Only the Enztronic repository is allowed')
+    prepare_runtime(ROOT)
     with pipeline_lock():
-        return _audit_repository(repository, check_build=check_build)
+        return _audit_repository(repository)
 
 
-def _audit_repository(repository, *, check_build=True):
-    project, key, kind = REPOSITORIES[repository]
+def _audit_repository(repository):
+    kind = PROJECT_ID
+    public_environment = public_build_settings(ROOT / 'sites/enztronic-public-env.json')
     mirror = ROOT / 'mirrors' / (repository + '.git')
-    env = os.environ.copy()
-    # The Discord secret belongs only to the parent notifier, never repository commands.
-    env.pop('DISCORD_WEBHOOK_URL', None)
-    env['GIT_SSH_COMMAND'] = shlex.join(['ssh', '-F', '/dev/null', '-i', key, '-o',
-        'BatchMode=yes', '-o', 'IdentitiesOnly=yes', '-o', 'StrictHostKeyChecking=yes',
-        '-o', 'UserKnownHostsFile=/home/deploy/.ssh/known_hosts', '-o', 'ConnectTimeout=15'])
-    url = 'git@github.com:' + project + '.git'
+    anonymous_home = ROOT / 'cache/anonymous-home'
+    ensure_private_directory(anonymous_home)
+    if (anonymous_home / '.netrc').exists() or (anonymous_home / '.netrc').is_symlink():
+        raise ValueError('Anonymous Git home must not contain credentials')
+    # Public HTTPS only: no deploy keys, inherited tokens, credential helpers or
+    # runner-specific Git configuration are supplied to repository commands.
+    env = {'PATH': os.environ.get('PATH', os.defpath), 'HOME': str(anonymous_home), 'LANG': 'C.UTF-8',
+           'GIT_TERMINAL_PROMPT': '0', 'GIT_ASKPASS': '/bin/false', 'GIT_CONFIG_NOSYSTEM': '1',
+           'GIT_CONFIG_GLOBAL': '/dev/null', 'GIT_CONFIG_SYSTEM': '/dev/null',
+           'GIT_CONFIG_COUNT': '1', 'GIT_CONFIG_KEY_0': 'credential.helper', 'GIT_CONFIG_VALUE_0': ''}
+    url = REPOSITORY_URL
+    if mirror.is_symlink():
+        raise ValueError('Audit mirror must not be a symlink')
     if not mirror.exists():
         checked(['git', 'clone', '--bare', '--single-branch', '--branch', 'main', url, str(mirror)], env=env, timeout=180)
     else:
@@ -560,10 +549,7 @@ def _audit_repository(repository, *, check_build=True):
                     location['commit'] = commit.lower()
                 details.append(location)
             report_dir = ROOT / 'state' / repository
-            report_dir.mkdir(mode=0o700, parents=True, exist_ok=True)
-            location_report = report_dir / 'secret-locations.json'
-            location_report.write_text(json.dumps({'revision': revision, 'findings': details}), encoding='utf-8')
-            location_report.chmod(0o600)
+            atomic_json(report_dir / 'secret-locations.json', {'revision': revision, 'findings': details})
         archive_path = work / 'source.tar'
         checked(['git', '--git-dir', str(mirror), 'archive', '-o', str(archive_path), revision], env=env)
         with tarfile.open(archive_path) as archive:
@@ -580,23 +566,11 @@ def _audit_repository(repository, *, check_build=True):
             '--volume', str(work) + ':/workspace', '--volume', str(cache) + ':/npm-cache',
             '--volume', str(tools / 'driver.cjs') + ':/audit-driver.cjs:ro',
             '--workdir', '/workspace']
-        public_environment = {
-            'NEXT_PUBLIC_API_BASE_URL': 'https://api.qianlima.co.id',
-            'NEXT_PUBLIC_LIVEKIT_WS_URL': 'wss://video.qianlima.co.id',
-        } if kind == 'frontend' else {}
-        if kind == 'backend':
-            public_environment['DATABASE_URL'] = 'postgresql://audit:audit@127.0.0.1:5432/audit'
-        if kind == 'enztronic':
-            public_file = ROOT / 'sites/enztronic-public-env.json'
-            if public_file.exists():
-                public_environment = read_report(public_file, limit=16 * 1024)
-                if not set(public_environment).issubset({'NEXT_PUBLIC_SANITY_PROJECT_ID', 'NEXT_PUBLIC_SANITY_DATASET', 'NEXT_PUBLIC_SITE_URL'}):
-                    raise RuntimeError('Only public Enztronic build configuration is permitted')
         for name, value in public_environment.items():
             command += ['--env', name + '=' + value]
         if kind == 'enztronic':
             command += ['--env', 'PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1']
-        command += [PLAYWRIGHT_IMAGE if kind == 'enztronic' else NODE_IMAGE, 'node', '/audit-driver.cjs', kind]
+        command += [PLAYWRIGHT_IMAGE, 'node', '/audit-driver.cjs']
         code, _ = capture(command, env=env, timeout=2400, limit=8 * 1024 * 1024)
         output = work / '.audit-checks.json'
         if code or not output.exists():
@@ -629,31 +603,29 @@ def _audit_repository(repository, *, check_build=True):
                     checks.append(browser_result(browser_output, browser_code))
                 if checks[-1]['status'] != 'pass':
                     retain_browser_diagnostics(work, repository, revision)
-        if kind == 'backend' and check_build:
-            image = 'qianlima-backend:audit-' + revision[:12] + '-' + str(os.getpid())
-            code, _ = capture(['docker', 'build', '--tag', image, str(work)], env=env, timeout=1200)
-            checks.append(result('Backend image packaging', 'build', 'pass' if code == 0 else 'fail', exit_code=code))
         return {'revision': revision, 'repository': repository, 'checks': checks}
     finally:
         cleanup_resources(repository, container, work, tools, env, image, browser_containers)
 
 
 def main():
+    global ROOT
     os.umask(0o077)
     parser = argparse.ArgumentParser()
-    parser.add_argument('repository', choices=REPOSITORIES)
+    parser.add_argument('--root', help='Private independent runner directory')
     args = parser.parse_args()
     try:
-        document = audit_repository(args.repository)
+        ROOT = runtime_root(args.root)
+        document = audit_repository()
         print(json.dumps(document))
         states = {check['status'] for check in document['checks']}
         return 1 if states & {'fail', 'blocked'} else (2 if 'warn' in states else 0)
     except PipelineBusyError:
-        print(json.dumps({'checks': [result(args.repository + ' deployment pipeline busy', 'setup', 'blocked', exit_code=1)]}))
+        print(json.dumps({'checks': [result(PROJECT_ID + ' repository audit busy', 'setup', 'blocked', exit_code=1)]}))
         return 1
     except Exception as error:
         # No command output, environment value, credential URL or raw log is emitted.
-        name = args.repository + (' pipeline lock unavailable' if isinstance(error, PipelineLockUnavailableError) else ' source audit')
+        name = PROJECT_ID + (' independent lock unavailable' if isinstance(error, PipelineLockUnavailableError) else ' source audit')
         print(json.dumps({'checks': [result(name, 'setup', 'fail', execution_error=True, error_type=type(error).__name__)]}))
         return 1
 

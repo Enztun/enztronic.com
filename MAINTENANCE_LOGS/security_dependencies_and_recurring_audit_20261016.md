@@ -1,5 +1,37 @@
 # Security dependency follow-up and recurring audit - 16 October 2026
 
+## Current automation status - separate runner pending
+
+The user chose an independent Enztronic server/runner. The Enztronic-only
+automation is prepared in this repository but is **not installed or scheduled
+on a dedicated runner**; its destination has not been provided. No next full
+audit date is established. The first full attempt on that runner will establish
+its own 14-day cadence. Earlier shared-host results below remain historical
+verification evidence, not a claim of current Enztronic scheduling there.
+
+The shared host's operator verified its current scheduler and repository
+allowlist are restricted to Qianlima, with Enztronic configuration retained only
+as private historical state. This repository now has no runtime dependency on
+that host, its paths, deploy keys, deployment lock, state or Discord secret.
+
+The new entrypoint audits only `enztun/enztronic.com` over anonymous HTTPS. Its
+private root defaults to `~/.local/share/enztronic-audit`, outside Git checkouts,
+with separate state/cache/locks and a separately provisioned owner-only Discord
+file. Installation requires an explicit destination; schedule activation is a
+separate explicit option. Host OS checks are outside this Vercel website profile.
+The localhost browser isolation, source checks, report/outbox protections and
+unsuppressed dependency findings remain intact. No GitHub Actions, new server,
+remote installation, schedule, deployment or external notification was activated
+by this preparation. See [runner instructions](../ops/website-audit/README.md).
+
+The independent-runner preparation passes **88 local fixture tests: 87 passed,
+one skipped** because Windows lacks filesystem-symlink permission. Mocked
+parent/lock symlink rejection still passes. Python compilation and diff checks
+pass. These tests did not contact SSH, Docker, browsers, Discord or production;
+the future dedicated host still requires installation and first-run verification.
+
+## Dependency release and historical verification
+
 The website now uses Next/eslint-config-next 16.4.2, Sanity/vision 5.31.2,
 next-sanity 13.3.4, PostCSS 8.5.30 and Sharp 0.35.5, plus compatible lockfile
 security fixes. React 19.2.7 is preserved; Playwright is pinned to 1.62.1.
@@ -27,26 +59,26 @@ The full audit runs it in a second container with network access disabled.
 CMS-backed primary builds and the separate offline UI fixture build are labeled
 independently. Real CMS/providers/email submissions are outside offline UI coverage.
 
-The shared `ops/website-audit` engine and site profile are active on the Qianlima
-VPS: daily at **19:30 UTC / 02:30 WIB (Asia/Jakarta)**, with full scans every
-**14 UTC calendar days**. The next scheduled full audit is **30 October 2026 at
-02:30 WIB** (29 October at 19:30 UTC), subject to host availability. The first
-full summary was accepted by Discord; this confirms delivery, not a clean audit.
-Full scans include dependency advisories, available updates,
-Git-history secret detection, lint/type/build and local UI tests. Daily checks
-cover public routes, TLS/expiry, configured headers, exposure signatures and
-host maintenance status. No GitHub Actions or paid AI API is used.
+Earlier verification used the shared `ops/website-audit` engine on the Qianlima
+VPS at **19:30 UTC / 02:30 WIB (Asia/Jakarta)**, with full scans every
+**14 UTC calendar days**. That Enztronic schedule has since been removed from
+the shared entrypoint. The first full summary was accepted by Discord; this
+confirms historical delivery, not a clean audit or a current dedicated schedule.
+Those historical full scans included dependency advisories, available updates,
+Git-history secret detection, lint/type/build and local UI tests. Historical
+daily checks included public routes, TLS/expiry, configured headers, exposure
+signatures and shared-host maintenance status. No GitHub Actions or paid AI API
+was used. The new dedicated profile excludes runner OS checks, as stated above.
 
-The shared engine is synchronized byte-identically across both repositories and
-the VPS installation. The final operations regression suite ran **78 tests:
+At that historical checkpoint the shared engine was synchronized byte-identically
+across both repositories and the VPS installation. Its operations suite ran **78 tests:
 77 passed and one skipped** because Windows lacked filesystem-symlink permission;
 separate mocked symlink-rejection coverage passed.
 
 Private Vercel runtime logs are excluded by the user's explicit choice. The
 monitoring host has no Enztronic private runtime-log credential. Keep webhook
 values and private reports out of Git and public deployment uploads. Install
-one scheduler per host; a copy of the engine in another repository must not
-create duplicate cron jobs. Original checkout and production secrets are never
+one Enztronic scheduler on its independently chosen runner. Original checkout and production secrets are never
 mounted into the disposable audit worktree.
 
 Next hardening: resolve upstream CLI dependency chains, review the current

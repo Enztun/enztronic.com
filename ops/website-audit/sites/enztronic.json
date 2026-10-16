@@ -10,11 +10,11 @@
   ],
   "docker_containers": [],
   "docker_checks_required": false,
+  "host_checks_required": false,
   "commands": [
-    {"name": "website", "argv": ["python3", "/home/deploy/website-audit/repository_check.py", "enztronic"], "timeout": 3600, "full_only": true, "parser": "check-bundle"}
+    {"name": "website", "timeout": 3600, "full_only": true, "parser": "check-bundle"}
   ],
-  "discord_env": "DISCORD_WEBHOOK_URL",
-  "discord_secret_file": "/home/deploy/.config/website-audit/discord.env",
-  "retention_days": 90,
-  "disk_path": "/"
+  "discord_env": "ENZTRONIC_DISCORD_WEBHOOK_URL",
+  "discord_file_only": true,
+  "retention_days": 90
 }

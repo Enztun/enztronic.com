@@ -103,11 +103,18 @@ class OverlapError(RuntimeError):
 
 @contextlib.contextmanager
 def site_lock(path):
+    if path.is_symlink():
+        raise ValueError("Audit lock must not be a symlink")
     private_dir(path.parent)
-    fd = os.open(path, os.O_RDWR | os.O_CREAT, 0o600)
-    os.chmod(path, 0o600)
+    fd = os.open(path, os.O_RDWR | os.O_CREAT | getattr(os, "O_NOFOLLOW", 0), 0o600)
     locked = False
     try:
+        if not stat.S_ISREG(os.fstat(fd).st_mode):
+            raise ValueError("Audit lock must be a regular file")
+        if os.name == "posix":
+            os.fchmod(fd, 0o600)
+        else:
+            os.chmod(path, 0o600)
         if os.name == "nt":
             import msvcrt
             if os.fstat(fd).st_size == 0:
@@ -402,6 +409,8 @@ def structured_log_counts(data):
 
 
 def server_checks(config, env=None):
+    if config.get("host_checks_required", True) is False:
+        return [result("runner-host-scope", "server", "pass", "Runner OS and container monitoring are outside this Vercel website audit")]
     checks = []
     try:
         disk = shutil.disk_usage(config.get("disk_path", "/"))
@@ -458,6 +467,12 @@ def validate_config(config):
         raise ValueError("Retention must be between 1 and 90 days")
     if not isinstance(config.get("docker_checks_required", True), bool):
         raise ValueError("docker_checks_required must be a boolean")
+    if not isinstance(config.get("host_checks_required", True), bool):
+        raise ValueError("host_checks_required must be a boolean")
+    if not isinstance(config.get("discord_file_only", False), bool):
+        raise ValueError("discord_file_only must be a boolean")
+    if config.get("host_checks_required", True) is False and config.get("docker_containers"):
+        raise ValueError("Configured containers require host checks")
     for entry in config.get("urls", []):
         endpoint(entry["url"])
         if not isinstance(entry.get("required_headers", {}), dict):
@@ -519,7 +534,7 @@ def issue_fingerprint(checks):
 def load_webhook(config, environment=None):
     environment = os.environ if environment is None else environment
     key = config.get("discord_env", "DISCORD_WEBHOOK_URL")
-    value = environment.get(key, "").strip()
+    value = "" if config.get("discord_file_only", False) else environment.get(key, "").strip()
     if not value and config.get("discord_secret_file"):
         path = Path(config["discord_secret_file"])
         info = path.stat()

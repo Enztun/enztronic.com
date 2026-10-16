@@ -14,6 +14,7 @@ from types import SimpleNamespace
 import unittest
 from unittest import mock
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 SPEC = importlib.util.spec_from_file_location('repository_check', Path(__file__).resolve().parents[1] / 'repository_check.py')
 repository = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(repository)
@@ -161,11 +162,11 @@ class RepositoryDriverTests(unittest.TestCase):
             rows = driver({'npm audit --omit=dev --json': {'status': 1, 'stdout': json.dumps(audit_report(**{severity: 1}))}})
             self.assertEqual(next(row for row in rows if row['category'] == 'audit-prod')['status'], expected)
 
-    def test_known_dev_acceptance_requires_clean_production_and_unexpired_review(self):
+    def test_enz_high_development_advisory_is_never_downgraded_or_suppressed(self):
         known = audit_report(high=1)
         known['vulnerabilities'] = {'dev-only': {'via': [{'url': 'https://github.com/advisories/GHSA-vfj7-8cjw-p6xm'}]}}
         command = {'npm audit --json': {'status': 1, 'stdout': json.dumps(known)}}
-        self.assertEqual(next(row for row in driver(command) if row['category'] == 'audit-full')['status'], 'warn')
+        self.assertEqual(next(row for row in driver(command) if row['category'] == 'audit-full')['status'], 'fail')
         self.assertEqual(next(row for row in driver(command, now='2026-11-01T00:00:00Z') if row['category'] == 'audit-full')['status'], 'fail')
         command['npm audit --omit=dev --json'] = {'status': 1, 'stdout': json.dumps(audit_report(high=1))}
         self.assertEqual(next(row for row in driver(command) if row['category'] == 'audit-full')['status'], 'fail')
@@ -187,8 +188,8 @@ class RepositoryDriverTests(unittest.TestCase):
         for output in ['[{"errorCount":"0","warningCount":0}]', '[{}]', 'not-json']:
             rows = driver({'node node_modules/eslint/bin/eslint.js --format json': {'status': 0, 'stdout': output}})
             self.assertEqual(next(row for row in rows if row['category'] == 'lint')['status'], 'fail')
-        rows = driver({'npm run test:security': {'status': 0, 'stdout': '# pass 0\n# fail 0'}})
-        self.assertEqual(next(row for row in rows if row['name'] == 'Frontend security tests')['status'], 'fail')
+        rows = driver({'node --test --test-reporter=tap scripts/ux-network-guard.test.mjs': {'status': 0, 'stdout': '# pass 0\n# fail 0'}})
+        self.assertEqual(next(row for row in rows if row['name'] == 'Enz UX network policy tests')['status'], 'fail')
 
     def test_failed_install_blocks_downstream_checks(self):
         rows = driver({'npm ci': {'status': 1, 'stdout': 'fixture-private-output'}})
@@ -356,6 +357,8 @@ class RepositoryHostTests(unittest.TestCase):
         for failed_build in [None, 'enztronic production build', 'Enz offline UX fixture build']:
             with self.subTest(failed_build=failed_build), tempfile.TemporaryDirectory() as temporary, mock.patch.object(repository, 'ROOT', Path(temporary)):
                 commands = []
+                (Path(temporary) / 'sites').mkdir()
+                (Path(temporary) / 'sites/enztronic-public-env.json').write_text(json.dumps({'NEXT_PUBLIC_SANITY_PROJECT_ID': 'fixture', 'NEXT_PUBLIC_SANITY_DATASET': 'production'}), encoding='utf-8')
                 def checked(command, **_kwargs):
                     if 'rev-parse' in command:
                         return 'a' * 40
@@ -474,8 +477,14 @@ class RepositoryHostTests(unittest.TestCase):
     def test_repository_flow_uses_sanitized_env_and_only_retains_secret_location_metadata(self):
         with tempfile.TemporaryDirectory() as temporary, mock.patch.object(repository, 'ROOT', Path(temporary)):
             root = Path(temporary)
+            (root / 'sites').mkdir()
+            (root / 'sites/enztronic-public-env.json').write_text(json.dumps({'NEXT_PUBLIC_SANITY_PROJECT_ID': 'fixture', 'NEXT_PUBLIC_SANITY_DATASET': 'production'}), encoding='utf-8')
             def checked(command, **kwargs):
                 self.assertNotIn('DISCORD_WEBHOOK_URL', kwargs['env'])
+                self.assertEqual(kwargs['env']['HOME'], str(root / 'cache/anonymous-home'))
+                self.assertEqual(kwargs['env']['GIT_CONFIG_GLOBAL'], '/dev/null')
+                if 'clone' in command:
+                    self.assertEqual(command[-2], 'https://github.com/enztun/enztronic.com.git')
                 if 'rev-parse' in command:
                     return 'a' * 40
                 if 'archive' in command:
@@ -487,7 +496,7 @@ class RepositoryHostTests(unittest.TestCase):
                 if str(command[0]).endswith('gitleaks'):
                     self.assertIn('--redact=100', command)
                     self.assertNotIn('--gitleaks-ignore-path', command)
-                    self.assertTrue(Path(kwargs['cwd']).name.startswith('tools-qianlima-frontend-'))
+                    self.assertTrue(Path(kwargs['cwd']).name.startswith('tools-enztronic-'))
                     report = Path(command[command.index('--report-path') + 1])
                     report.write_text(json.dumps([
                         {'RuleID': 'fixture', 'File': 'test.txt', 'StartLine': 3, 'Commit': 'A' * 40,
@@ -506,11 +515,11 @@ class RepositoryHostTests(unittest.TestCase):
                 mock.patch.object(repository, 'pipeline_lock', return_value=contextlib.nullcontext()), \
                 mock.patch.object(repository.os, 'getuid', return_value=1000, create=True), \
                 mock.patch.object(repository.os, 'getgid', return_value=1000, create=True):
-                document = repository.audit_repository('qianlima-frontend')
+                document = repository.audit_repository('enztronic')
             scan = document['checks'][0]
             self.assertEqual(scan['metrics']['findings'], 2)
             self.assertEqual(scan['status'], 'fail')
-            report = json.loads((root / 'state/qianlima-frontend/secret-locations.json').read_text(encoding='utf-8'))
+            report = json.loads((root / 'state/enztronic/secret-locations.json').read_text(encoding='utf-8'))
             self.assertEqual(report['findings'], [
                 {'rule': 'fixture', 'file': 'test.txt', 'line': 3, 'commit': 'a' * 40},
                 {'rule': 'fixture', 'file': 'test.txt', 'line': 4},
@@ -537,13 +546,13 @@ class RepositoryHostTests(unittest.TestCase):
                 with repository.pipeline_lock(Path(temporary) / 'pipeline.lock', timeout=0):
                     self.fail('Busy pipeline must not start repository work')
         stream = io.StringIO()
-        with mock.patch.object(sys, 'argv', ['repository_check.py', 'qianlima-frontend']), \
+        with mock.patch.object(sys, 'argv', ['repository_check.py']), \
             mock.patch.object(repository, 'audit_repository', side_effect=repository.PipelineBusyError()), \
             contextlib.redirect_stdout(stream):
             self.assertEqual(repository.main(), 1)
         check = json.loads(stream.getvalue())['checks'][0]
         self.assertEqual((check['category'], check['status']), ('setup', 'blocked'))
-        self.assertIn('pipeline busy', check['name'])
+        self.assertIn('audit busy', check['name'])
 
     def test_pipeline_lock_does_not_create_an_unprovisioned_parent(self):
         fake = SimpleNamespace(LOCK_EX=2, LOCK_NB=4, LOCK_UN=8, flock=mock.Mock())
