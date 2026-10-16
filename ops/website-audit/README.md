@@ -1,12 +1,66 @@
 # Independent Enztronic audit runner
 
 This directory belongs to the Enztronic repository and runs **Enztronic only**.
-The dedicated runner is **not installed or scheduled yet**; its destination is
-pending. Checking in these files does not activate a service, cron or GitHub
-Actions. No paid AI API is used.
+The user selected native monitoring on their Windows PC and explicitly deferred
+Docker/WSL tests. Actual installation and delivery evidence is recorded in the
+maintenance log. No GitHub Actions or paid AI API is used.
 
-The website remains hosted on Vercel. A separately chosen Linux runner performs
-the checks; it does not host or deploy the website. The runner never updates
+## Windows PC setup
+
+The private runtime defaults to `%LOCALAPPDATA%/EnztronicAudit` on the PC's C:
+drive, outside this Git checkout. Windows ACLs allow only the current owner,
+SYSTEM and Administrators. A reviewed code snapshot runs from that private
+directory, so later uncommitted repository edits do not alter scheduled code.
+
+Native daily checks cover public health, TLS/expiry, configured headers and
+positive signatures of exposed environment/Git files. Every 14 UTC calendar
+days, native security checks fetch this public repository's `main`, scan its
+history with verified Gitleaks, and check production/full lockfile advisories
+and declared dependency updates. Only bounded JSON manifests and inert version
+metadata are extracted: project packages, scripts and application code are
+never installed or executed. Git/npm use private anonymous configuration.
+
+**Lint, type, build and browser checks are explicitly unavailable/deferred in
+native mode.** They remain visible as incomplete coverage. The current PC has
+no WSL or Docker; native metadata checks do not claim the previous Linux
+container/browser coverage. Private Vercel logs remain excluded by user choice.
+
+Provision from the repository using existing private assignment/build files;
+arguments contain file paths, never secret values:
+
+```text
+python ops/website-audit/setup_windows.py --public-env D:/Enztronic/.env.local --webhook-file C:/Private/monitoring.env
+```
+
+The bootstrap verifies the pinned official Gitleaks archive and executable,
+sets private NTFS permissions, transfers only three public build settings,
+and stores the namespaced webhook assignment in `secrets/discord.env`.
+It does not activate a task unless `--activate-schedule` is explicitly used.
+For later reviewed updates, the existing runtime's `secrets/discord.env` can be
+the webhook input; state, reports, cadence and outbox are preserved.
+
+Run a first full verification and inspect the concrete task plan:
+
+```text
+python "%LOCALAPPDATA%/EnztronicAudit/run.py" --mode full
+powershell -NoProfile -File "%LOCALAPPDATA%/EnztronicAudit/install_windows.ps1" -Root "%LOCALAPPDATA%/EnztronicAudit"
+```
+
+After verification, invoke the same task installer with `-ActivateSchedule`.
+It adds only **Enztronic Website Audit**, daily at **02:30 WIB**, plus a delayed
+current-user logon catch-up trigger. The engine runs security scans when due;
+the first full attempt establishes the 14-date cadence. A windowless `pythonw`
+launcher suppresses raw output and writes bounded fixed-status launcher logs.
+The task uses the signed-in user with limited privileges and no stored password.
+
+Windows tries to wake a sleeping PC if wake timers permit. A powered-off or
+signed-out PC cannot run the checks; catch-up waits for startup/sign-in.
+Internet is needed for website, advisory and Discord checks. Pending messages
+stay in the private outbox and retry on the next invocation. This PC setup is
+not an independent always-on uptime service.
+
+The website remains hosted on Vercel. The selected PC or an explicitly installed
+Linux runner performs checks; it does not host or deploy the website. The runner never updates
 dependencies, restarts production, writes production data, or submits real
 contact/chat/email requests. Private Vercel logs remain outside coverage by the
 user's choice.
@@ -22,7 +76,7 @@ deploy key, SSH agent, GitHub token or another website's configuration.
 Public Git commands use a separate empty private HOME, disable credential
 helpers/global configuration, and reject a credential file in that HOME.
 
-The private root defaults to `~/.local/share/enztronic-audit`. Override it with
+On Linux, the private root defaults to `~/.local/share/enztronic-audit`. Override it with
 `--root /absolute/private/directory` or `ENZTRONIC_AUDIT_ROOT`. It must be outside
 all Git checkouts, owned by the runner account, and must not be HOME, the
 filesystem root, traverse a symlink or contain `..`. Its directories are mode
@@ -47,7 +101,7 @@ dataset are required. No Sanity token or other provider secret is permitted.
 The installer can extract only those keys from an explicitly supplied local
 environment file, without transferring the other values.
 
-## Prerequisites and explicit installation
+## Optional Linux/Docker runner
 
 Use a dedicated Linux/Python 3.12+ runner with Git, Docker and sufficient free
 disk/RAM for two sequential builds. Docker phases are limited to two CPUs and

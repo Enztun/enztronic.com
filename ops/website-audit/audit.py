@@ -169,7 +169,8 @@ def run_process(argv, timeout=120, cwd=None, output_limit=MAX_OUTPUT, env=None):
     try:
         process = subprocess.Popen(argv, cwd=cwd, env=env, stdin=subprocess.DEVNULL,
                                    stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=False,
-                                   start_new_session=os.name != "nt")
+                                   start_new_session=os.name != "nt",
+                                   creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0) if os.name == "nt" else 0)
     except (OSError, ValueError):
         return {"error": "process_start_failed", "returncode": None, "output": b"", "truncated": False}
     chunks, retained = [], 0

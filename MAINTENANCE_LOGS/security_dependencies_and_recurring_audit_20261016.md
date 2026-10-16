@@ -1,6 +1,29 @@
 # Security dependency follow-up and recurring audit - 16 October 2026
 
-## Current automation status - separate runner pending
+## Current automation status - Windows PC native setup
+
+The user selected this Windows PC because no separate server was provisioned,
+then explicitly chose native monitoring and deferred Docker/WSL tests. The PC
+has Windows 11, Python 3.13, Node 22.22.0/npm 10.9.4 and Git. WSL and Docker are
+absent. Native support and a current-user, windowless Task Scheduler definition
+are prepared in this repository; actual first-run/activation evidence follows
+after verification. No Docker/WSL installation or reboot is performed.
+
+Daily public checks and 14-date lockfile advisory/update/history scans run
+without installing or executing project packages. Linux lint/type/build/browser
+checks remain explicitly incomplete/deferred. Private state and a reviewed code
+snapshot live under `%LOCALAPPDATA%/EnztronicAudit`, protected by verified NTFS
+ACLs. Task execution requires the user signed in, with catch-up after startup
+and no guarantee while the PC is off. Qianlima remains on its own server only.
+
+The Windows native Gitleaks 8.30.1 ZIP SHA256 was verified against the official
+release manifest: `d29144deff3a68aa93ced33dddf84b7fdc26070add4aa0f4513094c8332afc4e`.
+The verified executable SHA256 is
+`17157e2ee8b76fc8b1d8bee607a250e34b8a8023c8bc81822d4b5ee4d78fcb7c`.
+Local operations regression suite: 123 run, 122 passed, one Windows symlink
+permission skip. Actual NTFS owner/inheritance and broad-access rejection pass.
+
+## Earlier separation preparation
 
 The user chose an independent Enztronic server/runner. The Enztronic-only
 automation is prepared in this repository but is **not installed or scheduled

@@ -11,11 +11,20 @@ PUBLIC_KEYS = {'NEXT_PUBLIC_SANITY_PROJECT_ID', 'NEXT_PUBLIC_SANITY_DATASET', 'N
 
 def runtime_root(value=None):
     value = value or os.environ.get('ENZTRONIC_AUDIT_ROOT')
-    path = Path(value).expanduser() if value else Path.home() / '.local/share/enztronic-audit'
+    if value:
+        path = Path(value).expanduser()
+    elif os.name == 'nt':
+        from windows_support import default_runtime_root
+        path = default_runtime_root()
+    else:
+        path = Path.home() / '.local/share/enztronic-audit'
     if not path.is_absolute() or '..' in path.parts or path == Path(path.anchor) or path == Path.home():
         raise ValueError('Audit root must be a separate absolute directory')
     if any(character in str(path) for character in '\r\n\x00%'):
         raise ValueError('Audit root contains unsupported path characters')
+    if os.name == 'nt':
+        from windows_support import validate_windows_root
+        validate_windows_root(path)
     for ancestor in [path, *path.parents]:
         if ancestor.is_symlink():
             raise ValueError('Audit root must not traverse a symlink')
@@ -31,6 +40,10 @@ def runtime_root(value=None):
 def ensure_private_directory(path):
     if path.is_symlink():
         raise ValueError('Private directory must not be a symlink')
+    if os.name == 'nt':
+        from windows_support import ensure_private_directory as windows_private_directory
+        windows_private_directory(path)
+        return
     path.mkdir(mode=0o700, parents=True, exist_ok=True)
     info = path.stat()
     if not stat.S_ISDIR(info.st_mode) or os.name == 'posix' and info.st_uid != os.getuid():
@@ -49,6 +62,10 @@ def prepare_runtime(root):
 def validate_secret_file(path):
     if path.is_symlink():
         raise ValueError('Discord secret must not be a symlink')
+    if os.name == 'nt':
+        from windows_support import validate_private_file
+        validate_private_file(path)
+        return
     info = path.stat()
     if not stat.S_ISREG(info.st_mode) or stat.S_IMODE(info.st_mode) != 0o600 or info.st_uid != os.getuid():
         raise ValueError('Discord secret must belong to the runner account with mode 0600')

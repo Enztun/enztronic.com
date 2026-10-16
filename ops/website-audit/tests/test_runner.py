@@ -33,8 +33,9 @@ repository = load('independent_repository', 'repository_check.py')
 class RuntimeTests(unittest.TestCase):
     def test_default_root_is_home_namespaced_and_explicit_root_wins(self):
         with tempfile.TemporaryDirectory() as temporary, mock.patch.object(config.Path, 'home', return_value=Path(temporary)):
-            with mock.patch.dict(os.environ, {}, clear=True):
-                self.assertEqual(config.runtime_root(), Path(temporary).resolve() / '.local/share/enztronic-audit')
+            with mock.patch.dict(os.environ, {'LOCALAPPDATA': str(Path(temporary) / 'Local')}, clear=True):
+                expected = Path(temporary) / 'Local/EnztronicAudit' if os.name == 'nt' else Path(temporary) / '.local/share/enztronic-audit'
+                self.assertEqual(config.runtime_root(), expected.resolve())
             with mock.patch.dict(os.environ, {'ENZTRONIC_AUDIT_ROOT': str(Path(temporary) / 'environment')}):
                 self.assertEqual(config.runtime_root(), (Path(temporary) / 'environment').resolve())
                 self.assertEqual(config.runtime_root(Path(temporary) / 'explicit'), (Path(temporary) / 'explicit').resolve())
@@ -95,7 +96,7 @@ class RuntimeTests(unittest.TestCase):
         path = mock.Mock()
         path.is_symlink.return_value = False
         path.stat.return_value = SimpleNamespace(st_mode=stat.S_IFREG | 0o600, st_uid=17)
-        with mock.patch.object(config.os, 'getuid', return_value=17, create=True):
+        with mock.patch.object(config.os, 'name', 'posix'), mock.patch.object(config.os, 'getuid', return_value=17, create=True):
             config.validate_secret_file(path)
             path.read_text.assert_not_called()
             for mode, owner in [(0o644, 17), (0o600, 18)]:
@@ -150,7 +151,8 @@ class EntrypointTests(unittest.TestCase):
             root = Path(temporary)
             profile = entry.project_config(root)
         self.assertEqual(profile['id'], 'enztronic')
-        self.assertEqual(profile['commands'][0]['argv'], [sys.executable, str(FOLDER / 'repository_check.py'), '--root', str(root)])
+        wrapper = 'native_repository.py' if sys.platform == 'win32' else 'repository_check.py'
+        self.assertEqual(profile['commands'][0]['argv'], [sys.executable, str(FOLDER / wrapper), '--root', str(root)])
         self.assertEqual(profile['discord_secret_file'], str(root / 'secrets/discord.env'))
         self.assertIs(profile['host_checks_required'], False)
         self.assertEqual(profile['docker_containers'], [])
