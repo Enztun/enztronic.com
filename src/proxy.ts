@@ -5,5 +5,5 @@ export default createMiddleware(routing);
 
 export const config = {
   // Exclude framework internals, non-localized tools/routes, and static files.
-  matcher: ['/((?!_next|_vercel|studio|meteora|api|og-image|.*\\..*).*)'],
+  matcher: ['/((?!_next|_vercel|studio|api|og-image|.*\\..*).*)'],
 };
