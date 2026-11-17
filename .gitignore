@@ -129,3 +129,9 @@ desktop.ini
 
 # Local agent config (contains API tokens)
 .claude/
+
+# Local working folders: client deliverables, scratch files and the office concept
+# pack. This repository is public, so they stay on this PC only.
+/output/
+/tmp/
+/employee/
