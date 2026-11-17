@@ -1,0 +1,57 @@
+.feed { min-width: 0; padding: 20px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); }
+.feedHeader { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px 20px; margin-bottom: 18px; }
+.feedHeader h2 { display: flex; align-items: center; gap: 8px; margin: 0; color: var(--ink); font-size: 16px; font-weight: 650; }
+.feedHeader > div > p { margin: 6px 0 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
+.feed .info { position: relative; max-width: 100%; color: var(--muted); font-size: 11px; line-height: 1.6; }
+.info summary { display: flex; align-items: center; gap: 6px; cursor: pointer; min-height: 30px; list-style: none; }
+.info summary::-webkit-details-marker { display: none; }
+.info[open] { width: 100%; }
+.info > p { padding: 12px 14px; margin: 6px 0 0; max-width: 820px; border: 1px solid var(--line); border-radius: 9px; background: var(--canvas); }
+.histories { display: grid; gap: 12px; list-style: none; margin: 0; padding: 0; }
+.history { min-width: 0; border: 1px solid var(--line); border-radius: 12px; background: var(--canvas); overflow: hidden; }
+.history article { min-width: 0; }
+.cardHeader { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; padding: 17px 18px 0; }
+.heading { min-width: 0; }
+.eyebrow { color: var(--muted); font-size: 9px; font-weight: 600; letter-spacing: .035em; text-transform: uppercase; }
+.heading h3 { color: var(--ink); font-size: 14px; font-weight: 650; line-height: 1.5; margin: 4px 0 0; overflow-wrap: anywhere; }
+.eventCount { flex-shrink: 0; padding: 4px 8px; border: 1px solid var(--line); border-radius: 6px; color: var(--muted); font-size: 10px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.summary { margin: 8px 18px 0; color: var(--ink); font-size: 12px; line-height: 1.65; overflow-wrap: anywhere; }
+.cardMeta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin: 8px 18px 0; color: var(--muted); font-size: 10px; line-height: 1.7; }
+.mode { padding: 1px 6px; border: 1px solid var(--line); border-radius: 4px; }
+.participants { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin: 14px 18px 0; }
+.actor { display: inline-flex; align-items: center; min-height: 28px; border: 1px solid var(--line); border-radius: 7px; padding: 3px 8px; color: var(--muted); font-size: 10px; background: var(--panel); }
+.milestones { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 18px 0; padding: 0; list-style: none; }
+.milestones > li { border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px; color: var(--muted); font-size: 10px; line-height: 1.5; }
+.milestones strong { color: var(--ink); font-weight: 650; }
+.milestones > li[data-kind="attention"] { border-color: color-mix(in srgb, var(--warning) 48%, var(--line)); color: var(--warning); }
+.milestones > li[data-kind="attention"] strong { color: inherit; }
+.cardActions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 14px; padding: 8px 18px 12px; }
+.feed .taskButton { display: inline-flex; align-items: center; gap: 5px; min-height: 32px; padding: 4px 0; border: 0; background: transparent; color: var(--accent); font-size: 11px; text-decoration: none; cursor: pointer; }
+.scopeNote { color: var(--muted); font-size: 10px; line-height: 1.6; }
+.timeline { border-top: 1px solid var(--line); }
+.timeline > summary { display: flex; align-items: center; gap: 7px; cursor: pointer; list-style: none; padding: 12px 18px; color: var(--ink); font-size: 11px; line-height: 1.6; }
+.timeline > summary::-webkit-details-marker { display: none; }
+.timeline > summary > svg { transition: transform 120ms; }
+.timeline[open] > summary > svg { transform: rotate(180deg); }
+.timeline > summary > span { margin-left: auto; color: var(--muted); font-size: 10px; }
+.timelineBody { padding: 0 18px 15px; border-top: 1px solid var(--line); }
+.timelineHint { color: var(--muted); font-size: 10px; line-height: 1.7; margin: 12px 0 18px; }
+.timelineCount { color: var(--muted); font-size: 10px; line-height: 1.7; margin: 12px 0 0; }
+.feed .moreButton { display: inline-flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 5px; min-height: 36px; border: 1px solid var(--line); border-radius: 8px; padding: 7px 11px; color: var(--ink); background: var(--panel); font-size: 11px; cursor: pointer; }
+.moreButton > span { color: var(--muted); font-size: 10px; }
+.timelineBody > .moreButton { width: 100%; margin-top: 17px; }
+.feedFooter { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-top: 16px; }
+.feedFooter > span { color: var(--muted); font-size: 10px; }
+.feed button:hover { border-color: var(--accent); }
+.feed button:focus-visible, .feed a:focus-visible, .feed summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 5px; }
+@media (max-width: 600px) {
+  .feed { padding: 15px; }
+  .cardHeader { padding: 14px 13px 0; gap: 9px; }
+  .heading h3 { font-size: 13px; }
+  .eventCount { font-size: 9px; padding: 3px 5px; }
+  .summary, .cardMeta, .participants, .milestones { margin-left: 13px; margin-right: 13px; }
+  .cardActions { padding-left: 13px; padding-right: 13px; }
+  .timeline > summary { padding: 12px 13px; flex-wrap: wrap; }
+  .timeline > summary > span { margin-left: 21px; }
+  .timelineBody { padding-left: 13px; padding-right: 13px; }
+}

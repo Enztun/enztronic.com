@@ -1,0 +1,29 @@
+﻿{
+    "passed":  true,
+    "clientDate":  "2026-11-08",
+    "productionFilesUnchanged":  true,
+    "backofficeTaskUnchanged":  true,
+    "backofficeTaskEnabled":  true,
+    "backofficeTaskState":  4,
+    "workingBuildUnchanged":  true,
+    "ownerCanInspectWorkerTask":  true,
+    "workerTaskEnabled":  false,
+    "workerTaskState":  1,
+    "workerTaskLastResult":  267011,
+    "workerAccountEnabled":  false,
+    "workerLogonType":  1,
+    "workerRunLevel":  0,
+    "probeTasksRemaining":  0,
+    "listeners":  [
+                      {
+                          "LocalAddress":  "127.0.0.1",
+                          "LocalPort":  54329,
+                          "OwningProcess":  45704
+                      },
+                      {
+                          "LocalAddress":  "127.0.0.1",
+                          "LocalPort":  3100,
+                          "OwningProcess":  23404
+                      }
+                  ]
+}

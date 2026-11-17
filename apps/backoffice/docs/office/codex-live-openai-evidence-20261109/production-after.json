@@ -1,0 +1,74 @@
+{
+  "checkedAt": "2026-11-09T17:11:16.453Z",
+  "databaseWrites": 0,
+  "paidRequests": 0,
+  "buildId": "7VQBHlMCw4uRSPfvo5f5T",
+  "officeEnabled": true,
+  "devBypass": false,
+  "database": {
+    "metadata": {
+      "read_only": "on",
+      "live_migration_columns": 0,
+      "active_owners": 1,
+      "live_tasks": 0,
+      "leased_steps": 0
+    },
+    "workers": [
+      {
+        "adapter": "deterministic_demo",
+        "latest_heartbeat_age_seconds": 0
+      }
+    ],
+    "migrations": [
+      {
+        "filename": "001_init.sql",
+        "sourceMatchesAppliedChecksum": true
+      },
+      {
+        "filename": "002_users_and_ownership.sql",
+        "sourceMatchesAppliedChecksum": true
+      },
+      {
+        "filename": "003_office.sql",
+        "sourceMatchesAppliedChecksum": true
+      }
+    ]
+  },
+  "workerConfiguration": {
+    "keyConfigured": false,
+    "liveFlagConfigured": false
+  },
+  "protectedHashes": {
+    "environment": "838303728cea0bd58cdda5e265408e71f4af1ef8903d2b9bf01f4375bc32698e",
+    "workerConfiguration": "e58e9efe830a1acb7e4ff88d9d95d61565484719ab355ac3c9f23e38f6aa79f6"
+  },
+  "localChecks": [
+    {
+      "route": "/",
+      "status": 307,
+      "passed": true
+    },
+    {
+      "route": "/robots.txt",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "route": "/api/office",
+      "status": 401,
+      "passed": true
+    }
+  ],
+  "local": {
+    "status": 500,
+    "redirectHost": null
+  },
+  "access": {
+    "status": 302,
+    "redirectHost": "qianlima1388.cloudflareaccess.com"
+  },
+  "public": {
+    "status": 200,
+    "redirectHost": null
+  }
+}

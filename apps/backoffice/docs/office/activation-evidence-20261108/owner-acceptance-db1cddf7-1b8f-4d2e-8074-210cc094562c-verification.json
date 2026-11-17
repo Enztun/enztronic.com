@@ -1,0 +1,52 @@
+{
+  "taskId": "db1cddf7-1b8f-4d2e-8074-210cc094562c",
+  "parentState": "completed",
+  "children": [
+    {
+      "agentId": "adrian",
+      "state": "completed"
+    },
+    {
+      "agentId": "clara",
+      "state": "completed"
+    },
+    {
+      "agentId": "leo",
+      "state": "completed"
+    },
+    {
+      "agentId": "lisa",
+      "state": "completed"
+    },
+    {
+      "agentId": "nadia",
+      "state": "completed"
+    },
+    {
+      "agentId": "sam",
+      "state": "completed"
+    },
+    {
+      "agentId": "theo",
+      "state": "completed"
+    }
+  ],
+  "reviewedChildren": 7,
+  "acceptanceEvidenceId": "f46fd39b-79ef-456b-b3fc-9024a8dcaa34",
+  "operatorActionsCreated": 0,
+  "pending": false,
+  "passed": true,
+  "packageDigestValid": true,
+  "componentManifestValid": true,
+  "coveredChildrenValid": true,
+  "flatReviewReferencesValid": true,
+  "flatReviewReferenceCount": 8,
+  "expectedReviewReferenceCount": 8,
+  "realOwnerDecisionConsistent": true,
+  "approvalConsumed": true,
+  "parentIndependentlyReviewed": true,
+  "sevenRoleOutputs": true,
+  "acceptedArtifactId": "afbd1924-e807-46f8-af09-4d78ab92c5ac",
+  "acceptedRevision": 1,
+  "acceptedArtifactSha256": "2606a807077974c76219f5e7fc4b46143a0d7e20452647e22d58c80b82c804c4"
+}

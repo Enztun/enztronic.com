@@ -1,0 +1,166 @@
+{
+  "run": "20261108-063155-43abf399",
+  "startedAt": "2026-11-08T06:31:55.328Z",
+  "isolation": {
+    "productionUsed": false,
+    "pgPort": 55499,
+    "appPort": 3138,
+    "snapshot": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261108-063155-43abf399\\app",
+    "root": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261108-063155-43abf399",
+    "snapshotFiles": 336,
+    "manifest": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261108-063155-43abf399\\app-manifest.json",
+    "environmentFiles": 0,
+    "dependencies": {
+      "source": "D:\\Enztronic\\apps\\backoffice\\node_modules",
+      "localCopy": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\dependencies-e0303b4a-ddec-48d7-ba66-8791d4f02791",
+      "criticalHashesMatched": 6,
+      "packageInstallPerformed": false
+    },
+    "appPid": 70560
+  },
+  "checks": [],
+  "screenshots": [],
+  "consoleErrors": [],
+  "componentHashes": [
+    {
+      "name": "office-profile-status.test.ts",
+      "sha256": "05bd892c63e6fffb0f4297f6a4d7d05e116a188defa0789264a65ff38a46a461"
+    },
+    {
+      "name": "office-profile-status.ts",
+      "sha256": "f0e2e5ddc3b0bc93ed080f0d61300a58efdbbc866aba88875b9295328c41624a"
+    },
+    {
+      "name": "office-profile.module.css",
+      "sha256": "34dbcbd472e3a104fc2461ea54f6e9610d18709abd7b9d8e27376f9572770831"
+    },
+    {
+      "name": "office-selection.test.ts",
+      "sha256": "a624978e0553a88f98699ae808ddb9d12c887ab2d6afbc993f8059ae9a6ce360"
+    },
+    {
+      "name": "office-selection.ts",
+      "sha256": "a74f20b46f2cd687a3b9016b4704a40a7634278881d2a1596a5fc71fd92cc19f"
+    },
+    {
+      "name": "office-status.test.ts",
+      "sha256": "a5aa21a8aa1ad71796119ce3d7400dd27f69dc249b48a2eb5e835a26f1f4097a"
+    },
+    {
+      "name": "office-status.ts",
+      "sha256": "5db4e883f694bbac769839850c9401567623db48aa52979e39ccf72a05ab9264"
+    },
+    {
+      "name": "office-ui.tsx",
+      "sha256": "2d096b9d06590b1fec8cd51a645fc89962fed9d5a20ac429923215ff5c0e05a5"
+    },
+    {
+      "name": "office.module.css",
+      "sha256": "1a7174eede6e7f09c60381db9854669deee8bbc916ad04e7da7366d0919218cc"
+    },
+    {
+      "name": "OfficeDashboardPanel.test.tsx",
+      "sha256": "741223902cffded4f41860e614ba9df93ffb7608a20ca9ebe994bf3cd4fc771a"
+    },
+    {
+      "name": "OfficeDashboardPanel.tsx",
+      "sha256": "b2aa0626d24fae59b5cfe04d9397e9cdcd6ab574de505809879be78e7782d8eb"
+    },
+    {
+      "name": "OfficeInbox.tsx",
+      "sha256": "61f66858c7130ed8832a8f0d965b244fe5f8fe697e990b8164f7976eb59c9b9a"
+    },
+    {
+      "name": "OfficeInfo.tsx",
+      "sha256": "ae165ee03f27b5aa4671299030c733b8425453bc0ec182837f658e479babddce"
+    },
+    {
+      "name": "OfficeProfilePanel.tsx",
+      "sha256": "c48e5dd4ad5b948d310995ea999781d10cf8619f60f4a031186574e086ec3164"
+    },
+    {
+      "name": "OfficeRoleStatus.tsx",
+      "sha256": "170e568ed8a5cfa93ff85b3928b0ad2f80a0977b2d1da2562d0e0bcee28291bc"
+    },
+    {
+      "name": "OfficeScene.tsx",
+      "sha256": "0ecd370eac13262f1d9f8cd62de5e099ca82fcb5c34031f3f2f57933f77e4cc9"
+    },
+    {
+      "name": "OfficeTaskDetail.tsx",
+      "sha256": "857dd002870873fef8c28a810a27e2ac43e95aea00851fcef200ee0f42796e2e"
+    },
+    {
+      "name": "OfficeView.tsx",
+      "sha256": "1b3c2363d947127b29eb606b1992acd81d0282c7eec1d7cea13049dd67177c2d"
+    },
+    {
+      "name": "profiles.ts",
+      "sha256": "af516b7049ac7b0a53c6b5489fc928d3a65ca3a91bce6bf2f12328d8617bea93"
+    },
+    {
+      "name": "scene-layout.test.ts",
+      "sha256": "0ea9f6b1089088335d065a4cadc746845e3ce993934c9e96cf6faa0109243128"
+    },
+    {
+      "name": "scene-layout.ts",
+      "sha256": "47e2f6e038d80401509f656c89f7e3cb6318038ad74681a3c188d4511aefce8a"
+    },
+    {
+      "name": "scene-preview-people.tsx",
+      "sha256": "a52b942713b3ac9517f46cfa178e4630a74ebe31785f13655f87e0a8380ab983"
+    },
+    {
+      "name": "scene-static-batch.test.ts",
+      "sha256": "1462616cc843dd104b143e0122827f14cc16bdd6d40f6366d8f76ba7ef1b2f8a"
+    },
+    {
+      "name": "scene-static-batch.ts",
+      "sha256": "58034d529ea7b721f4933b1b5c2bab0e731c4a45f10eff26a9b3b2ab0e465023"
+    },
+    {
+      "name": "scene.module.css",
+      "sha256": "362a09e32bdfe4a2fb157fea586fb094df35d81b6e130c31646436b660056617"
+    }
+  ],
+  "functionalPassed": false,
+  "failure": {
+    "message": "Operator requested owned fixture shutdown"
+  },
+  "cleanup": {
+    "passed": true,
+    "actions": [
+      {
+        "kind": "client",
+        "resource": "database",
+        "outcome": "closed"
+      },
+      {
+        "kind": "process",
+        "name": "ui-ux-owner",
+        "pid": 70560,
+        "ports": [
+          3138
+        ],
+        "outcome": "already_exited",
+        "exit": {
+          "code": 1,
+          "signal": null
+        }
+      },
+      {
+        "kind": "postgres",
+        "port": 55499,
+        "data": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261108-063155-43abf399\\pg\\pgdata",
+        "outcome": "stopped",
+        "pgCtlStatus": 0,
+        "resolved": true
+      }
+    ],
+    "failures": [],
+    "unresolved": []
+  },
+  "remainingProcesses": [],
+  "passed": false,
+  "completedAt": "2026-11-08T06:33:08.103Z"
+}

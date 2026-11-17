@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "clientDate": "2026-11-08",
+  "productionReadOnly": true,
+  "productionDataOrConfigurationWrites": 0,
+  "productionProcessesStopped": false,
+  "restorePort": 55489,
+  "archive": {
+    "format": "custom",
+    "sha256": "54e0ef4138862fc008ee1701d81324d6d388fb07e95eb8b3fc50aa67b5acfefe",
+    "bytes": 167623,
+    "consistentExportedSnapshot": true,
+    "sequenceStatesStable": true
+  },
+  "sourceTables": 32,
+  "sourceSequences": 1,
+  "sourceRoles": 4,
+  "restore": {
+    "passed": true,
+    "fullCatalogAndTableEquality": true,
+    "privateRolesAndGrantorsEqual": true,
+    "acceptedParentAndSevenChildrenEqual": true,
+    "originalApplicationCredentialWorks": true,
+    "acceptedTasks": 8
+  },
+  "productionConfigurationUnchanged": true,
+  "cleanup": {
+    "ownedClusterStopped": true,
+    "portClosed": true,
+    "productionProcessesStopped": false
+  },
+  "secondaryCopy": {
+    "passed": true,
+    "files": 14
+  }
+}

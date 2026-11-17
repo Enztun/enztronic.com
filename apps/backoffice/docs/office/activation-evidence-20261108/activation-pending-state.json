@@ -1,0 +1,14 @@
+﻿{
+    "workerTaskState":  1,
+    "startupDefinitionUnchanged":  true,
+    "workerWindowsAccountEnabled":  false,
+    "workerTaskEnabled":  false,
+    "cloudflareTunnelConfigurationUnchanged":  true,
+    "ownerApprovalOrDemoTaskCreated":  false,
+    "onlyOfficeEnvironmentFlagChanged":  true,
+    "backofficeTaskState":  4,
+    "clientDate":  "2026-11-08",
+    "signedInOwnerBrowser":  "Unavailable to automation; connected browser inventory contains only fresh IAB",
+    "workerActivation":  "Windows consent canceled; fresh consent requested and pending",
+    "backofficeTaskEnabled":  true
+}

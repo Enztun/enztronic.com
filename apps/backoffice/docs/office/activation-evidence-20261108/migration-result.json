@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "comparison": {
+    "passed": true,
+    "changedProtectedTables": [],
+    "protectedTableCount": 12,
+    "originalMigrationsPreserved": true,
+    "onlyExpected003Added": true,
+    "auditSequenceUnchanged": true,
+    "ownerAccessUnchanged": true
+  },
+  "sourceHashes": {
+    "001_init.sql": "907de290abdb4714a2e51b2fa2595b48822a00154245e502897828ea0082f8e1",
+    "002_users_and_ownership.sql": "f2ca6f7f81c22d9677fedc2b5782476fa664fc53a4a09330f7890d669da13748",
+    "003_office.sql": "d4a84915bfd40831bb3c16aa48c3eeed49fd8a1a397dd9ececdfe20af1a7a0db",
+    "workerEntry": "862739d9840384f56d3fbc18e2e92b87d0ae994c644e3cfc323bcfa011c2f24d",
+    "roleTemplate": "9b6359743bd84762d6e8084460806ec48fdd79487da05fb52bb760d31978c149",
+    "migrationRunner": "dd172506bb559b3648d7e6214bfc9aceaf0c586c8e10858b8ff54025d93980d7"
+  }
+}

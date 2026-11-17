@@ -7,6 +7,8 @@ export default defineConfig([
   ...nextTs,
   globalIgnores([
     ".next/**",
+    ".next-office-check/**",
+    ".next-office-dev/**",
     ".verify-*/**",
     ".runtime/**",
     ".venv/**",

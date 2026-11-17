@@ -1,0 +1,162 @@
+{
+  "run": "20261105-173749",
+  "startedAt": "2026-11-05T17:37:49.175Z",
+  "ports": {
+    "postgres": 55469,
+    "listener": 55479
+  },
+  "cases": [
+    {
+      "name": "partial cluster initialization failure: the started cluster is stopped and reported",
+      "passed": true,
+      "pgCtlStatusAfter": 3,
+      "portOpenAfter": false,
+      "cleanup": {
+        "kind": "postgres",
+        "port": 55469,
+        "data": "tmp\\claude-review-fixes-20261105\\cleanup-selftest-20261106-003749\\partial-cluster\\pgdata",
+        "outcome": "stopped",
+        "pgCtlStatus": 0,
+        "resolved": true
+      },
+      "failure": {
+        "message": "PostgreSQL fixture initialization failed: createdb.exe failed (1): createdb: error: database creation failed: ERROR: database \"postgres\" already exists Cleanup: stopped.",
+        "initializationCleanup": {
+          "kind": "postgres",
+          "port": 55469,
+          "data": "tmp\\claude-review-fixes-20261105\\cleanup-selftest-20261106-003749\\partial-cluster\\pgdata",
+          "outcome": "stopped",
+          "pgCtlStatus": 0,
+          "resolved": true
+        }
+      },
+      "finalizer": {
+        "passed": true,
+        "actions": [
+          {
+            "kind": "postgres",
+            "port": 55469,
+            "data": "tmp\\claude-review-fixes-20261105\\cleanup-selftest-20261106-003749\\partial-cluster\\pgdata",
+            "outcome": "stopped",
+            "pgCtlStatus": 0,
+            "resolved": true
+          }
+        ],
+        "failures": [],
+        "unresolved": []
+      },
+      "pgLog": [
+        "initdb.exe -D D:\\Enztronic\\apps\\backoffice\\tmp\\claude-review-fixes-20261105\\cleanup-selftest-20261106-003749\\partial-cluster\\pgdata -U office_test --auth=trust --encoding=UTF8 --no-locale -> 0",
+        "pg_ctl.exe -D D:\\Enztronic\\apps\\backoffice\\tmp\\claude-review-fixes-20261105\\cleanup-selftest-20261106-003749\\partial-cluster\\pgdata -l D:\\Enztronic\\apps\\backoffice\\tmp\\claude-review-fixes-20261105\\cleanup-selftest-20261106-003749\\partial-cluster\\postgres.log -o -h 127.0.0.1 -p 55469 -w start -> 0",
+        "createdb.exe -h 127.0.0.1 -p 55469 -U office_test postgres -> 1",
+        "pg_ctl.exe -D D:\\Enztronic\\apps\\backoffice\\tmp\\claude-review-fixes-20261105\\cleanup-selftest-20261106-003749\\partial-cluster\\pgdata -m fast -w stop -> 0"
+      ]
+    },
+    {
+      "name": "clean run: a real owned child is terminated, its exit and port closure confirmed",
+      "passed": true,
+      "pid": 48308,
+      "finalizer": {
+        "passed": true,
+        "actions": [
+          {
+            "kind": "process",
+            "name": "owned-listener",
+            "pid": 48308,
+            "ports": [
+              55479
+            ],
+            "outcome": "terminated",
+            "taskkillStatus": 0,
+            "exit": {
+              "code": 1,
+              "signal": null
+            }
+          }
+        ],
+        "failures": [],
+        "unresolved": []
+      }
+    },
+    {
+      "name": "remaining owned listener: the run fails and names the listener without stopping it",
+      "passed": true,
+      "parentPid": 45316,
+      "orphanPid": 51856,
+      "finalizer": {
+        "passed": false,
+        "actions": [
+          {
+            "kind": "process",
+            "name": "owned-parent",
+            "pid": 45316,
+            "ports": [
+              55479
+            ],
+            "outcome": "listener_remaining",
+            "exit": {
+              "code": 0,
+              "signal": null
+            },
+            "listeners": [
+              {
+                "port": 55479,
+                "listenerPids": [
+                  51856
+                ]
+              }
+            ]
+          }
+        ],
+        "failures": [
+          {
+            "kind": "process",
+            "name": "owned-parent",
+            "pid": 45316,
+            "ports": [
+              55479
+            ],
+            "outcome": "listener_remaining",
+            "exit": {
+              "code": 0,
+              "signal": null
+            },
+            "listeners": [
+              {
+                "port": 55479,
+                "listenerPids": [
+                  51856
+                ]
+              }
+            ]
+          }
+        ],
+        "unresolved": [
+          {
+            "kind": "process",
+            "name": "owned-parent",
+            "pid": 45316,
+            "ports": [
+              55479
+            ],
+            "reason": "owned_port_still_listening",
+            "listeners": [
+              {
+                "port": 55479,
+                "listenerPids": [
+                  51856
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "orphanStopped": {
+    "pid": 51856,
+    "portClosed": true
+  },
+  "finishedAt": "2026-11-05T17:38:18.999Z",
+  "passed": true
+}

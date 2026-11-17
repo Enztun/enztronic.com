@@ -1,0 +1,96 @@
+{
+  "startedAt": "2026-11-05T20:44:17.743Z",
+  "buildId": "H2wsHC_p8niGqIW1qcF_K",
+  "productionBuild": "D:\\tmp\\codex-final-correction-20261106\\claude-office-build-20261105-204259\\app",
+  "authentication": "synthetic RS256 assertions verified against local HTTPS JWKS; development bypass disabled",
+  "checks": [
+    {
+      "name": "production start: authenticated dashboard with Office disabled and no003",
+      "passed": true,
+      "status": 200
+    },
+    {
+      "name": "production start: disabled Office page",
+      "passed": true,
+      "status": 200
+    },
+    {
+      "name": "production start: disabled status route refuses without Office schema",
+      "passed": true,
+      "status": 503
+    },
+    {
+      "name": "production start: invalid assertion denied",
+      "passed": true,
+      "status": 401
+    },
+    {
+      "name": "production start: expired assertion denied",
+      "passed": true,
+      "status": 401,
+      "pageStatus": 500
+    },
+    {
+      "name": "production start: sales dashboard excludes Office data",
+      "passed": true,
+      "status": 200
+    },
+    {
+      "name": "production start: sales status denied",
+      "passed": true,
+      "status": 403
+    },
+    {
+      "name": "production start: enabled Office with missing schema reports unavailable",
+      "passed": true,
+      "status": 200
+    },
+    {
+      "name": "production start: enabled Office dashboard",
+      "passed": true,
+      "status": 200
+    },
+    {
+      "name": "production start: enabled Office status data",
+      "passed": true,
+      "status": 200
+    },
+    {
+      "name": "production start: save synthetic demo brief without development bypass",
+      "passed": true,
+      "status": 201
+    },
+    {
+      "name": "production start: authorized exact task page",
+      "passed": true,
+      "status": 200
+    },
+    {
+      "name": "production start: rejected revision link opens the task without substituting a revision",
+      "passed": true,
+      "status": 200
+    },
+    {
+      "name": "production start: status carries server-relative lease evidence",
+      "passed": true,
+      "status": 200,
+      "roles": 14,
+      "tasks": 8
+    },
+    {
+      "name": "production start: saved demo family remains queued with no worker",
+      "passed": true,
+      "tasks": 8,
+      "leasedDispatches": 0
+    }
+  ],
+  "productionServicesTouched": false,
+  "passed": true,
+  "fixtureStopped": true,
+  "fixturePortsClosed": {
+    "database": true,
+    "app": true,
+    "issuer": true
+  },
+  "finishedAt": "2026-11-05T20:44:27.373Z"
+}

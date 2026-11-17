@@ -1,0 +1,17 @@
+{
+  "ownerBrowserAcceptance": "separate-after-promotion",
+  "databaseWrites": 0,
+  "operation": "promote",
+  "retainedPreviousBuild": "D:\\Enztronic\\apps\\backoffice\\.runtime\\releases\\ui-ux-20261108-4d142ecadb\\working-build-before-ui",
+  "buildId": "lLqX-hgihnGlb_e0a6-8g",
+  "clientDate": "2026-11-08",
+  "machineUtc": "2026-11-08T07:08:35.0289522Z",
+  "databaseRestore": false,
+  "workerConfigurationUnchanged": true,
+  "verifiedFiles": 217,
+  "passed": true,
+  "startupDefinitionUnchanged": true,
+  "environmentUnchanged": true,
+  "developmentBypassChanged": false,
+  "workerTaskUnchanged": true
+}

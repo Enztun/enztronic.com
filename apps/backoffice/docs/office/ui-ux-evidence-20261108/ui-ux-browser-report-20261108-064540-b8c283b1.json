@@ -1,0 +1,430 @@
+{
+  "run": "20261108-064540-b8c283b1",
+  "startedAt": "2026-11-08T06:45:40.030Z",
+  "isolation": {
+    "productionUsed": false,
+    "pgPort": 55499,
+    "appPort": 3138,
+    "snapshot": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\build-20261108-063755-79c08146\\app",
+    "root": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261108-064540-b8c283b1",
+    "buildId": "5fMNIet9VS8Zsn-XeJ4QR",
+    "environmentFiles": 0,
+    "authentication": "Synthetic RS256 owner assertion verified through a loopback HTTPS JWKS; production mode, bypass false",
+    "issuerPort": 9448,
+    "appPid": 32692,
+    "issuerPortClosed": true
+  },
+  "checks": [
+    {
+      "name": "welcome copy is concise",
+      "passed": true
+    },
+    {
+      "name": "fictional persona badge removed",
+      "passed": true
+    },
+    {
+      "name": "large demonstration box removed",
+      "passed": true
+    },
+    {
+      "name": "desktop profile panel is compact",
+      "passed": true,
+      "height": 264
+    },
+    {
+      "name": "desktop content begins without tall diagnostic stack",
+      "passed": true,
+      "headerHeight": 150
+    },
+    {
+      "name": "profile details are available on demand",
+      "passed": true
+    },
+    {
+      "name": "profile keyboard focus stays in dialog",
+      "passed": true
+    },
+    {
+      "name": "profile closes on Escape and returns focus",
+      "passed": true
+    },
+    {
+      "name": "3D canvas is above its controls",
+      "passed": true,
+      "canvasBottom": 702,
+      "controlsTop": 702
+    }
+  ],
+  "screenshots": [
+    "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261108-064540-b8c283b1\\screenshots\\01-desktop-office.png",
+    "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261108-064540-b8c283b1\\screenshots\\02a-scene-after-ready.png",
+    "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261108-064540-b8c283b1\\screenshots\\failure.png"
+  ],
+  "consoleErrors": [
+    "Executing inline script violates the following Content Security Policy directive 'script-src 'self' 'nonce-eb5df933a5b54fcf8119a21d5f34941f' 'strict-dynamic''. Either the 'unsafe-inline' keyword, a hash ('sha256-COKlPxLtNXejFNiukg089Lnwy1t5iJpnWHZzXT8t7kY='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+  ],
+  "consoleWarnings": [
+    "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "[.WebGL-0x18ec0121c800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+    "[.WebGL-0x18ec0121c800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+    "[.WebGL-0x18ec0121c800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+    "[.WebGL-0x18ec0121c800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+  ],
+  "componentHashes": [
+    {
+      "name": "office-profile-status.test.ts",
+      "sha256": "05bd892c63e6fffb0f4297f6a4d7d05e116a188defa0789264a65ff38a46a461"
+    },
+    {
+      "name": "office-profile-status.ts",
+      "sha256": "f0e2e5ddc3b0bc93ed080f0d61300a58efdbbc866aba88875b9295328c41624a"
+    },
+    {
+      "name": "office-profile.module.css",
+      "sha256": "34dbcbd472e3a104fc2461ea54f6e9610d18709abd7b9d8e27376f9572770831"
+    },
+    {
+      "name": "office-selection.test.ts",
+      "sha256": "a624978e0553a88f98699ae808ddb9d12c887ab2d6afbc993f8059ae9a6ce360"
+    },
+    {
+      "name": "office-selection.ts",
+      "sha256": "a74f20b46f2cd687a3b9016b4704a40a7634278881d2a1596a5fc71fd92cc19f"
+    },
+    {
+      "name": "office-status.test.ts",
+      "sha256": "a5aa21a8aa1ad71796119ce3d7400dd27f69dc249b48a2eb5e835a26f1f4097a"
+    },
+    {
+      "name": "office-status.ts",
+      "sha256": "5db4e883f694bbac769839850c9401567623db48aa52979e39ccf72a05ab9264"
+    },
+    {
+      "name": "office-ui.tsx",
+      "sha256": "2d096b9d06590b1fec8cd51a645fc89962fed9d5a20ac429923215ff5c0e05a5"
+    },
+    {
+      "name": "office.module.css",
+      "sha256": "1a7174eede6e7f09c60381db9854669deee8bbc916ad04e7da7366d0919218cc"
+    },
+    {
+      "name": "OfficeDashboardPanel.test.tsx",
+      "sha256": "741223902cffded4f41860e614ba9df93ffb7608a20ca9ebe994bf3cd4fc771a"
+    },
+    {
+      "name": "OfficeDashboardPanel.tsx",
+      "sha256": "b2aa0626d24fae59b5cfe04d9397e9cdcd6ab574de505809879be78e7782d8eb"
+    },
+    {
+      "name": "OfficeInbox.tsx",
+      "sha256": "61f66858c7130ed8832a8f0d965b244fe5f8fe697e990b8164f7976eb59c9b9a"
+    },
+    {
+      "name": "OfficeInfo.tsx",
+      "sha256": "ae165ee03f27b5aa4671299030c733b8425453bc0ec182837f658e479babddce"
+    },
+    {
+      "name": "OfficeProfilePanel.tsx",
+      "sha256": "c48e5dd4ad5b948d310995ea999781d10cf8619f60f4a031186574e086ec3164"
+    },
+    {
+      "name": "OfficeRoleStatus.tsx",
+      "sha256": "170e568ed8a5cfa93ff85b3928b0ad2f80a0977b2d1da2562d0e0bcee28291bc"
+    },
+    {
+      "name": "OfficeScene.tsx",
+      "sha256": "0ecd370eac13262f1d9f8cd62de5e099ca82fcb5c34031f3f2f57933f77e4cc9"
+    },
+    {
+      "name": "OfficeTaskDetail.tsx",
+      "sha256": "857dd002870873fef8c28a810a27e2ac43e95aea00851fcef200ee0f42796e2e"
+    },
+    {
+      "name": "OfficeView.tsx",
+      "sha256": "1b3c2363d947127b29eb606b1992acd81d0282c7eec1d7cea13049dd67177c2d"
+    },
+    {
+      "name": "profiles.ts",
+      "sha256": "af516b7049ac7b0a53c6b5489fc928d3a65ca3a91bce6bf2f12328d8617bea93"
+    },
+    {
+      "name": "scene-layout.test.ts",
+      "sha256": "0ea9f6b1089088335d065a4cadc746845e3ce993934c9e96cf6faa0109243128"
+    },
+    {
+      "name": "scene-layout.ts",
+      "sha256": "47e2f6e038d80401509f656c89f7e3cb6318038ad74681a3c188d4511aefce8a"
+    },
+    {
+      "name": "scene-preview-people.tsx",
+      "sha256": "a52b942713b3ac9517f46cfa178e4630a74ebe31785f13655f87e0a8380ab983"
+    },
+    {
+      "name": "scene-static-batch.test.ts",
+      "sha256": "1462616cc843dd104b143e0122827f14cc16bdd6d40f6366d8f76ba7ef1b2f8a"
+    },
+    {
+      "name": "scene-static-batch.ts",
+      "sha256": "58034d529ea7b721f4933b1b5c2bab0e731c4a45f10eff26a9b3b2ab0e465023"
+    },
+    {
+      "name": "scene.module.css",
+      "sha256": "362a09e32bdfe4a2fb157fea586fb094df35d81b6e130c31646436b660056617"
+    }
+  ],
+  "sceneDiagnostics": {
+    "text": "ENZTRONIC\nAdrian\n, Idle\nClara\n, Idle\nNadia\n, Idle\nLeo\n, Idle\nLisa\n, Idle\nSam\n, Idle\nTheo\n, Idle\nOverview\nDrag to pan · Scroll to zoom\nView options",
+    "buttons": [
+      {
+        "text": "Adrian, Idle",
+        "label": null,
+        "rect": {
+          "x": 654.0344848632812,
+          "y": 345.97735595703125,
+          "width": 65.40625,
+          "height": 34,
+          "top": 345.97735595703125,
+          "right": 719.4407348632812,
+          "bottom": 379.97735595703125,
+          "left": 654.0344848632812
+        }
+      },
+      {
+        "text": "Clara, Idle",
+        "label": null,
+        "rect": {
+          "x": 748.0277099609375,
+          "y": 295.44488525390625,
+          "width": 56.359375,
+          "height": 34,
+          "top": 295.44488525390625,
+          "right": 804.3870849609375,
+          "bottom": 329.44488525390625,
+          "left": 748.0277099609375
+        }
+      },
+      {
+        "text": "Nadia, Idle",
+        "label": null,
+        "rect": {
+          "x": 808.337890625,
+          "y": 331.37908935546875,
+          "width": 60.21875,
+          "height": 34,
+          "top": 331.37908935546875,
+          "right": 868.556640625,
+          "bottom": 365.37908935546875,
+          "left": 808.337890625
+        }
+      },
+      {
+        "text": "Leo, Idle",
+        "label": null,
+        "rect": {
+          "x": 878.3668212890625,
+          "y": 367.31329345703125,
+          "width": 44.640625,
+          "height": 34,
+          "top": 367.31329345703125,
+          "right": 923.0074462890625,
+          "bottom": 401.31329345703125,
+          "left": 878.3668212890625
+        }
+      },
+      {
+        "text": "Lisa, Idle",
+        "label": null,
+        "rect": {
+          "x": 513.254150390625,
+          "y": 433.5669860839844,
+          "width": 47.4375,
+          "height": 34,
+          "top": 433.5669860839844,
+          "right": 560.691650390625,
+          "bottom": 467.5669860839844,
+          "left": 513.254150390625
+        }
+      },
+      {
+        "text": "Sam, Idle",
+        "label": null,
+        "rect": {
+          "x": 573.6190185546875,
+          "y": 469.5011901855469,
+          "width": 51.1875,
+          "height": 34,
+          "top": 469.5011901855469,
+          "right": 624.8065185546875,
+          "bottom": 503.5011901855469,
+          "left": 573.6190185546875
+        }
+      },
+      {
+        "text": "Theo, Idle",
+        "label": null,
+        "rect": {
+          "x": 634.72607421875,
+          "y": 505.4353942871094,
+          "width": 53.453125,
+          "height": 34.000030517578125,
+          "top": 505.4353942871094,
+          "right": 688.17919921875,
+          "bottom": 539.4354248046875,
+          "left": 634.72607421875
+        }
+      },
+      {
+        "text": "Overview",
+        "label": null,
+        "rect": {
+          "x": 340,
+          "y": 711.5,
+          "width": 110.078125,
+          "height": 40,
+          "top": 711.5,
+          "right": 450.078125,
+          "bottom": 751.5,
+          "left": 340
+        }
+      },
+      {
+        "text": "",
+        "label": "Zoom out",
+        "rect": {
+          "x": 457.078125,
+          "y": 714.5,
+          "width": 37,
+          "height": 34,
+          "top": 714.5,
+          "right": 494.078125,
+          "bottom": 748.5,
+          "left": 457.078125
+        }
+      },
+      {
+        "text": "",
+        "label": "Zoom in",
+        "rect": {
+          "x": 497.078125,
+          "y": 714.5,
+          "width": 37,
+          "height": 34,
+          "top": 714.5,
+          "right": 534.078125,
+          "bottom": 748.5,
+          "left": 497.078125
+        }
+      },
+      {
+        "text": "←",
+        "label": "Pan left",
+        "rect": {
+          "x": 778,
+          "y": 597.25,
+          "width": 67.75,
+          "height": 42.25,
+          "top": 597.25,
+          "right": 845.75,
+          "bottom": 639.5,
+          "left": 778
+        }
+      },
+      {
+        "text": "→",
+        "label": "Pan right",
+        "rect": {
+          "x": 850.75,
+          "y": 597.25,
+          "width": 67.75,
+          "height": 42.25,
+          "top": 597.25,
+          "right": 918.5,
+          "bottom": 639.5,
+          "left": 850.75
+        }
+      },
+      {
+        "text": "↑",
+        "label": "Pan toward rear",
+        "rect": {
+          "x": 923.5,
+          "y": 597.25,
+          "width": 67.75,
+          "height": 42.25,
+          "top": 597.25,
+          "right": 991.25,
+          "bottom": 639.5,
+          "left": 923.5
+        }
+      },
+      {
+        "text": "↓",
+        "label": "Pan toward entry",
+        "rect": {
+          "x": 996.25,
+          "y": 597.25,
+          "width": 67.75,
+          "height": 42.25,
+          "top": 597.25,
+          "right": 1064,
+          "bottom": 639.5,
+          "left": 996.25
+        }
+      }
+    ],
+    "canvasCount": 1
+  },
+  "failurePageText": "EZ\nENZTRONIC\nBackoffice\n\nWORKSPACE\n\nDashboard\nClients\nInvoices\nOffice\nSettings\n\nOwner fixture\n\nAdmin\n\nPrivate workspace\n\nAccess is restricted and activity is handled server-side.\n\nOffice\n\nWelcome to the office!\n\nStatus unavailable\nUp to date\nSimulation\nNew brief\nOffice\nTasks\n0\nInbox\nActivity\nStatus\nAll workspaces\nRecords\nSimulated work\nInternal records\nFilters\nENZTRONIC\nAdrian\n, Idle\nClara\n, Idle\nNadia\n, Idle\nLeo\n, Idle\nLisa\n, Idle\nSam\n, Idle\nTheo\n, Idle\nOverview\nDrag to pan · Scroll to zoom\nView options\nAdrian\nIdle\nClara\nIdle\nNadia\nIdle\nLeo\nIdle\nLisa\nIdle\nSam\nIdle\nTheo\nIdle\nCurrent work in this workspace\nView all tasks \nNo tasks assigned\n\nStart with a website request. The office prepares a source-linked internal proposal; implementation and external actions require separate authorization.\n\nPrepare an internal brief\nAdrian\n\nProject Manager\n\nAvailable\nOpen tasks\n0\n\nNo open tasks. Ready for the next brief.\n\nProfile\nNew brief\nPrivate application · owner access and existing business records remain separate.\nDisplay limit: 200 tasks / 100 recent events · exact tasks in scope: 0\nOffice view ready. No worker connected. Page data confirmed 0 s ago.",
+  "functionalPassed": false,
+  "failure": {
+    "message": "locator.waitFor: Timeout 45000ms exceeded. Call log: \u001b[2m - waiting for getByRole('region', { name: '3D office preview', exact: true }).getByRole('button', { name: /^Adrian(?:,|$)/ }) to be visible\u001b[22m"
+  },
+  "cleanup": {
+    "passed": true,
+    "actions": [
+      {
+        "kind": "client",
+        "resource": "browser",
+        "outcome": "closed"
+      },
+      {
+        "kind": "client",
+        "resource": "database",
+        "outcome": "closed"
+      },
+      {
+        "kind": "client",
+        "resource": "synthetic HTTPS issuer",
+        "outcome": "closed"
+      },
+      {
+        "kind": "process",
+        "name": "ui-ux-owner",
+        "pid": 32692,
+        "ports": [
+          3138
+        ],
+        "outcome": "terminated",
+        "taskkillStatus": 0,
+        "exit": {
+          "code": 1,
+          "signal": null
+        }
+      },
+      {
+        "kind": "postgres",
+        "port": 55499,
+        "data": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261108-064540-b8c283b1\\pg\\pgdata",
+        "outcome": "stopped",
+        "pgCtlStatus": 0,
+        "resolved": true
+      }
+    ],
+    "failures": [],
+    "unresolved": []
+  },
+  "remainingProcesses": [],
+  "passed": false,
+  "completedAt": "2026-11-08T06:46:35.759Z"
+}

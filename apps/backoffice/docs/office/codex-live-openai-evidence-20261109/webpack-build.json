@@ -1,0 +1,10 @@
+{
+  "command": "npm run build -- --webpack",
+  "cwd": "D:\\tmp\\codex-live-openai-review-20261110\\claude-office-build-20261109-170530\\app",
+  "snapshotFiles": 425,
+  "snapshotManifest": "D:\\tmp\\codex-live-openai-review-20261110\\claude-office-build-20261109-170530\\app-manifest.json",
+  "exitCode": 0,
+  "seconds": 69,
+  "buildId": "oJO8QYM4sU7b-eXlmTskw",
+  "log": "C:\\Users\\hoyec\\AppData\\Local\\EnztronicCodexLiveReviewRoot-20261109\\build-evidence\\build-20261109-170530.log"
+}

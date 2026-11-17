@@ -1,0 +1,183 @@
+﻿{
+    "identityMatches":  true,
+    "administratorAbsent":  true,
+    "manifestValid":  true,
+    "filesystemPassed":  true,
+    "runtimeSmokePassed":  true,
+    "supervisorRejectedBeforeLaunch":  true,
+    "logsUnchanged":  true,
+    "passed":  true,
+    "targets":  {
+                    "private_1":  {
+                                      "readAllowed":  false,
+                                      "readDenied":  true,
+                                      "readConclusive":  true,
+                                      "writeAllowed":  false,
+                                      "writeDenied":  true,
+                                      "writeConclusive":  true,
+                                      "passed":  true
+                                  },
+                    "private_2":  {
+                                      "readAllowed":  false,
+                                      "readDenied":  true,
+                                      "readConclusive":  true,
+                                      "writeAllowed":  false,
+                                      "writeDenied":  true,
+                                      "writeConclusive":  true,
+                                      "passed":  true
+                                  },
+                    "private_3":  {
+                                      "readAllowed":  false,
+                                      "readDenied":  true,
+                                      "readConclusive":  true,
+                                      "writeAllowed":  false,
+                                      "writeDenied":  true,
+                                      "writeConclusive":  true,
+                                      "passed":  true
+                                  },
+                    "private_4":  {
+                                      "readAllowed":  false,
+                                      "readDenied":  true,
+                                      "readConclusive":  true,
+                                      "writeAllowed":  false,
+                                      "writeDenied":  true,
+                                      "writeConclusive":  true,
+                                      "passed":  true
+                                  },
+                    "private_5":  {
+                                      "readAllowed":  false,
+                                      "readDenied":  true,
+                                      "readConclusive":  true,
+                                      "writeAllowed":  false,
+                                      "writeDenied":  true,
+                                      "writeConclusive":  true,
+                                      "passed":  true
+                                  },
+                    "private_6":  {
+                                      "readAllowed":  false,
+                                      "readDenied":  true,
+                                      "readConclusive":  true,
+                                      "writeAllowed":  false,
+                                      "writeDenied":  true,
+                                      "writeConclusive":  true,
+                                      "passed":  true
+                                  },
+                    "private_7":  {
+                                      "readAllowed":  false,
+                                      "readDenied":  true,
+                                      "readConclusive":  true,
+                                      "writeAllowed":  false,
+                                      "writeDenied":  true,
+                                      "writeConclusive":  true,
+                                      "passed":  true
+                                  },
+                    "runtime_read_8":  {
+                                           "readAllowed":  true,
+                                           "readDenied":  false,
+                                           "readConclusive":  true,
+                                           "writeAllowed":  false,
+                                           "writeDenied":  true,
+                                           "writeConclusive":  true,
+                                           "passed":  true
+                                       },
+                    "runtime_read_9":  {
+                                           "readAllowed":  true,
+                                           "readDenied":  false,
+                                           "readConclusive":  true,
+                                           "writeAllowed":  false,
+                                           "writeDenied":  true,
+                                           "writeConclusive":  true,
+                                           "passed":  true
+                                       },
+                    "runtime_read_10":  {
+                                            "readAllowed":  true,
+                                            "readDenied":  false,
+                                            "readConclusive":  true,
+                                            "writeAllowed":  false,
+                                            "writeDenied":  true,
+                                            "writeConclusive":  true,
+                                            "passed":  true
+                                        },
+                    "runtime_read_11":  {
+                                            "readAllowed":  true,
+                                            "readDenied":  false,
+                                            "readConclusive":  true,
+                                            "writeAllowed":  false,
+                                            "writeDenied":  true,
+                                            "writeConclusive":  true,
+                                            "passed":  true
+                                        },
+                    "runtime_read_12":  {
+                                            "readAllowed":  true,
+                                            "readDenied":  false,
+                                            "readConclusive":  true,
+                                            "writeAllowed":  false,
+                                            "writeDenied":  true,
+                                            "writeConclusive":  true,
+                                            "passed":  true
+                                        },
+                    "directory_":  {
+                                       "readAllowed":  true,
+                                       "readDenied":  false,
+                                       "readConclusive":  true,
+                                       "writeAllowed":  false,
+                                       "writeDenied":  true,
+                                       "writeConclusive":  true,
+                                       "passed":  true
+                                   },
+                    "directory_runtime":  {
+                                              "readAllowed":  true,
+                                              "readDenied":  false,
+                                              "readConclusive":  true,
+                                              "writeAllowed":  false,
+                                              "writeDenied":  true,
+                                              "writeConclusive":  true,
+                                              "passed":  true
+                                          },
+                    "directory_configuration":  {
+                                                    "readAllowed":  true,
+                                                    "readDenied":  false,
+                                                    "readConclusive":  true,
+                                                    "writeAllowed":  false,
+                                                    "writeDenied":  true,
+                                                    "writeConclusive":  true,
+                                                    "passed":  true
+                                                },
+                    "directory_verification":  {
+                                                   "readAllowed":  true,
+                                                   "readDenied":  false,
+                                                   "readConclusive":  true,
+                                                   "writeAllowed":  false,
+                                                   "writeDenied":  true,
+                                                   "writeConclusive":  true,
+                                                   "passed":  true
+                                               },
+                    "directory_administration":  {
+                                                     "readAllowed":  false,
+                                                     "readDenied":  true,
+                                                     "readConclusive":  true,
+                                                     "writeAllowed":  false,
+                                                     "writeDenied":  true,
+                                                     "writeConclusive":  true,
+                                                     "passed":  true
+                                                 },
+                    "directory_logs":  {
+                                           "readAllowed":  true,
+                                           "readDenied":  false,
+                                           "readConclusive":  true,
+                                           "writeAllowed":  true,
+                                           "writeDenied":  false,
+                                           "writeConclusive":  true,
+                                           "passed":  true
+                                       },
+                    "directory_logs_temp":  {
+                                                "readAllowed":  true,
+                                                "readDenied":  false,
+                                                "readConclusive":  true,
+                                                "writeAllowed":  true,
+                                                "writeDenied":  false,
+                                                "writeConclusive":  true,
+                                                "passed":  true
+                                            }
+                }
+}

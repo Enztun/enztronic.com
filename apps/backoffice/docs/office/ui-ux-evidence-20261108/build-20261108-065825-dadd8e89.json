@@ -1,0 +1,52 @@
+{
+  "run": "20261108-065825-dadd8e89",
+  "startedAt": "2026-11-08T06:58:27.978Z",
+  "cwd": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\build-20261108-065825-dadd8e89\\app",
+  "snapshotFiles": 354,
+  "snapshotManifest": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\build-20261108-065825-dadd8e89\\app-manifest.json",
+  "dependencies": {
+    "source": "D:\\Enztronic\\apps\\backoffice\\node_modules",
+    "localCopy": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\dependencies-layout-e87700c7-e161-433d-82ea-fdc9c55b57cd\\node_modules",
+    "criticalHashesMatched": 6,
+    "packageInstallPerformed": false
+  },
+  "environmentFiles": 0,
+  "productionTouched": false,
+  "workerGrantTemplateSha256": "9b6359743bd84762d6e8084460806ec48fdd79487da05fb52bb760d31978c149",
+  "checks": [
+    {
+      "name": "lint",
+      "exitCode": 0,
+      "seconds": 10,
+      "log": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\build-20261108-065825-dadd8e89\\lint-20261108-065825-dadd8e89.log"
+    },
+    {
+      "name": "typecheck",
+      "exitCode": 0,
+      "seconds": 10,
+      "log": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\build-20261108-065825-dadd8e89\\typecheck-20261108-065825-dadd8e89.log"
+    },
+    {
+      "name": "build",
+      "exitCode": 0,
+      "seconds": 34,
+      "log": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\build-20261108-065825-dadd8e89\\build-20261108-065825-dadd8e89.log"
+    }
+  ],
+  "previousFixtureTests": {
+    "report": "D:\\Enztronic\\apps\\backoffice\\docs\\office\\ui-ux-evidence-20261108\\build-20261108-064016-b5f73ea0.json",
+    "sourceSnapshot": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\build-20261108-063755-79c08146\\app",
+    "check": {
+      "name": "tests",
+      "exitCode": 0,
+      "seconds": 18,
+      "log": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\build-20261108-063755-79c08146\\tests-20261108-064016-b5f73ea0.log"
+    },
+    "repeated": false,
+    "reason": "Only scene name presentation and theme nonce plumbing changed after the passing full fixture suite"
+  },
+  "buildId": "lLqX-hgihnGlb_e0a6-8g",
+  "exitCode": 0,
+  "passed": true,
+  "completedAt": "2026-11-08T06:59:21.905Z"
+}

@@ -105,9 +105,9 @@ export function ThemeToggle() {
  * Applies the stored theme before first paint. Without this the page renders
  * in the default palette and then snaps to the chosen one.
  */
-export function ThemeScript() {
+export function ThemeScript({ nonce }: { nonce?: string }) {
   const source = `(function(){try{var p=localStorage.getItem(${JSON.stringify(
     STORAGE_KEY,
   )})||"system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);document.documentElement.dataset.theme=d?"dark":"light";}catch(e){document.documentElement.dataset.theme="dark";}})();`;
-  return <script dangerouslySetInnerHTML={{ __html: source }} />;
+  return <script nonce={nonce} dangerouslySetInnerHTML={{ __html: source }} />;
 }

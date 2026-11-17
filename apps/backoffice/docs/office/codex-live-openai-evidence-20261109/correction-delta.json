@@ -1,0 +1,202 @@
+{
+  "originalHandoffPatchSha256": "bfa24acf062ba8fb7b2f3d039c872a706e38c9aba0eb3395ace226fafd7c9afa",
+  "correctionPatch": "D:\\Enztronic\\apps\\backoffice\\docs\\office\\CODEX-LIVE-OPENAI-CORRECTIONS-2026-11-09.diff",
+  "correctionPatchSha256": "7e3c532fc8576d5dbfc4de7cc614ce7f3bc06203e2fc514dec04a13c0b54da3f",
+  "files": 21,
+  "added": 1062,
+  "removed": 104,
+  "lineEndingPolicy": "Patch and replay normalize CRLF to LF; raw current file hashes also recorded. No raw-byte equivalence is asserted across line endings.",
+  "replayMatchesEveryLfNormalizedFile": true,
+  "replayRoot": "C:\\Users\\hoyec\\AppData\\Local\\EnztronicCodexLiveReviewRoot-20261109\\correction-replay-36aac2f9",
+  "changed": [
+    {
+      "path": "apps/backoffice/database/migrations/004_office_live_provider.sql",
+      "new": false,
+      "originalRawSha256": "38c1e1aea4ba634a889c8e533d6b1e7741260296b671d0b6b827a174255efed2",
+      "currentRawSha256": "afacd9683cc43aba4e43d7e207ece8386177244e126770c267daeb63596718e1",
+      "currentLfSha256": "afacd9683cc43aba4e43d7e207ece8386177244e126770c267daeb63596718e1",
+      "added": 8,
+      "removed": 1
+    },
+    {
+      "path": "apps/backoffice/docs/office/CODEX-LIVE-OPENAI-ACTIVATION-2026-11-09.md",
+      "new": true,
+      "originalRawSha256": null,
+      "currentRawSha256": "d4e03019ba058e48f9f2d08abb01549a5ad7a17ba19d0d1a5549dcb0d780a5c1",
+      "currentLfSha256": "d4e03019ba058e48f9f2d08abb01549a5ad7a17ba19d0d1a5549dcb0d780a5c1",
+      "added": 37,
+      "removed": 0
+    },
+    {
+      "path": "apps/backoffice/scripts/office-acceptance/live-openai.mjs",
+      "new": true,
+      "originalRawSha256": null,
+      "currentRawSha256": "2be89a40995ddaf9b9c8837bd9884abfeb77cc268cf4e5738b581a7017bf15ee",
+      "currentLfSha256": "0e7c8ea107e41bec170d7b0a1217cadb3cf190ed5cda549a2deea04f9e9b8887",
+      "added": 148,
+      "removed": 0
+    },
+    {
+      "path": "apps/backoffice/src/components/office/OfficeDashboardPanel.test.tsx",
+      "new": false,
+      "originalRawSha256": "83640a272fca4bbc00282455fdc194b797a87542c199ba4ef380c043b82b38fe",
+      "currentRawSha256": "b6458319b297998f087f2b568cb74e8f7fb9272a8d3ba0986178b4077ef5a1c3",
+      "currentLfSha256": "b6458319b297998f087f2b568cb74e8f7fb9272a8d3ba0986178b4077ef5a1c3",
+      "added": 10,
+      "removed": 1
+    },
+    {
+      "path": "apps/backoffice/src/components/office/OfficeDashboardPanel.tsx",
+      "new": false,
+      "originalRawSha256": "064394eefd1e968eb3664f2f51e36099ddca9db05eadbdc5a34742edb8e10661",
+      "currentRawSha256": "cb10f6d731d4a987800bc3ff409b9ce263c320cb551fcb530d755dacbef1e9fb",
+      "currentLfSha256": "cb10f6d731d4a987800bc3ff409b9ce263c320cb551fcb530d755dacbef1e9fb",
+      "added": 2,
+      "removed": 1
+    },
+    {
+      "path": "apps/backoffice/src/components/office/OfficeView.tsx",
+      "new": false,
+      "originalRawSha256": "a55571badbce0c52aef42060256a78bb7ef3006ca921c17c08ae8a57b3707315",
+      "currentRawSha256": "8c2fc8b4a212dfd9d928cd3096fb42854724f48e53367d2a0b822ebeb9397b75",
+      "currentLfSha256": "8c2fc8b4a212dfd9d928cd3096fb42854724f48e53367d2a0b822ebeb9397b75",
+      "added": 3,
+      "removed": 3
+    },
+    {
+      "path": "apps/backoffice/src/components/office/office-status.ts",
+      "new": false,
+      "originalRawSha256": "a63159ffa755802ac7898a5df7bcdfb32e773c44c66aca0e5929e240799ec1d1",
+      "currentRawSha256": "d5c6e7d0dcb40005ccf053f15c11761a73fbad8ff6c070e8de2d2be4630cb7bf",
+      "currentLfSha256": "d5c6e7d0dcb40005ccf053f15c11761a73fbad8ff6c070e8de2d2be4630cb7bf",
+      "added": 10,
+      "removed": 0
+    },
+    {
+      "path": "apps/backoffice/src/lib/office-activity.ts",
+      "new": false,
+      "originalRawSha256": "c93a19a5dc610b74547dc6679d49cd76c64d34b069b67536a512850a3a77c2c8",
+      "currentRawSha256": "befe85e8f9396747b6029ac81daeca2ed20cd816d434b8168aaf79372230d233",
+      "currentLfSha256": "befe85e8f9396747b6029ac81daeca2ed20cd816d434b8168aaf79372230d233",
+      "added": 2,
+      "removed": 0
+    },
+    {
+      "path": "apps/backoffice/src/lib/office-runtime/codex-live-review.integration.test.ts",
+      "new": true,
+      "originalRawSha256": null,
+      "currentRawSha256": "01d47a1bd42bb011e5d4fa578a9c89022dfb8a04af6e1ffffbef5f9c7d02139d",
+      "currentLfSha256": "01d47a1bd42bb011e5d4fa578a9c89022dfb8a04af6e1ffffbef5f9c7d02139d",
+      "added": 267,
+      "removed": 0
+    },
+    {
+      "path": "apps/backoffice/src/lib/office-runtime/index.ts",
+      "new": false,
+      "originalRawSha256": "28557a328937017dc16c75ecd30aaa85ab19f83833ea7967f6f292174ac662a0",
+      "currentRawSha256": "7741b913ab1ad8fbbf77c058f1bf692a6ff62b66b6b54cac0852f0052bad6f36",
+      "currentLfSha256": "7741b913ab1ad8fbbf77c058f1bf692a6ff62b66b6b54cac0852f0052bad6f36",
+      "added": 155,
+      "removed": 35
+    },
+    {
+      "path": "apps/backoffice/src/lib/office-runtime/live-adapter.ts",
+      "new": false,
+      "originalRawSha256": "23258fd5046d5adedc29a7d75d0377305eaaee16f041a5fc426077c22a0613f2",
+      "currentRawSha256": "cade697eaa1d163573cd989a2da5ddb8b9b4db043a55ec8e401ddc8d9c4b91bb",
+      "currentLfSha256": "cade697eaa1d163573cd989a2da5ddb8b9b4db043a55ec8e401ddc8d9c4b91bb",
+      "added": 22,
+      "removed": 11
+    },
+    {
+      "path": "apps/backoffice/src/lib/office-runtime/live-client-review.test.ts",
+      "new": true,
+      "originalRawSha256": null,
+      "currentRawSha256": "4a3b21394d7df8deadbde84bbe5b838a60e3662805552981a1d2c6ccb344e110",
+      "currentLfSha256": "4a3b21394d7df8deadbde84bbe5b838a60e3662805552981a1d2c6ccb344e110",
+      "added": 83,
+      "removed": 0
+    },
+    {
+      "path": "apps/backoffice/src/lib/office-runtime/live-pricing.ts",
+      "new": false,
+      "originalRawSha256": "3651aa8afd1d3eac9afad85785082801b488f06c85420dfeb46d891a809fc0bd",
+      "currentRawSha256": "c153b0fcdf189b953c06a90d07f351be0d4a52da942c3d4891e838ee22362b03",
+      "currentLfSha256": "c153b0fcdf189b953c06a90d07f351be0d4a52da942c3d4891e838ee22362b03",
+      "added": 21,
+      "removed": 11
+    },
+    {
+      "path": "apps/backoffice/src/lib/office-runtime/live.integration.test.ts",
+      "new": false,
+      "originalRawSha256": "1028a8284f933dc79dc73a98e99622846a8c4e6d3cfa88d6f4df501e41f80b43",
+      "currentRawSha256": "3c976b358b969d400f6b1326591cd095def2455f2d3fd5586298f361a32b744c",
+      "currentLfSha256": "3c976b358b969d400f6b1326591cd095def2455f2d3fd5586298f361a32b744c",
+      "added": 21,
+      "removed": 9
+    },
+    {
+      "path": "apps/backoffice/src/lib/office-runtime/live.test.ts",
+      "new": false,
+      "originalRawSha256": "9b2d1b9f079096e1b39d647733345b2e282652cc7a00e0d446be5c5e2bc1d856",
+      "currentRawSha256": "b93d4940ebc398a9393d443a06ccd5ae303e8a6983494493d98a4c0101857e53",
+      "currentLfSha256": "b93d4940ebc398a9393d443a06ccd5ae303e8a6983494493d98a4c0101857e53",
+      "added": 37,
+      "removed": 12
+    },
+    {
+      "path": "apps/backoffice/src/lib/office-runtime/openai.ts",
+      "new": false,
+      "originalRawSha256": "52f3a8ceccf0ec7f86f85a371e81031e305496158e6ded0d988b0aae61d7215d",
+      "currentRawSha256": "4fcda8d2b1f263b5983afaeb9befc292760fd85640f4dc7e81a754b0da400b10",
+      "currentLfSha256": "4fcda8d2b1f263b5983afaeb9befc292760fd85640f4dc7e81a754b0da400b10",
+      "added": 41,
+      "removed": 14
+    },
+    {
+      "path": "apps/backoffice/src/lib/server/office-read-model.integration.test.ts",
+      "new": false,
+      "originalRawSha256": "0925a16750ede2748d112d6ab75c04ced3333c804c10b364994a8cb5ddc6572d",
+      "currentRawSha256": "6a081669c74acf6e2fc074700e164a5e1c061670c2262d87cec438f53c4b7e05",
+      "currentLfSha256": "6a081669c74acf6e2fc074700e164a5e1c061670c2262d87cec438f53c4b7e05",
+      "added": 57,
+      "removed": 0
+    },
+    {
+      "path": "apps/backoffice/src/lib/server/office-read-model.ts",
+      "new": false,
+      "originalRawSha256": "b536bf2ec64f751c8412f3b486f55fecb49aed7e33fa4b81060ce20543d77f4d",
+      "currentRawSha256": "b4ed88d3b14982df8759921501d8980f9f447e9a8a87ca377ccdf35a8b675a4a",
+      "currentLfSha256": "b4ed88d3b14982df8759921501d8980f9f447e9a8a87ca377ccdf35a8b675a4a",
+      "added": 10,
+      "removed": 3
+    },
+    {
+      "path": "apps/office-worker/read-live-rollback-fence.mjs",
+      "new": true,
+      "originalRawSha256": null,
+      "currentRawSha256": "c6f1e6b2ef946a3797563e8a50548283004dfcc1d9c1fbd03f65933a6636b8a9",
+      "currentLfSha256": "c6f1e6b2ef946a3797563e8a50548283004dfcc1d9c1fbd03f65933a6636b8a9",
+      "added": 31,
+      "removed": 0
+    },
+    {
+      "path": "apps/office-worker/set-office-openai-key.ps1",
+      "new": false,
+      "originalRawSha256": "fa58a591b65811367256c8713f0fae242636902eb93a11e0314825824beaf6ec",
+      "currentRawSha256": "9c39f98f29b9cc930da46a4697f191add00d31c44695ecd0db3208e5e6b0664d",
+      "currentLfSha256": "9c39f98f29b9cc930da46a4697f191add00d31c44695ecd0db3208e5e6b0664d",
+      "added": 21,
+      "removed": 3
+    },
+    {
+      "path": "apps/office-worker/test/lifecycle.test.mjs",
+      "new": false,
+      "originalRawSha256": "bfc70425119cceb89da56c210ed0f69efda854cc15603c885d07d859c2d9f56a",
+      "currentRawSha256": "0a560401ab3fb7524ab56dea59544ee239faf722d05dcb5f9a6fe8970520fd64",
+      "currentLfSha256": "0a560401ab3fb7524ab56dea59544ee239faf722d05dcb5f9a6fe8970520fd64",
+      "added": 76,
+      "removed": 0
+    }
+  ]
+}

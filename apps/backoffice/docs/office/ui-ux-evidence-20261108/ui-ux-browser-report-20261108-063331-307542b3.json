@@ -1,0 +1,217 @@
+{
+  "run": "20261108-063331-307542b3",
+  "startedAt": "2026-11-08T06:33:31.965Z",
+  "isolation": {
+    "productionUsed": false,
+    "pgPort": 55499,
+    "appPort": 3138,
+    "snapshot": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261108-063331-307542b3\\app",
+    "root": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261108-063331-307542b3",
+    "snapshotFiles": 338,
+    "manifest": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261108-063331-307542b3\\app-manifest.json",
+    "environmentFiles": 0,
+    "dependencies": {
+      "source": "D:\\Enztronic\\apps\\backoffice\\node_modules",
+      "localCopy": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\dependencies-layout-e87700c7-e161-433d-82ea-fdc9c55b57cd\\node_modules",
+      "criticalHashesMatched": 6,
+      "packageInstallPerformed": false
+    },
+    "appPid": 43796
+  },
+  "checks": [
+    {
+      "name": "welcome copy is concise",
+      "passed": true
+    },
+    {
+      "name": "fictional persona badge removed",
+      "passed": true
+    },
+    {
+      "name": "large demonstration box removed",
+      "passed": true
+    },
+    {
+      "name": "desktop profile panel is compact",
+      "passed": true,
+      "height": 264
+    },
+    {
+      "name": "desktop content begins without tall diagnostic stack",
+      "passed": true,
+      "headerHeight": 150
+    },
+    {
+      "name": "profile details are available on demand",
+      "passed": true
+    },
+    {
+      "name": "profile keyboard focus stays in dialog",
+      "passed": true
+    },
+    {
+      "name": "profile closes on Escape and returns focus",
+      "passed": true
+    },
+    {
+      "name": "3D canvas is above its controls",
+      "passed": true,
+      "canvasBottom": 702,
+      "controlsTop": 702
+    }
+  ],
+  "screenshots": [
+    "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261108-063331-307542b3\\screenshots\\01-desktop-office.png"
+  ],
+  "consoleErrors": [
+    "Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes with the HTML before React loaded.\n\nhttps://react.dev/link/hydration-mismatch\n\n  ...\n    <RenderFromTemplateContext>\n      <ScrollHandler renderTree={{...}}>\n        <InnerScrollHandler scrollRef={{scrollRef:null, ...}} renderTree={{...}}>\n          <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>\n            <LoadingBoundary name=\"/\" loading={null}>\n              <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>\n                <HTTPAccessFallbackErrorBoundary pathname=\"/team\" notFound={<SegmentViewNode>} forbidden={undefined} ...>\n                  <RedirectBoundary>\n                    <RedirectErrorBoundary router={{...}}>\n                      <InnerLayoutRouter url=\"/team\" tree={[...]} params={{}} renderTree={{...}} segmentPath={[...]} ...>\n                        <SegmentViewNode type=\"layout\" pagePath=\"(protected...\">\n                          <SegmentTrieNode>\n                          <ProtectedLayout>\n                            <AdminShell>\n                              <div\n+                               className=\"min-h-screen lg:grid lg:grid-cols-[17.5rem_minmax(0,1fr)]\"\n-                               className={null}\n-                               hidden=\"\"\n                              >\n+                               <aside\n+                                 className=\"sticky top-0 hidden h-screen border-r border-line/80 bg-panel/92 px-5 py-...\"\n+                               >\n-                               <Suspense>\n                                ...\n                      ...\n          ...\n"
+  ],
+  "componentHashes": [
+    {
+      "name": "office-profile-status.test.ts",
+      "sha256": "05bd892c63e6fffb0f4297f6a4d7d05e116a188defa0789264a65ff38a46a461"
+    },
+    {
+      "name": "office-profile-status.ts",
+      "sha256": "f0e2e5ddc3b0bc93ed080f0d61300a58efdbbc866aba88875b9295328c41624a"
+    },
+    {
+      "name": "office-profile.module.css",
+      "sha256": "34dbcbd472e3a104fc2461ea54f6e9610d18709abd7b9d8e27376f9572770831"
+    },
+    {
+      "name": "office-selection.test.ts",
+      "sha256": "a624978e0553a88f98699ae808ddb9d12c887ab2d6afbc993f8059ae9a6ce360"
+    },
+    {
+      "name": "office-selection.ts",
+      "sha256": "a74f20b46f2cd687a3b9016b4704a40a7634278881d2a1596a5fc71fd92cc19f"
+    },
+    {
+      "name": "office-status.test.ts",
+      "sha256": "a5aa21a8aa1ad71796119ce3d7400dd27f69dc249b48a2eb5e835a26f1f4097a"
+    },
+    {
+      "name": "office-status.ts",
+      "sha256": "5db4e883f694bbac769839850c9401567623db48aa52979e39ccf72a05ab9264"
+    },
+    {
+      "name": "office-ui.tsx",
+      "sha256": "2d096b9d06590b1fec8cd51a645fc89962fed9d5a20ac429923215ff5c0e05a5"
+    },
+    {
+      "name": "office.module.css",
+      "sha256": "1a7174eede6e7f09c60381db9854669deee8bbc916ad04e7da7366d0919218cc"
+    },
+    {
+      "name": "OfficeDashboardPanel.test.tsx",
+      "sha256": "741223902cffded4f41860e614ba9df93ffb7608a20ca9ebe994bf3cd4fc771a"
+    },
+    {
+      "name": "OfficeDashboardPanel.tsx",
+      "sha256": "b2aa0626d24fae59b5cfe04d9397e9cdcd6ab574de505809879be78e7782d8eb"
+    },
+    {
+      "name": "OfficeInbox.tsx",
+      "sha256": "61f66858c7130ed8832a8f0d965b244fe5f8fe697e990b8164f7976eb59c9b9a"
+    },
+    {
+      "name": "OfficeInfo.tsx",
+      "sha256": "ae165ee03f27b5aa4671299030c733b8425453bc0ec182837f658e479babddce"
+    },
+    {
+      "name": "OfficeProfilePanel.tsx",
+      "sha256": "c48e5dd4ad5b948d310995ea999781d10cf8619f60f4a031186574e086ec3164"
+    },
+    {
+      "name": "OfficeRoleStatus.tsx",
+      "sha256": "170e568ed8a5cfa93ff85b3928b0ad2f80a0977b2d1da2562d0e0bcee28291bc"
+    },
+    {
+      "name": "OfficeScene.tsx",
+      "sha256": "0ecd370eac13262f1d9f8cd62de5e099ca82fcb5c34031f3f2f57933f77e4cc9"
+    },
+    {
+      "name": "OfficeTaskDetail.tsx",
+      "sha256": "857dd002870873fef8c28a810a27e2ac43e95aea00851fcef200ee0f42796e2e"
+    },
+    {
+      "name": "OfficeView.tsx",
+      "sha256": "1b3c2363d947127b29eb606b1992acd81d0282c7eec1d7cea13049dd67177c2d"
+    },
+    {
+      "name": "profiles.ts",
+      "sha256": "af516b7049ac7b0a53c6b5489fc928d3a65ca3a91bce6bf2f12328d8617bea93"
+    },
+    {
+      "name": "scene-layout.test.ts",
+      "sha256": "0ea9f6b1089088335d065a4cadc746845e3ce993934c9e96cf6faa0109243128"
+    },
+    {
+      "name": "scene-layout.ts",
+      "sha256": "47e2f6e038d80401509f656c89f7e3cb6318038ad74681a3c188d4511aefce8a"
+    },
+    {
+      "name": "scene-preview-people.tsx",
+      "sha256": "a52b942713b3ac9517f46cfa178e4630a74ebe31785f13655f87e0a8380ab983"
+    },
+    {
+      "name": "scene-static-batch.test.ts",
+      "sha256": "1462616cc843dd104b143e0122827f14cc16bdd6d40f6366d8f76ba7ef1b2f8a"
+    },
+    {
+      "name": "scene-static-batch.ts",
+      "sha256": "58034d529ea7b721f4933b1b5c2bab0e731c4a45f10eff26a9b3b2ab0e465023"
+    },
+    {
+      "name": "scene.module.css",
+      "sha256": "362a09e32bdfe4a2fb157fea586fb094df35d81b6e130c31646436b660056617"
+    }
+  ],
+  "functionalPassed": false,
+  "failure": {
+    "message": "locator.waitFor: Timeout 45000ms exceeded. Call log: \u001b[2m - waiting for getByRole('region', { name: '3D office preview', exact: true }).getByRole('button', { name: 'Adrian', exact: true }) to be visible\u001b[22m"
+  },
+  "cleanup": {
+    "passed": true,
+    "actions": [
+      {
+        "kind": "client",
+        "resource": "browser",
+        "outcome": "closed"
+      },
+      {
+        "kind": "client",
+        "resource": "database",
+        "outcome": "closed"
+      },
+      {
+        "kind": "process",
+        "name": "ui-ux-owner",
+        "pid": 43796,
+        "ports": [
+          3138
+        ],
+        "outcome": "terminated",
+        "taskkillStatus": 0,
+        "exit": {
+          "code": 1,
+          "signal": null
+        }
+      },
+      {
+        "kind": "postgres",
+        "port": 55499,
+        "data": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261108-063331-307542b3\\pg\\pgdata",
+        "outcome": "stopped",
+        "pgCtlStatus": 0,
+        "resolved": true
+      }
+    ],
+    "failures": [],
+    "unresolved": []
+  },
+  "remainingProcesses": [],
+  "passed": false,
+  "completedAt": "2026-11-08T06:35:07.092Z"
+}

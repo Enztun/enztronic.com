@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "newWorkerIdentity": "office-ca99ffc2-f0c6-4c4e-b73f-692d676f8c9a",
+  "previousWorkerIdentity": "office-6bc6c5fb-09d1-485f-89bc-9feceb8fd269",
+  "newHeartbeatAdvancing": true,
+  "oldHeartbeatNoLongerAdvancing": true,
+  "queueWasEmpty": true,
+  "ownedProcessesStopped": true,
+  "gracefulStopClaimed": false,
+  "productionTasksCreated": false
+}

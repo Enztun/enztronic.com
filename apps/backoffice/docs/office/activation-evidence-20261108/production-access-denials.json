@@ -1,0 +1,55 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "route": "/api/office/assets",
+      "method": "GET",
+      "status": 401,
+      "code": "missing_token",
+      "passed": true,
+      "cacheControl": "private, no-store, max-age=0"
+    },
+    {
+      "route": "/api/office/events?workspaceId=00000000-0000-0000-0000-000000000000&after=0",
+      "method": "GET",
+      "status": 401,
+      "code": "missing_token",
+      "passed": true,
+      "cacheControl": "private, no-store, max-age=0"
+    },
+    {
+      "route": "/api/office/artifacts/00000000-0000-0000-0000-000000000000?workspaceId=00000000-0000-0000-0000-000000000000",
+      "method": "GET",
+      "status": 401,
+      "code": "missing_token",
+      "passed": true,
+      "cacheControl": "private, no-store, max-age=0"
+    },
+    {
+      "route": "/api/office",
+      "method": "POST",
+      "status": 401,
+      "code": "missing_token",
+      "passed": true,
+      "cacheControl": "private, no-store, max-age=0"
+    },
+    {
+      "route": "/api/office",
+      "method": "POST",
+      "status": 401,
+      "code": "missing_token",
+      "passed": true,
+      "cacheControl": "private, no-store, max-age=0"
+    },
+    {
+      "route": "/api/office",
+      "method": "POST",
+      "status": 401,
+      "code": "invalid_token",
+      "passed": true,
+      "cacheControl": "private, no-store, max-age=0"
+    }
+  ],
+  "signedInActorTests": false,
+  "productionTaskOrApprovalCreated": false
+}

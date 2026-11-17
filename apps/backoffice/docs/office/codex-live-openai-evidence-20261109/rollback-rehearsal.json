@@ -1,0 +1,137 @@
+﻿{
+    "at":  "2026-11-09T16:58:56.490Z",
+    "scope":  "accepted old sealed runtime migration-004 compatibility",
+    "checks":  [
+                   {
+                       "name":  "old runtime succeeds before and after migration 004",
+                       "passed":  true,
+                       "exit":  {
+                                    "code":  0,
+                                    "signal":  null
+                                }
+                   }
+               ],
+    "oldRuntime":  {
+                       "destination":  "C:\\Users\\hoyec\\AppData\\Local\\Temp\\office-old-runtime-compatibility-e3c7303dbc1c46d69ba8d749935cf058\\old-sealed-runtime",
+                       "verified":  true,
+                       "files":  1296,
+                       "manifestSha256":  "ee0baaf3e076202c0e625cb9151ecdc8edcf942bb67a41497b926242c2c8fd3a"
+                   },
+    "fixturePort":  55562,
+    "rehearsal":  {
+                      "checks":  [
+                                     {
+                                         "name":  "migration003",
+                                         "passed":  true,
+                                         "steps":  16,
+                                         "completedTasks":  8,
+                                         "providerRequests":  0
+                                     },
+                                     {
+                                         "name":  "migration004-old-runtime-rollback",
+                                         "passed":  true,
+                                         "steps":  16,
+                                         "completedTasks":  8,
+                                         "providerRequests":  0
+                                     }
+                                 ],
+                      "runtimeSource":  "C:\\Users\\hoyec\\AppData\\Local\\Temp\\office-old-runtime-compatibility-e3c7303dbc1c46d69ba8d749935cf058\\old-sealed-runtime\\apps\\backoffice\\src\\lib\\office-runtime\\index.ts",
+                      "network":  "loopback fixture PostgreSQL only",
+                      "providerRequests":  0,
+                      "migration003Gate":  {
+                                               "readOnly":  true,
+                                               "liveSchema":  false,
+                                               "unsettledLiveReservations":  0,
+                                               "unresolvedOpenAIOperations":  0,
+                                               "activeLiveLeases":  0,
+                                               "canUsePreviousWorker":  true
+                                           },
+                      "connectionsRestartedAfterMigration":  true,
+                      "defaults":  {
+                                       "liveEnabled":  false,
+                                       "newLimitsZero":  true
+                                   },
+                      "ownerOnlyLimitsPreserved":  true,
+                      "quiescentRollbackGate":  {
+                                                    "readOnly":  true,
+                                                    "liveSchema":  true,
+                                                    "unsettledLiveReservations":  0,
+                                                    "unresolvedOpenAIOperations":  0,
+                                                    "activeLiveLeases":  0,
+                                                    "canUsePreviousWorker":  true
+                                                },
+                      "activeLeaseGate":  {
+                                              "readOnly":  true,
+                                              "liveSchema":  true,
+                                              "unsettledLiveReservations":  1,
+                                              "unresolvedOpenAIOperations":  0,
+                                              "activeLiveLeases":  1,
+                                              "canUsePreviousWorker":  false
+                                          },
+                      "holdOnlyGate":  {
+                                           "readOnly":  true,
+                                           "liveSchema":  true,
+                                           "unsettledLiveReservations":  1,
+                                           "unresolvedOpenAIOperations":  0,
+                                           "activeLiveLeases":  0,
+                                           "canUsePreviousWorker":  false
+                                       },
+                      "unsafeRollbackGate":  {
+                                                 "readOnly":  true,
+                                                 "liveSchema":  true,
+                                                 "unsettledLiveReservations":  1,
+                                                 "unresolvedOpenAIOperations":  1,
+                                                 "activeLiveLeases":  0,
+                                                 "canUsePreviousWorker":  false
+                                             },
+                      "oldWorkerUnsafeRecoveryReproduced":  {
+                                                                "dispatched":  true,
+                                                                "providerRequestIdNull":  true,
+                                                                "expectedHeldMicrounits":  5000,
+                                                                "actualUsageMicrounits":  0,
+                                                                "reservedAfter":  0,
+                                                                "spentAfter":  0,
+                                                                "gateStillUnsafe":  true
+                                                            },
+                      "canUsePreviousWorkerrRollback":  "Disable live/submissions; keep corrected new runtime to drain/recover and preserve unknown-operation holds; remove key and restart corrected worker demo-only. Application may roll back with migration004 retained. Never start old worker with active live leases, dispatched unsettled reservations, or unresolved OpenAI operations."
+                  },
+    "functionalPassed":  true,
+    "cleanup":  {
+                    "passed":  true,
+                    "actions":  [
+                                    {
+                                        "kind":  "process",
+                                        "name":  "old-runtime-compatibility",
+                                        "pid":  70056,
+                                        "ports":  [
+
+                                                  ],
+                                        "outcome":  "already_exited",
+                                        "exit":  {
+                                                     "code":  0,
+                                                     "signal":  null
+                                                 }
+                                    },
+                                    {
+                                        "kind":  "postgres",
+                                        "port":  55562,
+                                        "data":  "C:\\Users\\hoyec\\AppData\\Local\\Temp\\office-old-runtime-compatibility-e3c7303dbc1c46d69ba8d749935cf058\\pgdata",
+                                        "outcome":  "stopped",
+                                        "pgCtlStatus":  0,
+                                        "resolved":  true
+                                    }
+                                ],
+                    "failures":  [
+
+                                 ],
+                    "unresolved":  [
+
+                                   ]
+                },
+    "remainingProcesses":  [
+
+                           ],
+    "passed":  true,
+    "migration004Sha256":  "afacd9683cc43aba4e43d7e207ece8386177244e126770c267daeb63596718e1",
+    "rollbackFenceSha256":  "c6f1e6b2ef946a3797563e8a50548283004dfcc1d9c1fbd03f65933a6636b8a9"
+}

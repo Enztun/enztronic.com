@@ -1,0 +1,107 @@
+{
+  "recordedAtUtc": "2026-10-21T18:37:42.336Z",
+  "fixture": "Dedicated loopback PostgreSQL on 55439; synthetic data only",
+  "browserClosedAtUtc": "2026-10-21T18:22:48.648Z",
+  "workerStartedAtUtc": "2026-10-21T18:24:23.472Z",
+  "committedPipelineSteps": 16,
+  "browserReopenedAfterWorkerCompletion": true,
+  "tasks": [
+    {
+      "id": "106931c7-8406-4739-a771-5e750d803a8e",
+      "parent_task_id": "7730dc9a-4590-4090-9b34-85da7f1b86e7",
+      "agent_id": "nadia",
+      "state": "completed",
+      "version": "7",
+      "acceptance_evidence_id": "c18c7166-46b5-4ec9-a3e7-4b39eeace9d4"
+    },
+    {
+      "id": "1811576a-39c6-46c9-8121-ba6faa5c69ee",
+      "parent_task_id": "7730dc9a-4590-4090-9b34-85da7f1b86e7",
+      "agent_id": "lisa",
+      "state": "completed",
+      "version": "7",
+      "acceptance_evidence_id": "c18c7166-46b5-4ec9-a3e7-4b39eeace9d4"
+    },
+    {
+      "id": "1c76787e-76fe-4ac5-8315-a365b5b1e4ff",
+      "parent_task_id": "7730dc9a-4590-4090-9b34-85da7f1b86e7",
+      "agent_id": "adrian",
+      "state": "completed",
+      "version": "7",
+      "acceptance_evidence_id": "c18c7166-46b5-4ec9-a3e7-4b39eeace9d4"
+    },
+    {
+      "id": "1e06e88c-fa75-4fb6-b18e-ebc7f133a7a2",
+      "parent_task_id": "7730dc9a-4590-4090-9b34-85da7f1b86e7",
+      "agent_id": "theo",
+      "state": "completed",
+      "version": "7",
+      "acceptance_evidence_id": "c18c7166-46b5-4ec9-a3e7-4b39eeace9d4"
+    },
+    {
+      "id": "580056ea-816b-4ce9-9dcc-fe786d27cdda",
+      "parent_task_id": "7730dc9a-4590-4090-9b34-85da7f1b86e7",
+      "agent_id": "leo",
+      "state": "completed",
+      "version": "7",
+      "acceptance_evidence_id": "c18c7166-46b5-4ec9-a3e7-4b39eeace9d4"
+    },
+    {
+      "id": "7730dc9a-4590-4090-9b34-85da7f1b86e7",
+      "parent_task_id": null,
+      "agent_id": "adrian",
+      "state": "completed",
+      "version": "8",
+      "acceptance_evidence_id": "c18c7166-46b5-4ec9-a3e7-4b39eeace9d4"
+    },
+    {
+      "id": "a3f1b775-901f-4d9b-a149-add7e53c695e",
+      "parent_task_id": "7730dc9a-4590-4090-9b34-85da7f1b86e7",
+      "agent_id": "clara",
+      "state": "completed",
+      "version": "7",
+      "acceptance_evidence_id": "c18c7166-46b5-4ec9-a3e7-4b39eeace9d4"
+    },
+    {
+      "id": "c66c388f-c754-4601-874d-a2105e42676e",
+      "parent_task_id": "7730dc9a-4590-4090-9b34-85da7f1b86e7",
+      "agent_id": "sam",
+      "state": "completed",
+      "version": "7",
+      "acceptance_evidence_id": "c18c7166-46b5-4ec9-a3e7-4b39eeace9d4"
+    }
+  ],
+  "approvals": [
+    {
+      "id": "6cd09c5e-dc65-4fb8-88bd-39f10fdc7d96",
+      "task_id": "7730dc9a-4590-4090-9b34-85da7f1b86e7",
+      "state": "approved",
+      "artifact_id": "2f8182f9-02ac-4ab1-b79d-a4975230c51c",
+      "artifact_hash": "27f3970747260276b8d144dc64813cba018e3073277e80ab16cddedb393aff42",
+      "acceptance_evidence_id": "c18c7166-46b5-4ec9-a3e7-4b39eeace9d4"
+    }
+  ],
+  "counts": {
+    "runs": 17,
+    "artifacts": 8,
+    "passed_reviews": 8,
+    "acceptances": 1
+  },
+  "workers": [
+    {
+      "id": "office-2cafeeef-63cc-412d-b7d1-b310a7ca0dab",
+      "stopping": false,
+      "heartbeat_at": "2026-10-21T18:37:41.814Z"
+    }
+  ],
+  "notes": [
+    {
+      "sequence": "67",
+      "event_type": "task_note_added",
+      "actor_type": "owner",
+      "source": "authenticated_owner_action"
+    }
+  ],
+  "limitedWorkerRole": "office_preview_worker_20261022",
+  "productionEffects": false
+}

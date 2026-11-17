@@ -1,0 +1,35 @@
+﻿{
+    "source":  "D:\\Enztronic\\apps\\backoffice\\node_modules",
+    "destination":  "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\dependencies-layout-e87700c7-e161-433d-82ea-fdc9c55b57cd\\node_modules",
+    "copiedAt":  "2026-11-08T06:31:17.4232694Z",
+    "copyExitCode":  1,
+    "packageInstallPerformed":  false,
+    "sourceModified":  false,
+    "criticalChecks":  [
+                           {
+                               "path":  "next\\package.json",
+                               "sha256":  "e84ada0a68191fed192392bfb8ee35ad4ed8e7439f645a40dd48cf139588ddc5"
+                           },
+                           {
+                               "path":  "react\\package.json",
+                               "sha256":  "51966ae9c8c377ff592b5d69c980966992101bc6791bf83a1e5c7ad9bcefa7f4"
+                           },
+                           {
+                               "path":  "react-dom\\package.json",
+                               "sha256":  "447acd72cdb6a966d9db967729e286e7cbb4a09ea61fddd45e12c2a97fd4cfb6"
+                           },
+                           {
+                               "path":  "typescript\\package.json",
+                               "sha256":  "822ef7ca6452205657b6288b066481ecf508bfbf43455d715cf7d3ec457561e6"
+                           },
+                           {
+                               "path":  "next\\dist\\client\\app-next-dev.js",
+                               "sha256":  "e06a57eaaa85fcb17804a23b95c6f8f55e88f260f9a07dc4fb6de0dd491fe8ca"
+                           },
+                           {
+                               "path":  "next\\dist\\bin\\next",
+                               "sha256":  "925f10f488ca8bf8fcf062aeef14024b33b1739e90b539f7f8af264dd85ab3c3"
+                           }
+                       ],
+    "selfResolutionLayout":  "Installed packages reside inside a directory named node_modules"
+}

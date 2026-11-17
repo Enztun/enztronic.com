@@ -1,0 +1,102 @@
+{
+  "status": "opened_and_inspected_native_source_not_production_approved",
+  "source": "D:\\Enztronic\\apps\\backoffice\\office-assets\\proof\\source\\office\\common-biped-rig.blend",
+  "sha256": "25da3477ff34ca4bec1f1959e025fa96649e6e09d84fbce5c7a19a565693db1b",
+  "blender_version": "4.5.14 LTS",
+  "editable_mesh": true,
+  "vertices": 5861,
+  "armature_bones": 22,
+  "actions": {
+    "handoff_gesture": {
+      "frame_range": [
+        0.0,
+        48.0
+      ],
+      "duration_seconds": 2.0
+    },
+    "idle_stand": {
+      "frame_range": [
+        0.0,
+        72.0
+      ],
+      "duration_seconds": 3.0
+    },
+    "seated_idle": {
+      "frame_range": [
+        0.0,
+        96.0
+      ],
+      "duration_seconds": 4.0
+    },
+    "seated_work": {
+      "frame_range": [
+        0.0,
+        96.0
+      ],
+      "duration_seconds": 4.0
+    },
+    "sit_down": {
+      "frame_range": [
+        0.0,
+        30.0
+      ],
+      "duration_seconds": 1.25
+    },
+    "stand_up": {
+      "frame_range": [
+        0.0,
+        30.0
+      ],
+      "duration_seconds": 1.25
+    },
+    "walk": {
+      "frame_range": [
+        0.0,
+        24.0
+      ],
+      "duration_seconds": 1.0
+    }
+  },
+  "required_actions_present": true,
+  "skin_modifier_matches_rig": true,
+  "weight_groups": 17,
+  "max_influences": 2,
+  "mesh_object_transform": {
+    "location": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "rotation_euler": [
+      0.0,
+      -0.0,
+      0.0
+    ]
+  },
+  "root_rest_head_native_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "root_rest_tail_native_m": [
+    0.0,
+    0.0,
+    0.11999999731779099
+  ],
+  "external_images": [],
+  "source_pose_access": "Armature data Pose Position REST shows editable common A-pose; named pose bones are FK controls.",
+  "art_and_docks_approval": false,
+  "walk_ankle_check": {
+    "samples": 50,
+    "target_max_error_m": 5.748355669995469e-06,
+    "planted_height_max_error_m": 5.6183338165288754e-06,
+    "authored_stance_speed_native_y_m_per_s": 0.8,
+    "navigation_speed_local_forward_m_per_s": 0.8,
+    "scope": "Fresh-source FK ankle positions, not browser shoe-ground or gait art acceptance"
+  }
+}

@@ -1,0 +1,29 @@
+.scene { position: relative; min-width: 0; background: var(--panel); border-radius: 13px; }
+.viewport { height: clamp(360px, 52vh, 560px); width: 100%; position: relative; overflow: hidden; border-radius: 13px 13px 0 0; }
+.controls { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 7px; min-height: 54px; padding: 9px 11px; border-top: 1px solid var(--line); color: var(--muted); }
+.button, .infoButton { display: inline-flex; justify-content: center; align-items: center; gap: 6px; min-height: 34px; padding: 7px 10px; color: var(--ink); font: inherit; font-size: 11px; font-weight: 600; border: 1px solid var(--line); border-radius: 7px; background: var(--panel-raised); cursor: pointer; list-style: none; }
+.button::-webkit-details-marker, .infoButton::-webkit-details-marker { display: none; }
+.button:hover, .infoButton:hover { border-color: var(--accent); }
+.button:focus-visible, .infoButton:focus-visible, .quality select:focus-visible, .option input:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.zoom { display: inline-flex; gap: 3px; }
+.gestureHint { margin-left: 4px; font-size: 10px; }
+.options { margin-left: auto; }
+.information, .options { position: relative; }
+.infoButton { padding: 7px; color: var(--muted); background: transparent; border-color: transparent; }
+.popover { position: absolute; z-index: 25; bottom: calc(100% + 10px); right: 0; width: min(320px, calc(100vw - 64px)); padding: 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); box-shadow: 0 14px 44px #0005; color: var(--muted); font-size: 11px; line-height: 1.75; }
+.popover strong { color: var(--ink); font-size: 12px; }
+.popover p { margin: 9px 0 0; }
+.quality { display: flex; flex-direction: column; gap: 7px; color: var(--ink); font-size: 11px; font-weight: 600; }
+.quality select { min-height: 36px; padding: 7px 9px; border: 1px solid var(--line); border-radius: 7px; color: var(--ink); background: var(--canvas); font: inherit; }
+.optionsLabel { margin-top: 13px !important; }
+.pan { display: flex; gap: 5px; margin: 7px 0 12px; }
+.pan .button { flex: 1; font-size: 15px; }
+.option { display: flex; align-items: center; gap: 8px; min-height: 35px; font-size: 11px; }
+.option input { accent-color: var(--accent); }
+.loading { pointer-events: none; position: absolute; top: 12px; left: 12px; margin: 0; padding: 8px 11px; border-radius: 8px; background: var(--panel); color: var(--ink); font-size: 12px; }
+.scene .personName { border: 1px solid #bdc8d4; border-radius: 6px; padding: 4px 7px; font: inherit; font-size: 11px; line-height: 1.2; font-weight: 650; color: #23354b; background: #fffffff2; box-shadow: 0 2px 5px #172b4420; white-space: nowrap; cursor: pointer; }
+.scene .personName[aria-pressed="true"] { border-color: #2564cf; color: white; background: #2564cf; }
+.scene .personName:focus-visible { outline: 3px solid #4384eb; outline-offset: 3px; }
+.failure { display: flex; height: 100%; flex-direction: column; align-items: center; justify-content: center; gap: 15px; padding: 24px; text-align: center; }
+.failure p { max-width: 500px; color: var(--ink); font-size: 12px; line-height: 1.8; }
+@media (max-width: 620px) { .viewport { height: 390px; } .gestureHint { display: none; } .controls { padding: 8px; gap: 5px; } .button { padding: 7px 8px; } .popover { width: min(290px, calc(100vw - 48px)); } }

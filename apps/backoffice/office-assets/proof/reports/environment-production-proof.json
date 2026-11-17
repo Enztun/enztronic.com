@@ -1,0 +1,813 @@
+{
+  "status": "technical_proof_pending_visual_and_browser_acceptance",
+  "production_approved": false,
+  "blender_version": "4.5.14 LTS",
+  "blender_build_hash": "62c1db4208e8",
+  "units": "meters",
+  "glTF_axes": "+Y up, +Z forward/rear",
+  "generator": "scripts/office-modeling/build_office_environment.py",
+  "generator_sha256": "104adbf4dd96f0ba7407a18c0b59fb50c5bb2fcd0ce2efbc60ecab66a31bdb64",
+  "floorplan_sha256": "763c7ba2fdfd8df7de9f730a9e90dab661698d4d0ffe0e3de78a0cf5c4551592",
+  "external_meshes_textures_fonts": [],
+  "textures": [],
+  "UV_usage": "Image textures are unused; UV attributes omitted from GLB export",
+  "compression": "None; no decoder dependency",
+  "materials": "Portable PBR constants; no Blender-only procedural nodes, no texture URLs",
+  "provenance": "Original procedural geometry and letter polylines authored for this implementation; owner rights/visual acceptance pending, no purchased or downloaded asset inputs",
+  "assets": [
+    {
+      "glb": "assets/office/office-shell.glb",
+      "native_source": "source/office/office-shell.blend",
+      "bytes": 4684,
+      "sha256": "0920c07285a0165b3a23f409187d98c87a7e8bcc4f8d390528ed41e182ff51e6",
+      "source_sha256": "a357e5e1dda80fa01f1b08e2ce5770a7b013c01a05063b103f8e144c13ad6e31",
+      "nodes": [
+        {
+          "name": "FloorSlab",
+          "min_xyz_m": [
+            0.0,
+            -0.25,
+            -0.0
+          ],
+          "max_xyz_m": [
+            18.0,
+            0.0,
+            13.0
+          ],
+          "size_xyz_m": [
+            18.0,
+            0.25,
+            13.0
+          ],
+          "triangles": 12,
+          "vertices": 8,
+          "materials": [
+            "Warm limestone"
+          ],
+          "pivot_xyz_m": [
+            0,
+            0,
+            0
+          ],
+          "transforms_applied": true
+        },
+        {
+          "name": "WallRear",
+          "min_xyz_m": [
+            0.0,
+            0.0,
+            12.850000381469727
+          ],
+          "max_xyz_m": [
+            18.0,
+            3.200000047683716,
+            13.0
+          ],
+          "size_xyz_m": [
+            18.0,
+            3.200000047683716,
+            0.14999961853027344
+          ],
+          "triangles": 12,
+          "vertices": 8,
+          "materials": [
+            "Chalk plaster"
+          ],
+          "pivot_xyz_m": [
+            0,
+            0,
+            0
+          ],
+          "transforms_applied": true
+        },
+        {
+          "name": "WallLeftCutaway",
+          "min_xyz_m": [
+            0.0,
+            0.0,
+            -0.0
+          ],
+          "max_xyz_m": [
+            0.15000000596046448,
+            1.100000023841858,
+            13.0
+          ],
+          "size_xyz_m": [
+            0.15000000596046448,
+            1.100000023841858,
+            13.0
+          ],
+          "triangles": 12,
+          "vertices": 8,
+          "materials": [
+            "Chalk plaster"
+          ],
+          "pivot_xyz_m": [
+            0,
+            0,
+            0
+          ],
+          "transforms_applied": true
+        }
+      ]
+    },
+    {
+      "glb": "assets/office/studio-furniture.glb",
+      "native_source": "source/office/studio-furniture.blend",
+      "bytes": 577312,
+      "sha256": "c4683fdf8d17f726c9fb3180c2121811c989fc62864fb52df568a8d46e67c353",
+      "source_sha256": "4422b02aa1d0ccfa8e581a12a3f05e828614a3e0663e23815f5cff798a5bd751",
+      "nodes": [
+        {
+          "name": "Desk_160x080",
+          "min_xyz_m": [
+            -0.800000011920929,
+            0.0,
+            -0.4000000059604645
+          ],
+          "max_xyz_m": [
+            0.800000011920929,
+            0.75,
+            0.4000000059604645
+          ],
+          "size_xyz_m": [
+            1.600000023841858,
+            0.75,
+            0.800000011920929
+          ],
+          "triangles": 504,
+          "vertices": 272,
+          "materials": [
+            "Natural oak",
+            "Oak end grain"
+          ],
+          "pivot_xyz_m": [
+            0,
+            0,
+            0
+          ],
+          "transforms_applied": true
+        },
+        {
+          "name": "Desk_180x080",
+          "min_xyz_m": [
+            -0.8999999761581421,
+            0.0,
+            -0.4000000059604645
+          ],
+          "max_xyz_m": [
+            0.8999999761581421,
+            0.75,
+            0.4000000059604645
+          ],
+          "size_xyz_m": [
+            1.7999999523162842,
+            0.75,
+            0.800000011920929
+          ],
+          "triangles": 504,
+          "vertices": 272,
+          "materials": [
+            "Natural oak",
+            "Oak end grain"
+          ],
+          "pivot_xyz_m": [
+            0,
+            0,
+            0
+          ],
+          "transforms_applied": true
+        },
+        {
+          "name": "DeskChair",
+          "min_xyz_m": [
+            -0.40000003576278687,
+            -2.2351738238057806e-08,
+            -0.4000000059604645
+          ],
+          "max_xyz_m": [
+            0.3999999761581421,
+            1.0499999523162842,
+            0.4000000059604645
+          ],
+          "size_xyz_m": [
+            0.800000011920929,
+            1.0499999746680224,
+            0.800000011920929
+          ],
+          "triangles": 1288,
+          "vertices": 684,
+          "materials": [
+            "Cobalt woven accent",
+            "Deep navy upholstery",
+            "Graphite powdercoat"
+          ],
+          "pivot_xyz_m": [
+            0,
+            0,
+            0
+          ],
+          "transforms_applied": true
+        },
+        {
+          "name": "ReviewTable_360x140",
+          "min_xyz_m": [
+            -1.7999999523162842,
+            0.0,
+            -0.699999988079071
+          ],
+          "max_xyz_m": [
+            1.7999999523162842,
+            0.75,
+            0.699999988079071
+          ],
+          "size_xyz_m": [
+            3.5999999046325684,
+            0.75,
+            1.399999976158142
+          ],
+          "triangles": 432,
+          "vertices": 224,
+          "materials": [
+            "Graphite powdercoat",
+            "Natural oak",
+            "Oak end grain"
+          ],
+          "pivot_xyz_m": [
+            0,
+            0,
+            0
+          ],
+          "transforms_applied": true
+        },
+        {
+          "name": "ReviewChair",
+          "min_xyz_m": [
+            -0.3499999940395355,
+            0.0,
+            -0.4000000059604645
+          ],
+          "max_xyz_m": [
+            0.3499999940395355,
+            0.949999988079071,
+            0.4000000059604645
+          ],
+          "size_xyz_m": [
+            0.699999988079071,
+            0.949999988079071,
+            0.800000011920929
+          ],
+          "triangles": 792,
+          "vertices": 416,
+          "materials": [
+            "Deep navy upholstery",
+            "Natural oak"
+          ],
+          "pivot_xyz_m": [
+            0,
+            0,
+            0
+          ],
+          "transforms_applied": true
+        },
+        {
+          "name": "ClientArmchair",
+          "min_xyz_m": [
+            -0.42500001192092896,
+            1.4901161193847656e-08,
+            -0.42500001192092896
+          ],
+          "max_xyz_m": [
+            0.42500001192092896,
+            0.949999988079071,
+            0.42500001192092896
+          ],
+          "size_xyz_m": [
+            0.8500000238418579,
+            0.9499999731779099,
+            0.8500000238418579
+          ],
+          "triangles": 684,
+          "vertices": 360,
+          "materials": [
+            "Cobalt woven accent",
+            "Deep navy upholstery",
+            "Natural oak"
+          ],
+          "pivot_xyz_m": [
+            0,
+            0,
+            0
+          ],
+          "transforms_applied": true
+        },
+        {
+          "name": "ClientSideTable",
+          "min_xyz_m": [
+            -0.2750000059604645,
+            0.0,
+            -0.2750000059604645
+          ],
+          "max_xyz_m": [
+            0.2750000059604645,
+            0.5,
+            0.2750000059604645
+          ],
+          "size_xyz_m": [
+            0.550000011920929,
+            0.5,
+            0.550000011920929
+          ],
+          "triangles": 504,
+          "vertices": 272,
+          "materials": [
+            "Natural oak",
+            "Oak end grain"
+          ],
+          "pivot_xyz_m": [
+            0,
+            0,
+            0
+          ],
+          "transforms_applied": true
+        },
+        {
+          "name": "Sofa2",
+          "min_xyz_m": [
+            -1.0,
+            1.4901161193847656e-08,
+            -0.44999998807907104
+          ],
+          "max_xyz_m": [
+            1.0,
+            0.9000000357627869,
+            0.44999998807907104
+          ],
+          "size_xyz_m": [
+            2.0,
+            0.9000000208616257,
+            0.8999999761581421
+          ],
+          "triangles": 792,
+          "vertices": 416,
+          "materials": [
+            "Deep navy upholstery",
+            "Natural oak"
+          ],
+          "pivot_xyz_m": [
+            0,
+            0,
+            0
+          ],
+          "transforms_applied": true
+        },
+        {
+          "name": "CoffeeCabinet",
+          "min_xyz_m": [
+            -0.30000001192092896,
+            0.0,
+            -0.800000011920929
+          ],
+          "max_xyz_m": [
+            0.30000001192092896,
+            1.100000023841858,
+            0.800000011920929
+          ],
+          "size_xyz_m": [
+            0.6000000238418579,
+            1.100000023841858,
+            1.600000023841858
+          ],
+          "triangles": 612,
+          "vertices": 320,
+          "materials": [
+            "Deep navy upholstery",
+            "Graphite powdercoat",
+            "Natural oak",
+            "Satin porcelain"
+          ],
+          "pivot_xyz_m": [
+            0,
+            0,
+            0
+          ],
+          "transforms_applied": true
+        },
+        {
+          "name": "LowShelf_200x040",
+          "min_xyz_m": [
+            -1.0,
+            0.0,
+            -0.19999998807907104
+          ],
+          "max_xyz_m": [
+            1.0,
+            1.100000023841858,
+            0.20000000298023224
+          ],
+          "size_xyz_m": [
+            2.0,
+            1.100000023841858,
+            0.3999999910593033
+          ],
+          "triangles": 2052,
+          "vertices": 1064,
+          "materials": [
+            "Cobalt woven accent",
+            "Deep navy upholstery",
+            "Natural oak"
+          ],
+          "pivot_xyz_m": [
+            0,
+            0,
+            0
+          ],
+          "transforms_applied": true
+        },
+        {
+          "name": "Plant",
+          "min_xyz_m": [
+            -0.26393821835517883,
+            0.0,
+            -0.26300641894340515
+          ],
+          "max_xyz_m": [
+            0.23606178164482117,
+            1.399999976158142,
+            0.23699359595775604
+          ],
+          "size_xyz_m": [
+            0.5,
+            1.399999976158142,
+            0.5000000149011612
+          ],
+          "triangles": 620,
+          "vertices": 406,
+          "materials": [
+            "Dark soil",
+            "Leaf green",
+            "Leaf light",
+            "Satin porcelain"
+          ],
+          "pivot_xyz_m": [
+            0,
+            0,
+            0
+          ],
+          "transforms_applied": true
+        },
+        {
+          "name": "Monitor",
+          "min_xyz_m": [
+            -0.3100000023841858,
+            0.0,
+            -0.10000000149011612
+          ],
+          "max_xyz_m": [
+            0.3100000023841858,
+            0.5400000214576721,
+            0.10000000149011612
+          ],
+          "size_xyz_m": [
+            0.6200000047683716,
+            0.5400000214576721,
+            0.20000000298023224
+          ],
+          "triangles": 432,
+          "vertices": 224,
+          "materials": [
+            "Display glass",
+            "Graphite powdercoat"
+          ],
+          "pivot_xyz_m": [
+            0,
+            0,
+            0
+          ],
+          "transforms_applied": true
+        },
+        {
+          "name": "KeyboardMouse",
+          "min_xyz_m": [
+            -0.23999999463558197,
+            0.0,
+            -0.06499999761581421
+          ],
+          "max_xyz_m": [
+            0.26249998807907104,
+            0.03799999877810478,
+            0.06499999761581421
+          ],
+          "size_xyz_m": [
+            0.502499982714653,
+            0.03799999877810478,
+            0.12999999523162842
+          ],
+          "triangles": 5400,
+          "vertices": 2800,
+          "materials": [
+            "Graphite powdercoat",
+            "Satin porcelain"
+          ],
+          "pivot_xyz_m": [
+            0,
+            0,
+            0
+          ],
+          "transforms_applied": true
+        },
+        {
+          "name": "ProjectBoard",
+          "min_xyz_m": [
+            -1.75,
+            0.0,
+            -0.02250000089406967
+          ],
+          "max_xyz_m": [
+            1.75,
+            1.149999976158142,
+            0.03200000151991844
+          ],
+          "size_xyz_m": [
+            3.5,
+            1.149999976158142,
+            0.05450000241398811
+          ],
+          "triangles": 216,
+          "vertices": 112,
+          "materials": [
+            "Chalk plaster",
+            "Natural oak"
+          ],
+          "pivot_xyz_m": [
+            0,
+            0,
+            0
+          ],
+          "transforms_applied": true
+        },
+        {
+          "name": "SharedDisplay",
+          "min_xyz_m": [
+            -0.8999999761581421,
+            0.0,
+            -0.02250000089406967
+          ],
+          "max_xyz_m": [
+            0.8999999761581421,
+            1.0499999523162842,
+            0.03200000151991844
+          ],
+          "size_xyz_m": [
+            1.7999999523162842,
+            1.0499999523162842,
+            0.05450000241398811
+          ],
+          "triangles": 216,
+          "vertices": 112,
+          "materials": [
+            "Display glass",
+            "Graphite powdercoat"
+          ],
+          "pivot_xyz_m": [
+            0,
+            0,
+            0
+          ],
+          "transforms_applied": true
+        },
+        {
+          "name": "BrandPlaque",
+          "min_xyz_m": [
+            -1.149999976158142,
+            0.0,
+            -0.019999999552965164
+          ],
+          "max_xyz_m": [
+            1.149999976158142,
+            0.3499999940395355,
+            0.03500000759959221
+          ],
+          "size_xyz_m": [
+            2.299999952316284,
+            0.3499999940395355,
+            0.05500000715255737
+          ],
+          "triangles": 908,
+          "vertices": 536,
+          "materials": [
+            "Deep navy upholstery",
+            "Satin porcelain"
+          ],
+          "pivot_xyz_m": [
+            0,
+            0,
+            0
+          ],
+          "transforms_applied": true
+        }
+      ]
+    }
+  ],
+  "source_open_checks": [
+    {
+      "source": "source/office/office-shell.blend",
+      "opened_in_blender": true,
+      "version": "4.5.14 LTS",
+      "mesh_nodes": 3,
+      "bounds_roundtrip_errors": []
+    },
+    {
+      "source": "source/office/studio-furniture.blend",
+      "opened_in_blender": true,
+      "version": "4.5.14 LTS",
+      "mesh_nodes": 16,
+      "bounds_roundtrip_errors": []
+    }
+  ],
+  "component_dimension_checks": [
+    {
+      "name": "Desk_160x080",
+      "difference_from_spec_m": {
+        "width_x": 2.3841857821338408e-08,
+        "height_y": 0.0,
+        "depth_z": 1.1920928910669204e-08
+      },
+      "within_0_02_m": true
+    },
+    {
+      "name": "Desk_180x080",
+      "difference_from_spec_m": {
+        "width_x": -4.768371586472142e-08,
+        "height_y": 0.0,
+        "depth_z": 1.1920928910669204e-08
+      },
+      "within_0_02_m": true
+    },
+    {
+      "name": "DeskChair",
+      "difference_from_spec_m": {
+        "width_x": 1.1920928910669204e-08,
+        "height_y": -2.5331977626663615e-08,
+        "depth_z": 1.1920928910669204e-08
+      },
+      "within_0_02_m": true
+    },
+    {
+      "name": "ReviewTable_360x140",
+      "difference_from_spec_m": {
+        "width_x": -9.536743172944284e-08,
+        "height_y": 0.0,
+        "depth_z": -2.3841857821338408e-08
+      },
+      "within_0_02_m": true
+    },
+    {
+      "name": "ReviewChair",
+      "difference_from_spec_m": {
+        "width_x": -1.1920928910669204e-08,
+        "height_y": -1.1920928910669204e-08,
+        "depth_z": 1.1920928910669204e-08
+      },
+      "within_0_02_m": true
+    },
+    {
+      "name": "ClientArmchair",
+      "difference_from_spec_m": {
+        "width_x": 2.384185793236071e-08,
+        "height_y": -2.682209010451686e-08,
+        "depth_z": 2.384185793236071e-08
+      },
+      "within_0_02_m": true
+    },
+    {
+      "name": "ClientSideTable",
+      "difference_from_spec_m": {
+        "width_x": 1.1920928910669204e-08,
+        "height_y": 0.0,
+        "depth_z": 1.1920928910669204e-08
+      },
+      "within_0_02_m": true
+    },
+    {
+      "name": "Sofa2",
+      "difference_from_spec_m": {
+        "width_x": 0.0,
+        "height_y": 2.0861625649182258e-08,
+        "depth_z": -2.384185793236071e-08
+      },
+      "within_0_02_m": true
+    },
+    {
+      "name": "CoffeeCabinet",
+      "difference_from_spec_m": {
+        "width_x": 2.384185793236071e-08,
+        "height_y": 2.3841857821338408e-08,
+        "depth_z": 2.3841857821338408e-08
+      },
+      "within_0_02_m": true
+    },
+    {
+      "name": "LowShelf_200x040",
+      "difference_from_spec_m": {
+        "width_x": 0.0,
+        "height_y": 2.3841857821338408e-08,
+        "depth_z": -8.940696738513054e-09
+      },
+      "within_0_02_m": true
+    },
+    {
+      "name": "Plant",
+      "difference_from_spec_m": {
+        "width_x": 0.0,
+        "height_y": -2.3841857821338408e-08,
+        "depth_z": 1.4901161193847656e-08
+      },
+      "within_0_02_m": true
+    },
+    {
+      "name": "Monitor",
+      "difference_from_spec_m": {},
+      "within_0_02_m": true
+    },
+    {
+      "name": "KeyboardMouse",
+      "difference_from_spec_m": {},
+      "within_0_02_m": true
+    },
+    {
+      "name": "ProjectBoard",
+      "difference_from_spec_m": {
+        "width_x": 0.0,
+        "height_y": -2.3841857821338408e-08
+      },
+      "within_0_02_m": true
+    },
+    {
+      "name": "SharedDisplay",
+      "difference_from_spec_m": {
+        "width_x": -4.768371586472142e-08,
+        "height_y": -4.768371586472142e-08
+      },
+      "within_0_02_m": true
+    },
+    {
+      "name": "BrandPlaque",
+      "difference_from_spec_m": {
+        "width_x": -4.7683715642676816e-08,
+        "height_y": -5.960464455334602e-09
+      },
+      "within_0_02_m": true
+    }
+  ],
+  "assembled_layout": {
+    "source": "office-spec/data/floorplan.json",
+    "furniture_instances": 51,
+    "shell_nodes": 3,
+    "envelope_tolerance_m": 0.02,
+    "out_of_envelope": [],
+    "rendered_static_triangles": 71372,
+    "note": "Real static mesh bounds only; animated limbs, navigation capsule sweeps, docking and browser/GPU remain pending."
+  },
+  "renders": [
+    {
+      "image": "renders/environment-overview.png",
+      "renderer": "Blender Cycles CPU",
+      "samples": 48,
+      "threads": 4,
+      "resolution_px": [
+        1440,
+        1000
+      ],
+      "source": "actual imported proof GLB meshes",
+      "not_browser_evidence": true
+    },
+    {
+      "image": "renders/environment-desk-detail.png",
+      "renderer": "Blender Cycles CPU",
+      "samples": 48,
+      "threads": 4,
+      "resolution_px": [
+        1200,
+        1000
+      ],
+      "source": "actual imported proof GLB meshes",
+      "not_browser_evidence": true
+    }
+  ],
+  "independent_validation": {
+    "status": "passed",
+    "Khronos": [
+      "reports/environment-office-shell-khronos.json",
+      "reports/environment-studio-furniture-khronos.json"
+    ],
+    "Three_loader": "reports/environment-three-loader.json",
+    "browser_GPU_verified": false
+  },
+  "remaining_acceptance": [
+    "Owner visual approval and source/provenance rights review",
+    "Real browser WebGL on recorded hardware",
+    "Animated dock and capsule clearance integration",
+    "Full scene batching/draw-call and hardware performance evidence"
+  ]
+}

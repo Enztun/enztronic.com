@@ -1,0 +1,29 @@
+{
+  "controllerSha256": "40624456c3da7e93b0e6826ae8528e67e29e1dec536fa973935bde5d631f20c9",
+  "passed": true,
+  "checks": [
+    {
+      "name": "JSON date retains UTC",
+      "passed": true,
+      "ageSeconds": 0.0637112
+    },
+    {
+      "name": "ISO string retains UTC",
+      "passed": true,
+      "ageSeconds": 0.0769498
+    },
+    {
+      "name": "Stale evidence rejected",
+      "passed": true,
+      "ageSeconds": 180.0792433
+    },
+    {
+      "name": "Future evidence rejected",
+      "passed": true,
+      "ageSeconds": -179.9205323
+    }
+  ],
+  "parserPassed": true,
+  "jsonDateType": "DateTime",
+  "productionMutations": false
+}

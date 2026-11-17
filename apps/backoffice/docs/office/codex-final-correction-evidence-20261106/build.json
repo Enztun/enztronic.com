@@ -1,0 +1,10 @@
+{
+  "command": "npm run build -- --webpack",
+  "cwd": "D:\\tmp\\codex-final-correction-20261106\\claude-office-build-20261105-204259\\app",
+  "snapshotFiles": 275,
+  "snapshotManifest": "D:\\tmp\\codex-final-correction-20261106\\claude-office-build-20261105-204259\\app-manifest.json",
+  "exitCode": 0,
+  "seconds": 43,
+  "buildId": "H2wsHC_p8niGqIW1qcF_K",
+  "log": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-codex-final-correction-20261106\\build\\build-20261105-204259.log"
+}

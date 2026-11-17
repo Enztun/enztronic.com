@@ -1,0 +1,26 @@
+{
+  "reproducedAt": "2026-11-05T20:46:30.877Z",
+  "method": "Actual source callbacks with a deferred promise; actual execution-evidence component server-rendered with synthetic props. No browser, database or service used.",
+  "delayedRevisionSave": {
+    "requestTask": "task-A",
+    "beforeCompletion": {
+      "taskId": "task-B",
+      "workspaceId": "workspace",
+      "artifactId": "B-R1",
+      "artifactNotFound": false
+    },
+    "afterCompletion": {
+      "taskId": "task-B",
+      "workspaceId": "workspace",
+      "artifactId": "B-R1",
+      "artifactNotFound": false
+    },
+    "defectReproduced": false
+  },
+  "latestRunWording": {
+    "historyIsExplicitlyRecorded": true,
+    "hasLeaseExpired": true,
+    "hasOpenRecordWording": true,
+    "latestRowContainsRunningRecord": true
+  }
+}

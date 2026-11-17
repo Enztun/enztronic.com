@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "differences": [],
+  "comparedTableCount": 31,
+  "comparedSequenceCount": 1,
+  "ignoredRestoreOnlyRoles": [
+    "recovery_admin"
+  ]
+}

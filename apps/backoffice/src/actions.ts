@@ -473,8 +473,8 @@ function userInput(formData: FormData) {
 export async function createUserAction(formData: FormData): Promise<void> {
   const { actor } = await actingAsAdmin();
   await createUser(userInput(formData), actor);
-  revalidatePath("/team");
-  redirect("/team");
+  revalidatePath("/settings/access");
+  redirect("/settings/access");
 }
 
 export async function updateUserAction(
@@ -483,8 +483,8 @@ export async function updateUserAction(
 ): Promise<void> {
   const { actor } = await actingAsAdmin();
   await updateUser(Uuid.parse(id), userInput(formData), positiveVersion(formData), actor);
-  revalidatePath("/team");
-  redirect("/team");
+  revalidatePath("/settings/access");
+  redirect("/settings/access");
 }
 
 export async function archiveUserAction(
@@ -493,6 +493,6 @@ export async function archiveUserAction(
 ): Promise<void> {
   const { actor } = await actingAsAdmin();
   await archiveUser(Uuid.parse(id), positiveVersion(formData), actor);
-  revalidatePath("/team");
-  redirect("/team");
+  revalidatePath("/settings/access");
+  redirect("/settings/access");
 }

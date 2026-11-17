@@ -1,0 +1,10 @@
+{
+  "command": "npm run build -- --webpack",
+  "cwd": "D:\\tmp\\claude-office-build-20261108-180343\\app",
+  "snapshotFiles": 414,
+  "snapshotManifest": "D:\\tmp\\claude-office-build-20261108-180343\\app-manifest.json",
+  "exitCode": 0,
+  "seconds": 49,
+  "buildId": "hq5hlbwiIdVA39CZ_S1Ae",
+  "log": "tmp\\live-openai-20261109\\build\\build-20261108-180343.log"
+}

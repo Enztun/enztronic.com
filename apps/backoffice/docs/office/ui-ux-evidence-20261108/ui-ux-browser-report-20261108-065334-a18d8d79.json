@@ -1,0 +1,268 @@
+{
+  "run": "20261108-065334-a18d8d79",
+  "startedAt": "2026-11-08T06:53:34.958Z",
+  "isolation": {
+    "productionUsed": false,
+    "pgPort": 55499,
+    "appPort": 3138,
+    "snapshot": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\build-20261108-065006-c393d83e\\app",
+    "root": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261108-065334-a18d8d79",
+    "buildId": "x1p8aG4bfQ_DRs8uhlFvp",
+    "environmentFiles": 0,
+    "authentication": "Synthetic RS256 owner assertion verified through a loopback HTTPS JWKS; production mode, bypass false",
+    "issuerPort": 9448,
+    "appPid": 66112,
+    "issuerPortClosed": true
+  },
+  "checks": [
+    {
+      "name": "theme initializer carries the request CSP nonce",
+      "passed": true
+    },
+    {
+      "name": "stored/system theme initializes before interaction",
+      "passed": true
+    },
+    {
+      "name": "welcome copy is concise",
+      "passed": true
+    },
+    {
+      "name": "fictional persona badge removed",
+      "passed": true
+    },
+    {
+      "name": "large demonstration box removed",
+      "passed": true
+    },
+    {
+      "name": "desktop profile panel is compact",
+      "passed": true,
+      "height": 264
+    },
+    {
+      "name": "desktop content begins without tall diagnostic stack",
+      "passed": true,
+      "headerHeight": 150
+    },
+    {
+      "name": "profile details are available on demand",
+      "passed": true
+    },
+    {
+      "name": "profile keyboard focus stays in dialog",
+      "passed": true
+    },
+    {
+      "name": "profile closes on Escape and returns focus",
+      "passed": true
+    },
+    {
+      "name": "Office information opens on hover",
+      "passed": true
+    },
+    {
+      "name": "Office information opens on keyboard focus",
+      "passed": true
+    },
+    {
+      "name": "Office information closes on Escape",
+      "passed": true
+    },
+    {
+      "name": "filters are collapsed by default",
+      "passed": true
+    },
+    {
+      "name": "active filter badge remains after Done closes filters",
+      "passed": true
+    },
+    {
+      "name": "selected person filter is retained",
+      "passed": true
+    },
+    {
+      "name": "Office information opens on a mobile tap",
+      "passed": true
+    },
+    {
+      "name": "mobile information stays within the viewport",
+      "passed": false,
+      "rect": {
+        "x": -43.578125,
+        "y": 197.265625,
+        "width": 338,
+        "height": 350.328125
+      }
+    }
+  ],
+  "screenshots": [
+    "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261108-065334-a18d8d79\\screenshots\\01-desktop-office.png",
+    "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261108-065334-a18d8d79\\screenshots\\07-mobile-office-information.png",
+    "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261108-065334-a18d8d79\\screenshots\\failure.png"
+  ],
+  "consoleErrors": [],
+  "consoleWarnings": [
+    "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "[.WebGL-0x12e402c57600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+    "[.WebGL-0x12e402c57600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+    "[.WebGL-0x12e402c57600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+    "[.WebGL-0x12e402c57600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)",
+    "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+  ],
+  "componentHashes": [
+    {
+      "name": "office-profile-status.test.ts",
+      "sha256": "05bd892c63e6fffb0f4297f6a4d7d05e116a188defa0789264a65ff38a46a461"
+    },
+    {
+      "name": "office-profile-status.ts",
+      "sha256": "f0e2e5ddc3b0bc93ed080f0d61300a58efdbbc866aba88875b9295328c41624a"
+    },
+    {
+      "name": "office-profile.module.css",
+      "sha256": "34dbcbd472e3a104fc2461ea54f6e9610d18709abd7b9d8e27376f9572770831"
+    },
+    {
+      "name": "office-selection.test.ts",
+      "sha256": "a624978e0553a88f98699ae808ddb9d12c887ab2d6afbc993f8059ae9a6ce360"
+    },
+    {
+      "name": "office-selection.ts",
+      "sha256": "a74f20b46f2cd687a3b9016b4704a40a7634278881d2a1596a5fc71fd92cc19f"
+    },
+    {
+      "name": "office-status.test.ts",
+      "sha256": "a5aa21a8aa1ad71796119ce3d7400dd27f69dc249b48a2eb5e835a26f1f4097a"
+    },
+    {
+      "name": "office-status.ts",
+      "sha256": "5db4e883f694bbac769839850c9401567623db48aa52979e39ccf72a05ab9264"
+    },
+    {
+      "name": "office-ui.tsx",
+      "sha256": "2d096b9d06590b1fec8cd51a645fc89962fed9d5a20ac429923215ff5c0e05a5"
+    },
+    {
+      "name": "office.module.css",
+      "sha256": "1a7174eede6e7f09c60381db9854669deee8bbc916ad04e7da7366d0919218cc"
+    },
+    {
+      "name": "OfficeDashboardPanel.test.tsx",
+      "sha256": "741223902cffded4f41860e614ba9df93ffb7608a20ca9ebe994bf3cd4fc771a"
+    },
+    {
+      "name": "OfficeDashboardPanel.tsx",
+      "sha256": "b2aa0626d24fae59b5cfe04d9397e9cdcd6ab574de505809879be78e7782d8eb"
+    },
+    {
+      "name": "OfficeInbox.tsx",
+      "sha256": "61f66858c7130ed8832a8f0d965b244fe5f8fe697e990b8164f7976eb59c9b9a"
+    },
+    {
+      "name": "OfficeInfo.tsx",
+      "sha256": "ae165ee03f27b5aa4671299030c733b8425453bc0ec182837f658e479babddce"
+    },
+    {
+      "name": "OfficeProfilePanel.tsx",
+      "sha256": "c48e5dd4ad5b948d310995ea999781d10cf8619f60f4a031186574e086ec3164"
+    },
+    {
+      "name": "OfficeRoleStatus.tsx",
+      "sha256": "170e568ed8a5cfa93ff85b3928b0ad2f80a0977b2d1da2562d0e0bcee28291bc"
+    },
+    {
+      "name": "OfficeScene.tsx",
+      "sha256": "260300b30520b15425a81a8fd272b94714bd9e75d94a43fc6ae0974d41bb4c9d"
+    },
+    {
+      "name": "OfficeTaskDetail.tsx",
+      "sha256": "857dd002870873fef8c28a810a27e2ac43e95aea00851fcef200ee0f42796e2e"
+    },
+    {
+      "name": "OfficeView.tsx",
+      "sha256": "1b3c2363d947127b29eb606b1992acd81d0282c7eec1d7cea13049dd67177c2d"
+    },
+    {
+      "name": "profiles.ts",
+      "sha256": "af516b7049ac7b0a53c6b5489fc928d3a65ca3a91bce6bf2f12328d8617bea93"
+    },
+    {
+      "name": "scene-layout.test.ts",
+      "sha256": "0ea9f6b1089088335d065a4cadc746845e3ce993934c9e96cf6faa0109243128"
+    },
+    {
+      "name": "scene-layout.ts",
+      "sha256": "47e2f6e038d80401509f656c89f7e3cb6318038ad74681a3c188d4511aefce8a"
+    },
+    {
+      "name": "scene-preview-people.tsx",
+      "sha256": "a52b942713b3ac9517f46cfa178e4630a74ebe31785f13655f87e0a8380ab983"
+    },
+    {
+      "name": "scene-static-batch.test.ts",
+      "sha256": "1462616cc843dd104b143e0122827f14cc16bdd6d40f6366d8f76ba7ef1b2f8a"
+    },
+    {
+      "name": "scene-static-batch.ts",
+      "sha256": "58034d529ea7b721f4933b1b5c2bab0e731c4a45f10eff26a9b3b2ab0e465023"
+    },
+    {
+      "name": "scene.module.css",
+      "sha256": "d2c9d08385a7d74751c99f4d455c18691e68edb6035b71781dcf67c0e2149538"
+    }
+  ],
+  "scope": "Additional compact information and filter controls",
+  "failurePageText": "EZ\nENZTRONIC\nOffice\n\nWelcome to the office!\n\nStatus unavailable\nUp to date\nSimulation\nSimulation workspace\n\nPractice briefs, drafts and reviews use a deterministic simulation. They stay separate from internal records. No live AI or external action runs here.\n\nWorker\nNo worker connected · No worker heartbeat has ever been recorded. Saved tasks stay queued until a worker runs.\nLast update\nConfirmed 0 s ago\nTeam\nSeven AI roles share one worker. Profiles are separate from human accounts.\nUsage / cost\nUnavailable — no live provider connected.\nNew brief\nOffice\nTasks\n0\nInbox\nActivity\nStatus\nAll workspaces\nRecords\nSimulated work\nInternal records\nFilters\nENZTRONIC\nAdrian\n, Idle\nClara\n, Idle\nNadia\n, Idle\nLeo\n, Idle\nLisa\n, Idle\nSam\n, Idle\nTheo\n, Idle\nOverview\nView options\nAdrian\nIdle\nClara\nIdle\nNadia\nIdle\nLeo\nIdle\nLisa\nIdle\nSam\nIdle\nTheo\nIdle\nCurrent work in this workspace\nView all tasks \nNo tasks assigned\n\nStart with a website request. The office prepares a source-linked internal proposal; implementation and external actions require separate authorization.\n\nPrepare an internal brief\nAdrian\n\nProject Manager\n\nAvailable\nOpen tasks\n0\n\nNo open tasks. Ready for the next brief.\n\nProfile\nNew brief\nPrivate application · owner access and existing business records remain separate.\nDisplay limit: 200 tasks / 100 recent events · exact tasks in scope: 0\nOffice view ready. No worker connected. Page data confirmed 0 s ago.",
+  "functionalPassed": false,
+  "failure": {
+    "message": "mobile information stays within the viewport"
+  },
+  "cleanup": {
+    "passed": true,
+    "actions": [
+      {
+        "kind": "client",
+        "resource": "browser",
+        "outcome": "closed"
+      },
+      {
+        "kind": "client",
+        "resource": "database",
+        "outcome": "closed"
+      },
+      {
+        "kind": "client",
+        "resource": "synthetic HTTPS issuer",
+        "outcome": "closed"
+      },
+      {
+        "kind": "process",
+        "name": "ui-ux-owner",
+        "pid": 66112,
+        "ports": [
+          3138
+        ],
+        "outcome": "terminated",
+        "taskkillStatus": 0,
+        "exit": {
+          "code": 1,
+          "signal": null
+        }
+      },
+      {
+        "kind": "postgres",
+        "port": 55499,
+        "data": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261108-065334-a18d8d79\\pg\\pgdata",
+        "outcome": "stopped",
+        "pgCtlStatus": 0,
+        "resolved": true
+      }
+    ],
+    "failures": [],
+    "unresolved": []
+  },
+  "remainingProcesses": [],
+  "passed": false,
+  "completedAt": "2026-11-08T06:53:45.862Z"
+}

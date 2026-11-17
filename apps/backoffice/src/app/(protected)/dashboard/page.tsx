@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { formatDate, formatMinorCurrency } from "@/components/formatters";
 import { InvoiceStatusBadge } from "@/components/invoice-status-badge";
+import { OfficeDashboardPanel } from "@/components/office/OfficeDashboardPanel";
 import { buttonStyles } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -12,6 +13,7 @@ import { StatCard } from "@/components/ui/stat-card";
 import { listClients } from "@/lib/server/clients";
 import { getEarningsSummary } from "@/lib/server/earnings";
 import { listInvoices } from "@/lib/server/invoices";
+import { loadOfficeDashboard } from "@/lib/server/office-dashboard";
 import { getAccessScope } from "@/lib/server/session";
 
 export const metadata: Metadata = {
@@ -23,10 +25,12 @@ export const dynamic = "force-dynamic";
 export default async function DashboardPage() {
   const scope = await getAccessScope();
   const isSales = scope.user.role === "sales";
-  const [clients, invoices, earnings] = await Promise.all([
+  const [clients, invoices, earnings, office] = await Promise.all([
     listClients(scope),
     listInvoices(scope),
     getEarningsSummary(scope),
+    // Office data is admin-only: a sales session never queries or renders it.
+    isSales ? null : loadOfficeDashboard(scope.user),
   ]);
   const outstandingInvoices = invoices.filter(
     (invoice) =>
@@ -206,6 +210,8 @@ export default async function DashboardPage() {
           />
         )}
       </section>
+
+      {office ? <OfficeDashboardPanel data={office} /> : null}
     </>
   );
 }

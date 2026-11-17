@@ -1,0 +1,43 @@
+{
+  "uri": "studio-furniture.glb",
+  "mimeType": "model/gltf-binary",
+  "validatorVersion": "2.0.0-dev.3.10",
+  "validatedAt": "2026-10-21T18:34:19.363Z",
+  "issues": {
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 0,
+    "numHints": 0,
+    "messages": [],
+    "truncated": false
+  },
+  "info": {
+    "version": "2.0",
+    "generator": "Khronos glTF Blender I/O v4.5.51",
+    "resources": [
+      {
+        "pointer": "/buffers/0",
+        "mimeType": "application/gltf-buffer",
+        "storage": "glb",
+        "byteLength": 547008
+      }
+    ],
+    "animationCount": 0,
+    "materialCount": 11,
+    "hasMorphTargets": false,
+    "hasSkins": false,
+    "hasTextures": false,
+    "hasDefaultScene": true,
+    "drawCallCount": 40,
+    "totalVertexCount": 18803,
+    "totalTriangleCount": 15956,
+    "maxUVs": 0,
+    "maxInfluences": 0,
+    "maxAttributes": 2
+  },
+  "proof": {
+    "sha256": "c4683fdf8d17f726c9fb3180c2121811c989fc62864fb52df568a8d46e67c353",
+    "bytes": 577312,
+    "productionApproved": false
+  }
+}

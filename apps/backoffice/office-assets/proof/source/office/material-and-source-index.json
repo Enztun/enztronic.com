@@ -1,0 +1,29 @@
+{
+  "materials": [
+    {
+      "name": "Sam_Skin",
+      "color_source": "Color vertex attribute",
+      "textures": []
+    },
+    {
+      "name": "Sam_Fabric",
+      "color_source": "Color vertex attribute",
+      "textures": []
+    },
+    {
+      "name": "Sam_HairAndDetails",
+      "color_source": "Color vertex attribute",
+      "textures": []
+    }
+  ],
+  "texture_files": [],
+  "texture_dimensions": [],
+  "provenance": {
+    "creator": "Procedurally authored by Codex for Enztronic in this workspace",
+    "external_meshes": [],
+    "external_textures": [],
+    "external_fonts": [],
+    "portrait": "owner supplied reference only; source rights require owner review",
+    "license": "No third-party model or texture license invented. Owner legal/source acceptance remains pending."
+  }
+}

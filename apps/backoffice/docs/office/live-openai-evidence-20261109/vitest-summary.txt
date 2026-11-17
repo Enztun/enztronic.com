@@ -1,0 +1,6 @@
+ Test Files  23 passed (23)
+      Tests  226 passed (226)
+   Duration  8.92s (transform 3.81s, setup 0ms, import 17.28s, tests 24.29s, environment 8ms)
+waiting for server to shut down...... done
+server stopped
+Verification files retained at D:\Enztronic\apps\backoffice\tmp\office-verification-20261109-010209

@@ -1,0 +1,16 @@
+﻿{
+    "authenticatedBrowserAcceptance":  "Requested; awaiting owner",
+    "workerRunLevel":  0,
+    "workerBootDelay":  "PT1M",
+    "workerAccountEnabled":  true,
+    "workerBootTriggerEnabled":  true,
+    "workerLogonType":  1,
+    "backofficeTaskState":  4,
+    "workerTaskEnabled":  true,
+    "workerRestartTestPassed":  true,
+    "backofficeStartupUnchanged":  true,
+    "clientDate":  "2026-11-08",
+    "backofficeTaskEnabled":  true,
+    "workerTaskState":  4,
+    "ownerCanInspectWorkerTask":  true
+}

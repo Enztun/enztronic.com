@@ -1,0 +1,196 @@
+{
+  "environment": "disposable local PostgreSQL17 / loopback55439",
+  "mode": "deterministic_demo",
+  "goal": "Final Office verification",
+  "browserClosedBeforeWorkerStart": true,
+  "taskConfirmedPersistedWhileBrowserClosed": true,
+  "workerStartedAtUtc": "2026-10-21T17:29:07.154Z",
+  "observedBeforeReopenAtUtc": "2026-10-21T17:29:39.628Z",
+  "task": {
+    "id": "471dc6f6-ccf5-4327-8b37-117b2081ca8e",
+    "state": "waiting_for_owner_approval",
+    "current_artifact_id": "966292fd-d532-46d0-bd16-fafccbe8f920",
+    "blocked_reason": null,
+    "created_at": "2026-10-21T17:28:52.528Z",
+    "updated_at": "2026-10-21T17:29:07.558Z"
+  },
+  "counts": {
+    "tasks": 8,
+    "runs": 17,
+    "artifacts": 8,
+    "passed_reviews": 8,
+    "coordinator_block_events": 0
+  },
+  "realProviderCalls": 0,
+  "externalEffects": 0,
+  "ownerAcceptance": {
+    "verifiedAtUtc": "2026-10-21T17:30:56.014Z",
+    "tasks": [
+      {
+        "id": "471dc6f6-ccf5-4327-8b37-117b2081ca8e",
+        "parent_task_id": null,
+        "state": "completed",
+        "current_artifact_id": "966292fd-d532-46d0-bd16-fafccbe8f920",
+        "acceptance_evidence_id": "760cc802-cc59-4aec-a637-f13d726eee23",
+        "blocked_reason": null
+      },
+      {
+        "id": "2a4fc560-52fd-4c8b-a3d5-739ab4f654d5",
+        "parent_task_id": "471dc6f6-ccf5-4327-8b37-117b2081ca8e",
+        "state": "completed",
+        "current_artifact_id": "c2f35b8c-f586-4bac-88b8-2aa9a31104f1",
+        "acceptance_evidence_id": "760cc802-cc59-4aec-a637-f13d726eee23",
+        "blocked_reason": null
+      },
+      {
+        "id": "457386af-a706-4af4-9632-4e489441802f",
+        "parent_task_id": "471dc6f6-ccf5-4327-8b37-117b2081ca8e",
+        "state": "completed",
+        "current_artifact_id": "2befc346-de72-4123-9bdd-8233a0eb5b05",
+        "acceptance_evidence_id": "760cc802-cc59-4aec-a637-f13d726eee23",
+        "blocked_reason": null
+      },
+      {
+        "id": "555ed0bd-7049-42ae-bde2-6da48c04300a",
+        "parent_task_id": "471dc6f6-ccf5-4327-8b37-117b2081ca8e",
+        "state": "completed",
+        "current_artifact_id": "fbad11b0-d5c3-409b-bef9-be018dcb4427",
+        "acceptance_evidence_id": "760cc802-cc59-4aec-a637-f13d726eee23",
+        "blocked_reason": null
+      },
+      {
+        "id": "70429e03-13bf-41b5-b22c-1ae725a67828",
+        "parent_task_id": "471dc6f6-ccf5-4327-8b37-117b2081ca8e",
+        "state": "completed",
+        "current_artifact_id": "a354e964-e4ed-4a26-8640-e41356fe8b51",
+        "acceptance_evidence_id": "760cc802-cc59-4aec-a637-f13d726eee23",
+        "blocked_reason": null
+      },
+      {
+        "id": "79ca103f-0d76-4639-8254-54044e0731e1",
+        "parent_task_id": "471dc6f6-ccf5-4327-8b37-117b2081ca8e",
+        "state": "completed",
+        "current_artifact_id": "567af3e8-8366-48d4-bcb7-75a598570eba",
+        "acceptance_evidence_id": "760cc802-cc59-4aec-a637-f13d726eee23",
+        "blocked_reason": null
+      },
+      {
+        "id": "a7f29097-6459-4bbe-8691-5026d17f5a7b",
+        "parent_task_id": "471dc6f6-ccf5-4327-8b37-117b2081ca8e",
+        "state": "completed",
+        "current_artifact_id": "745f28be-73b5-467e-85d3-3d0c8ed6c555",
+        "acceptance_evidence_id": "760cc802-cc59-4aec-a637-f13d726eee23",
+        "blocked_reason": null
+      },
+      {
+        "id": "b4e7a8a6-5092-43be-bb01-7f8180dffefa",
+        "parent_task_id": "471dc6f6-ccf5-4327-8b37-117b2081ca8e",
+        "state": "completed",
+        "current_artifact_id": "1db0a836-5fde-4476-805f-3bea8340b04c",
+        "acceptance_evidence_id": "760cc802-cc59-4aec-a637-f13d726eee23",
+        "blocked_reason": null
+      }
+    ],
+    "evidence": {
+      "id": "760cc802-cc59-4aec-a637-f13d726eee23",
+      "approval_id": "673dd2e0-96bd-406a-9a73-672914435c58",
+      "artifact_id": "966292fd-d532-46d0-bd16-fafccbe8f920",
+      "artifact_hash": "9f4e7c177dd527ba644f83c058bdf67b908d2bd987e1e3163499729e5ee08a4e",
+      "action_scope": "accept_internal_proposal_package",
+      "component_manifest": [
+        {
+          "artifactId": "1db0a836-5fde-4476-805f-3bea8340b04c",
+          "revisionId": "1db0a836-5fde-4476-805f-3bea8340b04c",
+          "childTaskId": "b4e7a8a6-5092-43be-bb01-7f8180dffefa",
+          "artifactHash": "52e92571611904bef04992a03529c92aa6200ecf02cea717587527eb775327c5",
+          "hashAlgorithm": "SHA-256",
+          "reviewReferences": [
+            "52b4cd6a-c059-4c89-b4e8-4028be236b69"
+          ]
+        },
+        {
+          "artifactId": "a354e964-e4ed-4a26-8640-e41356fe8b51",
+          "revisionId": "a354e964-e4ed-4a26-8640-e41356fe8b51",
+          "childTaskId": "70429e03-13bf-41b5-b22c-1ae725a67828",
+          "artifactHash": "7e95d063969fa8086dfeb68444430c1f5d51129619d65c0f36206c949995a7b2",
+          "hashAlgorithm": "SHA-256",
+          "reviewReferences": [
+            "ccaa80f2-f5a3-4868-a1f1-5bbfe83e8939"
+          ]
+        },
+        {
+          "artifactId": "fbad11b0-d5c3-409b-bef9-be018dcb4427",
+          "revisionId": "fbad11b0-d5c3-409b-bef9-be018dcb4427",
+          "childTaskId": "555ed0bd-7049-42ae-bde2-6da48c04300a",
+          "artifactHash": "8480c188242688e7420fb8f0e8a510301497225aa4307133a01c937c6d275be6",
+          "hashAlgorithm": "SHA-256",
+          "reviewReferences": [
+            "d10e0694-c6a0-4c02-bf17-e65cd603c7ed"
+          ]
+        },
+        {
+          "artifactId": "745f28be-73b5-467e-85d3-3d0c8ed6c555",
+          "revisionId": "745f28be-73b5-467e-85d3-3d0c8ed6c555",
+          "childTaskId": "a7f29097-6459-4bbe-8691-5026d17f5a7b",
+          "artifactHash": "78811bfc699042e446f111a2c43ad3d71ab32f1c6d3dbdd909a673667f62c864",
+          "hashAlgorithm": "SHA-256",
+          "reviewReferences": [
+            "429660d5-011d-45d9-89d4-8321797e356d"
+          ]
+        },
+        {
+          "artifactId": "2befc346-de72-4123-9bdd-8233a0eb5b05",
+          "revisionId": "2befc346-de72-4123-9bdd-8233a0eb5b05",
+          "childTaskId": "457386af-a706-4af4-9632-4e489441802f",
+          "artifactHash": "b63a60b5fc78c4d977bbbfc5dd5b29dcf9da90b9d9871bbd9e2718f2416d90f3",
+          "hashAlgorithm": "SHA-256",
+          "reviewReferences": [
+            "8b93b099-bcca-47f7-be37-049de183fcd8"
+          ]
+        },
+        {
+          "artifactId": "567af3e8-8366-48d4-bcb7-75a598570eba",
+          "revisionId": "567af3e8-8366-48d4-bcb7-75a598570eba",
+          "childTaskId": "79ca103f-0d76-4639-8254-54044e0731e1",
+          "artifactHash": "1932a886697eb8bc382dab4d143d5d853c86d885b1bb031077822a716dbea044",
+          "hashAlgorithm": "SHA-256",
+          "reviewReferences": [
+            "b3f3f53d-9cb3-427a-869b-254ad415b92c"
+          ]
+        },
+        {
+          "artifactId": "c2f35b8c-f586-4bac-88b8-2aa9a31104f1",
+          "revisionId": "c2f35b8c-f586-4bac-88b8-2aa9a31104f1",
+          "childTaskId": "2a4fc560-52fd-4c8b-a3d5-739ab4f654d5",
+          "artifactHash": "fa7661c4501d952f84b9ec16f63ee39321e286a7d3e6570032c81299add29ee7",
+          "hashAlgorithm": "SHA-256",
+          "reviewReferences": [
+            "3dbc4f39-3a48-42b8-9f5d-e5e7c5532840"
+          ]
+        }
+      ],
+      "review_references": [
+        "8ef49929-0b46-4716-b3a4-dd32422d2de8",
+        "3dbc4f39-3a48-42b8-9f5d-e5e7c5532840",
+        "8b93b099-bcca-47f7-be37-049de183fcd8",
+        "d10e0694-c6a0-4c02-bf17-e65cd603c7ed",
+        "ccaa80f2-f5a3-4868-a1f1-5bbfe83e8939",
+        "b3f3f53d-9cb3-427a-869b-254ad415b92c",
+        "429660d5-011d-45d9-89d4-8321797e356d",
+        "52b4cd6a-c059-4c89-b4e8-4028be236b69"
+      ],
+      "decided_at": "2026-10-21T17:30:17.049Z"
+    },
+    "allEightCompleted": true,
+    "sameAcceptanceEvidence": true
+  },
+  "unconfiguredLiveCheck": [
+    {
+      "id": "a76fde4c-c4b6-4791-b2a2-830dca25b5e7",
+      "state": "blocked",
+      "blocked_reason": "configuration_required: approved provider, budget, runtime limits and sources are not configured",
+      "run_count": 0,
+      "artifact_count": 0
+    }
+  ]
+}

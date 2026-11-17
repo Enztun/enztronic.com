@@ -1,0 +1,88 @@
+{
+    "passed":  true,
+    "clientDate":  "2026-11-08",
+    "machineUtc":  "2026-11-08T06:41:22.9372655Z",
+    "controller":  "apps/backoffice/scripts/recovery/promote-office-ui.ps1",
+    "controllerSha256":  "cfc61e7099811394554577f48bd318460dab25a357a73b88f545cae8d7573083",
+    "parserPassed":  true,
+    "checks":  17,
+    "helperChecks":  12,
+    "transactionFaultChecks":  5,
+    "results":  [
+                    {
+                        "name":  "full matching build accepted",
+                        "passed":  true
+                    },
+                    {
+                        "name":  "changed file hash refused",
+                        "passed":  true
+                    },
+                    {
+                        "name":  "extra build file refused",
+                        "passed":  true
+                    },
+                    {
+                        "name":  "wrong build identifier refused",
+                        "passed":  true
+                    },
+                    {
+                        "name":  "path traversal refused",
+                        "passed":  true
+                    },
+                    {
+                        "name":  "duplicate path refused",
+                        "passed":  true
+                    },
+                    {
+                        "name":  "sibling-prefix escape refused",
+                        "passed":  true
+                    },
+                    {
+                        "name":  "existing move destination refused",
+                        "passed":  true
+                    },
+                    {
+                        "name":  "junction build refused before descent",
+                        "passed":  true
+                    },
+                    {
+                        "name":  "manifest bytes and count bound",
+                        "passed":  true
+                    },
+                    {
+                        "name":  "own new-destination atomic move",
+                        "passed":  true
+                    },
+                    {
+                        "name":  "scheduler XML fence normalization is memory only",
+                        "passed":  true
+                    },
+                    {
+                        "name":  "candidate start failure restores old service",
+                        "passed":  true
+                    },
+                    {
+                        "name":  "early shutdown failure restores old service",
+                        "passed":  true
+                    },
+                    {
+                        "name":  "manual rollback start failure restores prior service",
+                        "passed":  true
+                    },
+                    {
+                        "name":  "recovery start failure is reported without a healthy claim",
+                        "passed":  true
+                    },
+                    {
+                        "name":  "quiescence refusal leaves builds in place",
+                        "passed":  true
+                    }
+                ],
+    "helperFixture":  "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-ui-promoter-tests-04f071d86cc54626a1c89a9173c96e5e",
+    "faultFixture":  "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-ui-promoter-faults-e21994bd08ab4becbb916d5df6d1910e",
+    "actualControllerExecuted":  false,
+    "productionMutations":  false,
+    "databaseCalls":  0,
+    "scope":  "Extracted pure filesystem guards and real transaction try/catch/finally against fresh temporary trees. Startup, task and quiescence operations were mocked for fault checks. Task Scheduler XML normalization additionally used read-only live XML with in-memory NewTask copies; the actual task stayed unchanged.",
+    "correction":  "Normalize both saved and live task XML through in-memory NewTask definitions before comparison; never compare a normalized side directly with raw XML."
+}

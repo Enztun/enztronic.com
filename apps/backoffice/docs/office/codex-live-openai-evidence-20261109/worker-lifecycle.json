@@ -1,0 +1,82 @@
+﻿{
+    "at":  "2026-11-09T16:48:16.203Z",
+    "scope":  "worker key helper and lifecycle",
+    "checks":  [
+                   {
+                       "name":  "worker lifecycle with real disposable PostgreSQL",
+                       "passed":  true,
+                       "exit":  {
+                                    "code":  0,
+                                    "signal":  null
+                                }
+                   }
+               ],
+    "fixturePort":  55561,
+    "functionalPassed":  true,
+    "cleanup":  {
+                    "passed":  true,
+                    "actions":  [
+                                    {
+                                        "kind":  "process",
+                                        "name":  "worker-lifecycle",
+                                        "pid":  68672,
+                                        "ports":  [
+
+                                                  ],
+                                        "outcome":  "already_exited",
+                                        "exit":  {
+                                                     "code":  0,
+                                                     "signal":  null
+                                                 }
+                                    },
+                                    {
+                                        "kind":  "postgres",
+                                        "port":  55561,
+                                        "data":  "C:\\Users\\hoyec\\AppData\\Local\\Temp\\office-worker-correction-3ea31e77bc1542ecac3fc6b6d3871b8c\\pgdata",
+                                        "outcome":  "stopped",
+                                        "pgCtlStatus":  0,
+                                        "resolved":  true
+                                    }
+                                ],
+                    "failures":  [
+
+                                 ],
+                    "unresolved":  [
+
+                                   ]
+                },
+    "remainingProcesses":  [
+
+                           ],
+    "passed":  true,
+    "lifecycle":  {
+                      "tests":  11,
+                      "passed":  11,
+                      "failed":  0,
+                      "skipped":  0
+                  },
+    "packageTests":  {
+                         "tests":  7,
+                         "passed":  7,
+                         "failed":  0,
+                         "skipped":  0
+                     },
+    "keyHelperAcl":  {
+                         "originalFinding":  "temporary plaintext file inherited broader parent ACL before replacement",
+                         "fixed":  true,
+                         "broaderParentTested":  true,
+                         "temporaryAclObservedBeforeFirstWrite":  true,
+                         "fileEmptyAtObservation":  true,
+                         "realInsertionWithFakeKey":  true,
+                         "removalTested":  true,
+                         "forcedReplaceFailureTested":  true,
+                         "originalAndFinalAclPreserved":  true,
+                         "temporaryFilesCleaned":  true,
+                         "realProviderCalls":  0,
+                         "productionWrites":  0
+                     },
+    "correctedSourceHashes":  {
+                                  "apps/office-worker/test/lifecycle.test.mjs":  "0a560401ab3fb7524ab56dea59544ee239faf722d05dcb5f9a6fe8970520fd64",
+                                  "apps/office-worker/set-office-openai-key.ps1":  "9c39f98f29b9cc930da46a4697f191add00d31c44695ecd0db3208e5e6b0664d"
+                              }
+}

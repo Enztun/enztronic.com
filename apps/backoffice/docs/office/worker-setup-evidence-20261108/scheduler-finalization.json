@@ -1,0 +1,16 @@
+{
+  "workerStarted": false,
+  "workerDefinitionUnchanged": true,
+  "workerTaskState": 1,
+  "passed": true,
+  "productionDatabaseChanges": false,
+  "workerTaskEnabled": false,
+  "machineUtc": "2026-11-07T20:15:06.0992594Z",
+  "ownerMetadataReadGranted": true,
+  "probeTasksRemaining": 0,
+  "workerAccountEnabled": false,
+  "clientDate": "2026-11-08",
+  "workerLogonType": 1,
+  "workerTaskLastResult": 267011,
+  "workerRunLevel": 0
+}

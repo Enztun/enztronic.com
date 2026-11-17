@@ -1,0 +1,43 @@
+{
+  "start": {
+    "triggerEnabled": true,
+    "passed": true,
+    "accountEnabled": true,
+    "windowsRunRequested": true,
+    "taskName": "EnztronicOfficeWorker",
+    "databaseSchemaVerified": false,
+    "workerHealthVerified": false,
+    "databaseCallsPerformed": false,
+    "taskEnabled": true,
+    "runtimeManifestSha256": "ee0baaf3e076202c0e625cb9151ecdc8edcf942bb67a41497b926242c2c8fd3a",
+    "runtimeFiles": 1296,
+    "availability": "Depends on the dedicated database and an awake host; pre-owner-logon processing is not established.",
+    "state": "windows_start_requested_health_unverified",
+    "clientDate": "2026-11-08",
+    "machineUtc": "2026-11-08T04:51:03.2966015Z"
+  },
+  "productionDatabaseWrites": false,
+  "before": {
+    "quiescent": true,
+    "open_tasks": 0,
+    "leased_steps": 0,
+    "open_runs": 0
+  },
+  "passed": true,
+  "stop": {
+    "triggerEnabled": false,
+    "ownedProcessesExited": true,
+    "windowsTaskStopped": true,
+    "passed": true,
+    "databaseLeaseReconciliation": "required_separately",
+    "taskName": "EnztronicOfficeWorker",
+    "databaseCallsPerformed": false,
+    "accountEnabled": false,
+    "clientDate": "2026-11-08",
+    "taskEnabled": false,
+    "state": "owned_worker_stopped_disabled",
+    "gracefulShutdownConfirmed": false,
+    "machineUtc": "2026-11-08T04:50:59.5597957Z"
+  },
+  "workerTasksCreated": false
+}

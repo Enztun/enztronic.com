@@ -1,0 +1,22 @@
+# Office UI pass 2 validation
+
+Validated candidate: **`7VQBHlMCw4uRSPfvo5f5T`**. This report covers isolated testing, which did not change production. The subsequent root promotion is recorded in [production-promotion.json](production-promotion.json) and the [release report](../OFFICE-UI-UX-SECOND-PASS-2026-11-08.md).
+
+- [Build record](build-20261108-081739-c816de4d.json): fresh secret-free C: snapshot, lint and typecheck passed, **21 files / 197 tests / zero skipped**, followed by `npm run build -- --webpack`.
+- [Final focused production-mode browser report](ui-ux-browser-report-20261108-082626-b8cfd1ad.json): **48/48 passed**, zero browser errors, cleanup passed.
+- [Complete workflow report](ui-ux-browser-report-20261108-082450-9db99940.json): **38/38 passed**, zero browser errors, cleanup passed, on the same candidate. These complementary reports overlap; their counts are not 86 unique tests.
+- [Application integrity](application-source-integrity.json): all **124 application/configuration files** match both the build snapshot manifest and the current working tree. Every Office component hash in both browser reports matches. Ports 55439, 55519, 3158 and 9458 were independently confirmed closed.
+
+The focused checks verify the actual profile position at 1512 × 982, 1890 × 936 and 390 × 844. The 1890-wide dialog is at x=655, y=68, width=580, height=800: centered on both axes. Its body scrolls while the close header remains reachable. Escape restores the invoking button's focus. Status buttons open the correct Clara, Theo and Adrian dialogs; they do more than change the side profile.
+
+The display fixture has **85 events in the selected workspace**, plus an excluded event in another workspace. It includes two package families with seven specialist tasks each, twelve standalone tasks, a non-task event, and separate failed/retry run identities. Activity initially shows six collapsed histories, then reveals all fifteen through Show more. Expanding the timelines and their earlier-event controls exposes all 85 events exactly once. Failure/retry technical details retain their run identity and source. Technical UUIDs are absent from primary summaries. Mobile histories have no horizontal page overflow.
+
+All seven authenticated portrait images load successfully. Tasks, Current work and Activity use the same named role colors. The PC instruction is visible, and an actual Ctrl + held left pointer drag moved a scene name marker 90 px horizontally and 8.3 px vertically. This verifies the existing gesture; it does not measure physical GPU performance.
+
+The full story additionally covers durable brief save/reload, a real claimed fixture lease and expiry under a controlled clock, seven specialist outputs and independent reviews, exact-package acceptance, the Dashboard's exact revision link and reload, dismissible notices, information/filter controls, mobile layout, and unchanged synthetic business records.
+
+Both browser runs use synthetic signed owner assertions, a disposable HTTPS JWKS and development authentication bypass **false**. PostgreSQL data, builds and browser artifacts are on C:. No production database or owner browser session was used for validation; no provider call, external action, production migration or production worker activation was performed. Schema preparation and worker execution were confined to disposable fixtures. The original ownership/finalization and certificate helpers remain in use. Earlier failed attempts are retained as harness history: module resolution, a synthetic JSON parameter, a nested summary locator and a copy-matching regex; none required application changes after the frozen build.
+
+Current visual evidence is under [screenshots](screenshots/), including [centered desktop profile after body scroll](screenshots/v2-profile-desktop-1890.png), [Tasks and portraits](screenshots/v2-task-identities.png), [collapsed Activity](screenshots/v2-activity-collapsed.png), [expanded Activity](screenshots/v2-activity-expanded.png), and [mobile Activity](screenshots/v2-mobile-activity.png). These are synthetic fixture screens. Signed-in owner acceptance of the final production release remains an owner-browser action.
+
+Reproduction helper: [ui-ux-v2.mjs](../../../scripts/office-acceptance/ui-ux-v2.mjs). The generated harness records the original story hash, extension hash, wrapper hash and complete component hashes. Its temporary source is retained under the C: evidence root recorded in each browser report.

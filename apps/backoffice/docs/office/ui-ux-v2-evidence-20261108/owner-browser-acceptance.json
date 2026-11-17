@@ -1,0 +1,12 @@
+{
+  "releaseDate": "2026-11-08",
+  "buildId": "7VQBHlMCw4uRSPfvo5f5T",
+  "source": "owner_reply_in_chat",
+  "ownerResponse": "Profiles and grouped views look right",
+  "requestedCheck": "Refresh the signed-in Office browser, check Profile from the sidebar and Status, then grouped Activity and colored task portraits.",
+  "uiVisualAcceptance": "owner_confirmed",
+  "operatorUsedOwnerSession": false,
+  "productionWorkflowRunCreated": false,
+  "gpuBenchmarkClaimed": false,
+  "finalRiggedCharactersApproved": false
+}

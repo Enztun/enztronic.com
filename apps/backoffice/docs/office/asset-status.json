@@ -1,0 +1,441 @@
+{
+  "generated_at_utc": "2026-10-21T18:34:01.206Z",
+  "asset_root": "D:\\Enztronic\\apps\\backoffice\\office-assets",
+  "status": "graybox_only_final_assets_pending",
+  "floorplan": {
+    "status": "passed_planning_geometry_only",
+    "units": "meters",
+    "radius_m": 0.25,
+    "counts": {
+      "characters": 7,
+      "individual_desks": 7,
+      "desk_chairs": 7,
+      "review_chairs": 8,
+      "obstacles": 36,
+      "graph_nodes": 41,
+      "reachable_nodes": 41,
+      "graph_edges": 43,
+      "corridors": 5,
+      "anchors": 15
+    },
+    "corridorConflicts": [],
+    "edgeConflicts": [],
+    "approachConflicts": [],
+    "dockConflicts": [],
+    "errors": [],
+    "observations": [
+      "Coincident authored nodes: front_center / branch_review_clara; retained as a zero-length graph link.",
+      "Coincident authored nodes: rear_center / branch_review_sam; retained as a zero-length graph link."
+    ],
+    "limits": "2D authored boxes and straight graph/dock segments only. No exported mesh bounds, limb sweep, seat animation, route smoothing, simultaneous-agent reservation or browser collision acceptance."
+  },
+  "modeling_tooling": {
+    "path_lookup_found": false,
+    "path_matches": [],
+    "targeted_locations": [
+      {
+        "path": "C:\\Program Files\\Blender Foundation",
+        "exists": false
+      },
+      {
+        "path": "C:\\Program Files (x86)\\Blender Foundation",
+        "exists": false
+      },
+      {
+        "path": "C:\\Users\\hoyec\\AppData\\Local\\Programs\\Blender Foundation",
+        "exists": false
+      }
+    ],
+    "configured_portable_executable": "C:\\Users\\hoyec\\.codex\\tools\\office-blender\\blender-4.5.14-windows-x64\\blender.exe",
+    "installed": true,
+    "scope": "Read-only PATH, standard installation locations and an explicitly configured local portable executable. No exhaustive scan or automatic tool execution. Tool availability does not establish modeled asset acceptance."
+  },
+  "reference_review": {
+    "filename": "office-spec/visuals/reference/office-overview.png",
+    "reviewed": true,
+    "use": "Warm oak/navy/cobalt and cutaway atmosphere only. Measured floorplan controls geometry. No portraits were used as scene billboards."
+  },
+  "assets": [
+    {
+      "id": "office_shell",
+      "kind": "runtime_static_glb",
+      "required_filename": "assets/office/office-shell.glb",
+      "required_source_filename": "source/office/office-shell.blend",
+      "exists": false,
+      "source_exists": false,
+      "status": "missing",
+      "runtime_approved": false,
+      "missing_requirements": [
+        "assets/office/office-shell.glb",
+        "source/office/office-shell.blend",
+        "Complete source/creator/license record and reviewed commercial/edit/redistribution rights",
+        "Retained license document in private asset bundle",
+        "Explicit runtime approval bound to actual GLB SHA-256",
+        "Evidence check: geometry",
+        "Evidence check: dimensions",
+        "Evidence check: loader",
+        "Evidence check: source_opened",
+        "Evidence check: provenance_reviewed",
+        "Evidence check: private_asset_route",
+        "Khronos glTF Validator report with zero errors",
+        "Successful GLB structural metadata inspection"
+      ]
+    },
+    {
+      "id": "studio_furniture",
+      "kind": "runtime_reusable_glb",
+      "required_filename": "assets/office/studio-furniture.glb",
+      "required_source_filename": "source/office/studio-furniture.blend",
+      "exists": false,
+      "source_exists": false,
+      "status": "missing",
+      "runtime_approved": false,
+      "missing_requirements": [
+        "assets/office/studio-furniture.glb",
+        "source/office/studio-furniture.blend",
+        "Complete source/creator/license record and reviewed commercial/edit/redistribution rights",
+        "Retained license document in private asset bundle",
+        "Explicit runtime approval bound to actual GLB SHA-256",
+        "Evidence check: geometry",
+        "Evidence check: dimensions",
+        "Evidence check: loader",
+        "Evidence check: source_opened",
+        "Evidence check: provenance_reviewed",
+        "Evidence check: private_asset_route",
+        "Khronos glTF Validator report with zero errors",
+        "Successful GLB structural metadata inspection"
+      ]
+    },
+    {
+      "id": "character_adrian",
+      "kind": "runtime_rigged_character_glb",
+      "required_filename": "assets/office/characters/adrian.glb",
+      "required_source_filename": "source/office/characters/adrian.blend",
+      "exists": false,
+      "source_exists": false,
+      "status": "missing",
+      "runtime_approved": false,
+      "missing_requirements": [
+        "assets/office/characters/adrian.glb",
+        "source/office/characters/adrian.blend",
+        "Complete source/creator/license record and reviewed commercial/edit/redistribution rights",
+        "Retained license document in private asset bundle",
+        "Explicit runtime approval bound to actual GLB SHA-256",
+        "Shared native rig/animation source: source/office/common-biped-rig.blend",
+        "Shared native rig/animation source: source/office/common-animations.blend",
+        "Evidence check: geometry",
+        "Evidence check: dimensions",
+        "Evidence check: loader",
+        "Evidence check: source_opened",
+        "Evidence check: provenance_reviewed",
+        "Evidence check: private_asset_route",
+        "Evidence check: rig",
+        "Evidence check: animations",
+        "Evidence check: identity",
+        "Evidence check: docks",
+        "Evidence check: root_motion",
+        "Khronos glTF Validator report with zero errors",
+        "Successful GLB structural metadata inspection"
+      ]
+    },
+    {
+      "id": "character_clara",
+      "kind": "runtime_rigged_character_glb",
+      "required_filename": "assets/office/characters/clara.glb",
+      "required_source_filename": "source/office/characters/clara.blend",
+      "exists": false,
+      "source_exists": false,
+      "status": "missing",
+      "runtime_approved": false,
+      "missing_requirements": [
+        "assets/office/characters/clara.glb",
+        "source/office/characters/clara.blend",
+        "Complete source/creator/license record and reviewed commercial/edit/redistribution rights",
+        "Retained license document in private asset bundle",
+        "Explicit runtime approval bound to actual GLB SHA-256",
+        "Shared native rig/animation source: source/office/common-biped-rig.blend",
+        "Shared native rig/animation source: source/office/common-animations.blend",
+        "Evidence check: geometry",
+        "Evidence check: dimensions",
+        "Evidence check: loader",
+        "Evidence check: source_opened",
+        "Evidence check: provenance_reviewed",
+        "Evidence check: private_asset_route",
+        "Evidence check: rig",
+        "Evidence check: animations",
+        "Evidence check: identity",
+        "Evidence check: docks",
+        "Evidence check: root_motion",
+        "Khronos glTF Validator report with zero errors",
+        "Successful GLB structural metadata inspection"
+      ]
+    },
+    {
+      "id": "character_nadia",
+      "kind": "runtime_rigged_character_glb",
+      "required_filename": "assets/office/characters/nadia.glb",
+      "required_source_filename": "source/office/characters/nadia.blend",
+      "exists": false,
+      "source_exists": false,
+      "status": "missing",
+      "runtime_approved": false,
+      "missing_requirements": [
+        "assets/office/characters/nadia.glb",
+        "source/office/characters/nadia.blend",
+        "Complete source/creator/license record and reviewed commercial/edit/redistribution rights",
+        "Retained license document in private asset bundle",
+        "Explicit runtime approval bound to actual GLB SHA-256",
+        "Shared native rig/animation source: source/office/common-biped-rig.blend",
+        "Shared native rig/animation source: source/office/common-animations.blend",
+        "Evidence check: geometry",
+        "Evidence check: dimensions",
+        "Evidence check: loader",
+        "Evidence check: source_opened",
+        "Evidence check: provenance_reviewed",
+        "Evidence check: private_asset_route",
+        "Evidence check: rig",
+        "Evidence check: animations",
+        "Evidence check: identity",
+        "Evidence check: docks",
+        "Evidence check: root_motion",
+        "Khronos glTF Validator report with zero errors",
+        "Successful GLB structural metadata inspection"
+      ]
+    },
+    {
+      "id": "character_leo",
+      "kind": "runtime_rigged_character_glb",
+      "required_filename": "assets/office/characters/leo.glb",
+      "required_source_filename": "source/office/characters/leo.blend",
+      "exists": false,
+      "source_exists": false,
+      "status": "missing",
+      "runtime_approved": false,
+      "missing_requirements": [
+        "assets/office/characters/leo.glb",
+        "source/office/characters/leo.blend",
+        "Complete source/creator/license record and reviewed commercial/edit/redistribution rights",
+        "Retained license document in private asset bundle",
+        "Explicit runtime approval bound to actual GLB SHA-256",
+        "Shared native rig/animation source: source/office/common-biped-rig.blend",
+        "Shared native rig/animation source: source/office/common-animations.blend",
+        "Evidence check: geometry",
+        "Evidence check: dimensions",
+        "Evidence check: loader",
+        "Evidence check: source_opened",
+        "Evidence check: provenance_reviewed",
+        "Evidence check: private_asset_route",
+        "Evidence check: rig",
+        "Evidence check: animations",
+        "Evidence check: identity",
+        "Evidence check: docks",
+        "Evidence check: root_motion",
+        "Khronos glTF Validator report with zero errors",
+        "Successful GLB structural metadata inspection"
+      ]
+    },
+    {
+      "id": "character_lisa",
+      "kind": "runtime_rigged_character_glb",
+      "required_filename": "assets/office/characters/lisa.glb",
+      "required_source_filename": "source/office/characters/lisa.blend",
+      "exists": false,
+      "source_exists": false,
+      "status": "missing",
+      "runtime_approved": false,
+      "missing_requirements": [
+        "assets/office/characters/lisa.glb",
+        "source/office/characters/lisa.blend",
+        "Complete source/creator/license record and reviewed commercial/edit/redistribution rights",
+        "Retained license document in private asset bundle",
+        "Explicit runtime approval bound to actual GLB SHA-256",
+        "Shared native rig/animation source: source/office/common-biped-rig.blend",
+        "Shared native rig/animation source: source/office/common-animations.blend",
+        "Evidence check: geometry",
+        "Evidence check: dimensions",
+        "Evidence check: loader",
+        "Evidence check: source_opened",
+        "Evidence check: provenance_reviewed",
+        "Evidence check: private_asset_route",
+        "Evidence check: rig",
+        "Evidence check: animations",
+        "Evidence check: identity",
+        "Evidence check: docks",
+        "Evidence check: root_motion",
+        "Khronos glTF Validator report with zero errors",
+        "Successful GLB structural metadata inspection"
+      ]
+    },
+    {
+      "id": "character_sam",
+      "kind": "runtime_rigged_character_glb",
+      "required_filename": "assets/office/characters/sam.glb",
+      "required_source_filename": "source/office/characters/sam.blend",
+      "exists": false,
+      "source_exists": false,
+      "status": "missing",
+      "runtime_approved": false,
+      "missing_requirements": [
+        "assets/office/characters/sam.glb",
+        "source/office/characters/sam.blend",
+        "Complete source/creator/license record and reviewed commercial/edit/redistribution rights",
+        "Retained license document in private asset bundle",
+        "Explicit runtime approval bound to actual GLB SHA-256",
+        "Shared native rig/animation source: source/office/common-biped-rig.blend",
+        "Shared native rig/animation source: source/office/common-animations.blend",
+        "Evidence check: geometry",
+        "Evidence check: dimensions",
+        "Evidence check: loader",
+        "Evidence check: source_opened",
+        "Evidence check: provenance_reviewed",
+        "Evidence check: private_asset_route",
+        "Evidence check: rig",
+        "Evidence check: animations",
+        "Evidence check: identity",
+        "Evidence check: docks",
+        "Evidence check: root_motion",
+        "Khronos glTF Validator report with zero errors",
+        "Successful GLB structural metadata inspection"
+      ]
+    },
+    {
+      "id": "character_theo",
+      "kind": "runtime_rigged_character_glb",
+      "required_filename": "assets/office/characters/theo.glb",
+      "required_source_filename": "source/office/characters/theo.blend",
+      "exists": false,
+      "source_exists": false,
+      "status": "missing",
+      "runtime_approved": false,
+      "missing_requirements": [
+        "assets/office/characters/theo.glb",
+        "source/office/characters/theo.blend",
+        "Complete source/creator/license record and reviewed commercial/edit/redistribution rights",
+        "Retained license document in private asset bundle",
+        "Explicit runtime approval bound to actual GLB SHA-256",
+        "Shared native rig/animation source: source/office/common-biped-rig.blend",
+        "Shared native rig/animation source: source/office/common-animations.blend",
+        "Evidence check: geometry",
+        "Evidence check: dimensions",
+        "Evidence check: loader",
+        "Evidence check: source_opened",
+        "Evidence check: provenance_reviewed",
+        "Evidence check: private_asset_route",
+        "Evidence check: rig",
+        "Evidence check: animations",
+        "Evidence check: identity",
+        "Evidence check: docks",
+        "Evidence check: root_motion",
+        "Khronos glTF Validator report with zero errors",
+        "Successful GLB structural metadata inspection"
+      ]
+    },
+    {
+      "id": "common_biped_rig",
+      "kind": "editable_rig_source",
+      "required_filename": "source/office/common-biped-rig.blend",
+      "required_source_filename": "source/office/common-biped-rig.blend",
+      "exists": false,
+      "source_exists": false,
+      "status": "missing",
+      "runtime_approved": false,
+      "missing_requirements": [
+        "source/office/common-biped-rig.blend",
+        "source/office/common-biped-rig.blend",
+        "Complete source/creator/license record and reviewed commercial/edit/redistribution rights",
+        "Retained license document in private asset bundle"
+      ]
+    },
+    {
+      "id": "common_animations",
+      "kind": "editable_animation_source",
+      "required_filename": "source/office/common-animations.blend",
+      "required_source_filename": "source/office/common-animations.blend",
+      "exists": false,
+      "source_exists": false,
+      "status": "missing",
+      "runtime_approved": false,
+      "missing_requirements": [
+        "source/office/common-animations.blend",
+        "source/office/common-animations.blend",
+        "Complete source/creator/license record and reviewed commercial/edit/redistribution rights",
+        "Retained license document in private asset bundle"
+      ]
+    },
+    {
+      "id": "texture_sources",
+      "kind": "editable_texture_source_bundle",
+      "required_filename": "source/office/textures-source.zip",
+      "required_source_filename": "source/office/textures-source.zip",
+      "exists": false,
+      "source_exists": false,
+      "status": "missing",
+      "runtime_approved": false,
+      "missing_requirements": [
+        "source/office/textures-source.zip",
+        "source/office/textures-source.zip",
+        "Complete source/creator/license record and reviewed commercial/edit/redistribution rights",
+        "Retained license document in private asset bundle"
+      ]
+    },
+    {
+      "id": "runtime_layout",
+      "kind": "runtime_scene_data",
+      "required_filename": "assets/office/office-layout.runtime.json",
+      "required_source_filename": "floorplan.json",
+      "exists": false,
+      "source_exists": false,
+      "status": "missing",
+      "runtime_approved": false,
+      "missing_requirements": [
+        "assets/office/office-layout.runtime.json",
+        "floorplan.json",
+        "Complete source/creator/license record and reviewed commercial/edit/redistribution rights",
+        "Retained license document in private asset bundle"
+      ]
+    },
+    {
+      "id": "provenance_register",
+      "kind": "provenance_and_license_register",
+      "required_filename": "source/office/provenance-and-licenses.json",
+      "required_source_filename": "source/office/provenance-and-licenses.json",
+      "exists": false,
+      "source_exists": false,
+      "status": "missing",
+      "runtime_approved": false,
+      "missing_requirements": [
+        "source/office/provenance-and-licenses.json",
+        "source/office/provenance-and-licenses.json",
+        "Complete source/creator/license record and reviewed commercial/edit/redistribution rights",
+        "Retained license document in private asset bundle"
+      ]
+    },
+    {
+      "id": "asset_validation_report",
+      "kind": "validation_evidence_report",
+      "required_filename": "reports/office-asset-validation.json",
+      "required_source_filename": "reports/office-asset-validation.json",
+      "exists": false,
+      "source_exists": false,
+      "status": "missing",
+      "runtime_approved": false,
+      "missing_requirements": [
+        "reports/office-asset-validation.json",
+        "reports/office-asset-validation.json",
+        "Complete source/creator/license record and reviewed commercial/edit/redistribution rights",
+        "Retained license document in private asset bundle"
+      ]
+    }
+  ],
+  "production_milestones": {
+    "sam_rigged_proof": "pending_identity_docks_and_browser_approval",
+    "final_seven_character_scene": "pending",
+    "hardware_performance": "not_measured",
+    "licenses_and_native_sources": "pending"
+  },
+  "limits": [
+    "This is an implementation status report, not a produced-asset validator report from the manifest.",
+    "Planning geometry uses measured source data. Separate development-proof meshes, rigs, animations and native sources are not promoted by this inventory.",
+    "Browser loader/performance/route and docking acceptance requires actual models and actual hardware."
+  ]
+}

@@ -1,0 +1,511 @@
+{
+  "run": "20261108-065110-e702e720",
+  "startedAt": "2026-11-08T06:51:10.455Z",
+  "isolation": {
+    "productionUsed": false,
+    "pgPort": 55499,
+    "appPort": 3138,
+    "snapshot": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\build-20261108-065006-c393d83e\\app",
+    "root": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261108-065110-e702e720",
+    "buildId": "x1p8aG4bfQ_DRs8uhlFvp",
+    "environmentFiles": 0,
+    "authentication": "Synthetic RS256 owner assertion verified through a loopback HTTPS JWKS; production mode, bypass false",
+    "issuerPort": 9448,
+    "appPid": 56796,
+    "workerPid": 43932,
+    "issuerPortClosed": true
+  },
+  "checks": [
+    {
+      "name": "theme initializer carries the request CSP nonce",
+      "passed": true
+    },
+    {
+      "name": "stored/system theme initializes before interaction",
+      "passed": true
+    },
+    {
+      "name": "welcome copy is concise",
+      "passed": true
+    },
+    {
+      "name": "fictional persona badge removed",
+      "passed": true
+    },
+    {
+      "name": "large demonstration box removed",
+      "passed": true
+    },
+    {
+      "name": "desktop profile panel is compact",
+      "passed": true,
+      "height": 264
+    },
+    {
+      "name": "desktop content begins without tall diagnostic stack",
+      "passed": true,
+      "headerHeight": 150
+    },
+    {
+      "name": "profile details are available on demand",
+      "passed": true
+    },
+    {
+      "name": "profile keyboard focus stays in dialog",
+      "passed": true
+    },
+    {
+      "name": "profile closes on Escape and returns focus",
+      "passed": true
+    },
+    {
+      "name": "3D canvas is above its controls",
+      "passed": true,
+      "canvasBottom": 702,
+      "controlsTop": 702
+    },
+    {
+      "name": "all seven 3D persona names are selectable",
+      "passed": true
+    },
+    {
+      "name": "3D name selection opens the matching compact profile",
+      "passed": true
+    },
+    {
+      "name": "3D details are available by click",
+      "passed": true
+    },
+    {
+      "name": "save notification can be dismissed without deleting task",
+      "passed": true
+    },
+    {
+      "name": "saved task persists and exact selection reloads",
+      "passed": true
+    },
+    {
+      "name": "timer test uses a real fixture lease",
+      "passed": true
+    },
+    {
+      "name": "active profile elapsed time ticks while its real lease is live",
+      "passed": true,
+      "first": "0M 0S",
+      "second": "0M 1S"
+    },
+    {
+      "name": "expired local lease stops the work timer",
+      "passed": true
+    },
+    {
+      "name": "dismissible final notification preserves accepted parent and seven children",
+      "passed": true
+    },
+    {
+      "name": "review and immutable artifact evidence survives UX changes",
+      "passed": true
+    },
+    {
+      "name": "Dashboard opens the exact accepted revision",
+      "passed": false
+    }
+  ],
+  "screenshots": [
+    "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261108-065110-e702e720\\screenshots\\01-desktop-office.png",
+    "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261108-065110-e702e720\\screenshots\\02a-scene-after-ready.png",
+    "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261108-065110-e702e720\\screenshots\\02b-selected-theo.png",
+    "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261108-065110-e702e720\\screenshots\\02-desktop-scene.png",
+    "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261108-065110-e702e720\\screenshots\\03-saved-task.png",
+    "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261108-065110-e702e720\\screenshots\\03b-lease-expired-timer-stopped.png",
+    "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261108-065110-e702e720\\screenshots\\failure.png"
+  ],
+  "consoleErrors": [],
+  "consoleWarnings": [
+    "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "[.WebGL-0x6264034efa00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+    "[.WebGL-0x6264034efa00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+    "[.WebGL-0x6264034efa00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+    "[.WebGL-0x6264034efa00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+  ],
+  "componentHashes": [
+    {
+      "name": "office-profile-status.test.ts",
+      "sha256": "05bd892c63e6fffb0f4297f6a4d7d05e116a188defa0789264a65ff38a46a461"
+    },
+    {
+      "name": "office-profile-status.ts",
+      "sha256": "f0e2e5ddc3b0bc93ed080f0d61300a58efdbbc866aba88875b9295328c41624a"
+    },
+    {
+      "name": "office-profile.module.css",
+      "sha256": "34dbcbd472e3a104fc2461ea54f6e9610d18709abd7b9d8e27376f9572770831"
+    },
+    {
+      "name": "office-selection.test.ts",
+      "sha256": "a624978e0553a88f98699ae808ddb9d12c887ab2d6afbc993f8059ae9a6ce360"
+    },
+    {
+      "name": "office-selection.ts",
+      "sha256": "a74f20b46f2cd687a3b9016b4704a40a7634278881d2a1596a5fc71fd92cc19f"
+    },
+    {
+      "name": "office-status.test.ts",
+      "sha256": "a5aa21a8aa1ad71796119ce3d7400dd27f69dc249b48a2eb5e835a26f1f4097a"
+    },
+    {
+      "name": "office-status.ts",
+      "sha256": "5db4e883f694bbac769839850c9401567623db48aa52979e39ccf72a05ab9264"
+    },
+    {
+      "name": "office-ui.tsx",
+      "sha256": "2d096b9d06590b1fec8cd51a645fc89962fed9d5a20ac429923215ff5c0e05a5"
+    },
+    {
+      "name": "office.module.css",
+      "sha256": "1a7174eede6e7f09c60381db9854669deee8bbc916ad04e7da7366d0919218cc"
+    },
+    {
+      "name": "OfficeDashboardPanel.test.tsx",
+      "sha256": "741223902cffded4f41860e614ba9df93ffb7608a20ca9ebe994bf3cd4fc771a"
+    },
+    {
+      "name": "OfficeDashboardPanel.tsx",
+      "sha256": "b2aa0626d24fae59b5cfe04d9397e9cdcd6ab574de505809879be78e7782d8eb"
+    },
+    {
+      "name": "OfficeInbox.tsx",
+      "sha256": "61f66858c7130ed8832a8f0d965b244fe5f8fe697e990b8164f7976eb59c9b9a"
+    },
+    {
+      "name": "OfficeInfo.tsx",
+      "sha256": "ae165ee03f27b5aa4671299030c733b8425453bc0ec182837f658e479babddce"
+    },
+    {
+      "name": "OfficeProfilePanel.tsx",
+      "sha256": "c48e5dd4ad5b948d310995ea999781d10cf8619f60f4a031186574e086ec3164"
+    },
+    {
+      "name": "OfficeRoleStatus.tsx",
+      "sha256": "170e568ed8a5cfa93ff85b3928b0ad2f80a0977b2d1da2562d0e0bcee28291bc"
+    },
+    {
+      "name": "OfficeScene.tsx",
+      "sha256": "260300b30520b15425a81a8fd272b94714bd9e75d94a43fc6ae0974d41bb4c9d"
+    },
+    {
+      "name": "OfficeTaskDetail.tsx",
+      "sha256": "857dd002870873fef8c28a810a27e2ac43e95aea00851fcef200ee0f42796e2e"
+    },
+    {
+      "name": "OfficeView.tsx",
+      "sha256": "1b3c2363d947127b29eb606b1992acd81d0282c7eec1d7cea13049dd67177c2d"
+    },
+    {
+      "name": "profiles.ts",
+      "sha256": "af516b7049ac7b0a53c6b5489fc928d3a65ca3a91bce6bf2f12328d8617bea93"
+    },
+    {
+      "name": "scene-layout.test.ts",
+      "sha256": "0ea9f6b1089088335d065a4cadc746845e3ce993934c9e96cf6faa0109243128"
+    },
+    {
+      "name": "scene-layout.ts",
+      "sha256": "47e2f6e038d80401509f656c89f7e3cb6318038ad74681a3c188d4511aefce8a"
+    },
+    {
+      "name": "scene-preview-people.tsx",
+      "sha256": "a52b942713b3ac9517f46cfa178e4630a74ebe31785f13655f87e0a8380ab983"
+    },
+    {
+      "name": "scene-static-batch.test.ts",
+      "sha256": "1462616cc843dd104b143e0122827f14cc16bdd6d40f6366d8f76ba7ef1b2f8a"
+    },
+    {
+      "name": "scene-static-batch.ts",
+      "sha256": "58034d529ea7b721f4933b1b5c2bab0e731c4a45f10eff26a9b3b2ab0e465023"
+    },
+    {
+      "name": "scene.module.css",
+      "sha256": "d2c9d08385a7d74751c99f4d455c18691e68edb6035b71781dcf67c0e2149538"
+    }
+  ],
+  "sceneDiagnostics": {
+    "text": "ENZTRONIC\nAdrian\n, Idle\nClara\n, Idle\nNadia\n, Idle\nLeo\n, Idle\nLisa\n, Idle\nSam\n, Idle\nTheo\n, Idle\nOverview\nDrag to pan · Scroll to zoom\nView options",
+    "buttons": [
+      {
+        "text": "Adrian, Idle",
+        "label": null,
+        "rect": {
+          "x": 661.2454223632812,
+          "y": 339.5820617675781,
+          "width": 50.984375,
+          "height": 23.1875,
+          "top": 339.5820617675781,
+          "right": 712.2297973632812,
+          "bottom": 362.7695617675781,
+          "left": 661.2454223632812
+        }
+      },
+      {
+        "text": "Clara, Idle",
+        "label": null,
+        "rect": {
+          "x": 754.0433349609375,
+          "y": 289.0495910644531,
+          "width": 44.328125,
+          "height": 23.1875,
+          "top": 289.0495910644531,
+          "right": 798.3714599609375,
+          "bottom": 312.2370910644531,
+          "left": 754.0433349609375
+        }
+      },
+      {
+        "text": "Nadia, Idle",
+        "label": null,
+        "rect": {
+          "x": 815.142578125,
+          "y": 324.9837646484375,
+          "width": 46.609375,
+          "height": 23.1875,
+          "top": 324.9837646484375,
+          "right": 861.751953125,
+          "bottom": 348.1712646484375,
+          "left": 815.142578125
+        }
+      },
+      {
+        "text": "Leo, Idle",
+        "label": null,
+        "rect": {
+          "x": 883.0230712890625,
+          "y": 360.91796875,
+          "width": 35.328125,
+          "height": 23.1875,
+          "top": 360.91796875,
+          "right": 918.3511962890625,
+          "bottom": 384.10546875,
+          "left": 883.0230712890625
+        }
+      },
+      {
+        "text": "Lisa, Idle",
+        "label": null,
+        "rect": {
+          "x": 518.168212890625,
+          "y": 427.17169189453125,
+          "width": 37.609375,
+          "height": 23.1875,
+          "top": 427.17169189453125,
+          "right": 555.777587890625,
+          "bottom": 450.35919189453125,
+          "left": 518.168212890625
+        }
+      },
+      {
+        "text": "Sam, Idle",
+        "label": null,
+        "rect": {
+          "x": 579.3221435546875,
+          "y": 463.1058654785156,
+          "width": 39.78125,
+          "height": 23.1875,
+          "top": 463.1058654785156,
+          "right": 619.1033935546875,
+          "bottom": 486.2933654785156,
+          "left": 579.3221435546875
+        }
+      },
+      {
+        "text": "Theo, Idle",
+        "label": null,
+        "rect": {
+          "x": 640.44482421875,
+          "y": 499.0400695800781,
+          "width": 42.015625,
+          "height": 23.187469482421875,
+          "top": 499.0400695800781,
+          "right": 682.46044921875,
+          "bottom": 522.2275390625,
+          "left": 640.44482421875
+        }
+      },
+      {
+        "text": "Overview",
+        "label": null,
+        "rect": {
+          "x": 340,
+          "y": 711.5,
+          "width": 110.078125,
+          "height": 40,
+          "top": 711.5,
+          "right": 450.078125,
+          "bottom": 751.5,
+          "left": 340
+        }
+      },
+      {
+        "text": "",
+        "label": "Zoom out",
+        "rect": {
+          "x": 457.078125,
+          "y": 714.5,
+          "width": 37,
+          "height": 34,
+          "top": 714.5,
+          "right": 494.078125,
+          "bottom": 748.5,
+          "left": 457.078125
+        }
+      },
+      {
+        "text": "",
+        "label": "Zoom in",
+        "rect": {
+          "x": 497.078125,
+          "y": 714.5,
+          "width": 37,
+          "height": 34,
+          "top": 714.5,
+          "right": 534.078125,
+          "bottom": 748.5,
+          "left": 497.078125
+        }
+      },
+      {
+        "text": "←",
+        "label": "Pan left",
+        "rect": {
+          "x": 778,
+          "y": 597.25,
+          "width": 67.75,
+          "height": 42.25,
+          "top": 597.25,
+          "right": 845.75,
+          "bottom": 639.5,
+          "left": 778
+        }
+      },
+      {
+        "text": "→",
+        "label": "Pan right",
+        "rect": {
+          "x": 850.75,
+          "y": 597.25,
+          "width": 67.75,
+          "height": 42.25,
+          "top": 597.25,
+          "right": 918.5,
+          "bottom": 639.5,
+          "left": 850.75
+        }
+      },
+      {
+        "text": "↑",
+        "label": "Pan toward rear",
+        "rect": {
+          "x": 923.5,
+          "y": 597.25,
+          "width": 67.75,
+          "height": 42.25,
+          "top": 597.25,
+          "right": 991.25,
+          "bottom": 639.5,
+          "left": 923.5
+        }
+      },
+      {
+        "text": "↓",
+        "label": "Pan toward entry",
+        "rect": {
+          "x": 996.25,
+          "y": 597.25,
+          "width": 67.75,
+          "height": 42.25,
+          "top": 597.25,
+          "right": 1064,
+          "bottom": 639.5,
+          "left": 996.25
+        }
+      }
+    ],
+    "canvasCount": 1
+  },
+  "taskId": "cb5e3d54-588d-42cb-b14c-6d6677ba6768",
+  "failurePageText": "EZ\nENZTRONIC\nBackoffice\n\nWORKSPACE\n\nDashboard\nClients\nInvoices\nOffice\nSettings\n\nOwner fixture\n\nAdmin\n\nPrivate workspace\n\nAccess is restricted and activity is handled server-side.\n\nOffice\n\nWelcome to the office!\n\nOffice online\nChecking records…\nSimulation\nNew brief\nOffice\nTasks\n8\nInbox\nActivity\nStatus\nInternal demonstration\nRecords\nSimulated work\nInternal records\nFilters\nLeo: Office UX acceptance 20261108-065110-e702e720\nCompleted\nLeo\nInternal demonstration\nPriority 0\nCreated 8 Nov, 13:51 WIB\nUpdated 8 Nov, 13:51 WIB\nSpecialist child task\nCompleted · owner-accepted package revision\nSimulated example · no real work performed\nClara: Office UX acceptance 20261108-065110-e702e720\nCompleted\nClara\nInternal demonstration\nPriority 0\nCreated 8 Nov, 13:51 WIB\nUpdated 8 Nov, 13:51 WIB\nSpecialist child task\nCompleted · owner-accepted package revision\nSimulated example · no real work performed\nSam: Office UX acceptance 20261108-065110-e702e720\nCompleted\nSam\nInternal demonstration\nPriority 0\nCreated 8 Nov, 13:51 WIB\nUpdated 8 Nov, 13:51 WIB\nSpecialist child task\nCompleted · owner-accepted package revision\nSimulated example · no real work performed\nNadia: Office UX acceptance 20261108-065110-e702e720\nCompleted\nNadia\nInternal demonstration\nPriority 0\nCreated 8 Nov, 13:51 WIB\nUpdated 8 Nov, 13:51 WIB\nSpecialist child task\nCompleted · owner-accepted package revision\nSimulated example · no real work performed\nLisa: Office UX acceptance 20261108-065110-e702e720\nCompleted\nLisa\nInternal demonstration\nPriority 0\nCreated 8 Nov, 13:51 WIB\nUpdated 8 Nov, 13:51 WIB\nSpecialist child task\nCompleted · owner-accepted package revision\nSimulated example · no real work performed\nOffice UX acceptance 20261108-065110-e702e720\nCompleted\nAdrian\nInternal demonstration\nPriority 0\nCreated 8 Nov, 13:51 WIB\nUpdated 8 Nov, 13:51 WIB\nProposal package\nCompleted · owner-accepted package revision\nSimulated example · no real work performed\nTheo: Office UX acceptance 20261108-065110-e702e720\nCompleted\nTheo\nInternal demonstration\nPriority 0\nCreated 8 Nov, 13:51 WIB\nUpdated 8 Nov, 13:51 WIB\nSpecialist child task\nCompleted · owner-accepted package revision\nSimulated example · no real work performed\nAdrian: Office UX acceptance 20261108-065110-e702e720\nCompleted\nAdrian\nInternal demonstration\nPriority 0\nCreated 8 Nov, 13:51 WIB\nUpdated 8 Nov, 13:51 WIB\nSpecialist child task\nCompleted · owner-accepted package revision\nSimulated example · no real work performed\n\nTASK RECORD · SIMULATED\n\nOffice UX acceptance 20261108-065110-e702e720\nCompleted\nInternal demonstration\nAccountable: Adrian\nPriority 0\nVersion 8\nUpdated 8 Nov, 13:51 WIB\nRecord details\n\n Task completed. Its saved work and decision history are below.\n\nProgress\n\nCompleted · owner-accepted package revision\n\nWork details\nBrief and source context\n\nSynthetic internal UI acceptance only. Prepare a simple website proposal. No client or financial records. Do not send, publish, deploy or execute anything.\n\nSpecialist tasks and dependencies\nLeo · Leo: Office UX acceptance 20261108-065110-e702e720\ncompleted\nClara · Clara: Office UX acceptance 20261108-065110-e702e720\ncompleted\nSam · Sam: Office UX acceptance 20261108-065110-e702e720\ncompleted\nNadia · Nadia: Office UX acceptance 20261108-065110-e702e720\ncompleted\nLisa · Lisa: Office UX acceptance 20261108-065110-e702e720\ncompleted\nTheo · Theo: Office UX acceptance 20261108-065110-e702e720\ncompleted\nAdrian · Adrian: Office UX acceptance 20261108-065110-e702e720\ncompleted\nTask controls\nPause\nResume\nRetry failed step\nCancel task\nRequest changes\n\nResume requires an effective paused state. Retry requires a failed or blocked step. Request changes requires a current reviewable revision. An active pause or cancellation remains a request until the worker confirms a safe stop.\n\nReassign accountable profile\nAdrian · Project Manager\nClara · Finance & Accounting\nNadia · Administration\nLeo · Sales & Client Relations\nLisa · Graphic Designer\nSam · Frontend Developer\nTheo · Backend Developer\nReassign\n\nReassignment requires an unstarted queued, assigned, or paused task with no artifact.\n\nQueue priority · higher runs first\nSet priority\n\nRange −10 to 10. Dependency order and workspace limits still apply.\n\nArtifacts and revision history\nArtifact revision\nRevision 1 · Simulated internal proposal package (current)\nSimulated internal proposal package\nDownload\nRevision 1\nAuthor: Adrian\n8 Nov, 13:51 WIB\nAuthored by Adrian in a recorded run · revision 1\nIndependent review passed · Nadia\naccepted by the owner · evidence 3128a0bc\nRevision details\n\nThis is a deterministic simulated draft. It does not claim model generation, professional review, or implemented software.\n\nCompare previous revision\nPrepare a new revision\n# Simulated internal website proposal package\n\nDeterministic demonstration. No paid provider, external tool, client message, implementation, invoice, payment, filing, publishing or deployment was executed.\n\n## Supplied request\n\nSynthetic internal UI acceptance only. Prepare a simple website proposal. No client or financial records. Do not send, publish, deploy or execute anything.\n\n## Component manifest\n\n[{\"artifactHash\":\"75727fa45f9160bf1c64c89bd133f03ffd2ebc460fc2b1e437c4cf17f45adfc5\",\"artifactId\":\"3df89215-85ac-4689-b565-1d5a9b77eaed\",\"childTaskId\":\"f78bb340-94da-4d99-b857-7115696940c9\",\"hashAlgorithm\":\"SHA-256\",\"reviewReferences\":[\"57983a24-6bae-49c4-b7cb-78a5e9c3cb91\"],\"revisionId\":\"3df89215-85ac-4689-b565-1d5a9b77eaed\"},{\"artifactHash\":\"8a188a225e6a45092af618c99f9050e65aa38e38440b912baa09d32937551b97\",\"artifactId\":\"bf1ce007-b09b-4864-b212-fb120c1a9b95\",\"childTaskId\":\"7596d7ca-6c57-40f7-bf3b-c8484fc62f01\",\"hashAlgorithm\":\"SHA-256\",\"reviewReferences\":[\"fd10f263-79b3-4090-9f5b-78601b68ca01\"],\"revisionId\":\"bf1ce007-b09b-4864-b212-fb120c1a9b95\"},{\"artifactHash\":\"d2f29ed6df8bffcd603929fc493c4c4b1f4405578b31a747eecfde15c4ef2d42\",\"artifactId\":\"ecff9a57-cada-43ed-b08d-2be5c9162d11\",\"childTaskId\":\"3dce69a0-892c-421f-85fa-59bedd98bd21\",\"hashAlgorithm\":\"SHA-256\",\"reviewReferences\":[\"4d3f8fbf-eefb-49f1-a889-3244d72137a2\"],\"revisionId\":\"ecff9a57-cada-43ed-b08d-2be5c9162d11\"},{\"artifactHash\":\"6888b229940c31d8d263888d6e3b0a8734b3446419a3d5d9e184a2105ebaad7d\",\"artifactId\":\"6a8897f9-9cff-418a-af09-59092421fd44\",\"childTaskId\":\"a7e08ffb-2ff0-4432-88e1-6bc99ad2e2e2\",\"hashAlgorithm\":\"SHA-256\",\"reviewReferences\":[\"f638f029-aaa0-427a-aabe-d884fca25b26\"],\"revisionId\":\"6a8897f9-9cff-418a-af09-59092421fd44\"},{\"artifactHash\":\"da09ee98e224d4b0ef5e9472db9289a66a608cec59d77da116f9d765d8ab5a63\",\"artifactId\":\"11491a5d-138f-417a-a2ee-2233ae2ece04\",\"childTaskId\":\"9f7cca8b-516d-4d3c-94c1-eb3a592797c2\",\"hashAlgorithm\":\"SHA-256\",\"reviewReferences\":[\"c544f915-c5ad-40dd-9e4d-3bb65dec1702\"],\"revisionId\":\"11491a5d-138f-417a-a2ee-2233ae2ece04\"},{\"artifactHash\":\"38b3565f334da8bbad6eb6405582e88ff9a098b93b1372c0b9e22b6b254d8240\",\"artifactId\":\"5c391e1d-3fa6-43a1-9145-fc4e69ee1657\",\"childTaskId\":\"7dc7f2ee-79b7-44fa-a4c0-3920fb247704\",\"hashAlgorithm\":\"SHA-256\",\"reviewReferences\":[\"fc82e3bf-3312-4568-ba21-1a92b0f68143\"],\"revisionId\":\"5c391e1d-3fa6-43a1-9145-fc4e69ee1657\"},{\"artifactHash\":\"ff75721121553374b87004e69a7ce4ee2a9cb2544b7f3a6ffdaa85c06e17533a\",\"artifactId\":\"eb8a1f9a-2d66-412f-b05b-9a3ededc2adc\",\"childTaskId\":\"cb66300f-c8b9-4728-bbe3-9a3a047e0db5\",\"hashAlgorithm\":\"SHA-256\",\"reviewReferences\":[\"8c6ed410-e452-4f0c-990e-8c36b1527c21\"],\"revisionId\":\"eb8a1f9a-2d66-412f-b05b-9a3ededc2adc\"}]\n\n## Acceptance criteria\n\nSource-linked brief; explicit proposal scope and exclusions; role-owned drafts; independent structural reviews; unknown rates, integrations, timeline, assets and real feasibility remain unverified.\n\n## Owner decision scope\n\nAcceptance binds only this exact simulated internal package and listed child revisions. It does not authorize external effects.\n\nImmutable package manifest and acceptance criteria\nIndependent reviews · this revision\nNadia\nPassed\n\n8 Nov, 13:51 WIB · 93a3596c-0ab8-4e91-9151-86c75e1b42fd\n\ncurrent_digest_matches\nindependent_reviewer\ndemons",
+  "functionalPassed": false,
+  "failure": {
+    "message": "Dashboard opens the exact accepted revision"
+  },
+  "cleanup": {
+    "passed": true,
+    "actions": [
+      {
+        "kind": "client",
+        "resource": "browser",
+        "outcome": "closed"
+      },
+      {
+        "kind": "client",
+        "resource": "database",
+        "outcome": "closed"
+      },
+      {
+        "kind": "client",
+        "resource": "synthetic HTTPS issuer",
+        "outcome": "closed"
+      },
+      {
+        "kind": "process",
+        "name": "ui-ux-owner",
+        "pid": 56796,
+        "ports": [
+          3138
+        ],
+        "outcome": "terminated",
+        "taskkillStatus": 0,
+        "exit": {
+          "code": 1,
+          "signal": null
+        }
+      },
+      {
+        "kind": "process",
+        "name": "ui-ux-claimed-lease",
+        "pid": 36876,
+        "ports": [],
+        "outcome": "already_exited",
+        "exit": {
+          "code": 0,
+          "signal": null
+        }
+      },
+      {
+        "kind": "process",
+        "name": "ui-ux-worker",
+        "pid": 43932,
+        "ports": [],
+        "outcome": "terminated",
+        "taskkillStatus": 0,
+        "exit": {
+          "code": 1,
+          "signal": null
+        }
+      },
+      {
+        "kind": "postgres",
+        "port": 55499,
+        "data": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261108-065110-e702e720\\pg\\pgdata",
+        "outcome": "stopped",
+        "pgCtlStatus": 0,
+        "resolved": true
+      }
+    ],
+    "failures": [],
+    "unresolved": []
+  },
+  "remainingProcesses": [],
+  "passed": false,
+  "completedAt": "2026-11-08T06:51:58.038Z"
+}

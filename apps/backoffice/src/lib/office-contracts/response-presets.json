@@ -1,0 +1,1013 @@
+{
+  "schemaVersion": "1.0.0",
+  "documentType": "enztronic-office-response-configuration",
+  "configurationOnly": true,
+  "implementationAuthorized": false,
+  "description": "Declarative planning contract. No application code, executable agent prompt, configured integration, or actual work history is included.",
+  "routingContract": {
+    "canonicalProtectedPath": "/team",
+    "navigationLabel": "Office",
+    "pageLabel": "Office",
+    "conceptImagePath": "/office",
+    "conceptImagePathIsImplementedRoute": false,
+    "officeAliasRequiredForV1": false
+  },
+  "defaults": {
+    "mode": "visual_prototype",
+    "liveExecutionEnabled": false,
+    "externalActionsEnabled": false,
+    "gamificationEnabled": false,
+    "fakeWorkEnabled": false,
+    "showAiDisclosure": true,
+    "showModeDisclosure": true,
+    "sampleDisclosure": "Simulated example — no real work has been performed.",
+    "connectionStatus": "not_configured",
+    "initialActiveWorkflowLimit": 1,
+    "maxRevisionCyclesBeforeOwnerReview": 2,
+    "budgetLimit": null,
+    "runtimeLimit": null,
+    "unknownUsageLabel": "Unavailable",
+    "unknownInputPolicy": "Record as unknown; do not invent facts, rates, connections, or results.",
+    "completionPolicy": "A parent proposal package needs the required non-author reviews and one owner acceptance of its current immutable manifest. Covered child revisions complete through that same recorded acceptance, without separate owner clicks."
+  },
+  "permissionCategories": {
+    "internalDrafting": "Only within an authorized task and supplied or permitted sources.",
+    "internalRecordMutation": "Requires configured storage, scoped permissions, and an authorized workflow.",
+    "ownerAcceptance": "Authenticated human owner; bound to exact action scope and current artifact revision.",
+    "disabledInInitialWorkflow": [
+      "send_external_message",
+      "issue_invoice",
+      "make_client_commitment",
+      "execute_payment",
+      "submit_tax_or_regulatory_filing",
+      "publish_content",
+      "deploy_application",
+      "modify_production_data_or_access",
+      "configure_new_integration",
+      "implement_application_code"
+    ]
+  },
+  "commonResponseEnvelope": {
+    "requiredFields": [
+      "summary",
+      "outputs",
+      "evidenceAndLimitations",
+      "nextStep"
+    ],
+    "optionalFields": [
+      "decisionsNeeded",
+      "openQuestions"
+    ],
+    "artifactReferenceFields": [
+      "clientId",
+      "projectId",
+      "taskId",
+      "artifactId",
+      "revisionId",
+      "artifactHash",
+      "hashAlgorithm",
+      "uri",
+      "status"
+    ],
+    "evidenceReferenceFields": [
+      "evidenceId",
+      "claim",
+      "sourceReference",
+      "observedResult",
+      "verificationStatus"
+    ],
+    "verificationStatuses": [
+      "verified",
+      "unverified",
+      "not_applicable"
+    ],
+    "rules": [
+      "Omit empty optional sections.",
+      "Identify proposals, drafts, estimates, unknown inputs, and unverified checks explicitly.",
+      "Use completed-action language only when confirmed records support it.",
+      "A generated response is not a trusted state-change event.",
+      "Summarize decisions and evidence; do not expose hidden chain-of-thought.",
+      "Never include credentials or unrelated client information."
+    ]
+  },
+  "roles": [
+    {
+      "agentId": "adrian",
+      "displayName": "Adrian",
+      "role": "Project Manager",
+      "fictionalAiPersona": true,
+      "personality": "Calm, structured, and focused on useful delivery.",
+      "responsibility": "Scope, acceptance criteria, coordination, dependencies, and progress.",
+      "communicationStyle": "Concise progress reports with explicit decisions needed.",
+      "responseSections": [
+        "Completed",
+        "Next",
+        "Blocked",
+        "Decisions needed"
+      ],
+      "expectedOutputs": [
+        "scoped_plan",
+        "acceptance_checklist",
+        "handoff_brief",
+        "review_package"
+      ],
+      "workingRule": "Owner approval is required before changing agreed scope, budget, or client commitments.",
+      "initialWorkflowActions": [
+        "draft_scope",
+        "propose_internal_assignments",
+        "coordinate_reviews",
+        "assemble_proposal_package"
+      ],
+      "reviewRestriction": "Cannot be the sole reviewer of his own scoped plan."
+    },
+    {
+      "agentId": "clara",
+      "displayName": "Clara",
+      "role": "Finance & Accounting",
+      "fictionalAiPersona": true,
+      "personality": "Methodical, careful, and transparent about uncertainty.",
+      "responsibility": "Financial records, estimates, invoice drafts, receivables, and discrepancy flags.",
+      "communicationStyle": "Exact figures with currency, period, source, and estimate labels.",
+      "responseSections": [
+        "Amount and period",
+        "Sources",
+        "Confirmed versus estimated",
+        "Exceptions",
+        "Owner decision"
+      ],
+      "expectedOutputs": [
+        "estimate_draft",
+        "financial_input_checklist",
+        "cost_consistency_review"
+      ],
+      "workingRule": "Prepare financial actions for review; do not execute payments or filings, or invent tax classifications.",
+      "initialWorkflowActions": [
+        "check_supplied_rates",
+        "draft_cost_estimate",
+        "flag_missing_financial_inputs",
+        "review_financial_consistency"
+      ],
+      "reviewRestriction": "Financial review cannot replace owner or specialist review where required facts or expertise are missing."
+    },
+    {
+      "agentId": "nadia",
+      "displayName": "Nadia",
+      "role": "Administration",
+      "fictionalAiPersona": true,
+      "personality": "Orderly, dependable, and attentive to detail.",
+      "responsibility": "Document organization, records, schedules, completeness, and decision capture.",
+      "communicationStyle": "Practical checklists with responsible people and known due dates.",
+      "responseSections": [
+        "Records prepared",
+        "Missing information",
+        "Responsible person",
+        "Due date or unknown"
+      ],
+      "expectedOutputs": [
+        "source_register",
+        "completeness_checklist",
+        "decision_record"
+      ],
+      "workingRule": "Check existing records before creating new ones and preserve provenance and revisions.",
+      "initialWorkflowActions": [
+        "organize_sources",
+        "check_duplicates",
+        "review_document_completeness",
+        "record_owner_decision"
+      ],
+      "reviewRestriction": "Completeness review does not certify technical, legal, or financial correctness."
+    },
+    {
+      "agentId": "leo",
+      "displayName": "Leo",
+      "role": "Sales & Client Relations",
+      "fictionalAiPersona": true,
+      "personality": "Approachable, curious, and commercially practical.",
+      "responsibility": "Client needs, lead qualification, briefs, proposal drafts, and follow-up drafts.",
+      "communicationStyle": "Warm and direct, centered on the client goal and next step.",
+      "responseSections": [
+        "Client goal",
+        "Known requirements",
+        "Proposed response",
+        "Commitments needing approval",
+        "Next follow-up"
+      ],
+      "expectedOutputs": [
+        "client_brief_draft",
+        "open_questions",
+        "proposal_cover_draft"
+      ],
+      "workingRule": "Use approved prices and terms; owner approval is required for discounts and delivery commitments.",
+      "initialWorkflowActions": [
+        "draft_client_brief",
+        "identify_missing_requirements",
+        "draft_proposal_cover"
+      ],
+      "reviewRestriction": "No client outreach or assumption of client approval in this initial workflow."
+    },
+    {
+      "agentId": "lisa",
+      "displayName": "Lisa",
+      "role": "Graphic Designer",
+      "fictionalAiPersona": true,
+      "personality": "Visually curious, thoughtful, and precise.",
+      "responsibility": "Visual concepts, design proposals, brand consistency, and asset specifications.",
+      "communicationStyle": "Recommended direction with visual rationale and specific feedback requests.",
+      "responseSections": [
+        "Recommended concept",
+        "Visual rationale",
+        "Artifacts and formats",
+        "Feedback requested"
+      ],
+      "expectedOutputs": [
+        "design_direction_proposal",
+        "asset_requirements",
+        "design_review_notes"
+      ],
+      "workingRule": "Check the approved brief, available brand assets, and requested formats before handoff.",
+      "initialWorkflowActions": [
+        "propose_visual_direction",
+        "specify_assets",
+        "review_design_to_interface_consistency"
+      ],
+      "reviewRestriction": "A visual concept is not evidence of an implemented interface or third-party asset license."
+    },
+    {
+      "agentId": "sam",
+      "displayName": "Sam",
+      "role": "Frontend Developer",
+      "fictionalAiPersona": true,
+      "personality": "Practical, collaborative, and attentive to users.",
+      "responsibility": "User journeys, interface structure, responsive behavior, accessibility, and API needs.",
+      "communicationStyle": "Visual and concise explanations of proposed journeys and remaining issues.",
+      "responseSections": [
+        "User journey",
+        "Interface proposal",
+        "Planned checks",
+        "Dependencies",
+        "Remaining questions"
+      ],
+      "expectedOutputs": [
+        "frontend_approach_proposal",
+        "journey_map",
+        "interface_api_requirements",
+        "planned_browser_checks"
+      ],
+      "workingRule": "Check agreed journeys and screen sizes before claiming implementation acceptance.",
+      "initialWorkflowActions": [
+        "propose_frontend_approach",
+        "define_journeys",
+        "identify_api_needs",
+        "review_design_feasibility"
+      ],
+      "reviewRestriction": "The initial workflow permits proposals only; planned checks must not be presented as passed tests."
+    },
+    {
+      "agentId": "theo",
+      "displayName": "Theo",
+      "role": "Backend Developer",
+      "fictionalAiPersona": true,
+      "personality": "Methodical, calm, and focused on reliability.",
+      "responsibility": "API, data, authentication, integration, and verification proposals.",
+      "communicationStyle": "Plain-language inputs, outputs, dependencies, and risks.",
+      "responseSections": [
+        "Capability proposal",
+        "Inputs and outputs",
+        "Planned verification",
+        "Dependencies and risks",
+        "Owner decisions"
+      ],
+      "expectedOutputs": [
+        "backend_approach_proposal",
+        "data_api_outline",
+        "integration_assumptions",
+        "planned_verification"
+      ],
+      "workingRule": "Owner approval is required for production changes to stored data or access permissions.",
+      "initialWorkflowActions": [
+        "propose_backend_approach",
+        "outline_data_and_apis",
+        "identify_integration_gaps",
+        "review_interface_api_boundary"
+      ],
+      "reviewRestriction": "Do not assume credentials, integrations, production access, or implemented capabilities."
+    }
+  ],
+  "taskStateMachine": {
+    "stateAuthority": "workflow_controller",
+    "agentTextCanChangeState": false,
+    "states": [
+      "draft",
+      "queued",
+      "assigned",
+      "in_progress",
+      "waiting_for_input",
+      "waiting_for_review",
+      "changes_requested",
+      "review_passed",
+      "waiting_for_owner_approval",
+      "completed",
+      "pause_requested",
+      "paused",
+      "blocked",
+      "failed",
+      "cancel_requested",
+      "cancelled"
+    ],
+    "allowedTransitions": {
+      "draft": [
+        "queued",
+        "cancel_requested",
+        "cancelled"
+      ],
+      "queued": [
+        "assigned",
+        "paused",
+        "cancel_requested",
+        "cancelled"
+      ],
+      "assigned": [
+        "in_progress",
+        "queued",
+        "paused",
+        "blocked",
+        "cancel_requested",
+        "cancelled"
+      ],
+      "in_progress": [
+        "waiting_for_input",
+        "waiting_for_review",
+        "pause_requested",
+        "blocked",
+        "failed",
+        "cancel_requested"
+      ],
+      "waiting_for_input": [
+        "in_progress",
+        "queued",
+        "blocked",
+        "pause_requested",
+        "paused",
+        "cancel_requested",
+        "cancelled"
+      ],
+      "waiting_for_review": [
+        "changes_requested",
+        "review_passed",
+        "pause_requested",
+        "paused",
+        "blocked",
+        "cancel_requested",
+        "cancelled"
+      ],
+      "changes_requested": [
+        "queued",
+        "in_progress",
+        "pause_requested",
+        "paused",
+        "cancel_requested",
+        "cancelled"
+      ],
+      "review_passed": [
+        "waiting_for_owner_approval",
+        "changes_requested",
+        "pause_requested",
+        "paused",
+        "cancel_requested",
+        "cancelled",
+        "completed"
+      ],
+      "waiting_for_owner_approval": [
+        "completed",
+        "changes_requested",
+        "pause_requested",
+        "paused",
+        "cancel_requested",
+        "cancelled"
+      ],
+      "completed": [],
+      "pause_requested": [
+        "paused",
+        "blocked",
+        "failed",
+        "cancel_requested"
+      ],
+      "paused": [
+        "queued",
+        "cancel_requested",
+        "cancelled"
+      ],
+      "blocked": [
+        "queued",
+        "pause_requested",
+        "paused",
+        "cancel_requested",
+        "cancelled"
+      ],
+      "failed": [
+        "queued",
+        "cancel_requested",
+        "cancelled"
+      ],
+      "cancel_requested": [
+        "cancelled"
+      ],
+      "cancelled": []
+    },
+    "guards": [
+      "Require valid actor permission and matching client/project scope for every transition.",
+      "Require a confirmed run-start event for in_progress; sample events are isolated from live records.",
+      "Require a current artifact revision, SHA-256 digest, and named non-author reviewer for waiting_for_review.",
+      "Require completed mandatory reviews with evidence bound to current revision/digest for review_passed.",
+      "Require authenticated owner acceptance and persisted acceptance evidence bound to current package revision/digest and component manifest for completed.",
+      "A changed artifact digest supersedes previous review and approval; reject stale decisions at decision time.",
+      "Effective paused/cancelled requires no unreconciled active runs or effects; otherwise keep pause_requested/cancel_requested.",
+      "Require a recovery decision and duplicate-effect check before retrying failed work.",
+      "Retain completed and cancelled records; create linked tasks for additional work.",
+      "review_passed -> completed is allowed only for a covered child after atomic validation of the accepted parent manifest, exact child artifact revision/hash, required review records and inherited owner acceptance evidence."
+    ]
+  },
+  "runStateMachine": {
+    "stateAuthority": "workflow_controller_validating_runtime_events",
+    "states": [
+      "queued",
+      "starting",
+      "running",
+      "waiting_for_tool",
+      "pause_requested",
+      "paused",
+      "cancel_requested",
+      "cancelled",
+      "succeeded",
+      "failed",
+      "interrupted"
+    ],
+    "terminalStates": [
+      "cancelled",
+      "succeeded",
+      "failed",
+      "interrupted"
+    ],
+    "allowedTransitions": {
+      "queued": [
+        "starting",
+        "paused",
+        "cancel_requested",
+        "cancelled"
+      ],
+      "starting": [
+        "running",
+        "pause_requested",
+        "cancel_requested",
+        "failed",
+        "interrupted"
+      ],
+      "running": [
+        "waiting_for_tool",
+        "pause_requested",
+        "cancel_requested",
+        "succeeded",
+        "failed",
+        "interrupted"
+      ],
+      "waiting_for_tool": [
+        "running",
+        "pause_requested",
+        "cancel_requested",
+        "failed",
+        "interrupted"
+      ],
+      "pause_requested": [
+        "paused",
+        "cancel_requested",
+        "succeeded",
+        "failed",
+        "interrupted"
+      ],
+      "paused": [
+        "starting",
+        "cancel_requested",
+        "cancelled",
+        "interrupted"
+      ],
+      "cancel_requested": [
+        "cancelled",
+        "succeeded",
+        "failed",
+        "interrupted"
+      ],
+      "cancelled": [],
+      "succeeded": [],
+      "failed": [],
+      "interrupted": []
+    },
+    "guards": [
+      "A run is one step attempt; succeeded does not complete its parent task.",
+      "Retry creates a new linked run; terminal run records are immutable.",
+      "Pause and cancellation are requests until a runtime confirms a safe stop or terminal outcome.",
+      "If a result finishes before a pause/cancel can take effect, record its actual terminal outcome, reconcile effects, and keep future task scheduling suspended.",
+      "Resume only after scope, dependency, permission, and duplicate-effect checks.",
+      "Stale telemetry is a freshness flag, not evidence of succeeded, failed, or interrupted.",
+      "A failed run does not fail the task while authorized recovery remains available."
+    ]
+  },
+  "reviewContract": {
+    "states": [
+      "pending",
+      "in_review",
+      "changes_requested",
+      "passed",
+      "superseded"
+    ],
+    "requiredFields": [
+      "reviewId",
+      "clientId",
+      "projectId",
+      "taskId",
+      "artifactId",
+      "revisionId",
+      "artifactHash",
+      "hashAlgorithm",
+      "reviewerId",
+      "criteria",
+      "evidenceReferences",
+      "findings",
+      "outcome"
+    ],
+    "authorCannotBeSoleReviewer": true,
+    "unavailableCheckOutcome": "unverified",
+    "materialArtifactChangeInvalidatesReview": true
+  },
+  "approvalContract": {
+    "states": [
+      "proposed",
+      "pending",
+      "approved",
+      "rejected",
+      "expired",
+      "superseded",
+      "cancelled"
+    ],
+    "requiredFields": [
+      "approvalId",
+      "clientId",
+      "projectId",
+      "taskId",
+      "actionScope",
+      "artifactId",
+      "revisionId",
+      "artifactHash",
+      "hashAlgorithm",
+      "status"
+    ],
+    "hashAlgorithm": "SHA-256",
+    "packageBinding": "An immutable saved manifest lists component artifact revisions/digests and acceptance criteria; the owner decision binds its content digest.",
+    "requiredAtDecision": [
+      "authenticatedOwnerId",
+      "decision",
+      "decidedAt"
+    ],
+    "optionalActionBoundFields": [
+      "amount",
+      "currency",
+      "destination",
+      "expiresAt"
+    ],
+    "allowedInitialScope": "accept_internal_proposal_package",
+    "initialApprovalButtonLabel": "Accept this internal package",
+    "initialApprovalEffect": "Accepts this exact internal draft package; does not authorize sending, invoice issuance, implementation, payment, filing, publishing, or deployment.",
+    "materialChangePolicy": "Any revision/digest mismatch invalidates the pending decision; supersede the old approval and request a decision for the current revision/digest.",
+    "acceptanceEvidenceRequiredFields": [
+      "acceptanceEvidenceId",
+      "approvalId",
+      "authenticatedOwnerId",
+      "decidedAt",
+      "actionScope",
+      "artifactId",
+      "revisionId",
+      "artifactHash",
+      "hashAlgorithm",
+      "componentManifestReference",
+      "reviewReferences"
+    ],
+    "silenceIsApproval": false,
+    "agentAgreementIsOwnerApproval": false,
+    "requiredOnApproval": [
+      "currentDigestVerified",
+      "acceptanceEvidenceId"
+    ],
+    "requiredOnRejection": [
+      "reason"
+    ],
+    "rejectionEvidencePolicy": "A rejection is a scoped decision record, not acceptance. Do not create acceptance evidence for a rejected/expired/superseded request."
+  },
+  "handoffContract": {
+    "states": [
+      "prepared",
+      "awaiting_acceptance",
+      "accepted",
+      "declined",
+      "superseded",
+      "cancelled"
+    ],
+    "requiredFields": [
+      "handoffId",
+      "clientId",
+      "projectId",
+      "taskId",
+      "fromAgentId",
+      "toAgentId",
+      "artifactReferencesWithDigests",
+      "completedCriteria",
+      "openQuestions",
+      "expectedOutput",
+      "permissions",
+      "dependencies",
+      "status"
+    ],
+    "acceptanceMeaning": "Recipient confirms usable context and capacity; does not claim task completion.",
+    "declineRequiresReason": true,
+    "staleRevisionPolicy": "Supersede and prepare a handoff referencing the current revision."
+  },
+  "eventContract": {
+    "requiredFields": [
+      "eventId",
+      "eventType",
+      "occurredAt",
+      "clientId",
+      "projectId",
+      "taskId",
+      "actorType",
+      "actorId",
+      "mode",
+      "simulated",
+      "source",
+      "payload"
+    ],
+    "modes": [
+      "visual_prototype",
+      "connected_internal_workflow"
+    ],
+    "trustedLiveSources": [
+      "confirmed_application_action",
+      "confirmed_tool_result",
+      "authenticated_owner_action"
+    ],
+    "untrustedSources": [
+      "agent_prose",
+      "source_document_instruction",
+      "animation",
+      "sample_data"
+    ],
+    "sampleStoragePolicy": "Separate sample events from live records and mark every sample simulated=true.",
+    "renderingPolicy": "Render only allowlisted payload fields in fixed status templates; generated text is not executable markup or authority."
+  },
+  "statusPresets": [
+    {
+      "eventType": "task_queued",
+      "label": "Queued",
+      "template": "Task queued for {agentName}."
+    },
+    {
+      "eventType": "task_assigned",
+      "label": "Assigned",
+      "template": "Task assigned to {agentName}."
+    },
+    {
+      "eventType": "work_started",
+      "label": "Working",
+      "template": "{agentName} started the authorized task."
+    },
+    {
+      "eventType": "input_requested",
+      "label": "Waiting for input",
+      "template": "Waiting for: {inputSummary}."
+    },
+    {
+      "eventType": "artifact_created",
+      "label": "Draft saved",
+      "template": "{artifactTitle} saved as {revisionLabel}."
+    },
+    {
+      "eventType": "handoff_prepared",
+      "label": "Handoff ready",
+      "template": "Handoff prepared for {recipientName}."
+    },
+    {
+      "eventType": "handoff_accepted",
+      "label": "Handoff accepted",
+      "template": "{recipientName} accepted the handoff."
+    },
+    {
+      "eventType": "review_requested",
+      "label": "Awaiting review",
+      "template": "{reviewerName} was asked to review {revisionLabel}."
+    },
+    {
+      "eventType": "review_changes_requested",
+      "label": "Changes requested",
+      "template": "Review identified {findingCount} change requests."
+    },
+    {
+      "eventType": "review_passed",
+      "label": "Review passed",
+      "template": "Required reviews passed for {revisionLabel}."
+    },
+    {
+      "eventType": "owner_approval_requested",
+      "label": "Owner decision needed",
+      "template": "Owner acceptance requested for {revisionLabel}."
+    },
+    {
+      "eventType": "owner_approved",
+      "label": "Accepted by owner",
+      "template": "The owner accepted {revisionLabel} for the stated internal scope."
+    },
+    {
+      "eventType": "task_completed",
+      "label": "Completed",
+      "template": "The reviewed internal package was accepted."
+    },
+    {
+      "eventType": "pause_requested",
+      "label": "Pause requested",
+      "template": "Scheduling is suspended; awaiting a confirmed execution stop."
+    },
+    {
+      "eventType": "work_paused",
+      "label": "Paused",
+      "template": "Work paused at the last confirmed safe point."
+    },
+    {
+      "eventType": "work_blocked",
+      "label": "Blocked",
+      "template": "Blocked by: {dependencySummary}."
+    },
+    {
+      "eventType": "run_failed",
+      "label": "Step failed",
+      "template": "{stepName} failed. Saved work is available for recovery."
+    },
+    {
+      "eventType": "cancel_requested",
+      "label": "Cancellation requested",
+      "template": "Cancellation requested; outstanding execution is being reconciled."
+    },
+    {
+      "eventType": "task_cancelled",
+      "label": "Cancelled",
+      "template": "Task cancelled; existing records are retained."
+    }
+  ],
+  "officeInteractionPolicy": {
+    "defaultView": "isometric_overview",
+    "primarySelectionBehavior": "Open a stable agent side panel.",
+    "taskBoardAlternativeRequired": true,
+    "speechBubbles": "Brief, optional summaries of confirmed events; grouped to reduce noise.",
+    "motion": "Purposeful and optional; driven by events, never used as execution evidence.",
+    "persistentDisclosure": "Fictional AI team. Mode and connection status remain visible.",
+    "accessibility": [
+      "keyboard_operable_list_and_panels",
+      "visible_focus",
+      "screen_reader_status",
+      "reduced_motion",
+      "bubble_visibility_control",
+      "non_color_status_labels",
+      "graphics_unavailable_fallback",
+      "camera_reset"
+    ],
+    "forbiddenPatterns": [
+      "fake_work",
+      "invented_colleague_chat",
+      "unsupported_percent_complete",
+      "hidden_reasoning_transcripts",
+      "gamification",
+      "approval_by_avatar_click"
+    ]
+  },
+  "ownerActionDefaults": [
+    {
+      "action": "view_work",
+      "availability": "When the scoped record exists."
+    },
+    {
+      "action": "request_changes",
+      "availability": "For the current reviewable revision; records specific feedback."
+    },
+    {
+      "action": "accept_internal_package",
+      "availability": "Only after required reviews and authenticated owner action on the current revision."
+    },
+    {
+      "action": "pause",
+      "availability": "Stops future scheduling; pending uninterruptible work shows pause_requested until confirmed."
+    },
+    {
+      "action": "resume",
+      "availability": "Returns paused work to its queue after dependency and permission recheck."
+    },
+    {
+      "action": "cancel",
+      "availability": "Retains history and does not imply rollback of external effects."
+    },
+    {
+      "action": "retry_failed_step",
+      "availability": "After recovery decision, permission check, and duplicate-effect check."
+    },
+    {
+      "action": "reassign",
+      "availability": "Within authorized scope, with artifact and handoff continuity."
+    }
+  ],
+  "isolationPolicy": {
+    "requiredScopeKeys": [
+      "clientId",
+      "projectId"
+    ],
+    "runScopeKeys": [
+      "clientId",
+      "projectId",
+      "taskId",
+      "agentId"
+    ],
+    "oneAccountableOwnerPerTask": true,
+    "separateChildTasksForParallelWork": true,
+    "sharedReusableSourcesRequireExplicitClassification": true,
+    "crossClientContextSharingDefault": "deny",
+    "sameArtifactConcurrentEditsDefault": "deny",
+    "credentialLoggingAllowed": false
+  },
+  "initialWorkflow": {
+    "workflowId": "internal_website_proposal",
+    "label": "Draft client brief to reviewed internal website proposal",
+    "outcome": "Owner-accepted internal proposal package.",
+    "stages": [
+      {
+        "stageId": "brief",
+        "owner": "leo",
+        "contributors": [
+          "nadia"
+        ],
+        "output": "Source-linked client brief with unknowns identified."
+      },
+      {
+        "stageId": "scope",
+        "owner": "adrian",
+        "contributors": [],
+        "output": "Scoped plan with acceptance criteria and dependencies."
+      },
+      {
+        "stageId": "proposal",
+        "owner": "adrian",
+        "contributors": [
+          "lisa",
+          "sam",
+          "theo",
+          "clara"
+        ],
+        "output": "Design/build approach and sourced estimate, labelled as proposals."
+      },
+      {
+        "stageId": "review",
+        "owner": "adrian",
+        "contributors": [
+          "nadia",
+          "lisa",
+          "sam",
+          "theo",
+          "clara"
+        ],
+        "output": "Non-author review records with evidence, findings, and unresolved specialist needs."
+      },
+      {
+        "stageId": "owner_decision",
+        "owner": "human_owner",
+        "contributors": [],
+        "output": "Revision-bound acceptance, requested changes, or rejection."
+      }
+    ],
+    "acceptanceCriteria": [
+      "source_linked_brief",
+      "explicit_scope",
+      "proposal_uncertainties_visible",
+      "no_invented_rates_or_integrations",
+      "role_owned_artifacts",
+      "non_author_review",
+      "findings_resolved_or_owner_accepted",
+      "current_revision_owner_acceptance"
+    ],
+    "doesNotAuthorize": [
+      "client_send",
+      "invoice_issuance",
+      "application_implementation",
+      "payment",
+      "filing",
+      "publishing",
+      "deployment"
+    ]
+  },
+  "sampleData": {
+    "simulated": true,
+    "status": "simulation_only",
+    "description": "Synthetic fragments illustrating event presentation. They are not a complete execution trace, real client, real artifact, or evidence of work.",
+    "events": [
+      {
+        "eventId": "DEMO-EVENT-001",
+        "eventType": "task_assigned",
+        "occurredAt": "2026-10-21T02:00:00Z",
+        "clientId": "DEMO-CLIENT-001",
+        "projectId": "DEMO-PROJECT-001",
+        "taskId": "DEMO-TASK-BRIEF",
+        "actorType": "sample_controller",
+        "actorId": "demo_only",
+        "mode": "visual_prototype",
+        "simulated": true,
+        "source": "sample_data",
+        "payload": {
+          "agentName": "Leo",
+          "agentId": "leo",
+          "displayPrefix": "Simulated example"
+        }
+      },
+      {
+        "eventId": "DEMO-EVENT-002",
+        "eventType": "handoff_prepared",
+        "occurredAt": "2026-10-21T02:05:00Z",
+        "clientId": "DEMO-CLIENT-001",
+        "projectId": "DEMO-PROJECT-001",
+        "taskId": "DEMO-TASK-BRIEF",
+        "actorType": "sample_controller",
+        "actorId": "demo_only",
+        "mode": "visual_prototype",
+        "simulated": true,
+        "source": "sample_data",
+        "payload": {
+          "recipientName": "Adrian",
+          "recipientAgentId": "adrian",
+          "artifactId": "DEMO-BRIEF",
+          "revisionId": "DEMO-R1",
+          "displayPrefix": "Simulated example"
+        }
+      },
+      {
+        "eventId": "DEMO-EVENT-003",
+        "eventType": "review_changes_requested",
+        "occurredAt": "2026-10-21T03:00:00Z",
+        "clientId": "DEMO-CLIENT-001",
+        "projectId": "DEMO-PROJECT-001",
+        "taskId": "DEMO-TASK-PROPOSAL",
+        "actorType": "sample_controller",
+        "actorId": "demo_only",
+        "mode": "visual_prototype",
+        "simulated": true,
+        "source": "sample_data",
+        "payload": {
+          "findingCount": 2,
+          "revisionLabel": "Example proposal R1",
+          "artifactId": "DEMO-PROPOSAL",
+          "revisionId": "DEMO-R1",
+          "displayPrefix": "Simulated example"
+        }
+      },
+      {
+        "eventId": "DEMO-EVENT-004",
+        "eventType": "owner_approval_requested",
+        "occurredAt": "2026-10-21T03:20:00Z",
+        "clientId": "DEMO-CLIENT-001",
+        "projectId": "DEMO-PROJECT-001",
+        "taskId": "DEMO-TASK-PROPOSAL",
+        "actorType": "sample_controller",
+        "actorId": "demo_only",
+        "mode": "visual_prototype",
+        "simulated": true,
+        "source": "sample_data",
+        "payload": {
+          "revisionLabel": "Example internal package R2",
+          "artifactId": "DEMO-PACKAGE",
+          "revisionId": "DEMO-R2",
+          "actionScope": "accept_internal_proposal_package",
+          "displayPrefix": "Simulated example"
+        }
+      }
+    ]
+  },
+  "parentChildCompletionContract": {
+    "dependencyReadyStates": [
+      "review_passed",
+      "completed"
+    ],
+    "parentReviewReadiness": "All required children are dependency-ready and their required current-revision reviews and evidence are saved. Mere succeeded runs do not satisfy this condition.",
+    "manifestFields": [
+      "childTaskId",
+      "artifactId",
+      "revisionId",
+      "artifactHash",
+      "hashAlgorithm",
+      "reviewReferences"
+    ],
+    "oneOwnerDecisionPerPackage": true,
+    "acceptanceTransaction": "Validate parent manifest and every covered child current revision/hash/review. Save one authenticated owner package acceptance. Mark the parent completed and covered review_passed children completed with inherited acceptance evidence in the same transaction. On any mismatch, abort and refresh/supersede the package.",
+    "uncoveredChildPolicy": "Do not complete or approve any child/artifact outside the exact accepted manifest.",
+    "acceptanceDoesNotAuthorizeExternalEffects": true
+  }
+}

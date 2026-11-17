@@ -1,0 +1,1614 @@
+{
+  "run": "20261108-082626-b8cfd1ad",
+  "startedAt": "2026-11-08T08:26:26.424Z",
+  "isolation": {
+    "productionUsed": false,
+    "pgPort": 55519,
+    "appPort": 3158,
+    "snapshot": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\v2-build-20261108-081739-c816de4d\\app",
+    "root": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\v2-acceptance-20261108-082626-b8cfd1ad",
+    "buildId": "7VQBHlMCw4uRSPfvo5f5T",
+    "environmentFiles": 0,
+    "authentication": "Synthetic RS256 owner assertion verified through a loopback HTTPS JWKS; production mode, bypass false",
+    "issuerPort": 9458,
+    "appPid": 68380,
+    "issuerPortClosed": true
+  },
+  "checks": [
+    {
+      "name": "theme initializer carries the request CSP nonce",
+      "passed": true
+    },
+    {
+      "name": "stored/system theme initializes before interaction",
+      "passed": true
+    },
+    {
+      "name": "welcome copy is concise",
+      "passed": true
+    },
+    {
+      "name": "fictional persona badge removed",
+      "passed": true
+    },
+    {
+      "name": "large demonstration box removed",
+      "passed": true
+    },
+    {
+      "name": "desktop profile panel is compact",
+      "passed": true,
+      "height": 436
+    },
+    {
+      "name": "desktop content begins without tall diagnostic stack",
+      "passed": true,
+      "headerHeight": 150
+    },
+    {
+      "name": "profile details are available on demand",
+      "passed": true
+    },
+    {
+      "name": "profile keyboard focus stays in dialog",
+      "passed": true
+    },
+    {
+      "name": "profile closes on Escape and returns focus",
+      "passed": true
+    },
+    {
+      "name": "desktop-1512 profile is centered on both axes",
+      "passed": true,
+      "rect": {
+        "x": 466,
+        "y": 91,
+        "width": 580,
+        "height": 800
+      },
+      "viewport": {
+        "width": 1512,
+        "height": 982
+      }
+    },
+    {
+      "name": "desktop-1512 profile fits the viewport",
+      "passed": true,
+      "rect": {
+        "x": 466,
+        "y": 91,
+        "width": 580,
+        "height": 800
+      }
+    },
+    {
+      "name": "desktop-1512 close button stays reachable after scrolling",
+      "passed": true
+    },
+    {
+      "name": "desktop-1512 Escape restores the invoking button focus",
+      "passed": true
+    },
+    {
+      "name": "desktop-1890 profile is centered on both axes",
+      "passed": true,
+      "rect": {
+        "x": 655,
+        "y": 68,
+        "width": 580,
+        "height": 800
+      },
+      "viewport": {
+        "width": 1890,
+        "height": 936
+      }
+    },
+    {
+      "name": "desktop-1890 profile fits the viewport",
+      "passed": true,
+      "rect": {
+        "x": 655,
+        "y": 68,
+        "width": 580,
+        "height": 800
+      }
+    },
+    {
+      "name": "desktop-1890 close button stays reachable after scrolling",
+      "passed": true
+    },
+    {
+      "name": "desktop-1890 Escape restores the invoking button focus",
+      "passed": true
+    },
+    {
+      "name": "Status button opens Clara profile dialog",
+      "passed": true
+    },
+    {
+      "name": "Status Clara profile restores its button focus",
+      "passed": true
+    },
+    {
+      "name": "Status button opens Theo profile dialog",
+      "passed": true
+    },
+    {
+      "name": "Status Theo profile restores its button focus",
+      "passed": true
+    },
+    {
+      "name": "Status button opens Adrian profile dialog",
+      "passed": true
+    },
+    {
+      "name": "Status Adrian profile restores its button focus",
+      "passed": true
+    },
+    {
+      "name": "mobile-390 profile is centered on both axes",
+      "passed": true,
+      "rect": {
+        "x": 19,
+        "y": 12,
+        "width": 352,
+        "height": 820
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "name": "mobile-390 profile fits the viewport",
+      "passed": true,
+      "rect": {
+        "x": 19,
+        "y": 12,
+        "width": 352,
+        "height": 820
+      }
+    },
+    {
+      "name": "mobile-390 close button stays reachable after scrolling",
+      "passed": true
+    },
+    {
+      "name": "mobile-390 Escape restores the invoking button focus",
+      "passed": true
+    },
+    {
+      "name": "mobile Status has no page horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "Tasks show all seven agent portraits and named role badges",
+      "passed": true,
+      "identities": [
+        {
+          "id": "lisa",
+          "color": "color-mix(in srgb, #4f8ddd 52%, #edf4ff)",
+          "text": "LisaDesign",
+          "image": true
+        },
+        {
+          "id": "leo",
+          "color": "color-mix(in srgb, #3d9c62 52%, #edf4ff)",
+          "text": "LeoSales",
+          "image": true
+        },
+        {
+          "id": "nadia",
+          "color": "color-mix(in srgb, #cf8234 52%, #edf4ff)",
+          "text": "NadiaAdministration",
+          "image": true
+        },
+        {
+          "id": "clara",
+          "color": "color-mix(in srgb, #b68b18 52%, #edf4ff)",
+          "text": "ClaraFinance",
+          "image": true
+        },
+        {
+          "id": "adrian",
+          "color": "color-mix(in srgb, #cf6687 52%, #edf4ff)",
+          "text": "AdrianProject management",
+          "image": true
+        },
+        {
+          "id": "theo",
+          "color": "color-mix(in srgb, #9274d5 52%, #edf4ff)",
+          "text": "TheoBackend",
+          "image": true
+        },
+        {
+          "id": "sam",
+          "color": "color-mix(in srgb, #299c9a 52%, #edf4ff)",
+          "text": "SamFrontend",
+          "image": true
+        },
+        {
+          "id": "lisa",
+          "color": "color-mix(in srgb, #4f8ddd 52%, #edf4ff)",
+          "text": "LisaDesign",
+          "image": true
+        },
+        {
+          "id": "leo",
+          "color": "color-mix(in srgb, #3d9c62 52%, #edf4ff)",
+          "text": "LeoSales",
+          "image": true
+        },
+        {
+          "id": "nadia",
+          "color": "color-mix(in srgb, #cf8234 52%, #edf4ff)",
+          "text": "NadiaAdministration",
+          "image": true
+        },
+        {
+          "id": "clara",
+          "color": "color-mix(in srgb, #b68b18 52%, #edf4ff)",
+          "text": "ClaraFinance",
+          "image": true
+        },
+        {
+          "id": "adrian",
+          "color": "color-mix(in srgb, #cf6687 52%, #edf4ff)",
+          "text": "AdrianProject management",
+          "image": true
+        },
+        {
+          "id": "theo",
+          "color": "color-mix(in srgb, #9274d5 52%, #edf4ff)",
+          "text": "TheoBackend",
+          "image": true
+        },
+        {
+          "id": "sam",
+          "color": "color-mix(in srgb, #299c9a 52%, #edf4ff)",
+          "text": "SamFrontend",
+          "image": true
+        },
+        {
+          "id": "lisa",
+          "color": "color-mix(in srgb, #4f8ddd 52%, #edf4ff)",
+          "text": "LisaDesign",
+          "image": true
+        },
+        {
+          "id": "leo",
+          "color": "color-mix(in srgb, #3d9c62 52%, #edf4ff)",
+          "text": "LeoSales",
+          "image": true
+        },
+        {
+          "id": "nadia",
+          "color": "color-mix(in srgb, #cf8234 52%, #edf4ff)",
+          "text": "NadiaAdministration",
+          "image": true
+        },
+        {
+          "id": "clara",
+          "color": "color-mix(in srgb, #b68b18 52%, #edf4ff)",
+          "text": "ClaraFinance",
+          "image": true
+        },
+        {
+          "id": "adrian",
+          "color": "color-mix(in srgb, #cf6687 52%, #edf4ff)",
+          "text": "AdrianProject management",
+          "image": true
+        },
+        {
+          "id": "adrian",
+          "color": "color-mix(in srgb, #cf6687 52%, #edf4ff)",
+          "text": "AdrianProject management",
+          "image": true
+        },
+        {
+          "id": "theo",
+          "color": "color-mix(in srgb, #9274d5 52%, #edf4ff)",
+          "text": "TheoBackend",
+          "image": true
+        },
+        {
+          "id": "sam",
+          "color": "color-mix(in srgb, #299c9a 52%, #edf4ff)",
+          "text": "SamFrontend",
+          "image": true
+        },
+        {
+          "id": "lisa",
+          "color": "color-mix(in srgb, #4f8ddd 52%, #edf4ff)",
+          "text": "LisaDesign",
+          "image": true
+        },
+        {
+          "id": "leo",
+          "color": "color-mix(in srgb, #3d9c62 52%, #edf4ff)",
+          "text": "LeoSales",
+          "image": true
+        },
+        {
+          "id": "nadia",
+          "color": "color-mix(in srgb, #cf8234 52%, #edf4ff)",
+          "text": "NadiaAdministration",
+          "image": true
+        },
+        {
+          "id": "clara",
+          "color": "color-mix(in srgb, #b68b18 52%, #edf4ff)",
+          "text": "ClaraFinance",
+          "image": true
+        },
+        {
+          "id": "adrian",
+          "color": "color-mix(in srgb, #cf6687 52%, #edf4ff)",
+          "text": "AdrianProject management",
+          "image": true
+        },
+        {
+          "id": "adrian",
+          "color": "color-mix(in srgb, #cf6687 52%, #edf4ff)",
+          "text": "AdrianProject management",
+          "image": true
+        }
+      ]
+    },
+    {
+      "name": "All seven authenticated portrait images load successfully",
+      "passed": true,
+      "portraits": [
+        {
+          "id": "adrian",
+          "loaded": true
+        },
+        {
+          "id": "clara",
+          "loaded": true
+        },
+        {
+          "id": "nadia",
+          "loaded": true
+        },
+        {
+          "id": "leo",
+          "loaded": true
+        },
+        {
+          "id": "lisa",
+          "loaded": true
+        },
+        {
+          "id": "sam",
+          "loaded": true
+        },
+        {
+          "id": "theo",
+          "loaded": true
+        }
+      ]
+    },
+    {
+      "name": "Activity fixture includes at least 67 scoped events",
+      "passed": true,
+      "loaded": 85
+    },
+    {
+      "name": "Activity begins with a bounded set of collapsed task histories",
+      "passed": true,
+      "initialGroups": 6
+    },
+    {
+      "name": "Show more reveals additional task histories",
+      "passed": true,
+      "allGroups": 15
+    },
+    {
+      "name": "Grouped Activity retains every loaded event exactly once",
+      "passed": true,
+      "expected": 85,
+      "visible": 85
+    },
+    {
+      "name": "Activity keeps unrelated workspace events outside selected scope",
+      "passed": true
+    },
+    {
+      "name": "Failure and retry attempts remain separately inspectable",
+      "passed": true
+    },
+    {
+      "name": "Technical evidence retains run_failed identity and source",
+      "passed": true
+    },
+    {
+      "name": "Technical evidence retains retry_scheduled identity and source",
+      "passed": true
+    },
+    {
+      "name": "Human activity summaries do not lead with raw UUIDs",
+      "passed": true
+    },
+    {
+      "name": "Activity portraits reuse the same named role colors",
+      "passed": true,
+      "identities": 58
+    },
+    {
+      "name": "Activity task history can be collapsed again",
+      "passed": true
+    },
+    {
+      "name": "mobile Activity histories have no page horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "PC hint explains Ctrl click and hold to pan",
+      "passed": true
+    },
+    {
+      "name": "Ctrl plus held left pointer actually pans the room",
+      "passed": true,
+      "before": {
+        "x": 661.2454223632812,
+        "y": 339.5820617675781,
+        "width": 50.984375,
+        "height": 23.1875
+      },
+      "after": {
+        "x": 751.2454223632812,
+        "y": 347.9092712402344,
+        "width": 50.984375,
+        "height": 23.1875
+      }
+    },
+    {
+      "name": "Current work uses the same portrait and role colors as Tasks",
+      "passed": true,
+      "identities": [
+        {
+          "id": "lisa",
+          "color": "color-mix(in srgb, #4f8ddd 52%, #edf4ff)",
+          "image": true
+        },
+        {
+          "id": "leo",
+          "color": "color-mix(in srgb, #3d9c62 52%, #edf4ff)",
+          "image": true
+        },
+        {
+          "id": "nadia",
+          "color": "color-mix(in srgb, #cf8234 52%, #edf4ff)",
+          "image": true
+        }
+      ]
+    },
+    {
+      "name": "synthetic business records unchanged",
+      "passed": true
+    },
+    {
+      "name": "no browser errors in incremental UI acceptance",
+      "passed": true,
+      "errors": []
+    }
+  ],
+  "screenshots": [
+    "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\v2-acceptance-20261108-082626-b8cfd1ad\\screenshots\\01-desktop-office.png",
+    "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\v2-acceptance-20261108-082626-b8cfd1ad\\screenshots\\v2-profile-desktop-1512.png",
+    "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\v2-acceptance-20261108-082626-b8cfd1ad\\screenshots\\v2-profile-desktop-1890.png",
+    "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\v2-acceptance-20261108-082626-b8cfd1ad\\screenshots\\v2-profile-mobile-390.png",
+    "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\v2-acceptance-20261108-082626-b8cfd1ad\\screenshots\\v2-task-identities.png",
+    "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\v2-acceptance-20261108-082626-b8cfd1ad\\screenshots\\v2-activity-collapsed.png",
+    "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\v2-acceptance-20261108-082626-b8cfd1ad\\screenshots\\v2-activity-expanded.png",
+    "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\v2-acceptance-20261108-082626-b8cfd1ad\\screenshots\\v2-mobile-activity.png",
+    "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\v2-acceptance-20261108-082626-b8cfd1ad\\screenshots\\v2-overview.png"
+  ],
+  "consoleErrors": [],
+  "consoleWarnings": [
+    "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "[.WebGL-0x43d403db7e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+    "[.WebGL-0x43d403db7e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+    "[.WebGL-0x43d403db7e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+    "[.WebGL-0x43d403db7e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)",
+    "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+  ],
+  "componentHashes": [
+    {
+      "name": "office-activity-feed.module.css",
+      "sha256": "5367cfa674e6571dc9aa35339df89ff802c4c8fea8c9cd3ad37d3261381b1704"
+    },
+    {
+      "name": "office-activity-groups.test.ts",
+      "sha256": "5d764627fd473b69e0df954c15f2fa3e9a8a9a6a8db5efc07da09fcc497ccf3f"
+    },
+    {
+      "name": "office-activity-groups.ts",
+      "sha256": "bff34f10a18afc31762cd3774c6906ef506265c6c3eaede0363d80c204b18b3b"
+    },
+    {
+      "name": "office-agent-badge.module.css",
+      "sha256": "25b3b556606547f6a14fce24f7b0337965c3a8c4d5618895ef4f5c8f771f5cd6"
+    },
+    {
+      "name": "office-event-presentation.test.tsx",
+      "sha256": "22638216db2cb1121465bae4d1f6e1229f713c257a0a45f67229eae098feaabc"
+    },
+    {
+      "name": "office-profile-status.test.ts",
+      "sha256": "05bd892c63e6fffb0f4297f6a4d7d05e116a188defa0789264a65ff38a46a461"
+    },
+    {
+      "name": "office-profile-status.ts",
+      "sha256": "f0e2e5ddc3b0bc93ed080f0d61300a58efdbbc866aba88875b9295328c41624a"
+    },
+    {
+      "name": "office-profile.module.css",
+      "sha256": "504b9007d6131bd2ecb79938c7d1c392df4e606cb7b62e6d061648d0eb07d26a"
+    },
+    {
+      "name": "office-selection.test.ts",
+      "sha256": "a624978e0553a88f98699ae808ddb9d12c887ab2d6afbc993f8059ae9a6ce360"
+    },
+    {
+      "name": "office-selection.ts",
+      "sha256": "a74f20b46f2cd687a3b9016b4704a40a7634278881d2a1596a5fc71fd92cc19f"
+    },
+    {
+      "name": "office-status.test.ts",
+      "sha256": "a5aa21a8aa1ad71796119ce3d7400dd27f69dc249b48a2eb5e835a26f1f4097a"
+    },
+    {
+      "name": "office-status.ts",
+      "sha256": "5db4e883f694bbac769839850c9401567623db48aa52979e39ccf72a05ab9264"
+    },
+    {
+      "name": "office-ui.tsx",
+      "sha256": "15a66c80004d7c1907038ca34c06842adc46396510204238e35852e95492082b"
+    },
+    {
+      "name": "office.module.css",
+      "sha256": "009d77d6951aa4fc900a0fb32e7711f6aadfe0f5eece1f38a5e7709b33d489b6"
+    },
+    {
+      "name": "OfficeActivityFeed.tsx",
+      "sha256": "d8cbfd42176bf608d3cc755ca3053d35e7c7ffa2ccb46f50892a53463fadc69c"
+    },
+    {
+      "name": "OfficeAgentBadge.tsx",
+      "sha256": "da0b75c910b0f91384cbcbd392b1f47e372874e1b2bfd208e6b708908120d8ae"
+    },
+    {
+      "name": "OfficeDashboardPanel.test.tsx",
+      "sha256": "741223902cffded4f41860e614ba9df93ffb7608a20ca9ebe994bf3cd4fc771a"
+    },
+    {
+      "name": "OfficeDashboardPanel.tsx",
+      "sha256": "b2aa0626d24fae59b5cfe04d9397e9cdcd6ab574de505809879be78e7782d8eb"
+    },
+    {
+      "name": "OfficeInbox.tsx",
+      "sha256": "61f66858c7130ed8832a8f0d965b244fe5f8fe697e990b8164f7976eb59c9b9a"
+    },
+    {
+      "name": "OfficeInfo.tsx",
+      "sha256": "40123d95e01e7b36c779e767f71886d73800b325d557c58bb1dcd866a8ccfde5"
+    },
+    {
+      "name": "OfficePortrait.tsx",
+      "sha256": "5f76cbb1688ec58d39b2a1588312171715f97eb76d9e3d765d2f662383980f28"
+    },
+    {
+      "name": "OfficeProfilePanel.tsx",
+      "sha256": "500f5012dadad4d5f6a11c0c2cbe74d93879e2e944167203580334cc145dccad"
+    },
+    {
+      "name": "OfficeRoleStatus.tsx",
+      "sha256": "db6c84c8c118e09435f5ef23eb47559998ecd224b631c2df3cac0071fa4e6a82"
+    },
+    {
+      "name": "OfficeScene.tsx",
+      "sha256": "814f14c54d91f97ffccb86876ddd18d912b835ac151fe47cd0630f1fed0640ce"
+    },
+    {
+      "name": "OfficeTaskDetail.tsx",
+      "sha256": "eda1f2e130b489744aeaad279860ecd2ce88293a8f12f7445b52d7d2f97670ad"
+    },
+    {
+      "name": "OfficeView.tsx",
+      "sha256": "6233cc3fce4f3c00c8092bc311b8e044af80a4f2bbf538d43470c79494cf14ce"
+    },
+    {
+      "name": "profiles.ts",
+      "sha256": "af516b7049ac7b0a53c6b5489fc928d3a65ca3a91bce6bf2f12328d8617bea93"
+    },
+    {
+      "name": "role-identity.ts",
+      "sha256": "f749ab75e53c32b5358c44cb970ad4fd27d50ec4718e0383ed9229b62ec95440"
+    },
+    {
+      "name": "scene-layout.test.ts",
+      "sha256": "0ea9f6b1089088335d065a4cadc746845e3ce993934c9e96cf6faa0109243128"
+    },
+    {
+      "name": "scene-layout.ts",
+      "sha256": "47e2f6e038d80401509f656c89f7e3cb6318038ad74681a3c188d4511aefce8a"
+    },
+    {
+      "name": "scene-preview-people.tsx",
+      "sha256": "a52b942713b3ac9517f46cfa178e4630a74ebe31785f13655f87e0a8380ab983"
+    },
+    {
+      "name": "scene-static-batch.test.ts",
+      "sha256": "1462616cc843dd104b143e0122827f14cc16bdd6d40f6366d8f76ba7ef1b2f8a"
+    },
+    {
+      "name": "scene-static-batch.ts",
+      "sha256": "58034d529ea7b721f4933b1b5c2bab0e731c4a45f10eff26a9b3b2ab0e465023"
+    },
+    {
+      "name": "scene.module.css",
+      "sha256": "d2c9d08385a7d74751c99f4d455c18691e68edb6035b71781dcf67c0e2149538"
+    }
+  ],
+  "harness": {
+    "originalSha256": "cc94da1d07c43d5709738e1bcc41c02ff42f4edd9427ed1c3d3630af591fb842",
+    "extensionSha256": "8cb51c2f9921032385d91a889aed09fb318abe2c9d63722e984b5369ecaf4138",
+    "wrapper": "D:\\Enztronic\\apps\\backoffice\\scripts\\office-acceptance\\ui-ux-v2.mjs",
+    "wrapperSha256": "5cb90d578922521ae6bbf4804464d31dbefe5495581c35e5088d0da79e340b9e",
+    "scope": "Targeted UI pass 2"
+  },
+  "displayFixture": {
+    "tasks": [
+      {
+        "id": "f3cca2c3-1421-4a53-bc63-c00aeae3f378",
+        "agentId": "adrian",
+        "goal": "UI family 1 website proposal",
+        "parent": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "09b2a197-822e-4130-8f3b-6753becee15b",
+        "agentId": "adrian",
+        "goal": "UI family 1 adrian work",
+        "parent": "f3cca2c3-1421-4a53-bc63-c00aeae3f378",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "2e5555f3-b805-475e-b097-ff6bc0d3933c",
+        "agentId": "clara",
+        "goal": "UI family 1 clara work",
+        "parent": "f3cca2c3-1421-4a53-bc63-c00aeae3f378",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "6627315a-85b6-4aaa-a57f-65d5f0592465",
+        "agentId": "nadia",
+        "goal": "UI family 1 nadia work",
+        "parent": "f3cca2c3-1421-4a53-bc63-c00aeae3f378",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "ff46e4e1-c96f-45af-970a-96c7ac8f53af",
+        "agentId": "leo",
+        "goal": "UI family 1 leo work",
+        "parent": "f3cca2c3-1421-4a53-bc63-c00aeae3f378",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "4e184192-d9f6-4e12-bc69-27a1029301d9",
+        "agentId": "lisa",
+        "goal": "UI family 1 lisa work",
+        "parent": "f3cca2c3-1421-4a53-bc63-c00aeae3f378",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "f0757433-633d-4118-a694-2ef131761384",
+        "agentId": "sam",
+        "goal": "UI family 1 sam work",
+        "parent": "f3cca2c3-1421-4a53-bc63-c00aeae3f378",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "3c3ea56a-73ef-4622-bad7-4a271b062689",
+        "agentId": "theo",
+        "goal": "UI family 1 theo work",
+        "parent": "f3cca2c3-1421-4a53-bc63-c00aeae3f378",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "62520b83-fd64-4a5c-abde-6b5367896efe",
+        "agentId": "adrian",
+        "goal": "UI family 2 website proposal",
+        "parent": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "be38f997-add9-408a-bfa7-09cf09b581fb",
+        "agentId": "adrian",
+        "goal": "UI family 2 adrian work",
+        "parent": "62520b83-fd64-4a5c-abde-6b5367896efe",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "e4056f87-502c-4d73-b2d9-d67841369707",
+        "agentId": "clara",
+        "goal": "UI family 2 clara work",
+        "parent": "62520b83-fd64-4a5c-abde-6b5367896efe",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "cbbf8cf2-c714-439e-b487-62cd9b422dc3",
+        "agentId": "nadia",
+        "goal": "UI family 2 nadia work",
+        "parent": "62520b83-fd64-4a5c-abde-6b5367896efe",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "935f8c22-c1e3-411d-8e56-2750b1b32ab2",
+        "agentId": "leo",
+        "goal": "UI family 2 leo work",
+        "parent": "62520b83-fd64-4a5c-abde-6b5367896efe",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "258d78b7-d5a8-413c-9dc6-425819054f2b",
+        "agentId": "lisa",
+        "goal": "UI family 2 lisa work",
+        "parent": "62520b83-fd64-4a5c-abde-6b5367896efe",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "0afa12c4-cc58-4e76-b356-45cc2aff9936",
+        "agentId": "sam",
+        "goal": "UI family 2 sam work",
+        "parent": "62520b83-fd64-4a5c-abde-6b5367896efe",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "249eb72c-8dcb-46f9-9775-733c25465ddc",
+        "agentId": "theo",
+        "goal": "UI family 2 theo work",
+        "parent": "62520b83-fd64-4a5c-abde-6b5367896efe",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "518dd98f-abf6-4918-899e-f341d20d806e",
+        "agentId": "adrian",
+        "goal": "UI standalone 1",
+        "parent": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "042e9e72-efb9-4e12-8376-0862651c91c4",
+        "agentId": "clara",
+        "goal": "UI standalone 2",
+        "parent": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "59ab6ef4-bad8-4fa7-99ba-b737174bf1f6",
+        "agentId": "nadia",
+        "goal": "UI standalone 3",
+        "parent": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "9059cbb0-c605-4e9d-9895-21125b185a05",
+        "agentId": "leo",
+        "goal": "UI standalone 4",
+        "parent": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "2124f869-5862-448a-ad2d-bc1db453e655",
+        "agentId": "lisa",
+        "goal": "UI standalone 5",
+        "parent": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "ada4c8f8-cafc-474d-9b82-9017a19735c8",
+        "agentId": "sam",
+        "goal": "UI standalone 6",
+        "parent": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "273a0688-93b5-4f8f-853e-b8f60a519e29",
+        "agentId": "theo",
+        "goal": "UI standalone 7",
+        "parent": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "925d5f36-991d-4eed-91ca-70de0901215d",
+        "agentId": "adrian",
+        "goal": "UI standalone 8",
+        "parent": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "c017468c-b1da-4dc0-a865-da71c85f085f",
+        "agentId": "clara",
+        "goal": "UI standalone 9",
+        "parent": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "00a1f85f-f49e-4a1e-9480-cdd9626d4c2f",
+        "agentId": "nadia",
+        "goal": "UI standalone 10",
+        "parent": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "d2f9b1ac-611e-4b86-a42f-dd01c80a02d8",
+        "agentId": "leo",
+        "goal": "UI standalone 11",
+        "parent": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "d386e76c-2824-4905-ab6e-ea56e3267f00",
+        "agentId": "lisa",
+        "goal": "UI standalone 12",
+        "parent": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "c9d5a996-0bf7-4879-b542-0deaa0c2df8b",
+        "agentId": "lisa",
+        "goal": "UI other workspace must stay separate",
+        "parent": null,
+        "workspace": "a1f0a306-86a5-40f2-9205-866259ef681a"
+      }
+    ],
+    "families": [
+      "f3cca2c3-1421-4a53-bc63-c00aeae3f378",
+      "62520b83-fd64-4a5c-abde-6b5367896efe"
+    ],
+    "events": [
+      {
+        "id": "050b2a90-a9be-4ade-9e90-25b1ad014489",
+        "taskId": "09b2a197-822e-4130-8f3b-6753becee15b",
+        "agentId": "adrian",
+        "eventType": "work_started",
+        "runId": "6eb959a2-1d1f-421f-98cd-b584ccfe3780",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "6b62d0bb-7ad8-460e-a7e3-22ee7be86457",
+        "taskId": "09b2a197-822e-4130-8f3b-6753becee15b",
+        "agentId": "adrian",
+        "eventType": "artifact_created",
+        "runId": "6eb959a2-1d1f-421f-98cd-b584ccfe3780",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "ebc9903b-2134-43a1-9c35-52694b1bded9",
+        "taskId": "09b2a197-822e-4130-8f3b-6753becee15b",
+        "agentId": "adrian",
+        "eventType": "review_requested",
+        "runId": "6eb959a2-1d1f-421f-98cd-b584ccfe3780",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "94f5c6fa-78f8-4f72-9112-a2272de20f3d",
+        "taskId": "09b2a197-822e-4130-8f3b-6753becee15b",
+        "agentId": "adrian",
+        "eventType": "review_passed",
+        "runId": "6eb959a2-1d1f-421f-98cd-b584ccfe3780",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "574d6168-fc64-439f-b70d-61d82fc77348",
+        "taskId": "2e5555f3-b805-475e-b097-ff6bc0d3933c",
+        "agentId": "clara",
+        "eventType": "work_started",
+        "runId": "f4c31f8b-7463-41cb-b66e-0a854cd59bcb",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "ce9d98b2-bdc3-4e41-9f9c-671862cded24",
+        "taskId": "2e5555f3-b805-475e-b097-ff6bc0d3933c",
+        "agentId": "clara",
+        "eventType": "artifact_created",
+        "runId": "f4c31f8b-7463-41cb-b66e-0a854cd59bcb",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "13560bea-3955-4ef6-88ca-a08c6abd6fe6",
+        "taskId": "2e5555f3-b805-475e-b097-ff6bc0d3933c",
+        "agentId": "clara",
+        "eventType": "review_requested",
+        "runId": "f4c31f8b-7463-41cb-b66e-0a854cd59bcb",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "6bf5e0d4-185a-4b0b-beff-e0762d51c066",
+        "taskId": "2e5555f3-b805-475e-b097-ff6bc0d3933c",
+        "agentId": "clara",
+        "eventType": "review_passed",
+        "runId": "f4c31f8b-7463-41cb-b66e-0a854cd59bcb",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "899464b7-e201-4a96-8ad5-f6bbabb90b86",
+        "taskId": "6627315a-85b6-4aaa-a57f-65d5f0592465",
+        "agentId": "nadia",
+        "eventType": "work_started",
+        "runId": "3684d5e2-33dc-4302-83e0-5522276a09e1",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "fac78dd9-84ae-4a6d-b2a4-8743c629b325",
+        "taskId": "6627315a-85b6-4aaa-a57f-65d5f0592465",
+        "agentId": "nadia",
+        "eventType": "artifact_created",
+        "runId": "3684d5e2-33dc-4302-83e0-5522276a09e1",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "2fe896f3-03bb-437e-92b7-bc254af7b79a",
+        "taskId": "6627315a-85b6-4aaa-a57f-65d5f0592465",
+        "agentId": "nadia",
+        "eventType": "review_requested",
+        "runId": "3684d5e2-33dc-4302-83e0-5522276a09e1",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "a3368a77-6ca2-4987-8753-e3e653408d07",
+        "taskId": "6627315a-85b6-4aaa-a57f-65d5f0592465",
+        "agentId": "nadia",
+        "eventType": "review_passed",
+        "runId": "3684d5e2-33dc-4302-83e0-5522276a09e1",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "2f6e718d-496e-4b5d-b2a2-ce17c2a81016",
+        "taskId": "ff46e4e1-c96f-45af-970a-96c7ac8f53af",
+        "agentId": "leo",
+        "eventType": "work_started",
+        "runId": "3a7f77c9-8a23-47af-8d29-84850bce7882",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "aff7d45f-67f8-414a-9811-4e8cb60d2531",
+        "taskId": "ff46e4e1-c96f-45af-970a-96c7ac8f53af",
+        "agentId": "leo",
+        "eventType": "artifact_created",
+        "runId": "3a7f77c9-8a23-47af-8d29-84850bce7882",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "d13b5f47-adb6-4302-919f-416be1b80c4f",
+        "taskId": "ff46e4e1-c96f-45af-970a-96c7ac8f53af",
+        "agentId": "leo",
+        "eventType": "review_requested",
+        "runId": "3a7f77c9-8a23-47af-8d29-84850bce7882",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "70bd74b6-ba2f-4813-9e78-4dc85a7c4366",
+        "taskId": "ff46e4e1-c96f-45af-970a-96c7ac8f53af",
+        "agentId": "leo",
+        "eventType": "review_passed",
+        "runId": "3a7f77c9-8a23-47af-8d29-84850bce7882",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "7f62de29-98e6-4d44-bce7-ad7e604cd302",
+        "taskId": "4e184192-d9f6-4e12-bc69-27a1029301d9",
+        "agentId": "lisa",
+        "eventType": "work_started",
+        "runId": "26b62cec-2e83-49ff-a805-c18fb0d07ca8",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "f99b8c8a-3768-464b-9d17-f87bdb8c3820",
+        "taskId": "4e184192-d9f6-4e12-bc69-27a1029301d9",
+        "agentId": "lisa",
+        "eventType": "artifact_created",
+        "runId": "26b62cec-2e83-49ff-a805-c18fb0d07ca8",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "9ce8fa47-44bc-49df-b185-7176ade4ba2b",
+        "taskId": "4e184192-d9f6-4e12-bc69-27a1029301d9",
+        "agentId": "lisa",
+        "eventType": "review_requested",
+        "runId": "26b62cec-2e83-49ff-a805-c18fb0d07ca8",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "e8921c42-b511-4e3e-9f0f-5739654094ce",
+        "taskId": "4e184192-d9f6-4e12-bc69-27a1029301d9",
+        "agentId": "lisa",
+        "eventType": "review_passed",
+        "runId": "26b62cec-2e83-49ff-a805-c18fb0d07ca8",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "fb69f199-e7a7-4dae-9dcf-dfa6da1ace21",
+        "taskId": "f0757433-633d-4118-a694-2ef131761384",
+        "agentId": "sam",
+        "eventType": "work_started",
+        "runId": "0cb5ae48-5bc6-4e92-b8ca-9b62730a5c59",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "cd4a99c6-a099-42c1-a498-19815b8f79f6",
+        "taskId": "f0757433-633d-4118-a694-2ef131761384",
+        "agentId": "sam",
+        "eventType": "artifact_created",
+        "runId": "0cb5ae48-5bc6-4e92-b8ca-9b62730a5c59",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "a0962cce-262d-4f0b-91d0-145ebe4b882d",
+        "taskId": "f0757433-633d-4118-a694-2ef131761384",
+        "agentId": "sam",
+        "eventType": "review_requested",
+        "runId": "0cb5ae48-5bc6-4e92-b8ca-9b62730a5c59",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "68f0979e-d075-43eb-b34d-2b4d24e13494",
+        "taskId": "f0757433-633d-4118-a694-2ef131761384",
+        "agentId": "sam",
+        "eventType": "review_passed",
+        "runId": "0cb5ae48-5bc6-4e92-b8ca-9b62730a5c59",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "6b2ce77f-434b-465b-964a-7573748be7c9",
+        "taskId": "3c3ea56a-73ef-4622-bad7-4a271b062689",
+        "agentId": "theo",
+        "eventType": "work_started",
+        "runId": "7aca16f1-6ee8-499e-9dd1-b3a34004f55d",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "a77d1901-b9de-4158-8a02-ccde61068f32",
+        "taskId": "3c3ea56a-73ef-4622-bad7-4a271b062689",
+        "agentId": "theo",
+        "eventType": "artifact_created",
+        "runId": "7aca16f1-6ee8-499e-9dd1-b3a34004f55d",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "f51f340c-2f37-4952-8b2e-48a447648c05",
+        "taskId": "3c3ea56a-73ef-4622-bad7-4a271b062689",
+        "agentId": "theo",
+        "eventType": "review_requested",
+        "runId": "7aca16f1-6ee8-499e-9dd1-b3a34004f55d",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "b5e94b34-9d1b-48e6-aa51-acd2369dc5b2",
+        "taskId": "3c3ea56a-73ef-4622-bad7-4a271b062689",
+        "agentId": "theo",
+        "eventType": "review_passed",
+        "runId": "7aca16f1-6ee8-499e-9dd1-b3a34004f55d",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "d42955cb-6339-476e-a7b3-ef1cd8e97ca7",
+        "taskId": "f3cca2c3-1421-4a53-bc63-c00aeae3f378",
+        "agentId": "adrian",
+        "eventType": "task_note_added",
+        "runId": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "be64fd75-8392-473f-a422-64f2cf395764",
+        "taskId": "be38f997-add9-408a-bfa7-09cf09b581fb",
+        "agentId": "adrian",
+        "eventType": "work_started",
+        "runId": "cdd67452-df2a-4d96-8519-ad0c8f242d01",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "9b35909d-24e7-43d0-8258-ef76a23238cd",
+        "taskId": "be38f997-add9-408a-bfa7-09cf09b581fb",
+        "agentId": "adrian",
+        "eventType": "artifact_created",
+        "runId": "cdd67452-df2a-4d96-8519-ad0c8f242d01",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "83d446cd-dc33-4507-bde1-4dc4cbb7385f",
+        "taskId": "be38f997-add9-408a-bfa7-09cf09b581fb",
+        "agentId": "adrian",
+        "eventType": "review_requested",
+        "runId": "cdd67452-df2a-4d96-8519-ad0c8f242d01",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "ca08712c-3066-49f4-b862-35570c2e9b9e",
+        "taskId": "be38f997-add9-408a-bfa7-09cf09b581fb",
+        "agentId": "adrian",
+        "eventType": "review_passed",
+        "runId": "cdd67452-df2a-4d96-8519-ad0c8f242d01",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "1ddaf32a-c623-4054-aa4b-b88bcd20f8ad",
+        "taskId": "e4056f87-502c-4d73-b2d9-d67841369707",
+        "agentId": "clara",
+        "eventType": "work_started",
+        "runId": "337887be-963d-46f7-80a4-dce98bfbf11f",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "660ffd28-17a3-454f-9c25-e1986f8c89a4",
+        "taskId": "e4056f87-502c-4d73-b2d9-d67841369707",
+        "agentId": "clara",
+        "eventType": "artifact_created",
+        "runId": "337887be-963d-46f7-80a4-dce98bfbf11f",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "69699b7a-8980-4fc0-8e87-eb9c78f32ed3",
+        "taskId": "e4056f87-502c-4d73-b2d9-d67841369707",
+        "agentId": "clara",
+        "eventType": "review_requested",
+        "runId": "337887be-963d-46f7-80a4-dce98bfbf11f",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "1c0cda1a-ddf0-4b7c-ba8a-bba3c7a13c43",
+        "taskId": "e4056f87-502c-4d73-b2d9-d67841369707",
+        "agentId": "clara",
+        "eventType": "review_passed",
+        "runId": "337887be-963d-46f7-80a4-dce98bfbf11f",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "d546076f-e807-456c-9277-0b8fea48377c",
+        "taskId": "cbbf8cf2-c714-439e-b487-62cd9b422dc3",
+        "agentId": "nadia",
+        "eventType": "work_started",
+        "runId": "e4a86392-29ce-4088-a6cc-3d150f8dfa60",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "a1c124b7-1d7d-4958-a64a-b812fca31d52",
+        "taskId": "cbbf8cf2-c714-439e-b487-62cd9b422dc3",
+        "agentId": "nadia",
+        "eventType": "artifact_created",
+        "runId": "e4a86392-29ce-4088-a6cc-3d150f8dfa60",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "a29031ee-590c-425f-b0d5-bbbddac97432",
+        "taskId": "cbbf8cf2-c714-439e-b487-62cd9b422dc3",
+        "agentId": "nadia",
+        "eventType": "review_requested",
+        "runId": "e4a86392-29ce-4088-a6cc-3d150f8dfa60",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "2e97f5de-57c7-415c-a818-d917e78d7574",
+        "taskId": "cbbf8cf2-c714-439e-b487-62cd9b422dc3",
+        "agentId": "nadia",
+        "eventType": "review_passed",
+        "runId": "e4a86392-29ce-4088-a6cc-3d150f8dfa60",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "e220de2e-1dd9-4720-9625-9ee8e590f152",
+        "taskId": "935f8c22-c1e3-411d-8e56-2750b1b32ab2",
+        "agentId": "leo",
+        "eventType": "work_started",
+        "runId": "54ead2eb-9559-4cf5-ac90-47bbacbe9d77",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "0ba56563-b751-41df-8b5e-2daf7ffafe97",
+        "taskId": "935f8c22-c1e3-411d-8e56-2750b1b32ab2",
+        "agentId": "leo",
+        "eventType": "artifact_created",
+        "runId": "54ead2eb-9559-4cf5-ac90-47bbacbe9d77",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "37d33adf-a232-41f4-a31e-fad1131d381b",
+        "taskId": "935f8c22-c1e3-411d-8e56-2750b1b32ab2",
+        "agentId": "leo",
+        "eventType": "review_requested",
+        "runId": "54ead2eb-9559-4cf5-ac90-47bbacbe9d77",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "0ddd7ad2-4ced-4c1f-af92-a8325bc6e6dc",
+        "taskId": "935f8c22-c1e3-411d-8e56-2750b1b32ab2",
+        "agentId": "leo",
+        "eventType": "review_passed",
+        "runId": "54ead2eb-9559-4cf5-ac90-47bbacbe9d77",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "2053c81f-c5b1-43c6-ac73-413cb0f6de32",
+        "taskId": "258d78b7-d5a8-413c-9dc6-425819054f2b",
+        "agentId": "lisa",
+        "eventType": "work_started",
+        "runId": "8d5067b5-6d0b-463e-b890-7143198e8c16",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "a0ebdb46-aef8-446c-b88e-cc45f4f2a2ae",
+        "taskId": "258d78b7-d5a8-413c-9dc6-425819054f2b",
+        "agentId": "lisa",
+        "eventType": "artifact_created",
+        "runId": "8d5067b5-6d0b-463e-b890-7143198e8c16",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "89222518-8f5c-44aa-be2d-fc5db1217c7c",
+        "taskId": "258d78b7-d5a8-413c-9dc6-425819054f2b",
+        "agentId": "lisa",
+        "eventType": "review_requested",
+        "runId": "8d5067b5-6d0b-463e-b890-7143198e8c16",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "384d3f3c-5acc-4446-9e1e-a29c889d873b",
+        "taskId": "258d78b7-d5a8-413c-9dc6-425819054f2b",
+        "agentId": "lisa",
+        "eventType": "review_passed",
+        "runId": "8d5067b5-6d0b-463e-b890-7143198e8c16",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "aed6ae03-b43e-401c-be9a-005285af06d2",
+        "taskId": "0afa12c4-cc58-4e76-b356-45cc2aff9936",
+        "agentId": "sam",
+        "eventType": "work_started",
+        "runId": "24bfd5e8-3c39-41ce-b24b-e24cb7af37c5",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "4defeac7-ff18-4c6a-96fb-a8fd0a7433be",
+        "taskId": "0afa12c4-cc58-4e76-b356-45cc2aff9936",
+        "agentId": "sam",
+        "eventType": "artifact_created",
+        "runId": "24bfd5e8-3c39-41ce-b24b-e24cb7af37c5",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "3f5a47ea-8c26-4442-a579-c177116ef665",
+        "taskId": "0afa12c4-cc58-4e76-b356-45cc2aff9936",
+        "agentId": "sam",
+        "eventType": "review_requested",
+        "runId": "24bfd5e8-3c39-41ce-b24b-e24cb7af37c5",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "307efd5b-740b-47b6-ae7b-cb4a27320ec0",
+        "taskId": "0afa12c4-cc58-4e76-b356-45cc2aff9936",
+        "agentId": "sam",
+        "eventType": "review_passed",
+        "runId": "24bfd5e8-3c39-41ce-b24b-e24cb7af37c5",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "44b5f720-dfc4-41d9-99ce-fe55214f7fe0",
+        "taskId": "249eb72c-8dcb-46f9-9775-733c25465ddc",
+        "agentId": "theo",
+        "eventType": "work_started",
+        "runId": "2b7f1264-fc54-45e3-9d4b-c443777a9bd3",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "344d2ef2-14ca-4c42-896e-a5483571d4db",
+        "taskId": "249eb72c-8dcb-46f9-9775-733c25465ddc",
+        "agentId": "theo",
+        "eventType": "artifact_created",
+        "runId": "2b7f1264-fc54-45e3-9d4b-c443777a9bd3",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "068ef018-a552-4eb4-b07e-ef0d052dba68",
+        "taskId": "249eb72c-8dcb-46f9-9775-733c25465ddc",
+        "agentId": "theo",
+        "eventType": "review_requested",
+        "runId": "2b7f1264-fc54-45e3-9d4b-c443777a9bd3",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "9e912f5a-1322-42c9-a36b-9b64c38dcca7",
+        "taskId": "249eb72c-8dcb-46f9-9775-733c25465ddc",
+        "agentId": "theo",
+        "eventType": "review_passed",
+        "runId": "2b7f1264-fc54-45e3-9d4b-c443777a9bd3",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "5ccbf2fd-c23c-47f2-baa3-dd899644d135",
+        "taskId": "62520b83-fd64-4a5c-abde-6b5367896efe",
+        "agentId": "adrian",
+        "eventType": "task_note_added",
+        "runId": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "43c830b6-f23e-48b4-8f6d-e9fa330297a8",
+        "taskId": "518dd98f-abf6-4918-899e-f341d20d806e",
+        "agentId": "adrian",
+        "eventType": "task_created",
+        "runId": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "9ac7a3c6-5ef5-4223-a09b-b961e5a3039a",
+        "taskId": "518dd98f-abf6-4918-899e-f341d20d806e",
+        "agentId": "adrian",
+        "eventType": "work_started",
+        "runId": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "8b447e37-d871-4ccb-a18d-14475281a3da",
+        "taskId": "042e9e72-efb9-4e12-8376-0862651c91c4",
+        "agentId": "clara",
+        "eventType": "task_created",
+        "runId": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "98d94c25-2a0b-4d9f-b853-440ae7ef0bfe",
+        "taskId": "042e9e72-efb9-4e12-8376-0862651c91c4",
+        "agentId": "clara",
+        "eventType": "work_started",
+        "runId": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "109a7542-98fa-4490-bfc7-5c80a6e4ac35",
+        "taskId": "59ab6ef4-bad8-4fa7-99ba-b737174bf1f6",
+        "agentId": "nadia",
+        "eventType": "task_created",
+        "runId": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "ed9fd233-ac1e-4812-84aa-de3fb08cd0fb",
+        "taskId": "59ab6ef4-bad8-4fa7-99ba-b737174bf1f6",
+        "agentId": "nadia",
+        "eventType": "work_started",
+        "runId": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "5e867290-52e2-4483-bbf1-dc45b1a77055",
+        "taskId": "9059cbb0-c605-4e9d-9895-21125b185a05",
+        "agentId": "leo",
+        "eventType": "task_created",
+        "runId": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "81c730d9-9c3e-4346-a5d7-5313041cc0af",
+        "taskId": "9059cbb0-c605-4e9d-9895-21125b185a05",
+        "agentId": "leo",
+        "eventType": "work_started",
+        "runId": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "fb103fbc-e573-4443-9c81-4cf2416ff6e4",
+        "taskId": "2124f869-5862-448a-ad2d-bc1db453e655",
+        "agentId": "lisa",
+        "eventType": "task_created",
+        "runId": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "f7d1a586-0a99-42f5-ae05-cbcca7ffbd79",
+        "taskId": "2124f869-5862-448a-ad2d-bc1db453e655",
+        "agentId": "lisa",
+        "eventType": "work_started",
+        "runId": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "d892d29d-7e40-4b30-9f0a-9941d12c8e30",
+        "taskId": "ada4c8f8-cafc-474d-9b82-9017a19735c8",
+        "agentId": "sam",
+        "eventType": "task_created",
+        "runId": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "97644855-778a-4c58-b882-1194ca7c26b6",
+        "taskId": "ada4c8f8-cafc-474d-9b82-9017a19735c8",
+        "agentId": "sam",
+        "eventType": "work_started",
+        "runId": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "f706c1a4-ab1c-44d8-ad61-8715fdac7d43",
+        "taskId": "273a0688-93b5-4f8f-853e-b8f60a519e29",
+        "agentId": "theo",
+        "eventType": "task_created",
+        "runId": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "d0a956e8-c0f0-45ec-a628-cb891de61d7f",
+        "taskId": "273a0688-93b5-4f8f-853e-b8f60a519e29",
+        "agentId": "theo",
+        "eventType": "work_started",
+        "runId": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "10a099e9-5ad3-4955-8842-407c19436f91",
+        "taskId": "925d5f36-991d-4eed-91ca-70de0901215d",
+        "agentId": "adrian",
+        "eventType": "task_created",
+        "runId": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "dd4e0fe3-9195-4272-bdbd-d2db32b88a21",
+        "taskId": "925d5f36-991d-4eed-91ca-70de0901215d",
+        "agentId": "adrian",
+        "eventType": "work_started",
+        "runId": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "15268009-afba-4bad-8fa8-5da71d1527af",
+        "taskId": "c017468c-b1da-4dc0-a865-da71c85f085f",
+        "agentId": "clara",
+        "eventType": "task_created",
+        "runId": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "f4213353-c80d-4bca-a488-3c616dbaf51f",
+        "taskId": "c017468c-b1da-4dc0-a865-da71c85f085f",
+        "agentId": "clara",
+        "eventType": "work_started",
+        "runId": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "c96ddd85-bf3e-47fd-acfb-73205e902ca1",
+        "taskId": "00a1f85f-f49e-4a1e-9480-cdd9626d4c2f",
+        "agentId": "nadia",
+        "eventType": "task_created",
+        "runId": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "292a4701-db49-4d33-b13f-35fd132dbc1e",
+        "taskId": "00a1f85f-f49e-4a1e-9480-cdd9626d4c2f",
+        "agentId": "nadia",
+        "eventType": "work_started",
+        "runId": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "389c5157-9208-4aaf-8ae0-18cb3c92819b",
+        "taskId": "d2f9b1ac-611e-4b86-a42f-dd01c80a02d8",
+        "agentId": "leo",
+        "eventType": "task_created",
+        "runId": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "d2890bea-0c8d-459d-bc26-2ed49fbbf89c",
+        "taskId": "d2f9b1ac-611e-4b86-a42f-dd01c80a02d8",
+        "agentId": "leo",
+        "eventType": "work_started",
+        "runId": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "3172a55e-91ca-4c82-879a-868d9455c586",
+        "taskId": "d386e76c-2824-4905-ab6e-ea56e3267f00",
+        "agentId": "lisa",
+        "eventType": "task_created",
+        "runId": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "34f39def-8fbb-451a-a673-719aff8cd62a",
+        "taskId": "d386e76c-2824-4905-ab6e-ea56e3267f00",
+        "agentId": "lisa",
+        "eventType": "work_started",
+        "runId": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "b70b7920-5641-4e3a-95d7-a2050d09483b",
+        "taskId": "2e5555f3-b805-475e-b097-ff6bc0d3933c",
+        "agentId": "clara",
+        "eventType": "run_failed",
+        "runId": "08b11dda-3925-40f9-9241-285a26cafccd",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "03488805-24fd-47f3-a92b-828c5170b040",
+        "taskId": "2e5555f3-b805-475e-b097-ff6bc0d3933c",
+        "agentId": "clara",
+        "eventType": "retry_scheduled",
+        "runId": "b289a87e-d7e9-44f4-93eb-b34150b77a20",
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "df6723a6-a79d-4eb3-a07c-ef9423330a46",
+        "taskId": null,
+        "agentId": "adrian",
+        "eventType": "fixture_unrecognised_event",
+        "runId": null,
+        "workspace": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": "1d61c4aa-988e-4e1e-94c4-95c9a173978e",
+        "taskId": "c9d5a996-0bf7-4879-b542-0deaa0c2df8b",
+        "agentId": "lisa",
+        "eventType": "task_created",
+        "runId": null,
+        "workspace": "a1f0a306-86a5-40f2-9205-866259ef681a"
+      }
+    ],
+    "eventCount": 86,
+    "alternateWorkspace": "a1f0a306-86a5-40f2-9205-866259ef681a"
+  },
+  "scope": "Incremental profile, activity grouping, consistent identity and PC pan acceptance",
+  "functionalPassed": true,
+  "cleanup": {
+    "passed": true,
+    "actions": [
+      {
+        "kind": "client",
+        "resource": "browser",
+        "outcome": "closed"
+      },
+      {
+        "kind": "client",
+        "resource": "database",
+        "outcome": "closed"
+      },
+      {
+        "kind": "client",
+        "resource": "synthetic HTTPS issuer",
+        "outcome": "closed"
+      },
+      {
+        "kind": "process",
+        "name": "ui-ux-owner",
+        "pid": 68380,
+        "ports": [
+          3158
+        ],
+        "outcome": "terminated",
+        "taskkillStatus": 0,
+        "exit": {
+          "code": 1,
+          "signal": null
+        }
+      },
+      {
+        "kind": "postgres",
+        "port": 55519,
+        "data": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\v2-acceptance-20261108-082626-b8cfd1ad\\pg\\pgdata",
+        "outcome": "stopped",
+        "pgCtlStatus": 0,
+        "resolved": true
+      }
+    ],
+    "failures": [],
+    "unresolved": []
+  },
+  "remainingProcesses": [],
+  "passed": true,
+  "completedAt": "2026-11-08T08:26:48.482Z"
+}

@@ -1,0 +1,20 @@
+﻿[
+    {
+        "Task":  "Enztronic Backoffice",
+        "Enabled":  true,
+        "State":  4,
+        "LogonType":  "InteractiveToken",
+        "Triggers":  [
+                         "LogonTrigger"
+                     ]
+    },
+    {
+        "Task":  "EnztronicOfficeWorker",
+        "Enabled":  true,
+        "State":  4,
+        "LogonType":  "Password",
+        "Triggers":  [
+                         "BootTrigger"
+                     ]
+    }
+]

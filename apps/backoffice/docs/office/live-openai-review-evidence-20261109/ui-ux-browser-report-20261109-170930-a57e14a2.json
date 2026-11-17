@@ -1,0 +1,344 @@
+{
+  "run": "20261109-170930-a57e14a2",
+  "startedAt": "2026-11-09T17:09:30.513Z",
+  "isolation": {
+    "productionUsed": false,
+    "pgPort": 55529,
+    "appPort": 3168,
+    "snapshot": "D:\\tmp\\codex-live-openai-review-20261110\\claude-office-build-20261109-170530\\app",
+    "root": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261109-170930-a57e14a2",
+    "buildId": "oJO8QYM4sU7b-eXlmTskw",
+    "environmentFiles": 0,
+    "authentication": "Synthetic RS256 owner assertion verified through a loopback HTTPS JWKS; production mode, bypass false",
+    "issuerPort": 9468,
+    "appPid": 4024,
+    "provider": "Scripted in process: no API credential and no OpenAI network requests",
+    "issuerPortClosed": true
+  },
+  "checks": [
+    {
+      "name": "theme initializer carries the request CSP nonce",
+      "passed": true
+    },
+    {
+      "name": "stored/system theme initializes before interaction",
+      "passed": true
+    },
+    {
+      "name": "welcome copy is concise",
+      "passed": true
+    },
+    {
+      "name": "fictional persona badge removed",
+      "passed": true
+    },
+    {
+      "name": "large demonstration box removed",
+      "passed": true
+    },
+    {
+      "name": "desktop profile panel is compact",
+      "passed": true,
+      "height": 264
+    },
+    {
+      "name": "desktop content begins without tall diagnostic stack",
+      "passed": true,
+      "headerHeight": 150
+    },
+    {
+      "name": "profile details are available on demand",
+      "passed": true
+    },
+    {
+      "name": "profile keyboard focus stays in dialog",
+      "passed": true
+    },
+    {
+      "name": "profile closes on Escape and returns focus",
+      "passed": true
+    },
+    {
+      "name": "Configured live Status names the provider and models",
+      "passed": true
+    },
+    {
+      "name": "Configured-live save confirms persistence without claiming configuration failure",
+      "passed": true,
+      "text": " Saved as task d3fb9f6e-c7bf-4a24-b4c6-e1ca4bd7df58 in Internal proposal pilot. It survives reload and browser closure. The worker is online; a step shows as executing only once a run is recorded."
+    },
+    {
+      "name": "Saving alone makes zero model requests",
+      "passed": true
+    },
+    {
+      "name": "Saved live brief survives reload",
+      "passed": true
+    },
+    {
+      "name": "All seven live role drafts are queued rather than misreported as unrunnable",
+      "passed": true
+    },
+    {
+      "name": "A real live fixture lease drives the executing indicator",
+      "passed": true
+    },
+    {
+      "name": "Sixteen scripted model requests stop at the owner decision",
+      "passed": true,
+      "requests": 16,
+      "state": "waiting_for_owner_approval"
+    },
+    {
+      "name": "No task is completed before the owner acts",
+      "passed": true
+    },
+    {
+      "name": "View work exposes the exact package and immutable manifest",
+      "passed": true
+    },
+    {
+      "name": "Explicit synthetic-owner acceptance completes one exact eight-task family",
+      "passed": true
+    },
+    {
+      "name": "Every scripted artifact has its independent role review",
+      "passed": true
+    },
+    {
+      "name": "Synthetic business records are unchanged",
+      "passed": true
+    },
+    {
+      "name": "No uncaught browser errors",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "name": "Eight offline evaluation briefs reach the owner decision",
+      "passed": true
+    },
+    {
+      "name": "Offline evaluation retains language and conflict negative controls",
+      "passed": true
+    }
+  ],
+  "screenshots": [
+    "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261109-170930-a57e14a2\\screenshots\\01-desktop-office.png",
+    "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261109-170930-a57e14a2\\screenshots\\live-queued-status.png",
+    "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261109-170930-a57e14a2\\screenshots\\live-running-status.png",
+    "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261109-170930-a57e14a2\\screenshots\\live-owner-review.png",
+    "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261109-170930-a57e14a2\\screenshots\\live-accepted-package.png"
+  ],
+  "consoleErrors": [],
+  "consoleWarnings": [
+    "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "[.WebGL-0x639400184200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+    "[.WebGL-0x639400184200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+  ],
+  "componentHashes": [
+    {
+      "name": "office-activity-feed.module.css",
+      "sha256": "5367cfa674e6571dc9aa35339df89ff802c4c8fea8c9cd3ad37d3261381b1704"
+    },
+    {
+      "name": "office-activity-groups.test.ts",
+      "sha256": "5d764627fd473b69e0df954c15f2fa3e9a8a9a6a8db5efc07da09fcc497ccf3f"
+    },
+    {
+      "name": "office-activity-groups.ts",
+      "sha256": "bff34f10a18afc31762cd3774c6906ef506265c6c3eaede0363d80c204b18b3b"
+    },
+    {
+      "name": "office-agent-badge.module.css",
+      "sha256": "25b3b556606547f6a14fce24f7b0337965c3a8c4d5618895ef4f5c8f771f5cd6"
+    },
+    {
+      "name": "office-event-presentation.test.tsx",
+      "sha256": "22638216db2cb1121465bae4d1f6e1229f713c257a0a45f67229eae098feaabc"
+    },
+    {
+      "name": "office-profile-status.test.ts",
+      "sha256": "05bd892c63e6fffb0f4297f6a4d7d05e116a188defa0789264a65ff38a46a461"
+    },
+    {
+      "name": "office-profile-status.ts",
+      "sha256": "f0e2e5ddc3b0bc93ed080f0d61300a58efdbbc866aba88875b9295328c41624a"
+    },
+    {
+      "name": "office-profile.module.css",
+      "sha256": "504b9007d6131bd2ecb79938c7d1c392df4e606cb7b62e6d061648d0eb07d26a"
+    },
+    {
+      "name": "office-selection.test.ts",
+      "sha256": "a624978e0553a88f98699ae808ddb9d12c887ab2d6afbc993f8059ae9a6ce360"
+    },
+    {
+      "name": "office-selection.ts",
+      "sha256": "a74f20b46f2cd687a3b9016b4704a40a7634278881d2a1596a5fc71fd92cc19f"
+    },
+    {
+      "name": "office-status.test.ts",
+      "sha256": "4fc21a08a878e2eaa3fb8b264c1bacdb58e87bcb5991c2e4fd9a0f53e2427066"
+    },
+    {
+      "name": "office-status.ts",
+      "sha256": "d5c6e7d0dcb40005ccf053f15c11761a73fbad8ff6c070e8de2d2be4630cb7bf"
+    },
+    {
+      "name": "office-ui.tsx",
+      "sha256": "15a66c80004d7c1907038ca34c06842adc46396510204238e35852e95492082b"
+    },
+    {
+      "name": "office.module.css",
+      "sha256": "009d77d6951aa4fc900a0fb32e7711f6aadfe0f5eece1f38a5e7709b33d489b6"
+    },
+    {
+      "name": "OfficeActivityFeed.tsx",
+      "sha256": "d8cbfd42176bf608d3cc755ca3053d35e7c7ffa2ccb46f50892a53463fadc69c"
+    },
+    {
+      "name": "OfficeAgentBadge.tsx",
+      "sha256": "da0b75c910b0f91384cbcbd392b1f47e372874e1b2bfd208e6b708908120d8ae"
+    },
+    {
+      "name": "OfficeDashboardPanel.test.tsx",
+      "sha256": "b6458319b297998f087f2b568cb74e8f7fb9272a8d3ba0986178b4077ef5a1c3"
+    },
+    {
+      "name": "OfficeDashboardPanel.tsx",
+      "sha256": "cb10f6d731d4a987800bc3ff409b9ce263c320cb551fcb530d755dacbef1e9fb"
+    },
+    {
+      "name": "OfficeInbox.tsx",
+      "sha256": "61f66858c7130ed8832a8f0d965b244fe5f8fe697e990b8164f7976eb59c9b9a"
+    },
+    {
+      "name": "OfficeInfo.tsx",
+      "sha256": "40123d95e01e7b36c779e767f71886d73800b325d557c58bb1dcd866a8ccfde5"
+    },
+    {
+      "name": "OfficePortrait.tsx",
+      "sha256": "5f76cbb1688ec58d39b2a1588312171715f97eb76d9e3d765d2f662383980f28"
+    },
+    {
+      "name": "OfficeProfilePanel.tsx",
+      "sha256": "8b24a261e9f32740950613991dfc37cb209e5c32698ebcad0d8257a2c8820d27"
+    },
+    {
+      "name": "OfficeRoleStatus.tsx",
+      "sha256": "df00ad605e5b28c528aaf96a86a025bd57fb5978e971ef6916821b5a1485f7bc"
+    },
+    {
+      "name": "OfficeScene.tsx",
+      "sha256": "814f14c54d91f97ffccb86876ddd18d912b835ac151fe47cd0630f1fed0640ce"
+    },
+    {
+      "name": "OfficeTaskDetail.tsx",
+      "sha256": "c2d2ccc77689214ae7807db980448b8a1c96bcfb1f71f1dd7dec873705d75315"
+    },
+    {
+      "name": "OfficeView.tsx",
+      "sha256": "8c2fc8b4a212dfd9d928cd3096fb42854724f48e53367d2a0b822ebeb9397b75"
+    },
+    {
+      "name": "profiles.ts",
+      "sha256": "af516b7049ac7b0a53c6b5489fc928d3a65ca3a91bce6bf2f12328d8617bea93"
+    },
+    {
+      "name": "role-identity.ts",
+      "sha256": "f749ab75e53c32b5358c44cb970ad4fd27d50ec4718e0383ed9229b62ec95440"
+    },
+    {
+      "name": "scene-layout.test.ts",
+      "sha256": "0ea9f6b1089088335d065a4cadc746845e3ce993934c9e96cf6faa0109243128"
+    },
+    {
+      "name": "scene-layout.ts",
+      "sha256": "47e2f6e038d80401509f656c89f7e3cb6318038ad74681a3c188d4511aefce8a"
+    },
+    {
+      "name": "scene-preview-people.tsx",
+      "sha256": "a52b942713b3ac9517f46cfa178e4630a74ebe31785f13655f87e0a8380ab983"
+    },
+    {
+      "name": "scene-static-batch.test.ts",
+      "sha256": "1462616cc843dd104b143e0122827f14cc16bdd6d40f6366d8f76ba7ef1b2f8a"
+    },
+    {
+      "name": "scene-static-batch.ts",
+      "sha256": "58034d529ea7b721f4933b1b5c2bab0e731c4a45f10eff26a9b3b2ab0e465023"
+    },
+    {
+      "name": "scene.module.css",
+      "sha256": "d2c9d08385a7d74751c99f4d455c18691e68edb6035b71781dcf67c0e2149538"
+    }
+  ],
+  "scope": "Configured live UI and durable workflow with an offline scripted provider",
+  "taskId": "d3fb9f6e-c7bf-4a24-b4c6-e1ca4bd7df58",
+  "offlineEvaluation": {
+    "out": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261109-170930-a57e14a2\\offline-eval",
+    "briefs": 8,
+    "scriptedRequests": 128,
+    "qualityVerified": false
+  },
+  "functionalPassed": true,
+  "cleanup": {
+    "passed": true,
+    "actions": [
+      {
+        "kind": "client",
+        "resource": "browser",
+        "outcome": "closed"
+      },
+      {
+        "kind": "client",
+        "resource": "database",
+        "outcome": "closed"
+      },
+      {
+        "kind": "client",
+        "resource": "synthetic HTTPS issuer",
+        "outcome": "closed"
+      },
+      {
+        "kind": "process",
+        "name": "ui-ux-owner",
+        "pid": 4024,
+        "ports": [
+          3168
+        ],
+        "outcome": "terminated",
+        "taskkillStatus": 0,
+        "exit": {
+          "code": 1,
+          "signal": null
+        }
+      },
+      {
+        "kind": "process",
+        "name": "offline-live-eval",
+        "pid": 36504,
+        "ports": [],
+        "outcome": "already_exited",
+        "exit": {
+          "code": 0,
+          "signal": null
+        }
+      },
+      {
+        "kind": "postgres",
+        "port": 55529,
+        "data": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261109-170930-a57e14a2\\pg\\pgdata",
+        "outcome": "stopped",
+        "pgCtlStatus": 0,
+        "resolved": true
+      }
+    ],
+    "failures": [],
+    "unresolved": []
+  },
+  "remainingProcesses": [],
+  "passed": true,
+  "completedAt": "2026-11-09T17:09:49.541Z"
+}

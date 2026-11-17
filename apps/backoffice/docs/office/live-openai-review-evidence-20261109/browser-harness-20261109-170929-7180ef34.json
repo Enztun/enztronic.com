@@ -1,0 +1,20 @@
+{
+  "original": "D:\\Enztronic\\apps\\backoffice\\scripts\\office-acceptance\\ui-ux.mjs",
+  "originalSha256": "cc94da1d07c43d5709738e1bcc41c02ff42f4edd9427ed1c3d3630af591fb842",
+  "wrapper": "D:\\Enztronic\\apps\\backoffice\\scripts\\office-acceptance\\live-openai.mjs",
+  "wrapperSha256": "2be89a40995ddaf9b9c8837bd9884abfeb77cc268cf4e5738b581a7017bf15ee",
+  "generated": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-live-review\\20261109-170929-7180ef34\\acceptance.mjs",
+  "generatedSha256": "b116c77ec8c68257e68fa5d0ae5db3cdb898fa5b24f3f01c2721da140e5453bc",
+  "candidate": "D:\\tmp\\codex-live-openai-review-20261110\\claude-office-build-20261109-170530\\app",
+  "snapshotManifest": "D:\\tmp\\codex-live-openai-review-20261110\\claude-office-build-20261109-170530\\app-manifest.json",
+  "snapshotManifestSha256": "9241913eb708a775e1aa0c41dfabee03ee8f736ac616acf7a5e2050edfe118dd",
+  "verifiedSourceFiles": 425,
+  "generatedDeclarationChanges": [
+    {
+      "path": "next-env.d.ts",
+      "beforeSha256": "bed2862351032705aa7d54582e72227c95e99b215fd99716434733853b344200",
+      "afterSha256": "1862ac4bbbc5192d4bf562161df66ea547ed3e67173100656ab606ae9797db2b"
+    }
+  ],
+  "productionUsed": false
+}

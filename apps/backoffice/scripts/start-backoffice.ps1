@@ -17,7 +17,8 @@ trap {
     if ($startLog) {
         Add-Content -LiteralPath $startLog -Value "$(Get-Date -Format o) $_"
     }
-    break
+    # Report startup failures to Task Scheduler so its restart policy can run.
+    exit 1
 }
 
 function Resolve-PostgresTool {

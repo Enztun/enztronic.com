@@ -1,0 +1,65 @@
+{
+  "passed": true,
+  "fullActivationComplete": false,
+  "comparison": {
+    "passed": true,
+    "changedProtectedTables": [],
+    "protectedTableCount": 12,
+    "originalMigrationsPreserved": true,
+    "onlyExpected003Added": true,
+    "auditSequenceUnchanged": true,
+    "ownerAccessUnchanged": true
+  },
+  "boundary": {
+    "passed": true,
+    "capabilities": {
+      "elevated": false,
+      "database_owner": false,
+      "business_access": false,
+      "acceptance_write": false,
+      "owner_decision_write": false,
+      "owner_task_write": false
+    },
+    "deniedProtectedReads": 13,
+    "directLogin": true
+  },
+  "enabledAgentProfiles": 7,
+  "workerOnline": false,
+  "workers": [],
+  "taskCounts": [],
+  "localResponses": [
+    {
+      "route": "/",
+      "status": 307,
+      "passed": true
+    },
+    {
+      "route": "/robots.txt",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "route": "/api/office",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/office",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/office",
+      "status": 401,
+      "passed": true
+    }
+  ],
+  "publicAccessGateWorking": true,
+  "publicWebsiteStatus": 200,
+  "buildId": "H2wsHC_p8niGqIW1qcF_K",
+  "officeEnabled": true,
+  "developmentBypass": false,
+  "authenticatedDashboard": "requires-genuine-owner-browser-session",
+  "providerConfigured": false,
+  "commandExecutionEnabled": false
+}

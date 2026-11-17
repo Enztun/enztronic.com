@@ -1,0 +1,16 @@
+{
+  "capturedAt": "2026-11-08T08:08:24.624Z",
+  "app": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\v2-baseline-20261108-080820-b711a323\\app",
+  "snapshot": {
+    "files": 370,
+    "destination": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\v2-baseline-20261108-080820-b711a323\\app",
+    "manifest": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\v2-baseline-20261108-080820-b711a323\\app-manifest.json"
+  },
+  "dependencies": {
+    "source": "D:\\Enztronic\\apps\\backoffice\\node_modules",
+    "localCopy": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\dependencies-layout-e87700c7-e161-433d-82ea-fdc9c55b57cd\\node_modules",
+    "criticalHashesMatched": 6,
+    "packageInstallPerformed": false
+  },
+  "productionTouched": false
+}

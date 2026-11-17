@@ -20,7 +20,7 @@ export const navigationItems: NavigationItem[] = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/clients", label: "Clients", icon: Building2 },
   { href: "/invoices", label: "Invoices", icon: FileText },
-  { href: "/team", label: "Team", icon: Users, adminOnly: true },
+  { href: "/team", label: "Office", icon: Users, adminOnly: true },
   { href: "/settings", label: "Settings", icon: Settings, adminOnly: true },
 ];
 

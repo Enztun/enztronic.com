@@ -1,0 +1,48 @@
+{
+  "run": "20261108-064016-b5f73ea0",
+  "startedAt": "2026-11-08T06:40:16.925Z",
+  "cwd": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\build-20261108-063755-79c08146\\app",
+  "snapshotFiles": 342,
+  "snapshotManifest": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\build-20261108-063755-79c08146\\app-manifest.json",
+  "dependencies": {
+    "source": "D:\\Enztronic\\apps\\backoffice\\node_modules",
+    "localCopy": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\dependencies-layout-e87700c7-e161-433d-82ea-fdc9c55b57cd\\node_modules",
+    "criticalHashesMatched": 6,
+    "packageInstallPerformed": false
+  },
+  "environmentFiles": 0,
+  "productionTouched": false,
+  "workerGrantTemplateSha256": "9b6359743bd84762d6e8084460806ec48fdd79487da05fb52bb760d31978c149",
+  "checks": [
+    {
+      "name": "lint",
+      "exitCode": 0,
+      "seconds": 44,
+      "log": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\build-20261108-063755-79c08146\\lint.log"
+    },
+    {
+      "name": "typecheck",
+      "exitCode": 0,
+      "seconds": 27,
+      "log": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\build-20261108-063755-79c08146\\typecheck.log"
+    },
+    {
+      "name": "tests",
+      "exitCode": 0,
+      "seconds": 18,
+      "log": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\build-20261108-063755-79c08146\\tests-20261108-064016-b5f73ea0.log"
+    },
+    {
+      "name": "build",
+      "exitCode": 0,
+      "seconds": 44,
+      "log": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\build-20261108-063755-79c08146\\build-20261108-064016-b5f73ea0.log"
+    }
+  ],
+  "continuedCandidate": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\build-20261108-063755-79c08146",
+  "priorOperationalFailure": "spawn powershell.exe ENOENT",
+  "buildId": "5fMNIet9VS8Zsn-XeJ4QR",
+  "exitCode": 0,
+  "passed": true,
+  "completedAt": "2026-11-08T06:41:18.581Z"
+}

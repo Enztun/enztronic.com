@@ -1,0 +1,50 @@
+{
+  "lint": "pass",
+  "typecheck": "pass",
+  "vitest": {
+    "files": 23,
+    "tests": 226,
+    "failed": 0,
+    "skipped": 0,
+    "fixture": "tmp/office-verification-20261109-010209"
+  },
+  "worker": {
+    "typecheck": "pass",
+    "suites": {
+      "lifecycle": "10/10 (incl. real PostgreSQL worker with migration 004, least-privilege grants and live-limit preflight)",
+      "packageRuntime": "7/7",
+      "activation": "10/10",
+      "installer": "7/7"
+    },
+    "powershell": "PowerShell 7 from the worker tool directory, used read-only"
+  },
+  "runtimePackage": {
+    "destination": "D:\tmpclaude-live-runtime-20261109",
+    "files": 1299,
+    "manifestSha256": "ca6828765d8fd88b50fe8edfed4d9dc62f087b8423f818ee2dcfda409f340ef7",
+    "smokePassed": true,
+    "networkForbidden": true,
+    "importsConfinedToPackage": true,
+    "liveModulesLoaded": [
+      "live-adapter.ts",
+      "live-pricing.ts",
+      "openai.ts"
+    ],
+    "packagedTypecheck": true
+  },
+  "bundles": {
+    "buildId": "hq5hlbwiIdVA39CZ_S1Ae",
+    "staticChunksWithOpenAIHost": 0,
+    "staticChunksWithTokenCountPath": 0,
+    "serverChunksWithOpenAIHost": 0,
+    "note": "The web app imports only types from openai.ts; only the price formatter reaches the browser."
+  },
+  "production": {
+    "checkedAt": "2026-11-08T18:06:27.871Z",
+    "port3100Pid": 22980,
+    "port54329Pid": 24640,
+    "activeBuildId": "7VQBHlMCw4uRSPfvo5f5T",
+    "openAIRequestsMade": 0,
+    "apiKeyConfigured": false
+  }
+}

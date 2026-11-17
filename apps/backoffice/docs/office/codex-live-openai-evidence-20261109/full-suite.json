@@ -1,0 +1,77 @@
+{
+  "startedAt": "2026-11-09T17:05:30.945Z",
+  "productionUsed": false,
+  "paidRequests": 0,
+  "checks": [
+    {
+      "name": "vitest",
+      "passed": true,
+      "exitCode": 0,
+      "log": "C:\\Users\\hoyec\\AppData\\Local\\EnztronicCodexLiveReviewRoot-20261109\\suite-1794243930944\\vitest.log"
+    },
+    {
+      "name": "typecheck",
+      "passed": true,
+      "exitCode": 0,
+      "log": "C:\\Users\\hoyec\\AppData\\Local\\EnztronicCodexLiveReviewRoot-20261109\\suite-1794243930944\\typecheck.log"
+    },
+    {
+      "name": "lint",
+      "passed": true,
+      "exitCode": 0,
+      "log": "C:\\Users\\hoyec\\AppData\\Local\\EnztronicCodexLiveReviewRoot-20261109\\suite-1794243930944\\lint.log"
+    }
+  ],
+  "functionalPassed": true,
+  "cleanup": {
+    "passed": true,
+    "actions": [
+      {
+        "kind": "process",
+        "name": "vitest",
+        "pid": 71180,
+        "ports": [],
+        "outcome": "already_exited",
+        "exit": {
+          "code": 0,
+          "signal": null
+        }
+      },
+      {
+        "kind": "process",
+        "name": "lint",
+        "pid": 50308,
+        "ports": [],
+        "outcome": "already_exited",
+        "exit": {
+          "code": 0,
+          "signal": null
+        }
+      },
+      {
+        "kind": "process",
+        "name": "typecheck",
+        "pid": 51764,
+        "ports": [],
+        "outcome": "already_exited",
+        "exit": {
+          "code": 0,
+          "signal": null
+        }
+      },
+      {
+        "kind": "postgres",
+        "port": 55439,
+        "data": "C:\\Users\\hoyec\\AppData\\Local\\EnztronicCodexLiveReviewRoot-20261109\\suite-1794243930944\\pgdata",
+        "outcome": "stopped",
+        "pgCtlStatus": 0,
+        "resolved": true
+      }
+    ],
+    "failures": [],
+    "unresolved": []
+  },
+  "remainingProcesses": [],
+  "passed": true,
+  "finishedAt": "2026-11-09T17:07:10.117Z"
+}

@@ -1,0 +1,78 @@
+{
+  "passed": true,
+  "fullActivationComplete": true,
+  "comparison": {
+    "passed": true,
+    "changedProtectedTables": [],
+    "protectedTableCount": 12,
+    "originalMigrationsPreserved": true,
+    "onlyExpected003Added": true,
+    "auditSequenceUnchanged": true,
+    "ownerAccessUnchanged": true
+  },
+  "boundary": {
+    "passed": true,
+    "capabilities": {
+      "elevated": false,
+      "database_owner": false,
+      "business_access": false,
+      "acceptance_write": false,
+      "owner_decision_write": false,
+      "owner_task_write": false
+    },
+    "deniedProtectedReads": 13,
+    "directLogin": true
+  },
+  "enabledAgentProfiles": 7,
+  "workerOnline": true,
+  "workers": [
+    {
+      "id": "office-ca99ffc2-f0c6-4c4e-b73f-692d676f8c9a",
+      "adapter": "deterministic_demo",
+      "active": true,
+      "heartbeat_age_seconds": 0.952206
+    },
+    {
+      "id": "office-6bc6c5fb-09d1-485f-89bc-9feceb8fd269",
+      "adapter": "deterministic_demo",
+      "active": false,
+      "heartbeat_age_seconds": 64.793964
+    }
+  ],
+  "taskCounts": [],
+  "localResponses": [
+    {
+      "route": "/",
+      "status": 307,
+      "passed": true
+    },
+    {
+      "route": "/robots.txt",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "route": "/api/office",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/office",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/office",
+      "status": 401,
+      "passed": true
+    }
+  ],
+  "publicAccessGateWorking": true,
+  "publicWebsiteStatus": 200,
+  "buildId": "H2wsHC_p8niGqIW1qcF_K",
+  "officeEnabled": true,
+  "developmentBypass": false,
+  "authenticatedDashboard": "requires-genuine-owner-browser-session",
+  "providerConfigured": false,
+  "commandExecutionEnabled": false
+}

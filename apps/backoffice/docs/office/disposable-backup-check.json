@@ -1,0 +1,120 @@
+{
+  "environment": "disposable PostgreSQL17 only / loopback55439",
+  "productionBackupPerformed": false,
+  "checkedAtUtc": "2026-10-21T17:31:20.920Z",
+  "dumpFormat": "custom",
+  "dumpSha256": "4882849512857eca89155b02659dfe88dcb066a7581d15b3c87f1054c8676c41",
+  "archiveListRead": true,
+  "restoreToSeparateDatabase": true,
+  "allChecksPassed": true,
+  "checks": [
+    {
+      "table": "users",
+      "sourceCount": 5,
+      "restoredCount": 5,
+      "exactDataMatches": true
+    },
+    {
+      "table": "clients",
+      "sourceCount": 1,
+      "restoredCount": 1,
+      "exactDataMatches": true
+    },
+    {
+      "table": "invoices",
+      "sourceCount": 1,
+      "restoredCount": 1,
+      "exactDataMatches": true
+    },
+    {
+      "table": "invoice_snapshots",
+      "sourceCount": 1,
+      "restoredCount": 1,
+      "exactDataMatches": true
+    },
+    {
+      "table": "invoice_payments",
+      "sourceCount": 2,
+      "restoredCount": 2,
+      "exactDataMatches": true
+    },
+    {
+      "table": "invoice_number_counters",
+      "sourceCount": 1,
+      "restoredCount": 1,
+      "exactDataMatches": true
+    },
+    {
+      "table": "audit_events",
+      "sourceCount": 12,
+      "restoredCount": 12,
+      "exactDataMatches": true
+    },
+    {
+      "table": "outbox_events",
+      "sourceCount": 1,
+      "restoredCount": 1,
+      "exactDataMatches": true
+    },
+    {
+      "table": "office_agents",
+      "sourceCount": 7,
+      "restoredCount": 7,
+      "exactDataMatches": true
+    },
+    {
+      "table": "office_agent_profiles",
+      "sourceCount": 7,
+      "restoredCount": 7,
+      "exactDataMatches": true
+    },
+    {
+      "table": "office_workspaces",
+      "sourceCount": 2,
+      "restoredCount": 2,
+      "exactDataMatches": true
+    },
+    {
+      "table": "office_tasks",
+      "sourceCount": 17,
+      "restoredCount": 17,
+      "exactDataMatches": true
+    },
+    {
+      "table": "office_runs",
+      "sourceCount": 34,
+      "restoredCount": 34,
+      "exactDataMatches": true
+    },
+    {
+      "table": "office_artifacts",
+      "sourceCount": 16,
+      "restoredCount": 16,
+      "exactDataMatches": true
+    },
+    {
+      "table": "office_reviews",
+      "sourceCount": 16,
+      "restoredCount": 16,
+      "exactDataMatches": true
+    },
+    {
+      "table": "office_approvals",
+      "sourceCount": 2,
+      "restoredCount": 2,
+      "exactDataMatches": true
+    },
+    {
+      "table": "office_acceptance_evidence",
+      "sourceCount": 2,
+      "restoredCount": 2,
+      "exactDataMatches": true
+    },
+    {
+      "table": "office_events",
+      "sourceCount": 140,
+      "restoredCount": 140,
+      "exactDataMatches": true
+    }
+  ]
+}

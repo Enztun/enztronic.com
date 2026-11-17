@@ -1,0 +1,62 @@
+# Independent review: OpenAI Office pilot
+
+Review began 9 November 2026 and completed 10 November 2026 WIB. Filenames retain the 9 November handoff date. **The corrected local release candidate passes the checks below. Production activation and paid model quality remain pending.**
+
+The owner requested "check and continue." I read Claude's handoff and proposed pilot, reproduced the defects on new disposable fixtures, corrected them locally and validated a separate complete build. No commit, push, deployment, production migration, key setup or paid provider request was performed. The existing accepted Office remains in demonstration mode.
+
+## Findings and corrections
+
+| Finding | Corrected behavior and evidence |
+| --- | --- |
+| P1: monthly accounting used claim/run start time; concurrency could admit two live calls; known overages were clamped out of the ledger | Month uses dispatch time and carries unresolved holds. Admission serializes live requests independently of worker concurrency. Full known charges remain recorded even above the ceiling, and live work holds for reconciliation. Database regressions reproduce/prevent all three cases. |
+| P1: unknown billed outcomes automatically retried, contrary to the proposed pilot | Unknowns retain their original reservation and globally hold live execution across process restart and month rollover. Explicit owner reconciliation needs provider evidence and the confirmed charge. Owner retry cannot bypass it. Demonstration work can continue. |
+| P1: authorization was checked too late, after the brief had reached token counting and potentially model creation | Lease, current owner, agent enablement, workspace grant and `internal_draft` scope are checked before counting and again before reservation/dispatch. Revocation before count and during counting is tested. |
+| P1: no ten-minute proposal clock or sixteen-call initial-attempt limit | Each durable attempt has ten minutes and at most sixteen dispatches. Count/create timeouts use the remaining database-measured time. Late known responses are charged and discarded. Explicit owner recovery/revision can start another attempt; the USD 1 family budget and thirty-two total family-call limit persist. |
+| P1: duplicate review criteria could hide a later `not_met`; excess findings could be dropped | Missing, unknown and duplicate criteria are rejected locally. Excess findings reject the response instead of discarding possible errors. Explicit `unverified` remains visible; it does not establish factual truth. |
+| P1: package synthesis used only the first 2,400 characters of each draft; final review lacked the component bodies | Writer and final reviewer receive complete, digest/manifest-bound reviewed components. Redrafts receive the complete previous revision. Oversized evidence blocks at the input cap rather than silently omitting unknowns or decisions. Late-content sentinels are covered by tests. |
+| P1/P2: absent/invalid billing fields became zero; responses could silently use another model/tier; redirects and ambiguous HTTP statuses could be misclassified | Client validates integer totals and disjoint cache buckets, rejects incomplete usage evidence, checks effective model/tier, never follows redirects and makes one HTTP attempt. Ambiguous outcomes retain a hold. Pricing uses exact integer arithmetic; unpriced/long-context/unrepresentable usage is quarantined. |
+| P2: key helper wrote plaintext to an inherited-ACL temporary file before replacement | Temporary file receives the original protected access rules atomically before any secret bytes are written. Windows tests observe the empty file under a broader parent, then verify insertion, removal, final ACL preservation and cleanup on replacement failure. Only fake test values were used. |
+| P2: configured live saves still said "not configured"; runnable counts and Dashboard queues omitted live work; monthly display differed from admission | Save feedback distinguishes configured/blocked/unknown states. Live draft/review queues, owner holds, scope/deadline eligibility and monthly carryover are represented consistently. Regression tests and the real browser fixture pass. |
+| P1 operational: hot migration and old-worker rollback were unsafe in some states | Old cached database plans fail after added columns unless connections restart. More seriously, an old worker can release a dispatched live hold whose provider ID has not arrived. Rehearsals confirm safe quiescent compatibility and reproduce unsafe reservation loss. The new read-only rollback fence refuses unresolved states; rollback keeps the corrected worker in demo-only mode until reconciliation. |
+
+The billing handling was checked against [OpenAI's spending-controller guidance](https://developers.openai.com/cookbook/articles/per_run_spending_controller_responses_api), [Responses API reference](https://developers.openai.com/api/reference/typescript/resources/responses/methods/create), [prompt-cache accounting](https://developers.openai.com/api/docs/guides/prompt-caching) and [current pricing](https://developers.openai.com/api/docs/pricing). The default 30-minute cache-write reservation follows the documented default TTL; an unexpected higher known charge is recorded in full and holds further live work. No account/model access or real billing behavior has been verified.
+
+## Final validation
+
+| Check | Result |
+| --- | --- |
+| Fresh full backoffice suite | **25 files, 260 tests passed, 0 failed, 0 skipped**; new C: PostgreSQL fixture; clean shutdown |
+| Full lint and typecheck | Passed |
+| Separate Webpack build | **`oJO8QYM4sU7b-eXlmTskw`**, exit 0; 69 seconds; no environment files |
+| Exact built source | Application and migration files match the recorded source snapshot and current corrected source. Next's generated declaration rewrite is recorded separately. |
+| Production-mode browser fixture | **25/25**, zero browser errors; signed synthetic Access identity; save/reload, queued/executing indicators, exact sixteen scripted requests, package body/digest/manifest, eight independent reviews, explicit owner acceptance and eight completed tasks |
+| Preservation in browser fixture | Synthetic business digest unchanged; no premature completion; all created app/PG/issuer resources stopped |
+| Eight offline evaluation briefs | 128 scripted requests reached owner review. Expected language/conflict negative controls remain failures, demonstrating that scripted output is not a quality pass. All amounts are synthetic ledger estimates, with zero real charges. |
+| Worker lifecycle and packaging tests | 11/11 lifecycle, including real disposable PostgreSQL; 7/7 packaging |
+| Final sealed worker | **1,299 files**; inventory verification, import confinement/network-forbidden smoke and packaged typecheck passed; manifest **`0ccf049cf5c06dc40a48f6bde283a5e08ce27ab52b35cde8b1a76c18e38235cf`** |
+| Migration/rollback rehearsal | Old accepted sealed worker completes demonstration work before/after 004 with fresh connections. Actual rollback fence rejects active leases, unresolved live holds and unknown OpenAI operations, including after old recovery incorrectly clears a hold. |
+| Browser bundle inspection | No OpenAI key setting, provider factory or token-count endpoint marker in browser JavaScript |
+| Production read-only verification | Still accepted build **`7VQBHlMCw4uRSPfvo5f5T`**; unchanged protected configuration hashes; migrations 001–003 match applied checksums; 004 absent; one active owner; current demo-worker heartbeat fresh; live flag/key absent; zero live tasks |
+
+The first C: build failed because Next 16.4.2 constructed invalid `./D:/...` imports through the cross-drive dependency junction. The same source built successfully in a separate D: snapshot with dependencies on D:. No dependency or production build was changed to work around it. Initial fixture-port and controlled-clock test failures are retained with their corrected final results; they are not counted as passes.
+
+Direct unsigned local checks pass (`/` 307, robots 200, Office API 401); a direct protected-page request produces the existing `missing_token` authentication error. That request is not authenticated dashboard acceptance. Public admin requests still redirect to the existing Cloudflare Access issuer; the public website returns 200. Startup-task metadata remains enabled with the existing owner-logon backoffice task and dedicated boot-triggered worker task. No startup configuration was changed. The real owner's signed-in session was not used.
+
+## Reviewable artifacts
+
+- [Final release validation](codex-live-openai-evidence-20261109/release-validation.json), [full suite](codex-live-openai-evidence-20261109/full-suite.json), [test results](codex-live-openai-evidence-20261109/vitest.json), [build result](codex-live-openai-evidence-20261109/webpack-build.json), [complete build inventory](codex-live-openai-evidence-20261109/candidate-build-inventory.json).
+- [Browser acceptance](live-openai-review-evidence-20261109/ui-ux-browser-report-20261109-170930-a57e14a2.json), [harness/source provenance](live-openai-review-evidence-20261109/browser-harness-20261109-170929-7180ef34.json), [offline evaluation](live-openai-review-evidence-20261109/eval-dry-run-report.json).
+- [Worker package](codex-live-openai-evidence-20261109/worker-package.json), [worker lifecycle](codex-live-openai-evidence-20261109/worker-lifecycle.json), [rollback rehearsal](codex-live-openai-evidence-20261109/rollback-rehearsal.json), [production verification](codex-live-openai-evidence-20261109/production-after.json).
+- Candidate app: `D:\tmp\codex-live-openai-review-20261110\claude-office-build-20261109-170530\app`. Final inert worker package: `C:\Users\hoyec\AppData\Local\Temp\office-final-worker-release-c503a994b7ef498990277bcffa8ce1ef\runtime`. Keep these complete artifacts and the existing rollback releases.
+- [Correction-only patch](CODEX-LIVE-OPENAI-CORRECTIONS-2026-11-09.diff) and [per-file provenance/replay](codex-live-openai-evidence-20261109/correction-delta.json): **21 files, +1062/-104**, SHA256 **`7e3c532fc8576d5dbfc4de7cc614ce7f3bc06203e2fc514dec04a13c0b54da3f`**. It is a delta from the reconstructed original Claude handoff, preserving unrelated work. Replay matches every LF-normalized file; raw hashes are recorded separately.
+- Original Claude patch SHA256 remains `bfa24acf062ba8fb7b2f3d039c872a706e38c9aba0eb3395ace226fafd7c9afa`. All 27 baseline hashes matched, including 20 backoffice baseline files matched to the accepted build snapshot. Actual original patch count is **+1967/-111**, not +1851/-111. Original/replay byte differences are line endings; do not claim raw byte-for-byte equivalence. [Original provenance](codex-live-openai-evidence-20261109/handoff-provenance.json).
+
+## What remains before production
+
+Follow [the corrected activation and rollback procedure](CODEX-LIVE-OPENAI-ACTIVATION-2026-11-09.md). It requires a dedicated OpenAI project/key, a separately approved production/spending window, a fresh verified backup, quiescence and process/connection restart around migration 004, promotion of the complete reviewed artifacts, and the bounded paid evaluation before wider use.
+
+Real model factual accuracy, source fidelity, role separation, conflict handling, token usage, model availability and provider billing remain unverified. The token-count endpoint's billing was not established by the documentation consulted. Offline money/keyword checks are smoke checks, not proof of exact financial fidelity. Do not promise an exact complete-invoice cap based on them. Read the first real outputs and reconcile provider usage before expanding the pilot.
+
+Final real dashboard/Access/Office acceptance and the first real internal package decision require the owner's signed-in browser. Reconciliation currently uses the existing exported runtime method with operator assistance; there is no new owner-facing reconciliation button. Do not send, publish, deploy client work, execute model-supplied commands or activate financial actions as part of this pilot.
+
+Automatic approval review rejected cleanup of two initial sentinel-only reproduction folders under the Windows user Temp directory with the stated reason "blocked by policy." They contain no real credentials and remain for a later retention decision. All fixture services and child processes were confirmed stopped.

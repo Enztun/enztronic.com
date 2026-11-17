@@ -1,0 +1,340 @@
+{
+  "version": 1,
+  "axes": {
+    "native": "right-handed meters, Z-up, -Y forward",
+    "glb": "right-handed meters, Y-up, +Z forward"
+  },
+  "bones": [
+    {
+      "name": "root",
+      "parent": null,
+      "head_blender_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tail_blender_m": [
+        0.0,
+        0.0,
+        0.11999999731779099
+      ],
+      "deform": true
+    },
+    {
+      "name": "pelvis",
+      "parent": "root",
+      "head_blender_m": [
+        0.0,
+        0.0,
+        0.9700000286102295
+      ],
+      "tail_blender_m": [
+        0.0,
+        0.0,
+        1.0700000524520874
+      ],
+      "deform": true
+    },
+    {
+      "name": "spine",
+      "parent": "pelvis",
+      "head_blender_m": [
+        0.0,
+        0.0,
+        1.0700000524520874
+      ],
+      "tail_blender_m": [
+        0.0,
+        0.0,
+        1.25
+      ],
+      "deform": true
+    },
+    {
+      "name": "chest",
+      "parent": "spine",
+      "head_blender_m": [
+        0.0,
+        0.0,
+        1.25
+      ],
+      "tail_blender_m": [
+        0.0,
+        0.0,
+        1.4049999713897705
+      ],
+      "deform": true
+    },
+    {
+      "name": "neck",
+      "parent": "chest",
+      "head_blender_m": [
+        0.0,
+        0.0,
+        1.4049999713897705
+      ],
+      "tail_blender_m": [
+        0.0,
+        0.0,
+        1.5199999809265137
+      ],
+      "deform": true
+    },
+    {
+      "name": "head",
+      "parent": "neck",
+      "head_blender_m": [
+        0.0,
+        0.0,
+        1.5199999809265137
+      ],
+      "tail_blender_m": [
+        0.0,
+        0.0,
+        1.7699999809265137
+      ],
+      "deform": true
+    },
+    {
+      "name": "clavicle.L",
+      "parent": "chest",
+      "head_blender_m": [
+        0.0,
+        0.0,
+        1.3899999856948853
+      ],
+      "tail_blender_m": [
+        0.20499999821186066,
+        0.0,
+        1.3899999856948853
+      ],
+      "deform": true
+    },
+    {
+      "name": "upper_arm.L",
+      "parent": "clavicle.L",
+      "head_blender_m": [
+        0.20499999821186066,
+        0.0,
+        1.3899999856948853
+      ],
+      "tail_blender_m": [
+        0.35499998927116394,
+        -0.00800000037997961,
+        1.1720000505447388
+      ],
+      "deform": true
+    },
+    {
+      "name": "forearm.L",
+      "parent": "upper_arm.L",
+      "head_blender_m": [
+        0.35499998927116394,
+        -0.00800000037997961,
+        1.1720000505447388
+      ],
+      "tail_blender_m": [
+        0.42500001192092896,
+        -0.023000000044703484,
+        0.9670000076293945
+      ],
+      "deform": true
+    },
+    {
+      "name": "hand.L",
+      "parent": "forearm.L",
+      "head_blender_m": [
+        0.42500001192092896,
+        -0.023000000044703484,
+        0.9670000076293945
+      ],
+      "tail_blender_m": [
+        0.4440000057220459,
+        -0.027000000700354576,
+        0.8489999771118164
+      ],
+      "deform": true
+    },
+    {
+      "name": "clavicle.R",
+      "parent": "chest",
+      "head_blender_m": [
+        0.0,
+        0.0,
+        1.3899999856948853
+      ],
+      "tail_blender_m": [
+        -0.20499999821186066,
+        0.0,
+        1.3899999856948853
+      ],
+      "deform": true
+    },
+    {
+      "name": "upper_arm.R",
+      "parent": "clavicle.R",
+      "head_blender_m": [
+        -0.20499999821186066,
+        0.0,
+        1.3899999856948853
+      ],
+      "tail_blender_m": [
+        -0.35499998927116394,
+        -0.00800000037997961,
+        1.1720000505447388
+      ],
+      "deform": true
+    },
+    {
+      "name": "forearm.R",
+      "parent": "upper_arm.R",
+      "head_blender_m": [
+        -0.35499998927116394,
+        -0.00800000037997961,
+        1.1720000505447388
+      ],
+      "tail_blender_m": [
+        -0.42500001192092896,
+        -0.023000000044703484,
+        0.9670000076293945
+      ],
+      "deform": true
+    },
+    {
+      "name": "hand.R",
+      "parent": "forearm.R",
+      "head_blender_m": [
+        -0.42500001192092896,
+        -0.023000000044703484,
+        0.9670000076293945
+      ],
+      "tail_blender_m": [
+        -0.4440000057220459,
+        -0.027000000700354576,
+        0.8489999771118164
+      ],
+      "deform": true
+    },
+    {
+      "name": "thigh.L",
+      "parent": "pelvis",
+      "head_blender_m": [
+        0.09799999743700027,
+        0.0,
+        0.949999988079071
+      ],
+      "tail_blender_m": [
+        0.09799999743700027,
+        -0.006000000052154064,
+        0.5299999713897705
+      ],
+      "deform": true
+    },
+    {
+      "name": "shin.L",
+      "parent": "thigh.L",
+      "head_blender_m": [
+        0.09799999743700027,
+        -0.006000000052154064,
+        0.5299999713897705
+      ],
+      "tail_blender_m": [
+        0.09799999743700027,
+        0.0,
+        0.10999999940395355
+      ],
+      "deform": true
+    },
+    {
+      "name": "foot.L",
+      "parent": "shin.L",
+      "head_blender_m": [
+        0.09799999743700027,
+        0.0,
+        0.10999999940395355
+      ],
+      "tail_blender_m": [
+        0.09799999743700027,
+        -0.15600000321865082,
+        0.052000001072883606
+      ],
+      "deform": true
+    },
+    {
+      "name": "toe.L",
+      "parent": "foot.L",
+      "head_blender_m": [
+        0.09799999743700027,
+        -0.15600000321865082,
+        0.052000001072883606
+      ],
+      "tail_blender_m": [
+        0.09799999743700027,
+        -0.18799999356269836,
+        0.052000001072883606
+      ],
+      "deform": true
+    },
+    {
+      "name": "thigh.R",
+      "parent": "pelvis",
+      "head_blender_m": [
+        -0.09799999743700027,
+        0.0,
+        0.949999988079071
+      ],
+      "tail_blender_m": [
+        -0.09799999743700027,
+        -0.006000000052154064,
+        0.5299999713897705
+      ],
+      "deform": true
+    },
+    {
+      "name": "shin.R",
+      "parent": "thigh.R",
+      "head_blender_m": [
+        -0.09799999743700027,
+        -0.006000000052154064,
+        0.5299999713897705
+      ],
+      "tail_blender_m": [
+        -0.09799999743700027,
+        0.0,
+        0.10999999940395355
+      ],
+      "deform": true
+    },
+    {
+      "name": "foot.R",
+      "parent": "shin.R",
+      "head_blender_m": [
+        -0.09799999743700027,
+        0.0,
+        0.10999999940395355
+      ],
+      "tail_blender_m": [
+        -0.09799999743700027,
+        -0.15600000321865082,
+        0.052000001072883606
+      ],
+      "deform": true
+    },
+    {
+      "name": "toe.R",
+      "parent": "foot.R",
+      "head_blender_m": [
+        -0.09799999743700027,
+        -0.15600000321865082,
+        0.052000001072883606
+      ],
+      "tail_blender_m": [
+        -0.09799999743700027,
+        -0.18799999356269836,
+        0.052000001072883606
+      ],
+      "deform": true
+    }
+  ],
+  "retargeting": "Use identical bone names and rest pose. Pose controls are the named FK bones. root is navigation anchor; only pelvis vertical offset authors seat height. Do not scale skeleton per action."
+}

@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "comparison": {
+    "passed": true,
+    "differences": [],
+    "comparedTableCount": 31,
+    "comparedSequenceCount": 1,
+    "ignoredRestoreOnlyRoles": [
+      "recovery_admin"
+    ]
+  },
+  "buildId": "lLqX-hgihnGlb_e0a6-8g",
+  "environmentUnchanged": true,
+  "workerConfigurationUnchanged": true,
+  "officeEnabled": true,
+  "developmentBypass": false,
+  "transientHeartbeatTableExcluded": "backoffice.office_workers",
+  "databaseWritesPerformed": false
+}

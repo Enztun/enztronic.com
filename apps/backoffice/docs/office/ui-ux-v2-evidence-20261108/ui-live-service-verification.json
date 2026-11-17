@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "clientDate": "2026-11-08",
+  "machineUtc": "2026-11-08T08:31:00.852Z",
+  "buildId": "7VQBHlMCw4uRSPfvo5f5T",
+  "worker": {
+    "id": "office-56c93b16-0f24-47d5-885b-243bbdf0ba6b",
+    "heartbeatAdvancing": true,
+    "heartbeatAgeSeconds": 0.907534
+  },
+  "enabledProfiles": 7,
+  "localChecks": [
+    {
+      "route": "/",
+      "status": 307,
+      "passed": true
+    },
+    {
+      "route": "/robots.txt",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "route": "/api/office",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/office",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "route": "/api/office",
+      "status": 401,
+      "passed": true
+    }
+  ],
+  "cloudflareAccessGateWorking": true,
+  "publicWebsiteStatus": 200,
+  "officeEnabled": true,
+  "developmentBypass": false,
+  "productionDatabaseWrites": 0,
+  "authenticatedOwnerBrowserTest": false,
+  "ownerBrowserFollowUp": "Refresh the existing signed-in Office tab to inspect the new layout and physical-device rendering."
+}

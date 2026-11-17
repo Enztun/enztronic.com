@@ -1,0 +1,1795 @@
+{
+  "run": "20261105-173833",
+  "startedAt": "2026-11-05T17:38:33.723Z",
+  "isolation": {
+    "pgPort": 55449,
+    "appPort": 3128,
+    "salesPort": 3129,
+    "database": "enztronic_office_acceptance_test",
+    "evidence": "tmp\\claude-acceptance-20261105-173833",
+    "snapshot": "D:\\tmp\\claude-office-acceptance-20261105-173833\\app",
+    "envFilesInSnapshot": 0,
+    "production": "ports 3100/54329 and .runtime are never used",
+    "snapshotFiles": 257,
+    "workerRole": "office_worker_acceptance_522586d91bd2"
+  },
+  "checks": [
+    {
+      "name": "dashboard: Office panel truthful before any work",
+      "passed": true
+    },
+    {
+      "name": "brief: persistence and execution explained before writing",
+      "passed": true
+    },
+    {
+      "name": "brief: draft labelled as tab-memory only",
+      "passed": true
+    },
+    {
+      "name": "save: confirmed task id shown and selected in the URL",
+      "passed": true,
+      "parentId": "9f33cb49-a159-45e0-90bc-e67cb80a09da",
+      "url": "http://127.0.0.1:3128/team?mode=demo&workspace=00000000-0000-4000-8000-000000000001&task=9f33cb49-a159-45e0-90bc-e67cb80a09da&view=tasks"
+    },
+    {
+      "name": "save: notice says nothing is executing without a worker",
+      "passed": true
+    },
+    {
+      "name": "save: parent shown as delegated, not executing",
+      "passed": true
+    },
+    {
+      "name": "reload: same task id and source text restored",
+      "passed": true
+    },
+    {
+      "name": "uncertain: brief locked for an identical retry",
+      "passed": true
+    },
+    {
+      "name": "uncertain: the server did save exactly one task",
+      "passed": true
+    },
+    {
+      "name": "uncertain: retry reconciled to the same task; no duplicate parent",
+      "passed": true
+    },
+    {
+      "name": "409: text kept and editable; nothing stored",
+      "passed": true
+    },
+    {
+      "name": "503 storage: outcome treated as unknown and locked",
+      "passed": true
+    },
+    {
+      "name": "503 storage: the same-key retry saved exactly one task",
+      "passed": true
+    },
+    {
+      "name": "401: text kept and nothing stored",
+      "passed": true
+    },
+    {
+      "name": "offline: text kept while saving is paused",
+      "passed": true
+    },
+    {
+      "name": "crash: a worker claimed a lease and exited without executing",
+      "passed": true,
+      "runId": "8e77e667-024a-483b-b377-0499930190b4",
+      "step": "draft"
+    },
+    {
+      "name": "stop: graceful stop recorded a stopping heartbeat",
+      "passed": true,
+      "workerId": "office-0b9a9a30-952e-487e-8c07-3fb09fbdbd32"
+    },
+    {
+      "name": "capacity: no step ran while the abandoned lease was live",
+      "passed": true
+    },
+    {
+      "name": "lease view: a live lease shows as execution, with remaining time measured by the database",
+      "passed": true,
+      "agent": "adrian",
+      "step": "draft",
+      "leaseRemainingMs": 22713
+    },
+    {
+      "name": "lease view: the worker heartbeat is shown separately (still online)",
+      "passed": true
+    },
+    {
+      "name": "lease view: still shown as execution just before its remaining time runs out",
+      "passed": true
+    },
+    {
+      "name": "lease view: at local expiry the role stops claiming execution, with no new fetch",
+      "passed": true,
+      "requestsDuringExpiry": 0,
+      "label": "Lease expired"
+    },
+    {
+      "name": "lease view: becoming visible reconciles with fresh database evidence",
+      "passed": true,
+      "freshLeaseRemainingMs": 22340,
+      "indicator": "executing"
+    },
+    {
+      "name": "lease view: the earlier fresh read is still current while the next response is delayed",
+      "passed": true
+    },
+    {
+      "name": "lease view (fault injection): a response whose lease expired in transit is never shown as execution",
+      "passed": true
+    },
+    {
+      "name": "status: stalled lease and stopped worker shown truthfully",
+      "passed": true
+    },
+    {
+      "name": "restart: single-pass worker once-1 exited cleanly",
+      "passed": true
+    },
+    {
+      "name": "restart: single-pass worker once-2 exited cleanly",
+      "passed": true
+    },
+    {
+      "name": "recovery: the abandoned run was interrupted on lease expiry",
+      "passed": true
+    },
+    {
+      "name": "recovery: a new linked run completed the interrupted step",
+      "passed": true,
+      "successorRunId": "4f4c7e1e-a47f-4d48-9da7-1c766a112307"
+    },
+    {
+      "name": "fencing: the stale lease could not commit",
+      "passed": true
+    },
+    {
+      "name": "deep link: exact mode, workspace, task and inbox opened",
+      "passed": true
+    },
+    {
+      "name": "roles: all seven show persisted states and none is idle",
+      "passed": true,
+      "indicators": [
+        {
+          "agent": "adrian",
+          "indicator": "waiting_for_owner"
+        },
+        {
+          "agent": "clara",
+          "indicator": "reviewed"
+        },
+        {
+          "agent": "nadia",
+          "indicator": "reviewed"
+        },
+        {
+          "agent": "leo",
+          "indicator": "reviewed"
+        },
+        {
+          "agent": "lisa",
+          "indicator": "reviewed"
+        },
+        {
+          "agent": "sam",
+          "indicator": "reviewed"
+        },
+        {
+          "agent": "theo",
+          "indicator": "reviewed"
+        }
+      ]
+    },
+    {
+      "name": "acceptance: parent and seven children completed with one shared evidence record",
+      "passed": true
+    },
+    {
+      "name": "evidence: seven authored drafts plus package, all digests match",
+      "passed": true
+    },
+    {
+      "name": "evidence: every passed review is independent of its author",
+      "passed": true
+    },
+    {
+      "name": "deep link invalid: useful state, nothing opened",
+      "passed": true
+    },
+    {
+      "name": "deep link cross-workspace: useful state, nothing opened",
+      "passed": true
+    },
+    {
+      "name": "deep link wrong-mode: useful state, nothing opened",
+      "passed": true
+    },
+    {
+      "name": "deep link unknown-task: useful state, nothing opened",
+      "passed": true
+    },
+    {
+      "name": "revision: a child holds a run-produced R1 and an owner-prepared R2",
+      "passed": true,
+      "taskId": "213a639a-3ff6-48c2-a6e9-3b1dfabddf8d",
+      "r1": "a81aa626-2cc3-49b6-ae4c-629c9cbdc4a1",
+      "r2": "c53f2366-dd96-465f-89f6-e9d2530cdac2"
+    },
+    {
+      "name": "revision link: an initial R1 link shows exactly R1 and keeps it in the canonical URL",
+      "passed": true,
+      "url": "?mode=demo&workspace=00000000-0000-4000-8000-000000000001&task=213a639a-3ff6-48c2-a6e9-3b1dfabddf8d&artifact=a81aa626-2cc3-49b6-ae4c-629c9cbdc4a1&view=tasks"
+    },
+    {
+      "name": "revision link: reload keeps R1 rather than the current R2",
+      "passed": true
+    },
+    {
+      "name": "revision link: a record refresh keeps R1",
+      "passed": true
+    },
+    {
+      "name": "revision link: same-route navigation R1 → R2 applies R2 in the open task detail",
+      "passed": true
+    },
+    {
+      "name": "revision link: unsaved draft text stays in page memory across that navigation",
+      "passed": true
+    },
+    {
+      "name": "revision: choosing R1 records it in the URL and returning to the current revision clears it",
+      "passed": true
+    },
+    {
+      "name": "revision: closing then reopening the task shows its current revision; no earlier selection leaks",
+      "passed": true
+    },
+    {
+      "name": "revision link another task's revision (open): not found, no other revision shown, request kept",
+      "passed": true
+    },
+    {
+      "name": "revision link another task's revision (reload): not found, no other revision shown, request kept",
+      "passed": true
+    },
+    {
+      "name": "revision link unknown revision (open): not found, no other revision shown, request kept",
+      "passed": true
+    },
+    {
+      "name": "revision link unknown revision (reload): not found, no other revision shown, request kept",
+      "passed": true
+    },
+    {
+      "name": "revision: switching records mode clears the task and revision selection",
+      "passed": true
+    },
+    {
+      "name": "sales: no Office panel, goals or markers in dashboard HTML or RSC payload",
+      "passed": true
+    },
+    {
+      "name": "sales: Office APIs refuse",
+      "passed": true
+    },
+    {
+      "name": "sales: Office link denied without data",
+      "passed": true
+    },
+    {
+      "name": "invariants: every non-Office business table unchanged",
+      "passed": true,
+      "tables": 12
+    }
+  ],
+  "timeline": [
+    {
+      "at": "2026-11-05T17:38:33.735Z",
+      "event": "snapshot_start"
+    },
+    {
+      "at": "2026-11-05T17:38:36.571Z",
+      "event": "snapshot_done",
+      "files": 257
+    },
+    {
+      "at": "2026-11-05T17:38:44.094Z",
+      "event": "pg",
+      "message": "initdb.exe -D D:\\Enztronic\\apps\\backoffice\\tmp\\claude-acceptance-20261105-173833\\pg\\pgdata -U office_test --auth=trust --encoding=UTF8 --no-locale -> 0"
+    },
+    {
+      "at": "2026-11-05T17:38:44.865Z",
+      "event": "pg",
+      "message": "pg_ctl.exe -D D:\\Enztronic\\apps\\backoffice\\tmp\\claude-acceptance-20261105-173833\\pg\\pgdata -l D:\\Enztronic\\apps\\backoffice\\tmp\\claude-acceptance-20261105-173833\\pg\\postgres.log -o -h 127.0.0.1 -p 55449 -w start -> 0"
+    },
+    {
+      "at": "2026-11-05T17:38:45.333Z",
+      "event": "pg",
+      "message": "createdb.exe -h 127.0.0.1 -p 55449 -U office_test enztronic_office_acceptance_test -> 0"
+    },
+    {
+      "at": "2026-11-05T17:38:45.844Z",
+      "event": "fixture_ready",
+      "ownerId": "ee01f85d-634e-4f2b-a9be-29a34d59a676"
+    },
+    {
+      "at": "2026-11-05T17:39:02.725Z",
+      "event": "owner_server_ready"
+    },
+    {
+      "at": "2026-11-05T17:39:04.580Z",
+      "event": "check_passed",
+      "name": "dashboard: Office panel truthful before any work"
+    },
+    {
+      "at": "2026-11-05T17:39:25.370Z",
+      "event": "check_passed",
+      "name": "brief: persistence and execution explained before writing"
+    },
+    {
+      "at": "2026-11-05T17:39:25.467Z",
+      "event": "check_passed",
+      "name": "brief: draft labelled as tab-memory only"
+    },
+    {
+      "at": "2026-11-05T17:39:28.218Z",
+      "event": "check_passed",
+      "name": "save: confirmed task id shown and selected in the URL",
+      "parentId": "9f33cb49-a159-45e0-90bc-e67cb80a09da",
+      "url": "http://127.0.0.1:3128/team?mode=demo&workspace=00000000-0000-4000-8000-000000000001&task=9f33cb49-a159-45e0-90bc-e67cb80a09da&view=tasks"
+    },
+    {
+      "at": "2026-11-05T17:39:28.224Z",
+      "event": "check_passed",
+      "name": "save: notice says nothing is executing without a worker"
+    },
+    {
+      "at": "2026-11-05T17:39:28.243Z",
+      "event": "check_passed",
+      "name": "save: parent shown as delegated, not executing"
+    },
+    {
+      "at": "2026-11-05T17:39:30.236Z",
+      "event": "check_passed",
+      "name": "reload: same task id and source text restored"
+    },
+    {
+      "at": "2026-11-05T17:39:30.873Z",
+      "event": "uncertain_save_server_status",
+      "status": 201
+    },
+    {
+      "at": "2026-11-05T17:39:30.928Z",
+      "event": "check_passed",
+      "name": "uncertain: brief locked for an identical retry"
+    },
+    {
+      "at": "2026-11-05T17:39:30.933Z",
+      "event": "check_passed",
+      "name": "uncertain: the server did save exactly one task"
+    },
+    {
+      "at": "2026-11-05T17:39:31.461Z",
+      "event": "check_passed",
+      "name": "uncertain: retry reconciled to the same task; no duplicate parent"
+    },
+    {
+      "at": "2026-11-05T17:39:32.032Z",
+      "event": "check_passed",
+      "name": "409: text kept and editable; nothing stored"
+    },
+    {
+      "at": "2026-11-05T17:39:32.307Z",
+      "event": "check_passed",
+      "name": "503 storage: outcome treated as unknown and locked"
+    },
+    {
+      "at": "2026-11-05T17:39:32.522Z",
+      "event": "check_passed",
+      "name": "503 storage: the same-key retry saved exactly one task"
+    },
+    {
+      "at": "2026-11-05T17:39:32.879Z",
+      "event": "check_passed",
+      "name": "401: text kept and nothing stored"
+    },
+    {
+      "at": "2026-11-05T17:39:33.264Z",
+      "event": "check_passed",
+      "name": "offline: text kept while saving is paused"
+    },
+    {
+      "at": "2026-11-05T17:39:33.490Z",
+      "event": "browser_closed"
+    },
+    {
+      "at": "2026-11-05T17:39:34.078Z",
+      "event": "check_passed",
+      "name": "crash: a worker claimed a lease and exited without executing",
+      "runId": "8e77e667-024a-483b-b377-0499930190b4",
+      "step": "draft"
+    },
+    {
+      "at": "2026-11-05T17:39:39.157Z",
+      "event": "check_passed",
+      "name": "stop: graceful stop recorded a stopping heartbeat",
+      "workerId": "office-0b9a9a30-952e-487e-8c07-3fb09fbdbd32"
+    },
+    {
+      "at": "2026-11-05T17:39:39.161Z",
+      "event": "check_passed",
+      "name": "capacity: no step ran while the abandoned lease was live"
+    },
+    {
+      "at": "2026-11-05T17:39:41.347Z",
+      "event": "check_passed",
+      "name": "lease view: a live lease shows as execution, with remaining time measured by the database",
+      "agent": "adrian",
+      "step": "draft",
+      "leaseRemainingMs": 22713
+    },
+    {
+      "at": "2026-11-05T17:39:41.353Z",
+      "event": "check_passed",
+      "name": "lease view: the worker heartbeat is shown separately (still online)"
+    },
+    {
+      "at": "2026-11-05T17:39:41.384Z",
+      "event": "check_passed",
+      "name": "lease view: still shown as execution just before its remaining time runs out"
+    },
+    {
+      "at": "2026-11-05T17:39:41.472Z",
+      "event": "check_passed",
+      "name": "lease view: at local expiry the role stops claiming execution, with no new fetch",
+      "requestsDuringExpiry": 0,
+      "label": "Lease expired"
+    },
+    {
+      "at": "2026-11-05T17:39:41.819Z",
+      "event": "check_passed",
+      "name": "lease view: becoming visible reconciles with fresh database evidence",
+      "freshLeaseRemainingMs": 22340,
+      "indicator": "executing"
+    },
+    {
+      "at": "2026-11-05T17:39:41.973Z",
+      "event": "check_passed",
+      "name": "lease view: the earlier fresh read is still current while the next response is delayed"
+    },
+    {
+      "at": "2026-11-05T17:39:42.088Z",
+      "event": "check_passed",
+      "name": "lease view (fault injection): a response whose lease expired in transit is never shown as execution"
+    },
+    {
+      "at": "2026-11-05T17:40:37.351Z",
+      "event": "check_passed",
+      "name": "status: stalled lease and stopped worker shown truthfully"
+    },
+    {
+      "at": "2026-11-05T17:40:38.402Z",
+      "event": "check_passed",
+      "name": "restart: single-pass worker once-1 exited cleanly"
+    },
+    {
+      "at": "2026-11-05T17:40:39.044Z",
+      "event": "check_passed",
+      "name": "restart: single-pass worker once-2 exited cleanly"
+    },
+    {
+      "at": "2026-11-05T17:40:39.046Z",
+      "event": "check_passed",
+      "name": "recovery: the abandoned run was interrupted on lease expiry"
+    },
+    {
+      "at": "2026-11-05T17:40:41.080Z",
+      "event": "check_passed",
+      "name": "recovery: a new linked run completed the interrupted step",
+      "successorRunId": "4f4c7e1e-a47f-4d48-9da7-1c766a112307"
+    },
+    {
+      "at": "2026-11-05T17:40:41.541Z",
+      "event": "check_passed",
+      "name": "fencing: the stale lease could not commit"
+    },
+    {
+      "at": "2026-11-05T17:40:43.928Z",
+      "event": "check_passed",
+      "name": "deep link: exact mode, workspace, task and inbox opened"
+    },
+    {
+      "at": "2026-11-05T17:40:44.250Z",
+      "event": "check_passed",
+      "name": "roles: all seven show persisted states and none is idle",
+      "indicators": [
+        {
+          "agent": "adrian",
+          "indicator": "waiting_for_owner"
+        },
+        {
+          "agent": "clara",
+          "indicator": "reviewed"
+        },
+        {
+          "agent": "nadia",
+          "indicator": "reviewed"
+        },
+        {
+          "agent": "leo",
+          "indicator": "reviewed"
+        },
+        {
+          "agent": "lisa",
+          "indicator": "reviewed"
+        },
+        {
+          "agent": "sam",
+          "indicator": "reviewed"
+        },
+        {
+          "agent": "theo",
+          "indicator": "reviewed"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-05T17:40:45.734Z",
+      "event": "check_passed",
+      "name": "acceptance: parent and seven children completed with one shared evidence record"
+    },
+    {
+      "at": "2026-11-05T17:40:45.735Z",
+      "event": "check_passed",
+      "name": "evidence: seven authored drafts plus package, all digests match"
+    },
+    {
+      "at": "2026-11-05T17:40:45.735Z",
+      "event": "check_passed",
+      "name": "evidence: every passed review is independent of its author"
+    },
+    {
+      "at": "2026-11-05T17:40:47.184Z",
+      "event": "check_passed",
+      "name": "deep link invalid: useful state, nothing opened"
+    },
+    {
+      "at": "2026-11-05T17:40:48.663Z",
+      "event": "check_passed",
+      "name": "deep link cross-workspace: useful state, nothing opened"
+    },
+    {
+      "at": "2026-11-05T17:40:50.199Z",
+      "event": "check_passed",
+      "name": "deep link wrong-mode: useful state, nothing opened"
+    },
+    {
+      "at": "2026-11-05T17:40:51.662Z",
+      "event": "check_passed",
+      "name": "deep link unknown-task: useful state, nothing opened"
+    },
+    {
+      "at": "2026-11-05T17:40:54.696Z",
+      "event": "check_passed",
+      "name": "revision: a child holds a run-produced R1 and an owner-prepared R2",
+      "taskId": "213a639a-3ff6-48c2-a6e9-3b1dfabddf8d",
+      "r1": "a81aa626-2cc3-49b6-ae4c-629c9cbdc4a1",
+      "r2": "c53f2366-dd96-465f-89f6-e9d2530cdac2"
+    },
+    {
+      "at": "2026-11-05T17:40:56.279Z",
+      "event": "check_passed",
+      "name": "revision link: an initial R1 link shows exactly R1 and keeps it in the canonical URL",
+      "url": "?mode=demo&workspace=00000000-0000-4000-8000-000000000001&task=213a639a-3ff6-48c2-a6e9-3b1dfabddf8d&artifact=a81aa626-2cc3-49b6-ae4c-629c9cbdc4a1&view=tasks"
+    },
+    {
+      "at": "2026-11-05T17:40:58.312Z",
+      "event": "check_passed",
+      "name": "revision link: reload keeps R1 rather than the current R2"
+    },
+    {
+      "at": "2026-11-05T17:40:58.474Z",
+      "event": "check_passed",
+      "name": "revision link: a record refresh keeps R1"
+    },
+    {
+      "at": "2026-11-05T17:40:58.905Z",
+      "event": "check_passed",
+      "name": "revision link: same-route navigation R1 → R2 applies R2 in the open task detail"
+    },
+    {
+      "at": "2026-11-05T17:40:58.969Z",
+      "event": "check_passed",
+      "name": "revision link: unsaved draft text stays in page memory across that navigation"
+    },
+    {
+      "at": "2026-11-05T17:40:59.679Z",
+      "event": "check_passed",
+      "name": "revision: choosing R1 records it in the URL and returning to the current revision clears it"
+    },
+    {
+      "at": "2026-11-05T17:41:00.148Z",
+      "event": "check_passed",
+      "name": "revision: closing then reopening the task shows its current revision; no earlier selection leaks"
+    },
+    {
+      "at": "2026-11-05T17:41:01.523Z",
+      "event": "check_passed",
+      "name": "revision link another task's revision (open): not found, no other revision shown, request kept"
+    },
+    {
+      "at": "2026-11-05T17:41:02.866Z",
+      "event": "check_passed",
+      "name": "revision link another task's revision (reload): not found, no other revision shown, request kept"
+    },
+    {
+      "at": "2026-11-05T17:41:04.195Z",
+      "event": "check_passed",
+      "name": "revision link unknown revision (open): not found, no other revision shown, request kept"
+    },
+    {
+      "at": "2026-11-05T17:41:05.791Z",
+      "event": "check_passed",
+      "name": "revision link unknown revision (reload): not found, no other revision shown, request kept"
+    },
+    {
+      "at": "2026-11-05T17:41:06.420Z",
+      "event": "check_passed",
+      "name": "revision: switching records mode clears the task and revision selection"
+    },
+    {
+      "at": "2026-11-05T17:41:07.180Z",
+      "event": "process_stopped",
+      "kind": "process",
+      "name": "next-dev-owner",
+      "pid": 57948,
+      "ports": [
+        3128
+      ],
+      "outcome": "terminated",
+      "taskkillStatus": 0,
+      "exit": {
+        "code": 1,
+        "signal": null
+      }
+    },
+    {
+      "at": "2026-11-05T17:41:25.036Z",
+      "event": "check_passed",
+      "name": "sales: no Office panel, goals or markers in dashboard HTML or RSC payload"
+    },
+    {
+      "at": "2026-11-05T17:41:28.520Z",
+      "event": "check_passed",
+      "name": "sales: Office APIs refuse"
+    },
+    {
+      "at": "2026-11-05T17:41:42.926Z",
+      "event": "check_passed",
+      "name": "sales: Office link denied without data"
+    },
+    {
+      "at": "2026-11-05T17:41:43.871Z",
+      "event": "process_stopped",
+      "kind": "process",
+      "name": "next-dev-sales",
+      "pid": 28044,
+      "ports": [
+        3129
+      ],
+      "outcome": "terminated",
+      "taskkillStatus": 0,
+      "exit": {
+        "code": 1,
+        "signal": null
+      }
+    },
+    {
+      "at": "2026-11-05T17:41:43.888Z",
+      "event": "check_passed",
+      "name": "invariants: every non-Office business table unchanged",
+      "tables": 12
+    },
+    {
+      "at": "2026-11-05T17:41:45.359Z",
+      "event": "pg",
+      "message": "pg_ctl.exe -D D:\\Enztronic\\apps\\backoffice\\tmp\\claude-acceptance-20261105-173833\\pg\\pgdata -m fast -w stop -> 0"
+    },
+    {
+      "at": "2026-11-05T17:41:45.362Z",
+      "event": "cleanup",
+      "kind": "client",
+      "resource": "browser",
+      "outcome": "closed"
+    },
+    {
+      "at": "2026-11-05T17:41:45.362Z",
+      "event": "cleanup",
+      "kind": "client",
+      "resource": "database client",
+      "outcome": "closed"
+    },
+    {
+      "at": "2026-11-05T17:41:45.362Z",
+      "event": "cleanup",
+      "kind": "process",
+      "name": "next-dev-owner",
+      "pid": 57948,
+      "ports": [
+        3128
+      ],
+      "outcome": "terminated",
+      "taskkillStatus": 0,
+      "exit": {
+        "code": 1,
+        "signal": null
+      }
+    },
+    {
+      "at": "2026-11-05T17:41:45.362Z",
+      "event": "cleanup",
+      "kind": "process",
+      "name": "zombie-claim",
+      "pid": 22728,
+      "ports": [],
+      "outcome": "already_exited",
+      "exit": {
+        "code": 0,
+        "signal": null
+      }
+    },
+    {
+      "at": "2026-11-05T17:41:45.362Z",
+      "event": "cleanup",
+      "kind": "process",
+      "name": "worker-stopped",
+      "pid": 33072,
+      "ports": [],
+      "outcome": "already_exited",
+      "exit": {
+        "code": 0,
+        "signal": null
+      }
+    },
+    {
+      "at": "2026-11-05T17:41:45.362Z",
+      "event": "cleanup",
+      "kind": "process",
+      "name": "worker-once-1",
+      "pid": 32468,
+      "ports": [],
+      "outcome": "already_exited",
+      "exit": {
+        "code": 0,
+        "signal": null
+      }
+    },
+    {
+      "at": "2026-11-05T17:41:45.362Z",
+      "event": "cleanup",
+      "kind": "process",
+      "name": "worker-once-2",
+      "pid": 5540,
+      "ports": [],
+      "outcome": "already_exited",
+      "exit": {
+        "code": 0,
+        "signal": null
+      }
+    },
+    {
+      "at": "2026-11-05T17:41:45.362Z",
+      "event": "cleanup",
+      "kind": "process",
+      "name": "worker-continuous",
+      "pid": 35988,
+      "ports": [],
+      "outcome": "already_exited",
+      "exit": {
+        "code": 0,
+        "signal": null
+      }
+    },
+    {
+      "at": "2026-11-05T17:41:45.362Z",
+      "event": "cleanup",
+      "kind": "process",
+      "name": "zombie-stale-commit",
+      "pid": 22804,
+      "ports": [],
+      "outcome": "already_exited",
+      "exit": {
+        "code": 0,
+        "signal": null
+      }
+    },
+    {
+      "at": "2026-11-05T17:41:45.362Z",
+      "event": "cleanup",
+      "kind": "process",
+      "name": "next-dev-sales",
+      "pid": 28044,
+      "ports": [
+        3129
+      ],
+      "outcome": "terminated",
+      "taskkillStatus": 0,
+      "exit": {
+        "code": 1,
+        "signal": null
+      }
+    },
+    {
+      "at": "2026-11-05T17:41:45.362Z",
+      "event": "cleanup",
+      "kind": "postgres",
+      "port": 55449,
+      "data": "tmp\\claude-acceptance-20261105-173833\\pg\\pgdata",
+      "outcome": "stopped",
+      "pgCtlStatus": 0,
+      "resolved": true
+    }
+  ],
+  "screenshots": [
+    "tmp\\claude-acceptance-20261105-173833\\screenshots\\01-dashboard-before-work.png",
+    "tmp\\claude-acceptance-20261105-173833\\screenshots\\02-brief-persistence-banner.png",
+    "tmp\\claude-acceptance-20261105-173833\\screenshots\\03-saved-task-queued-not-executing.png",
+    "tmp\\claude-acceptance-20261105-173833\\screenshots\\04-reload-preserves-task-and-brief.png",
+    "tmp\\claude-acceptance-20261105-173833\\screenshots\\05-uncertain-save-locked.png",
+    "tmp\\claude-acceptance-20261105-173833\\screenshots\\06-uncertain-reconciled-no-duplicate.png",
+    "tmp\\claude-acceptance-20261105-173833\\screenshots\\07-conflict-rejected-text-kept.png",
+    "tmp\\claude-acceptance-20261105-173833\\screenshots\\08-session-denied-text-kept.png",
+    "tmp\\claude-acceptance-20261105-173833\\screenshots\\09-offline-text-kept.png",
+    "tmp\\claude-acceptance-20261105-173833\\screenshots\\20-lease-expired-locally-without-fetch.png",
+    "tmp\\claude-acceptance-20261105-173833\\screenshots\\21-delayed-response-expired-on-arrival.png",
+    "tmp\\claude-acceptance-20261105-173833\\screenshots\\10-worker-stopped-stalled-lease.png",
+    "tmp\\claude-acceptance-20261105-173833\\screenshots\\11-dashboard-awaiting-owner.png",
+    "tmp\\claude-acceptance-20261105-173833\\screenshots\\12-deep-link-exact-decision.png",
+    "tmp\\claude-acceptance-20261105-173833\\screenshots\\13-role-status-evidence.png",
+    "tmp\\claude-acceptance-20261105-173833\\screenshots\\14-package-execution-and-evidence.png",
+    "tmp\\claude-acceptance-20261105-173833\\screenshots\\15-owner-accepted.png",
+    "tmp\\claude-acceptance-20261105-173833\\screenshots\\16-deep-link-cross-workspace-denied.png",
+    "tmp\\claude-acceptance-20261105-173833\\screenshots\\17-dashboard-after-acceptance.png",
+    "tmp\\claude-acceptance-20261105-173833\\screenshots\\22-revision-link-r1-kept.png",
+    "tmp\\claude-acceptance-20261105-173833\\screenshots\\23-revision-link-r1-to-r2.png",
+    "tmp\\claude-acceptance-20261105-173833\\screenshots\\24-revision-link-rejected.png",
+    "tmp\\claude-acceptance-20261105-173833\\screenshots\\18-sales-dashboard-no-office.png",
+    "tmp\\claude-acceptance-20261105-173833\\screenshots\\19-sales-office-link-denied.png"
+  ],
+  "processes": [
+    {
+      "name": "next-dev-owner",
+      "pid": 57948,
+      "port": 3128
+    },
+    {
+      "name": "worker-stopped",
+      "pid": 33072,
+      "args": []
+    },
+    {
+      "name": "worker-once-1",
+      "pid": 32468,
+      "args": [
+        "--once"
+      ]
+    },
+    {
+      "name": "worker-once-2",
+      "pid": 5540,
+      "args": [
+        "--once"
+      ]
+    },
+    {
+      "name": "worker-continuous",
+      "pid": 35988,
+      "args": []
+    },
+    {
+      "name": "next-dev-sales",
+      "pid": 28044,
+      "port": 3129
+    }
+  ],
+  "evidence": {
+    "browserClosedAt": "2026-11-05T17:39:33.477Z",
+    "family": {
+      "tasks": [
+        {
+          "id": "9f33cb49-a159-45e0-90bc-e67cb80a09da",
+          "parent_task_id": null,
+          "agent_id": "adrian",
+          "state": "completed",
+          "version": 8,
+          "current_artifact_id": "be134c02-811c-4566-8719-91c719d653e4",
+          "acceptance_evidence_id": "a2c59f5c-6da2-4f0c-aa54-cdef21d17a62",
+          "blocked_reason": null,
+          "created_at": "2026-11-05T17:39:26.974Z",
+          "updated_at": "2026-11-05T17:40:45.360Z"
+        },
+        {
+          "id": "3a99bde4-4e5c-4327-b62e-cc5b11f907d4",
+          "parent_task_id": "9f33cb49-a159-45e0-90bc-e67cb80a09da",
+          "agent_id": "adrian",
+          "state": "completed",
+          "version": 11,
+          "current_artifact_id": "59ab8c38-97bf-447c-92f0-c4b1fcab5222",
+          "acceptance_evidence_id": "a2c59f5c-6da2-4f0c-aa54-cdef21d17a62",
+          "blocked_reason": null,
+          "created_at": "2026-11-05T17:39:26.974Z",
+          "updated_at": "2026-11-05T17:40:45.360Z"
+        },
+        {
+          "id": "950dd12a-2448-491c-b028-60f8af40c16c",
+          "parent_task_id": "9f33cb49-a159-45e0-90bc-e67cb80a09da",
+          "agent_id": "clara",
+          "state": "completed",
+          "version": 7,
+          "current_artifact_id": "e346c448-6c97-41e7-afba-a2ab91ffd3c1",
+          "acceptance_evidence_id": "a2c59f5c-6da2-4f0c-aa54-cdef21d17a62",
+          "blocked_reason": null,
+          "created_at": "2026-11-05T17:39:26.974Z",
+          "updated_at": "2026-11-05T17:40:45.360Z"
+        },
+        {
+          "id": "59c68ff8-5546-48a2-9430-875defb12ba5",
+          "parent_task_id": "9f33cb49-a159-45e0-90bc-e67cb80a09da",
+          "agent_id": "leo",
+          "state": "completed",
+          "version": 7,
+          "current_artifact_id": "09640963-3309-47aa-84aa-12735013f312",
+          "acceptance_evidence_id": "a2c59f5c-6da2-4f0c-aa54-cdef21d17a62",
+          "blocked_reason": null,
+          "created_at": "2026-11-05T17:39:26.974Z",
+          "updated_at": "2026-11-05T17:40:45.360Z"
+        },
+        {
+          "id": "8f55ea88-209a-4244-899d-f415e5ea95ed",
+          "parent_task_id": "9f33cb49-a159-45e0-90bc-e67cb80a09da",
+          "agent_id": "lisa",
+          "state": "completed",
+          "version": 7,
+          "current_artifact_id": "01949efd-a5f2-45b1-a281-1a165fa41a11",
+          "acceptance_evidence_id": "a2c59f5c-6da2-4f0c-aa54-cdef21d17a62",
+          "blocked_reason": null,
+          "created_at": "2026-11-05T17:39:26.974Z",
+          "updated_at": "2026-11-05T17:40:45.360Z"
+        },
+        {
+          "id": "4c603e1b-eda2-4e8e-94f5-2e95106415a6",
+          "parent_task_id": "9f33cb49-a159-45e0-90bc-e67cb80a09da",
+          "agent_id": "nadia",
+          "state": "completed",
+          "version": 7,
+          "current_artifact_id": "b9318937-6c36-4ec7-93d7-4ec230dbcc08",
+          "acceptance_evidence_id": "a2c59f5c-6da2-4f0c-aa54-cdef21d17a62",
+          "blocked_reason": null,
+          "created_at": "2026-11-05T17:39:26.974Z",
+          "updated_at": "2026-11-05T17:40:45.360Z"
+        },
+        {
+          "id": "6f97285f-1761-46fc-9085-a6477836538d",
+          "parent_task_id": "9f33cb49-a159-45e0-90bc-e67cb80a09da",
+          "agent_id": "sam",
+          "state": "completed",
+          "version": 7,
+          "current_artifact_id": "bbda8b4f-de5f-4166-9c36-1a1f31fb9447",
+          "acceptance_evidence_id": "a2c59f5c-6da2-4f0c-aa54-cdef21d17a62",
+          "blocked_reason": null,
+          "created_at": "2026-11-05T17:39:26.974Z",
+          "updated_at": "2026-11-05T17:40:45.360Z"
+        },
+        {
+          "id": "768c9aeb-6f08-4436-81b4-f3f127832fd4",
+          "parent_task_id": "9f33cb49-a159-45e0-90bc-e67cb80a09da",
+          "agent_id": "theo",
+          "state": "completed",
+          "version": 7,
+          "current_artifact_id": "84481f7d-9e4d-4187-924e-ab3a02e677da",
+          "acceptance_evidence_id": "a2c59f5c-6da2-4f0c-aa54-cdef21d17a62",
+          "blocked_reason": null,
+          "created_at": "2026-11-05T17:39:26.974Z",
+          "updated_at": "2026-11-05T17:40:45.360Z"
+        }
+      ],
+      "runs": [
+        {
+          "id": "85ca54bc-8c53-42d3-86c9-34a76ec13a00",
+          "task_id": "9f33cb49-a159-45e0-90bc-e67cb80a09da",
+          "agent_id": "adrian",
+          "step": "delegate_internal_demo",
+          "state": "succeeded",
+          "attempt": 1,
+          "predecessor_run_id": null,
+          "error_code": null,
+          "started_at": "2026-11-05T17:39:26.974Z",
+          "finished_at": "2026-11-05T17:39:26.974Z"
+        },
+        {
+          "id": "8e77e667-024a-483b-b377-0499930190b4",
+          "task_id": "3a99bde4-4e5c-4327-b62e-cc5b11f907d4",
+          "agent_id": "adrian",
+          "step": "draft",
+          "state": "interrupted",
+          "attempt": 1,
+          "predecessor_run_id": null,
+          "error_code": "lease_expired",
+          "started_at": "2026-11-05T17:39:34.000Z",
+          "finished_at": "2026-11-05T17:40:38.224Z"
+        },
+        {
+          "id": "6e7bcbd3-46c4-416b-b16b-0b6d3aa3b9d4",
+          "task_id": "950dd12a-2448-491c-b028-60f8af40c16c",
+          "agent_id": "clara",
+          "step": "draft",
+          "state": "succeeded",
+          "attempt": 1,
+          "predecessor_run_id": null,
+          "error_code": null,
+          "started_at": "2026-11-05T17:40:38.267Z",
+          "finished_at": "2026-11-05T17:40:38.293Z"
+        },
+        {
+          "id": "2cc1f7b1-efd0-47dd-a9f0-e73f2b4b2f25",
+          "task_id": "4c603e1b-eda2-4e8e-94f5-2e95106415a6",
+          "agent_id": "nadia",
+          "step": "draft",
+          "state": "succeeded",
+          "attempt": 1,
+          "predecessor_run_id": null,
+          "error_code": null,
+          "started_at": "2026-11-05T17:40:38.954Z",
+          "finished_at": "2026-11-05T17:40:38.986Z"
+        },
+        {
+          "id": "ac58b4a0-2abe-4cf8-9a27-f0a6166c38f3",
+          "task_id": "59c68ff8-5546-48a2-9430-875defb12ba5",
+          "agent_id": "leo",
+          "step": "draft",
+          "state": "succeeded",
+          "attempt": 1,
+          "predecessor_run_id": null,
+          "error_code": null,
+          "started_at": "2026-11-05T17:40:39.538Z",
+          "finished_at": "2026-11-05T17:40:39.568Z"
+        },
+        {
+          "id": "c9ff87fd-0fec-4451-9a13-cdb3bdd04433",
+          "task_id": "8f55ea88-209a-4244-899d-f415e5ea95ed",
+          "agent_id": "lisa",
+          "step": "draft",
+          "state": "succeeded",
+          "attempt": 1,
+          "predecessor_run_id": null,
+          "error_code": null,
+          "started_at": "2026-11-05T17:40:39.603Z",
+          "finished_at": "2026-11-05T17:40:39.613Z"
+        },
+        {
+          "id": "c5d31a60-edc1-432e-aa8b-af17241c581b",
+          "task_id": "6f97285f-1761-46fc-9085-a6477836538d",
+          "agent_id": "sam",
+          "step": "draft",
+          "state": "succeeded",
+          "attempt": 1,
+          "predecessor_run_id": null,
+          "error_code": null,
+          "started_at": "2026-11-05T17:40:39.627Z",
+          "finished_at": "2026-11-05T17:40:39.633Z"
+        },
+        {
+          "id": "42358cc1-0372-4f22-8fb2-91c9fa065a99",
+          "task_id": "768c9aeb-6f08-4436-81b4-f3f127832fd4",
+          "agent_id": "theo",
+          "step": "draft",
+          "state": "succeeded",
+          "attempt": 1,
+          "predecessor_run_id": null,
+          "error_code": null,
+          "started_at": "2026-11-05T17:40:39.646Z",
+          "finished_at": "2026-11-05T17:40:39.652Z"
+        },
+        {
+          "id": "67777cd4-1825-410a-9238-064340db8f60",
+          "task_id": "950dd12a-2448-491c-b028-60f8af40c16c",
+          "agent_id": "adrian",
+          "step": "review",
+          "state": "succeeded",
+          "attempt": 1,
+          "predecessor_run_id": null,
+          "error_code": null,
+          "started_at": "2026-11-05T17:40:39.666Z",
+          "finished_at": "2026-11-05T17:40:39.671Z"
+        },
+        {
+          "id": "377ed0ef-a223-417a-a4c3-ce8263f5aaa1",
+          "task_id": "4c603e1b-eda2-4e8e-94f5-2e95106415a6",
+          "agent_id": "leo",
+          "step": "review",
+          "state": "succeeded",
+          "attempt": 1,
+          "predecessor_run_id": null,
+          "error_code": null,
+          "started_at": "2026-11-05T17:40:39.681Z",
+          "finished_at": "2026-11-05T17:40:39.685Z"
+        },
+        {
+          "id": "7927ff0b-5d9f-43b5-b77f-c54e4a5e2125",
+          "task_id": "59c68ff8-5546-48a2-9430-875defb12ba5",
+          "agent_id": "nadia",
+          "step": "review",
+          "state": "succeeded",
+          "attempt": 1,
+          "predecessor_run_id": null,
+          "error_code": null,
+          "started_at": "2026-11-05T17:40:39.694Z",
+          "finished_at": "2026-11-05T17:40:39.698Z"
+        },
+        {
+          "id": "48db1f12-1c5d-4d33-be6a-5f7df2261453",
+          "task_id": "8f55ea88-209a-4244-899d-f415e5ea95ed",
+          "agent_id": "sam",
+          "step": "review",
+          "state": "succeeded",
+          "attempt": 1,
+          "predecessor_run_id": null,
+          "error_code": null,
+          "started_at": "2026-11-05T17:40:39.707Z",
+          "finished_at": "2026-11-05T17:40:39.711Z"
+        },
+        {
+          "id": "e3024e2c-5aaf-45c9-926f-ec8bd5fab241",
+          "task_id": "6f97285f-1761-46fc-9085-a6477836538d",
+          "agent_id": "theo",
+          "step": "review",
+          "state": "succeeded",
+          "attempt": 1,
+          "predecessor_run_id": null,
+          "error_code": null,
+          "started_at": "2026-11-05T17:40:39.719Z",
+          "finished_at": "2026-11-05T17:40:39.723Z"
+        },
+        {
+          "id": "bb294d9a-9223-480c-a9b1-0891aa9b2b88",
+          "task_id": "768c9aeb-6f08-4436-81b4-f3f127832fd4",
+          "agent_id": "sam",
+          "step": "review",
+          "state": "succeeded",
+          "attempt": 1,
+          "predecessor_run_id": null,
+          "error_code": null,
+          "started_at": "2026-11-05T17:40:39.732Z",
+          "finished_at": "2026-11-05T17:40:39.737Z"
+        },
+        {
+          "id": "4f4c7e1e-a47f-4d48-9da7-1c766a112307",
+          "task_id": "3a99bde4-4e5c-4327-b62e-cc5b11f907d4",
+          "agent_id": "adrian",
+          "step": "draft",
+          "state": "succeeded",
+          "attempt": 2,
+          "predecessor_run_id": "8e77e667-024a-483b-b377-0499930190b4",
+          "error_code": null,
+          "started_at": "2026-11-05T17:40:40.754Z",
+          "finished_at": "2026-11-05T17:40:40.761Z"
+        },
+        {
+          "id": "ccb041b4-94cd-4a28-af0a-5f8e2cc7bf89",
+          "task_id": "3a99bde4-4e5c-4327-b62e-cc5b11f907d4",
+          "agent_id": "nadia",
+          "step": "review",
+          "state": "succeeded",
+          "attempt": 1,
+          "predecessor_run_id": null,
+          "error_code": null,
+          "started_at": "2026-11-05T17:40:40.772Z",
+          "finished_at": "2026-11-05T17:40:40.776Z"
+        },
+        {
+          "id": "2052ead2-2918-4c35-a697-2f7dfa4d20aa",
+          "task_id": "9f33cb49-a159-45e0-90bc-e67cb80a09da",
+          "agent_id": "adrian",
+          "step": "package",
+          "state": "succeeded",
+          "attempt": 1,
+          "predecessor_run_id": null,
+          "error_code": null,
+          "started_at": "2026-11-05T17:40:40.783Z",
+          "finished_at": "2026-11-05T17:40:40.789Z"
+        },
+        {
+          "id": "2c92d233-49b3-47aa-b2fc-993792075422",
+          "task_id": "9f33cb49-a159-45e0-90bc-e67cb80a09da",
+          "agent_id": "nadia",
+          "step": "package_review",
+          "state": "succeeded",
+          "attempt": 1,
+          "predecessor_run_id": null,
+          "error_code": null,
+          "started_at": "2026-11-05T17:40:40.802Z",
+          "finished_at": "2026-11-05T17:40:40.806Z"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": "e346c448-6c97-41e7-afba-a2ab91ffd3c1",
+          "task_id": "950dd12a-2448-491c-b028-60f8af40c16c",
+          "author_agent_id": "clara",
+          "producer_run_id": "6e7bcbd3-46c4-416b-b16b-0b6d3aa3b9d4",
+          "revision": 1,
+          "artifact_hash": "fca5ec8a9164ffbaef94e2c49a373cb4d95ef3cd3e3a13aa88f429e0df8b9260",
+          "size_bytes": 1180,
+          "digest_matches": true
+        },
+        {
+          "id": "b9318937-6c36-4ec7-93d7-4ec230dbcc08",
+          "task_id": "4c603e1b-eda2-4e8e-94f5-2e95106415a6",
+          "author_agent_id": "nadia",
+          "producer_run_id": "2cc1f7b1-efd0-47dd-a9f0-e73f2b4b2f25",
+          "revision": 1,
+          "artifact_hash": "47e9233c1b01638a717fd3e5abb328ce329fee69dd785fddd63970a537fc26d1",
+          "size_bytes": 1133,
+          "digest_matches": true
+        },
+        {
+          "id": "09640963-3309-47aa-84aa-12735013f312",
+          "task_id": "59c68ff8-5546-48a2-9430-875defb12ba5",
+          "author_agent_id": "leo",
+          "producer_run_id": "ac58b4a0-2abe-4cf8-9a27-f0a6166c38f3",
+          "revision": 1,
+          "artifact_hash": "474bdf5e864218c48dac1b2dae498c23dc3357dbb69a4b1b947d959620a9a5b5",
+          "size_bytes": 1155,
+          "digest_matches": true
+        },
+        {
+          "id": "01949efd-a5f2-45b1-a281-1a165fa41a11",
+          "task_id": "8f55ea88-209a-4244-899d-f415e5ea95ed",
+          "author_agent_id": "lisa",
+          "producer_run_id": "c9ff87fd-0fec-4451-9a13-cdb3bdd04433",
+          "revision": 1,
+          "artifact_hash": "b2017f5bcef83195de28eb0b0c8e164b9068f32abcd4c68c18141182e6bed8f8",
+          "size_bytes": 1144,
+          "digest_matches": true
+        },
+        {
+          "id": "bbda8b4f-de5f-4166-9c36-1a1f31fb9447",
+          "task_id": "6f97285f-1761-46fc-9085-a6477836538d",
+          "author_agent_id": "sam",
+          "producer_run_id": "c5d31a60-edc1-432e-aa8b-af17241c581b",
+          "revision": 1,
+          "artifact_hash": "b94fe2b2b26d06d8524b71864eb958d27d51cb311e38c5b85ea5eff42982e88e",
+          "size_bytes": 1198,
+          "digest_matches": true
+        },
+        {
+          "id": "84481f7d-9e4d-4187-924e-ab3a02e677da",
+          "task_id": "768c9aeb-6f08-4436-81b4-f3f127832fd4",
+          "author_agent_id": "theo",
+          "producer_run_id": "42358cc1-0372-4f22-8fb2-91c9fa065a99",
+          "revision": 1,
+          "artifact_hash": "e80baa8efe06fc550f24d881a9b0cae8170a0eea810eacfcdab5ffde549a97c4",
+          "size_bytes": 1187,
+          "digest_matches": true
+        },
+        {
+          "id": "59ab8c38-97bf-447c-92f0-c4b1fcab5222",
+          "task_id": "3a99bde4-4e5c-4327-b62e-cc5b11f907d4",
+          "author_agent_id": "adrian",
+          "producer_run_id": "4f4c7e1e-a47f-4d48-9da7-1c766a112307",
+          "revision": 1,
+          "artifact_hash": "6fc37916a99a11f0df2de8ff4a15331919e91b5403f37e8c3a2b2a7c000bc400",
+          "size_bytes": 1145,
+          "digest_matches": true
+        },
+        {
+          "id": "be134c02-811c-4566-8719-91c719d653e4",
+          "task_id": "9f33cb49-a159-45e0-90bc-e67cb80a09da",
+          "author_agent_id": "adrian",
+          "producer_run_id": "2052ead2-2918-4c35-a697-2f7dfa4d20aa",
+          "revision": 1,
+          "artifact_hash": "3629fd682237d29debd7f696810ec1fed0824dff85d34f88d68dba82e2e517d7",
+          "size_bytes": 3103,
+          "digest_matches": true
+        }
+      ],
+      "reviews": [
+        {
+          "id": "515a9cd5-34a7-4017-8b73-43f52eca53d3",
+          "task_id": "950dd12a-2448-491c-b028-60f8af40c16c",
+          "artifact_id": "e346c448-6c97-41e7-afba-a2ab91ffd3c1",
+          "reviewer_id": "adrian",
+          "author_agent_id": "clara",
+          "state": "passed",
+          "artifact_hash": "fca5ec8a9164ffbaef94e2c49a373cb4d95ef3cd3e3a13aa88f429e0df8b9260",
+          "decided_at": "2026-11-05T17:40:39.671Z"
+        },
+        {
+          "id": "7b117a7e-459e-4b44-a020-f6d8e16cd7a7",
+          "task_id": "4c603e1b-eda2-4e8e-94f5-2e95106415a6",
+          "artifact_id": "b9318937-6c36-4ec7-93d7-4ec230dbcc08",
+          "reviewer_id": "leo",
+          "author_agent_id": "nadia",
+          "state": "passed",
+          "artifact_hash": "47e9233c1b01638a717fd3e5abb328ce329fee69dd785fddd63970a537fc26d1",
+          "decided_at": "2026-11-05T17:40:39.685Z"
+        },
+        {
+          "id": "c8b5d442-5ae1-4546-ba6b-ccf0bbc08fee",
+          "task_id": "59c68ff8-5546-48a2-9430-875defb12ba5",
+          "artifact_id": "09640963-3309-47aa-84aa-12735013f312",
+          "reviewer_id": "nadia",
+          "author_agent_id": "leo",
+          "state": "passed",
+          "artifact_hash": "474bdf5e864218c48dac1b2dae498c23dc3357dbb69a4b1b947d959620a9a5b5",
+          "decided_at": "2026-11-05T17:40:39.698Z"
+        },
+        {
+          "id": "25626b09-cb34-497d-ab6a-57469de121fe",
+          "task_id": "8f55ea88-209a-4244-899d-f415e5ea95ed",
+          "artifact_id": "01949efd-a5f2-45b1-a281-1a165fa41a11",
+          "reviewer_id": "sam",
+          "author_agent_id": "lisa",
+          "state": "passed",
+          "artifact_hash": "b2017f5bcef83195de28eb0b0c8e164b9068f32abcd4c68c18141182e6bed8f8",
+          "decided_at": "2026-11-05T17:40:39.711Z"
+        },
+        {
+          "id": "cc55d5e4-481a-484f-9680-b46c24333d48",
+          "task_id": "6f97285f-1761-46fc-9085-a6477836538d",
+          "artifact_id": "bbda8b4f-de5f-4166-9c36-1a1f31fb9447",
+          "reviewer_id": "theo",
+          "author_agent_id": "sam",
+          "state": "passed",
+          "artifact_hash": "b94fe2b2b26d06d8524b71864eb958d27d51cb311e38c5b85ea5eff42982e88e",
+          "decided_at": "2026-11-05T17:40:39.723Z"
+        },
+        {
+          "id": "9127e884-3429-4c3c-8cb8-666ecaf46a5d",
+          "task_id": "768c9aeb-6f08-4436-81b4-f3f127832fd4",
+          "artifact_id": "84481f7d-9e4d-4187-924e-ab3a02e677da",
+          "reviewer_id": "sam",
+          "author_agent_id": "theo",
+          "state": "passed",
+          "artifact_hash": "e80baa8efe06fc550f24d881a9b0cae8170a0eea810eacfcdab5ffde549a97c4",
+          "decided_at": "2026-11-05T17:40:39.737Z"
+        },
+        {
+          "id": "45a6761c-359c-4406-996e-0710d4f54eba",
+          "task_id": "3a99bde4-4e5c-4327-b62e-cc5b11f907d4",
+          "artifact_id": "59ab8c38-97bf-447c-92f0-c4b1fcab5222",
+          "reviewer_id": "nadia",
+          "author_agent_id": "adrian",
+          "state": "passed",
+          "artifact_hash": "6fc37916a99a11f0df2de8ff4a15331919e91b5403f37e8c3a2b2a7c000bc400",
+          "decided_at": "2026-11-05T17:40:40.776Z"
+        },
+        {
+          "id": "2d8f24e1-1382-4def-94c8-1cc755520cf0",
+          "task_id": "9f33cb49-a159-45e0-90bc-e67cb80a09da",
+          "artifact_id": "be134c02-811c-4566-8719-91c719d653e4",
+          "reviewer_id": "nadia",
+          "author_agent_id": "adrian",
+          "state": "passed",
+          "artifact_hash": "3629fd682237d29debd7f696810ec1fed0824dff85d34f88d68dba82e2e517d7",
+          "decided_at": "2026-11-05T17:40:40.806Z"
+        }
+      ],
+      "approvals": [
+        {
+          "id": "3602ace9-1c04-4000-baec-1372291ceb85",
+          "task_id": "9f33cb49-a159-45e0-90bc-e67cb80a09da",
+          "artifact_id": "be134c02-811c-4566-8719-91c719d653e4",
+          "artifact_hash": "3629fd682237d29debd7f696810ec1fed0824dff85d34f88d68dba82e2e517d7",
+          "state": "approved",
+          "version": 2,
+          "decided_at": "2026-11-05T17:40:45.360Z",
+          "acceptance_evidence_id": "a2c59f5c-6da2-4f0c-aa54-cdef21d17a62"
+        }
+      ],
+      "acceptance": [
+        {
+          "id": "a2c59f5c-6da2-4f0c-aa54-cdef21d17a62",
+          "approval_id": "3602ace9-1c04-4000-baec-1372291ceb85",
+          "artifact_id": "be134c02-811c-4566-8719-91c719d653e4",
+          "artifact_hash": "3629fd682237d29debd7f696810ec1fed0824dff85d34f88d68dba82e2e517d7",
+          "manifest_entries": 7,
+          "review_references": 8,
+          "decided_at": "2026-11-05T17:40:45.360Z"
+        }
+      ],
+      "handoffs": {
+        "n": 8,
+        "accepted": 8
+      },
+      "events": [
+        {
+          "event_type": "artifact_created",
+          "actor_type": "agent",
+          "n": 8
+        },
+        {
+          "event_type": "handoff_accepted",
+          "actor_type": "agent",
+          "n": 8
+        },
+        {
+          "event_type": "owner_approval_requested",
+          "actor_type": "agent",
+          "n": 1
+        },
+        {
+          "event_type": "owner_approved",
+          "actor_type": "owner",
+          "n": 1
+        },
+        {
+          "event_type": "review_passed",
+          "actor_type": "agent",
+          "n": 8
+        },
+        {
+          "event_type": "review_requested",
+          "actor_type": "agent",
+          "n": 8
+        },
+        {
+          "event_type": "task_assigned",
+          "actor_type": "owner",
+          "n": 1
+        },
+        {
+          "event_type": "task_assigned",
+          "actor_type": "worker",
+          "n": 8
+        },
+        {
+          "event_type": "task_completed",
+          "actor_type": "owner",
+          "n": 8
+        },
+        {
+          "event_type": "task_queued",
+          "actor_type": "owner",
+          "n": 8
+        },
+        {
+          "event_type": "task_queued",
+          "actor_type": "worker",
+          "n": 1
+        },
+        {
+          "event_type": "work_blocked",
+          "actor_type": "worker",
+          "n": 1
+        },
+        {
+          "event_type": "work_started",
+          "actor_type": "owner",
+          "n": 1
+        },
+        {
+          "event_type": "work_started",
+          "actor_type": "worker",
+          "n": 8
+        }
+      ]
+    },
+    "zombie": {
+      "claimed": {
+        "claimedAt": "2026-11-05T17:39:34.034Z",
+        "lease": {
+          "dispatchId": "e28ed50c-f499-44b6-a536-ce5488089c49",
+          "taskId": "3a99bde4-4e5c-4327-b62e-cc5b11f907d4",
+          "workspaceId": "00000000-0000-4000-8000-000000000001",
+          "runId": "8e77e667-024a-483b-b377-0499930190b4",
+          "workerId": "zombie-acceptance-worker",
+          "token": "1",
+          "step": "draft",
+          "agentId": "adrian",
+          "leaseUntil": "2026-11-05T17:40:04.000Z"
+        }
+      },
+      "fenced": {
+        "attemptedAt": "2026-11-05T17:40:41.521Z",
+        "runId": "8e77e667-024a-483b-b377-0499930190b4",
+        "outcome": "LEASE_LOST"
+      },
+      "successorRunId": "4f4c7e1e-a47f-4d48-9da7-1c766a112307"
+    },
+    "revisionLinks": {
+      "parentId": "4dfda9a0-2ecc-43fd-bd14-6fda0314c571",
+      "childId": "213a639a-3ff6-48c2-a6e9-3b1dfabddf8d",
+      "r1": "a81aa626-2cc3-49b6-ae4c-629c9cbdc4a1",
+      "r2": "c53f2366-dd96-465f-89f6-e9d2530cdac2",
+      "otherTaskRevision": "e346c448-6c97-41e7-afba-a2ab91ffd3c1"
+    },
+    "businessDigest": {
+      "before": {
+        "audit_events": {
+          "n": 0,
+          "digest": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "business_profile": {
+          "n": 1,
+          "digest": "9cddea135d128f1552340a1bdd690d57"
+        },
+        "clients": {
+          "n": 1,
+          "digest": "fba9a805585dbbd9449c476a91e5640e"
+        },
+        "invoice_documents": {
+          "n": 0,
+          "digest": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "invoice_email_messages": {
+          "n": 0,
+          "digest": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "invoice_items": {
+          "n": 0,
+          "digest": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "invoice_number_counters": {
+          "n": 0,
+          "digest": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "invoice_payments": {
+          "n": 0,
+          "digest": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "invoice_snapshots": {
+          "n": 0,
+          "digest": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "invoices": {
+          "n": 0,
+          "digest": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "outbox_events": {
+          "n": 0,
+          "digest": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "users": {
+          "n": 2,
+          "digest": "68126cbdb4b93aacb7557a178b722ab6"
+        }
+      },
+      "after": {
+        "audit_events": {
+          "n": 0,
+          "digest": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "business_profile": {
+          "n": 1,
+          "digest": "9cddea135d128f1552340a1bdd690d57"
+        },
+        "clients": {
+          "n": 1,
+          "digest": "fba9a805585dbbd9449c476a91e5640e"
+        },
+        "invoice_documents": {
+          "n": 0,
+          "digest": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "invoice_email_messages": {
+          "n": 0,
+          "digest": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "invoice_items": {
+          "n": 0,
+          "digest": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "invoice_number_counters": {
+          "n": 0,
+          "digest": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "invoice_payments": {
+          "n": 0,
+          "digest": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "invoice_snapshots": {
+          "n": 0,
+          "digest": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "invoices": {
+          "n": 0,
+          "digest": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "outbox_events": {
+          "n": 0,
+          "digest": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "users": {
+          "n": 2,
+          "digest": "68126cbdb4b93aacb7557a178b722ab6"
+        }
+      }
+    },
+    "workers": [
+      {
+        "id": "zombie-acceptance-worker",
+        "adapter": "deterministic_demo",
+        "stopping": false,
+        "started_at": "2026-11-05T17:39:33.998Z",
+        "heartbeat_at": "2026-11-05T17:39:33.998Z"
+      },
+      {
+        "id": "office-0b9a9a30-952e-487e-8c07-3fb09fbdbd32",
+        "adapter": "deterministic_demo",
+        "stopping": true,
+        "started_at": "2026-11-05T17:39:34.604Z",
+        "heartbeat_at": "2026-11-05T17:39:39.124Z"
+      },
+      {
+        "id": "office-16f5aebd-ecbd-4049-b99f-76e453047bea",
+        "adapter": "deterministic_demo",
+        "stopping": true,
+        "started_at": "2026-11-05T17:40:38.264Z",
+        "heartbeat_at": "2026-11-05T17:40:38.340Z"
+      },
+      {
+        "id": "office-5bbef18e-70d0-4710-917e-a2198cade31a",
+        "adapter": "deterministic_demo",
+        "stopping": true,
+        "started_at": "2026-11-05T17:40:38.950Z",
+        "heartbeat_at": "2026-11-05T17:40:39.021Z"
+      },
+      {
+        "id": "office-61d5fed5-b689-483c-9c50-cec06839d5fc",
+        "adapter": "deterministic_demo",
+        "stopping": true,
+        "started_at": "2026-11-05T17:40:39.534Z",
+        "heartbeat_at": "2026-11-05T17:41:07.183Z"
+      }
+    ],
+    "liveTasks": [
+      {
+        "id": "50d55d64-6b7c-424c-b546-e9b01112ec15",
+        "goal": "Live uncertain save ACCEPTANCE-20261105-173833",
+        "state": "blocked",
+        "blocked_reason": "configuration_required: approved provider, budget, runtime limits and sources are not configured",
+        "runs": 0
+      },
+      {
+        "id": "344899e8-5df0-4cb4-bed7-9db5c3d63d3d",
+        "goal": "Rejected save ACCEPTANCE-20261105-173833",
+        "state": "blocked",
+        "blocked_reason": "configuration_required: approved provider, budget, runtime limits and sources are not configured",
+        "runs": 0
+      }
+    ]
+  },
+  "functionalPassed": true,
+  "cleanup": {
+    "passed": true,
+    "actions": [
+      {
+        "kind": "client",
+        "resource": "browser",
+        "outcome": "closed"
+      },
+      {
+        "kind": "client",
+        "resource": "database client",
+        "outcome": "closed"
+      },
+      {
+        "kind": "process",
+        "name": "next-dev-owner",
+        "pid": 57948,
+        "ports": [
+          3128
+        ],
+        "outcome": "terminated",
+        "taskkillStatus": 0,
+        "exit": {
+          "code": 1,
+          "signal": null
+        }
+      },
+      {
+        "kind": "process",
+        "name": "zombie-claim",
+        "pid": 22728,
+        "ports": [],
+        "outcome": "already_exited",
+        "exit": {
+          "code": 0,
+          "signal": null
+        }
+      },
+      {
+        "kind": "process",
+        "name": "worker-stopped",
+        "pid": 33072,
+        "ports": [],
+        "outcome": "already_exited",
+        "exit": {
+          "code": 0,
+          "signal": null
+        }
+      },
+      {
+        "kind": "process",
+        "name": "worker-once-1",
+        "pid": 32468,
+        "ports": [],
+        "outcome": "already_exited",
+        "exit": {
+          "code": 0,
+          "signal": null
+        }
+      },
+      {
+        "kind": "process",
+        "name": "worker-once-2",
+        "pid": 5540,
+        "ports": [],
+        "outcome": "already_exited",
+        "exit": {
+          "code": 0,
+          "signal": null
+        }
+      },
+      {
+        "kind": "process",
+        "name": "worker-continuous",
+        "pid": 35988,
+        "ports": [],
+        "outcome": "already_exited",
+        "exit": {
+          "code": 0,
+          "signal": null
+        }
+      },
+      {
+        "kind": "process",
+        "name": "zombie-stale-commit",
+        "pid": 22804,
+        "ports": [],
+        "outcome": "already_exited",
+        "exit": {
+          "code": 0,
+          "signal": null
+        }
+      },
+      {
+        "kind": "process",
+        "name": "next-dev-sales",
+        "pid": 28044,
+        "ports": [
+          3129
+        ],
+        "outcome": "terminated",
+        "taskkillStatus": 0,
+        "exit": {
+          "code": 1,
+          "signal": null
+        }
+      },
+      {
+        "kind": "postgres",
+        "port": 55449,
+        "data": "tmp\\claude-acceptance-20261105-173833\\pg\\pgdata",
+        "outcome": "stopped",
+        "pgCtlStatus": 0,
+        "resolved": true
+      }
+    ],
+    "failures": [],
+    "unresolved": []
+  },
+  "remainingProcesses": [],
+  "passed": true,
+  "finishedAt": "2026-11-05T17:41:45.362Z"
+}

@@ -1,0 +1,10 @@
+{
+  "command": "npm run build -- --webpack",
+  "cwd": "D:\\tmp\\claude-office-build-20261105-173613\\app",
+  "snapshotFiles": 257,
+  "snapshotManifest": "D:\\tmp\\claude-office-build-20261105-173613\\app-manifest.json",
+  "exitCode": 0,
+  "seconds": 57,
+  "buildId": "40gNm8zkbT7ZnxtAOzaAp",
+  "log": "tmp\\claude-review-fixes-20261105\\build\\build-20261105-173613.log"
+}

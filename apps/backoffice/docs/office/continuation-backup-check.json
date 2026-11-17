@@ -1,0 +1,224 @@
+{
+  "recordedAtUtc": "2026-10-21T18:29:48.712Z",
+  "scope": "Disposable loopback fixture only; no production backup",
+  "archive": "tmp/office-continuation-backup.dump",
+  "archiveSha256": "8b456e13229b3f992add8283b90a20441dce14c4ff538054d8459daa5dfd5582",
+  "archiveListValidated": true,
+  "restoredIntoNewDatabase": true,
+  "excluded": [
+    "office_workers: deliberately live volatile heartbeat; no protected business or acceptance history excluded"
+  ],
+  "tables": [
+    {
+      "table": "audit_events",
+      "sourceCount": 12,
+      "restoredCount": 12,
+      "sha256": "89415b6ee15107e04b71207e99415798964c520e07ac186c779c94b1641d6400",
+      "matches": true
+    },
+    {
+      "table": "business_profile",
+      "sourceCount": 1,
+      "restoredCount": 1,
+      "sha256": "22b9b29439722bb4a233485cb89b4dfd06e903c25c437314d5712f924160e620",
+      "matches": true
+    },
+    {
+      "table": "clients",
+      "sourceCount": 1,
+      "restoredCount": 1,
+      "sha256": "a303a3b5d3ef7302b38e62137f2ced506979807a246f8643a6d9fd4757da8dc2",
+      "matches": true
+    },
+    {
+      "table": "invoice_documents",
+      "sourceCount": 1,
+      "restoredCount": 1,
+      "sha256": "b20f77d96d092851b4042e372a0f4cabd0d43774e2cbb9ee062c3bba302bda51",
+      "matches": true
+    },
+    {
+      "table": "invoice_email_messages",
+      "sourceCount": 0,
+      "restoredCount": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "matches": true
+    },
+    {
+      "table": "invoice_items",
+      "sourceCount": 1,
+      "restoredCount": 1,
+      "sha256": "3e26ad24087a60007abc4d10f5326b5087b34dca8872facb4aa86d4b66b68cde",
+      "matches": true
+    },
+    {
+      "table": "invoice_number_counters",
+      "sourceCount": 1,
+      "restoredCount": 1,
+      "sha256": "5bb31ac9dd50d812e31aaa5343f33d1bfa6963de9a6432542fdfd144346b7691",
+      "matches": true
+    },
+    {
+      "table": "invoice_payments",
+      "sourceCount": 2,
+      "restoredCount": 2,
+      "sha256": "5e2c77663a240b72815cb3f46252cf4876fb0705f8cc5a5a7d0759240a0761e5",
+      "matches": true
+    },
+    {
+      "table": "invoice_snapshots",
+      "sourceCount": 1,
+      "restoredCount": 1,
+      "sha256": "6a94b9d1b8edda586b9b471b1c4ea72423dcb08e6aec59d98b777ba775adfe81",
+      "matches": true
+    },
+    {
+      "table": "invoices",
+      "sourceCount": 1,
+      "restoredCount": 1,
+      "sha256": "89c4b561b7d6e509feb3652825b4137fbbc6d8f9294772b4e34a9e3d17146755",
+      "matches": true
+    },
+    {
+      "table": "office_acceptance_evidence",
+      "sourceCount": 1,
+      "restoredCount": 1,
+      "sha256": "33e6bdc9533e091eb4807671edd6824719b7962de1fc4a7472b30b0fcae44d5d",
+      "matches": true
+    },
+    {
+      "table": "office_agent_profiles",
+      "sourceCount": 7,
+      "restoredCount": 7,
+      "sha256": "34ac55bd6cc6671a08cdf273a88880706cd83cb90a7f7fd3481255e1872a4fc8",
+      "matches": true
+    },
+    {
+      "table": "office_agents",
+      "sourceCount": 7,
+      "restoredCount": 7,
+      "sha256": "0ab7a11a7639e2d62793adaf3016dbd98f79006a74c285ee823f67366dc70a8b",
+      "matches": true
+    },
+    {
+      "table": "office_approvals",
+      "sourceCount": 1,
+      "restoredCount": 1,
+      "sha256": "6cab05592db2ea39009a5bc55e4540ecd06a80e460193358d5b7339ebdb34c89",
+      "matches": true
+    },
+    {
+      "table": "office_artifacts",
+      "sourceCount": 8,
+      "restoredCount": 8,
+      "sha256": "6ed33d7102f027e9f85863684ab541e5795e5d250f7cc6efc1c35643a414f791",
+      "matches": true
+    },
+    {
+      "table": "office_budget",
+      "sourceCount": 1,
+      "restoredCount": 1,
+      "sha256": "1c81f596ece0ed274c8bce3e79d4f9f2ae1a34f3300f81e3d45d438f07d2bedd",
+      "matches": true
+    },
+    {
+      "table": "office_dispatch",
+      "sourceCount": 16,
+      "restoredCount": 16,
+      "sha256": "b2d40171a691f92c93bc73a8607b64d19e347e4028c1c2e0ee08013acd2fbb84",
+      "matches": true
+    },
+    {
+      "table": "office_events",
+      "sourceCount": 67,
+      "restoredCount": 67,
+      "sha256": "22278523086777e680061b1fe5a5864ccfb53eb20a16397d94f69f1b678f8bc1",
+      "matches": true
+    },
+    {
+      "table": "office_handoffs",
+      "sourceCount": 8,
+      "restoredCount": 8,
+      "sha256": "1f1f7ced25511b8150884b43de246424b5229113700ee7bae897bab2af06a0f9",
+      "matches": true
+    },
+    {
+      "table": "office_reviews",
+      "sourceCount": 8,
+      "restoredCount": 8,
+      "sha256": "cd3f7451fd25eb49ba12ba0b0ec58f360fb3e9314cb466ba78f75bcc2f85bc93",
+      "matches": true
+    },
+    {
+      "table": "office_run_steps",
+      "sourceCount": 16,
+      "restoredCount": 16,
+      "sha256": "0007a87c7e05f5c35e89470d4b1818e2519e706c419963d1b44ca6ac8ee4b3d2",
+      "matches": true
+    },
+    {
+      "table": "office_runs",
+      "sourceCount": 17,
+      "restoredCount": 17,
+      "sha256": "a144ee7db2bdae268a0bed3bbdaf5e2c4a6d5af7829eb83f095a58c9e001821b",
+      "matches": true
+    },
+    {
+      "table": "office_schedules",
+      "sourceCount": 0,
+      "restoredCount": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "matches": true
+    },
+    {
+      "table": "office_task_dependencies",
+      "sourceCount": 7,
+      "restoredCount": 7,
+      "sha256": "31ef127635fb376a1b27b9d8bde41391d7d8d6a1729f996c299ba88cf3a34abc",
+      "matches": true
+    },
+    {
+      "table": "office_tasks",
+      "sourceCount": 8,
+      "restoredCount": 8,
+      "sha256": "903901499656b58d38631f50271d278db982c443e0c61ba70d1c71edb59f54e1",
+      "matches": true
+    },
+    {
+      "table": "office_tool_operations",
+      "sourceCount": 0,
+      "restoredCount": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "matches": true
+    },
+    {
+      "table": "office_workspace_grants",
+      "sourceCount": 14,
+      "restoredCount": 14,
+      "sha256": "35ebcdd2a79d167eb4bf23bae840296e3b0cde0f4cc7a3fc94c7636d22d42e7a",
+      "matches": true
+    },
+    {
+      "table": "office_workspaces",
+      "sourceCount": 2,
+      "restoredCount": 2,
+      "sha256": "7b8fef4d94d7654f5bd7dd7fb62488e76fab410e3378bc7bb36c63ff14dadd6b",
+      "matches": true
+    },
+    {
+      "table": "outbox_events",
+      "sourceCount": 1,
+      "restoredCount": 1,
+      "sha256": "2fb9457c875b96f8fe0a9bf72ec6fbaf7cbab2164abca7dbf729d7ec9e262fcc",
+      "matches": true
+    },
+    {
+      "table": "users",
+      "sourceCount": 5,
+      "restoredCount": 5,
+      "sha256": "c595e265625d748f6fd7c0759e28238ed49a18f62bf3ad368032296db99f913c",
+      "matches": true
+    }
+  ],
+  "status": "passed"
+}

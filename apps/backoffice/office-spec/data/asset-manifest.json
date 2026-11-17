@@ -1,0 +1,1407 @@
+{
+  "schema_version": "1.0",
+  "title": "Enztronic Office Asset Inventory and Production Requirements",
+  "status": "planning_only_no_3d_assets_produced",
+  "prepared_local_date": "2026-10-21",
+  "timezone": "Asia/Jakarta",
+  "current_evidence": "Nine existing PNG references and four existing Markdown context/prompt documents were inspected locally. No GLB, native 3D source, rig, animation library, deployed scene or runtime performance evidence was produced in this handoff.",
+  "concept_pack_source": "C:/Users/hoyec/Documents/Codex/2026-10-20/can-x20/outputs/enztronic-office-concept-v2",
+  "planning_documents": {
+    "engineering_spec": "specs/3d-assets-and-browser.md",
+    "proposed_floorplan": "data/floorplan.json",
+    "floorplan_status": "authored_proposal_with_2d_rectangle_and_route_checks_only",
+    "coordinate_system": "meters; origin front-left; +X right; +Z rear; +Y up"
+  },
+  "status_vocabulary": {
+    "delivered_reference": "Existing source reference file; not a runtime 3D asset or validated model.",
+    "required_not_produced": "Required future deliverable; no completed geometry, license, rig, animation or runtime validation is implied."
+  },
+  "runtime_stack_recommendation": {
+    "framework": "Existing Next.js / React application",
+    "renderer": "Compatible stable Three.js, React Three Fiber and Drei",
+    "exact_versions": "Resolve against existing React major and current official peer dependencies; pin in lockfile during implementation.",
+    "render_boundary": "Lazy client-side 3D canvas; server keeps credentials, authorization and real task execution; DOM retains list, inspector and controls."
+  },
+  "roster": [
+    {
+      "id": "adrian",
+      "name": "Adrian",
+      "role": "Project Manager"
+    },
+    {
+      "id": "clara",
+      "name": "Clara",
+      "role": "Finance & Accounting"
+    },
+    {
+      "id": "nadia",
+      "name": "Nadia",
+      "role": "Administration"
+    },
+    {
+      "id": "leo",
+      "name": "Leo",
+      "role": "Sales & Client Relations"
+    },
+    {
+      "id": "lisa",
+      "name": "Lisa",
+      "role": "Graphic Designer"
+    },
+    {
+      "id": "sam",
+      "name": "Sam",
+      "role": "Frontend Developer"
+    },
+    {
+      "id": "theo",
+      "name": "Theo",
+      "role": "Backend Developer"
+    }
+  ],
+  "shared_export_contract": {
+    "format": "glTF 2.0 binary GLB",
+    "units": "meters",
+    "up_axis": "+Y",
+    "handedness": "right-handed",
+    "character_forward": "+Z",
+    "character_origin": "Feet-on-floor root at local [0,0,0]",
+    "furniture_origin": "Footprint center at local finished-floor Y=0",
+    "transforms": "Apply scale/rotation in authored export; preserve deterministic names and measured pivots.",
+    "material_policy": "Portable PBR; correct color spaces; no required Blender-only nodes or missing textures.",
+    "texture_policy": "Embedded or explicitly packaged; mostly 1K with justified 2K exceptions; no default 4K.",
+    "compression_policy": "Optional only after correct uncompressed proof; deployed loader/decoder paths and compressed visual/animation checks required.",
+    "skeleton": {
+      "max_deforming_bones_target": 65,
+      "max_vertex_influences": 4,
+      "skin_bindings_per_character": 1,
+      "rig_compatibility": "Shared semantic bone layout and deterministic paths; independent runtime skeleton instances."
+    },
+    "required_clips": [
+      {
+        "name": "idle_stand",
+        "loop": true,
+        "target_duration_s": 3
+      },
+      {
+        "name": "walk",
+        "loop": true,
+        "target_duration_s": 1,
+        "in_place": true,
+        "calibrated_speed_mps": 0.8
+      },
+      {
+        "name": "seated_idle",
+        "loop": true,
+        "target_duration_s": 4,
+        "chair_seat_y": 0.47
+      },
+      {
+        "name": "seated_work",
+        "loop": true,
+        "target_duration_s": 4,
+        "chair_seat_y": 0.47
+      },
+      {
+        "name": "sit_down",
+        "loop": false,
+        "target_duration_s": 1.2
+      },
+      {
+        "name": "stand_up",
+        "loop": false,
+        "target_duration_s": 1.2
+      },
+      {
+        "name": "handoff_gesture",
+        "loop": false,
+        "target_duration_s": 2
+      }
+    ],
+    "animation_root_policy": "No horizontal root translation. Navigation owns movement. Sit/stand animates pelvis/limbs around a fixed floor root; record actual clip durations.",
+    "measured_dimension_tolerance_m": 0.02
+  },
+  "reference_assets": [
+    {
+      "id": "reference_adrian_png",
+      "status": "delivered_reference",
+      "filename": "adrian.png",
+      "source_path": "C:/Users/hoyec/Documents/Codex/2026-10-20/can-x20/outputs/enztronic-office-concept-v2/adrian.png",
+      "format": "PNG",
+      "bytes": 2230048,
+      "sha256": "906e5b9be6987ef3d51812b7e9026e02ccc37c020015e54d3bfa56aab6f7ae8a",
+      "purpose": "Identity, clothing, hair and skin-tone concept for adrian",
+      "source": {
+        "kind": "built_in_image_generation_reference",
+        "generation_record": "portrait-prompts-v1.md"
+      },
+      "license": {
+        "status": "owner_review_required",
+        "record": "Generation is recorded in the supplied prompt files; no third-party mesh license or model rights record is supplied. Confirm intended reference usage and retain generation records."
+      },
+      "validation": {
+        "file_exists": true,
+        "hash_checked": true,
+        "png_signature_checked": true,
+        "png_signature_valid": true,
+        "width_px": 1254,
+        "height_px": 1254,
+        "full_png_decode_checked": false,
+        "visual_identity_approved": false,
+        "mesh_or_rig_checks": "not_applicable_reference_only"
+      },
+      "package_path": "visuals/reference/adrian.png"
+    },
+    {
+      "id": "reference_clara_png",
+      "status": "delivered_reference",
+      "filename": "clara.png",
+      "source_path": "C:/Users/hoyec/Documents/Codex/2026-10-20/can-x20/outputs/enztronic-office-concept-v2/clara.png",
+      "format": "PNG",
+      "bytes": 2074577,
+      "sha256": "87b9aeb9f04172078bd04cea30e57689ad757c27230ee0d2378cd50e3570e555",
+      "purpose": "Identity, clothing, hair and skin-tone concept for clara",
+      "source": {
+        "kind": "built_in_image_generation_reference",
+        "generation_record": "portrait-prompts-v1.md"
+      },
+      "license": {
+        "status": "owner_review_required",
+        "record": "Generation is recorded in the supplied prompt files; no third-party mesh license or model rights record is supplied. Confirm intended reference usage and retain generation records."
+      },
+      "validation": {
+        "file_exists": true,
+        "hash_checked": true,
+        "png_signature_checked": true,
+        "png_signature_valid": true,
+        "width_px": 1254,
+        "height_px": 1254,
+        "full_png_decode_checked": false,
+        "visual_identity_approved": false,
+        "mesh_or_rig_checks": "not_applicable_reference_only"
+      },
+      "package_path": "visuals/reference/clara.png"
+    },
+    {
+      "id": "reference_nadia_png",
+      "status": "delivered_reference",
+      "filename": "nadia.png",
+      "source_path": "C:/Users/hoyec/Documents/Codex/2026-10-20/can-x20/outputs/enztronic-office-concept-v2/nadia.png",
+      "format": "PNG",
+      "bytes": 2097660,
+      "sha256": "a38b6cae7b26445d7a0d66450d28299742b65b4f2058faa713baa35986a1bcc6",
+      "purpose": "Identity, clothing, hair and skin-tone concept for nadia",
+      "source": {
+        "kind": "built_in_image_generation_reference",
+        "generation_record": "portrait-prompts-v1.md"
+      },
+      "license": {
+        "status": "owner_review_required",
+        "record": "Generation is recorded in the supplied prompt files; no third-party mesh license or model rights record is supplied. Confirm intended reference usage and retain generation records."
+      },
+      "validation": {
+        "file_exists": true,
+        "hash_checked": true,
+        "png_signature_checked": true,
+        "png_signature_valid": true,
+        "width_px": 1254,
+        "height_px": 1254,
+        "full_png_decode_checked": false,
+        "visual_identity_approved": false,
+        "mesh_or_rig_checks": "not_applicable_reference_only"
+      },
+      "package_path": "visuals/reference/nadia.png"
+    },
+    {
+      "id": "reference_leo_png",
+      "status": "delivered_reference",
+      "filename": "leo.png",
+      "source_path": "C:/Users/hoyec/Documents/Codex/2026-10-20/can-x20/outputs/enztronic-office-concept-v2/leo.png",
+      "format": "PNG",
+      "bytes": 2042523,
+      "sha256": "0721b29ae31e158b9a9bc23753637fa908d94ed4d8658f63721f0834ad49060d",
+      "purpose": "Identity, clothing, hair and skin-tone concept for leo",
+      "source": {
+        "kind": "built_in_image_generation_reference",
+        "generation_record": "portrait-prompts-v1.md"
+      },
+      "license": {
+        "status": "owner_review_required",
+        "record": "Generation is recorded in the supplied prompt files; no third-party mesh license or model rights record is supplied. Confirm intended reference usage and retain generation records."
+      },
+      "validation": {
+        "file_exists": true,
+        "hash_checked": true,
+        "png_signature_checked": true,
+        "png_signature_valid": true,
+        "width_px": 1254,
+        "height_px": 1254,
+        "full_png_decode_checked": false,
+        "visual_identity_approved": false,
+        "mesh_or_rig_checks": "not_applicable_reference_only"
+      },
+      "package_path": "visuals/reference/leo.png"
+    },
+    {
+      "id": "reference_lisa_png",
+      "status": "delivered_reference",
+      "filename": "lisa.png",
+      "source_path": "C:/Users/hoyec/Documents/Codex/2026-10-20/can-x20/outputs/enztronic-office-concept-v2/lisa.png",
+      "format": "PNG",
+      "bytes": 2198483,
+      "sha256": "d93ebea524e42195509ecfb902ed6de15937a4eaf1d5a043f247c065329663fa",
+      "purpose": "Identity, clothing, hair and skin-tone concept for lisa",
+      "source": {
+        "kind": "built_in_image_generation_reference",
+        "generation_record": "portrait-prompts-v1.md"
+      },
+      "license": {
+        "status": "owner_review_required",
+        "record": "Generation is recorded in the supplied prompt files; no third-party mesh license or model rights record is supplied. Confirm intended reference usage and retain generation records."
+      },
+      "validation": {
+        "file_exists": true,
+        "hash_checked": true,
+        "png_signature_checked": true,
+        "png_signature_valid": true,
+        "width_px": 1254,
+        "height_px": 1254,
+        "full_png_decode_checked": false,
+        "visual_identity_approved": false,
+        "mesh_or_rig_checks": "not_applicable_reference_only"
+      },
+      "package_path": "visuals/reference/lisa.png"
+    },
+    {
+      "id": "reference_sam_png",
+      "status": "delivered_reference",
+      "filename": "sam.png",
+      "source_path": "C:/Users/hoyec/Documents/Codex/2026-10-20/can-x20/outputs/enztronic-office-concept-v2/sam.png",
+      "format": "PNG",
+      "bytes": 2090885,
+      "sha256": "c6f3d0914264c3a4f8ce7c6b8dec75f17dffcda512788bbad21124f995ac18f8",
+      "purpose": "Identity, clothing, hair and skin-tone concept for sam",
+      "source": {
+        "kind": "built_in_image_generation_reference",
+        "generation_record": "concept-prompts.md"
+      },
+      "license": {
+        "status": "owner_review_required",
+        "record": "Generation is recorded in the supplied prompt files; no third-party mesh license or model rights record is supplied. Confirm intended reference usage and retain generation records."
+      },
+      "validation": {
+        "file_exists": true,
+        "hash_checked": true,
+        "png_signature_checked": true,
+        "png_signature_valid": true,
+        "width_px": 1254,
+        "height_px": 1254,
+        "full_png_decode_checked": false,
+        "visual_identity_approved": false,
+        "mesh_or_rig_checks": "not_applicable_reference_only"
+      },
+      "package_path": "visuals/reference/sam.png"
+    },
+    {
+      "id": "reference_theo_png",
+      "status": "delivered_reference",
+      "filename": "theo.png",
+      "source_path": "C:/Users/hoyec/Documents/Codex/2026-10-20/can-x20/outputs/enztronic-office-concept-v2/theo.png",
+      "format": "PNG",
+      "bytes": 2383181,
+      "sha256": "ffedb0417a6b9eb4300b9b554788fd1293efcd649bb92182778dd6b2b6ed1280",
+      "purpose": "Identity, clothing, hair and skin-tone concept for theo",
+      "source": {
+        "kind": "built_in_image_generation_reference",
+        "generation_record": "concept-prompts.md"
+      },
+      "license": {
+        "status": "owner_review_required",
+        "record": "Generation is recorded in the supplied prompt files; no third-party mesh license or model rights record is supplied. Confirm intended reference usage and retain generation records."
+      },
+      "validation": {
+        "file_exists": true,
+        "hash_checked": true,
+        "png_signature_checked": true,
+        "png_signature_valid": true,
+        "width_px": 1254,
+        "height_px": 1254,
+        "full_png_decode_checked": false,
+        "visual_identity_approved": false,
+        "mesh_or_rig_checks": "not_applicable_reference_only"
+      },
+      "package_path": "visuals/reference/theo.png"
+    },
+    {
+      "id": "reference_office_overview_png",
+      "status": "delivered_reference",
+      "filename": "office-overview.png",
+      "source_path": "C:/Users/hoyec/Documents/Codex/2026-10-20/can-x20/outputs/enztronic-office-concept-v2/office-overview.png",
+      "format": "PNG",
+      "bytes": 2302133,
+      "sha256": "ba1dacb4413da9238cd1703bc0877038e2f6ade5d35a3a5db0adb6fee47e074f",
+      "purpose": "Office mood and approximate composition; not measured geometry",
+      "source": {
+        "kind": "built_in_image_generation_reference",
+        "generation_record": "concept-prompts.md"
+      },
+      "license": {
+        "status": "owner_review_required",
+        "record": "Generation is recorded in the supplied prompt files; no third-party mesh license or model rights record is supplied. Confirm intended reference usage and retain generation records."
+      },
+      "validation": {
+        "file_exists": true,
+        "hash_checked": true,
+        "png_signature_checked": true,
+        "png_signature_valid": true,
+        "width_px": 1672,
+        "height_px": 941,
+        "full_png_decode_checked": false,
+        "visual_identity_approved": false,
+        "mesh_or_rig_checks": "not_applicable_reference_only"
+      },
+      "package_path": "visuals/reference/office-overview.png"
+    },
+    {
+      "id": "reference_office_browser_concept_png",
+      "status": "delivered_reference",
+      "filename": "office-browser-concept.png",
+      "source_path": "C:/Users/hoyec/Documents/Codex/2026-10-20/can-x20/outputs/enztronic-office-concept-v2/office-browser-concept.png",
+      "format": "PNG",
+      "bytes": 2054420,
+      "sha256": "d9f1f6e6f38c283558902fab704db90f8310593ab0a15a3e5d451972b936e4bf",
+      "purpose": "Static browser interaction concept; example activity is not real task history",
+      "source": {
+        "kind": "built_in_image_generation_reference",
+        "generation_record": "concept-prompts.md"
+      },
+      "license": {
+        "status": "owner_review_required",
+        "record": "Generation is recorded in the supplied prompt files; no third-party mesh license or model rights record is supplied. Confirm intended reference usage and retain generation records."
+      },
+      "validation": {
+        "file_exists": true,
+        "hash_checked": true,
+        "png_signature_checked": true,
+        "png_signature_valid": true,
+        "width_px": 1672,
+        "height_px": 941,
+        "full_png_decode_checked": false,
+        "visual_identity_approved": false,
+        "mesh_or_rig_checks": "not_applicable_reference_only"
+      },
+      "package_path": "visuals/reference/office-browser-concept.png"
+    },
+    {
+      "id": "reference_office_concept_brief_md",
+      "status": "delivered_reference",
+      "filename": "office-concept-brief.md",
+      "source_path": "C:/Users/hoyec/Documents/Codex/2026-10-20/can-x20/outputs/enztronic-office-concept-v2/office-concept-brief.md",
+      "format": "Markdown",
+      "bytes": 3260,
+      "sha256": "a363b6672b5d96367908f8590fcc530793c072758c8ef6743e58413e3d7ebc8b",
+      "purpose": "Provided brief, personas or generation record",
+      "source": {
+        "kind": "provided_local_document",
+        "generation_record": null
+      },
+      "license": {
+        "status": "owner_review_required",
+        "record": "Provided project context; retain attribution/generation records and owner usage decision."
+      },
+      "validation": {
+        "file_exists": true,
+        "hash_checked": true,
+        "png_signature_checked": false,
+        "png_signature_valid": null,
+        "width_px": null,
+        "height_px": null,
+        "full_png_decode_checked": false,
+        "visual_identity_approved": false,
+        "mesh_or_rig_checks": "not_applicable_reference_only"
+      },
+      "package_path": "visuals/reference/office-concept-brief.md"
+    },
+    {
+      "id": "reference_personas_md",
+      "status": "delivered_reference",
+      "filename": "personas.md",
+      "source_path": "C:/Users/hoyec/Documents/Codex/2026-10-20/can-x20/outputs/enztronic-office-concept-v2/personas.md",
+      "format": "Markdown",
+      "bytes": 8020,
+      "sha256": "5d55faddfbbc7ea5591798fd9bbf0dd82873485ccf04757941175e64f84e096c",
+      "purpose": "Provided brief, personas or generation record",
+      "source": {
+        "kind": "provided_local_document",
+        "generation_record": null
+      },
+      "license": {
+        "status": "owner_review_required",
+        "record": "Provided project context; retain attribution/generation records and owner usage decision."
+      },
+      "validation": {
+        "file_exists": true,
+        "hash_checked": true,
+        "png_signature_checked": false,
+        "png_signature_valid": null,
+        "width_px": null,
+        "height_px": null,
+        "full_png_decode_checked": false,
+        "visual_identity_approved": false,
+        "mesh_or_rig_checks": "not_applicable_reference_only"
+      },
+      "package_path": "visuals/reference/personas.md"
+    },
+    {
+      "id": "reference_portrait_prompts_v1_md",
+      "status": "delivered_reference",
+      "filename": "portrait-prompts-v1.md",
+      "source_path": "C:/Users/hoyec/Documents/Codex/2026-10-20/can-x20/outputs/enztronic-office-concept-v2/portrait-prompts-v1.md",
+      "format": "Markdown",
+      "bytes": 9869,
+      "sha256": "cc124a2d08ef17d4ff80fe2324444591bbb40a2ce8b0d9ccda8a6e3bd85c84ee",
+      "purpose": "Provided brief, personas or generation record",
+      "source": {
+        "kind": "provided_local_document",
+        "generation_record": null
+      },
+      "license": {
+        "status": "owner_review_required",
+        "record": "Provided project context; retain attribution/generation records and owner usage decision."
+      },
+      "validation": {
+        "file_exists": true,
+        "hash_checked": true,
+        "png_signature_checked": false,
+        "png_signature_valid": null,
+        "width_px": null,
+        "height_px": null,
+        "full_png_decode_checked": false,
+        "visual_identity_approved": false,
+        "mesh_or_rig_checks": "not_applicable_reference_only"
+      },
+      "package_path": "visuals/reference/portrait-prompts-v1.md"
+    },
+    {
+      "id": "reference_concept_prompts_md",
+      "status": "delivered_reference",
+      "filename": "concept-prompts.md",
+      "source_path": "C:/Users/hoyec/Documents/Codex/2026-10-20/can-x20/outputs/enztronic-office-concept-v2/concept-prompts.md",
+      "format": "Markdown",
+      "bytes": 11663,
+      "sha256": "8b054f4d31dceacd1152d8f87dd39c84cc29fbfda45eee2f37248612308f7bbc",
+      "purpose": "Provided brief, personas or generation record",
+      "source": {
+        "kind": "provided_local_document",
+        "generation_record": null
+      },
+      "license": {
+        "status": "owner_review_required",
+        "record": "Provided project context; retain attribution/generation records and owner usage decision."
+      },
+      "validation": {
+        "file_exists": true,
+        "hash_checked": true,
+        "png_signature_checked": false,
+        "png_signature_valid": null,
+        "width_px": null,
+        "height_px": null,
+        "full_png_decode_checked": false,
+        "visual_identity_approved": false,
+        "mesh_or_rig_checks": "not_applicable_reference_only"
+      },
+      "package_path": "visuals/reference/concept-prompts.md"
+    }
+  ],
+  "required_assets": [
+    {
+      "id": "office_shell",
+      "kind": "runtime_static_glb",
+      "required_filename": "assets/office/office-shell.glb",
+      "required_source_filename": "source/office/office-shell.blend",
+      "instance_count": 1,
+      "required_nodes": [
+        "FloorSlab",
+        "WallRear",
+        "WallLeftCutaway"
+      ],
+      "content": "18 x 13 m cutaway office; no roof/front/right wall. Match floorplan axes and measured extents.",
+      "requirements": [
+        "Editable native scene with materials/texture sources",
+        "Floor finished Y=0; slab extends to -0.25",
+        "Rear height 3.2 m; visible left wall 1.1 m",
+        "No baked characters, labels, task text or collision-obscuring furniture"
+      ],
+      "status": "required_not_produced",
+      "license": {
+        "status": "required_not_recorded",
+        "source_creator": null,
+        "source_url": null,
+        "license_name": null,
+        "license_document_filename": null,
+        "commercial_use_approved": false,
+        "requirements": "Record creator, source/acquisition URL if any, exact license, edit/redistribution rights and owner approval; retain native sources and texture/font provenance. Do not use unlicensed sample assets."
+      },
+      "validation": {
+        "file_exists": false,
+        "status": "not_produced",
+        "sha256": null,
+        "geometry_checked": false,
+        "dimensions_checked": false,
+        "rig_checked": false,
+        "animations_checked": false,
+        "loader_checked": false,
+        "performance_measured": false,
+        "report_filename": "reports/office-asset-validation.json"
+      }
+    },
+    {
+      "id": "studio_furniture",
+      "kind": "runtime_reusable_glb",
+      "required_filename": "assets/office/studio-furniture.glb",
+      "required_source_filename": "source/office/studio-furniture.blend",
+      "instance_count": "See named component counts",
+      "components": [
+        {
+          "name": "Desk_160x080",
+          "instance_count": 6,
+          "proposed_dimensions_m": {
+            "width_x": 1.6,
+            "depth_z": 0.8,
+            "height_y": 0.75
+          },
+          "dimensions_status": "specified_layout_envelope"
+        },
+        {
+          "name": "Desk_180x080",
+          "instance_count": 1,
+          "proposed_dimensions_m": {
+            "width_x": 1.8,
+            "depth_z": 0.8,
+            "height_y": 0.75
+          },
+          "dimensions_status": "specified_layout_envelope"
+        },
+        {
+          "name": "DeskChair",
+          "instance_count": 7,
+          "proposed_dimensions_m": {
+            "width_x": 0.8,
+            "depth_z": 0.8,
+            "height_y": 1.05
+          },
+          "dimensions_status": "specified_layout_envelope"
+        },
+        {
+          "name": "ReviewTable_360x140",
+          "instance_count": 1,
+          "proposed_dimensions_m": {
+            "width_x": 3.6,
+            "depth_z": 1.4,
+            "height_y": 0.75
+          },
+          "dimensions_status": "specified_layout_envelope"
+        },
+        {
+          "name": "ReviewChair",
+          "instance_count": 8,
+          "proposed_dimensions_m": {
+            "width_x": 0.7,
+            "depth_z": 0.8,
+            "height_y": 0.95
+          },
+          "dimensions_status": "specified_layout_envelope"
+        },
+        {
+          "name": "ClientArmchair",
+          "instance_count": 2,
+          "proposed_dimensions_m": {
+            "width_x": 0.85,
+            "depth_z": 0.85,
+            "height_y": 0.95
+          },
+          "dimensions_status": "specified_layout_envelope"
+        },
+        {
+          "name": "ClientSideTable",
+          "instance_count": 1,
+          "proposed_dimensions_m": {
+            "width_x": 0.55,
+            "depth_z": 0.55,
+            "height_y": 0.5
+          },
+          "dimensions_status": "specified_layout_envelope"
+        },
+        {
+          "name": "Sofa2",
+          "instance_count": 1,
+          "proposed_dimensions_m": {
+            "width_x": 2,
+            "depth_z": 0.9,
+            "height_y": 0.9
+          },
+          "dimensions_status": "specified_layout_envelope"
+        },
+        {
+          "name": "CoffeeCabinet",
+          "instance_count": 1,
+          "proposed_dimensions_m": {
+            "width_x": 0.6,
+            "depth_z": 1.6,
+            "height_y": 1.1
+          },
+          "dimensions_status": "specified_layout_envelope"
+        },
+        {
+          "name": "LowShelf_200x040",
+          "instance_count": 2,
+          "proposed_dimensions_m": {
+            "width_x": 2,
+            "depth_z": 0.4,
+            "height_y": 1.1
+          },
+          "dimensions_status": "specified_layout_envelope"
+        },
+        {
+          "name": "Plant",
+          "instance_count": 4,
+          "proposed_dimensions_m": {
+            "width_x": 0.5,
+            "depth_z": 0.5,
+            "height_y": 1.4
+          },
+          "dimensions_status": "specified_layout_envelope"
+        },
+        {
+          "name": "Monitor",
+          "instance_count": 7,
+          "proposed_dimensions_m": {
+            "width_x": null,
+            "depth_z": null,
+            "height_y": null
+          },
+          "dimensions_status": "detail_authoring_required_within_parent_footprint"
+        },
+        {
+          "name": "KeyboardMouse",
+          "instance_count": 7,
+          "proposed_dimensions_m": {
+            "width_x": null,
+            "depth_z": null,
+            "height_y": null
+          },
+          "dimensions_status": "detail_authoring_required_within_parent_footprint"
+        },
+        {
+          "name": "ProjectBoard",
+          "instance_count": 1,
+          "proposed_dimensions_m": {
+            "width_x": 3.5,
+            "depth_z": null,
+            "height_y": 1.15
+          },
+          "dimensions_status": "detail_authoring_required_within_parent_footprint"
+        },
+        {
+          "name": "SharedDisplay",
+          "instance_count": 1,
+          "proposed_dimensions_m": {
+            "width_x": 1.8,
+            "depth_z": null,
+            "height_y": 1.05
+          },
+          "dimensions_status": "detail_authoring_required_within_parent_footprint"
+        },
+        {
+          "name": "BrandPlaque",
+          "instance_count": 1,
+          "proposed_dimensions_m": {
+            "width_x": 2.3,
+            "depth_z": null,
+            "height_y": 0.35
+          },
+          "dimensions_status": "detail_authoring_required_within_parent_footprint"
+        }
+      ],
+      "requirements": [
+        "All listed named nodes independently instantiable",
+        "Applied transforms, reusable materials and recorded pivots/bounds",
+        "Real geometry and native source; reference image is insufficient",
+        "Review chair end instances rotate; floorplan world boxes are authoritative",
+        "Sign text exactly ENZTRONIC; font/logo source and permission recorded"
+      ],
+      "status": "required_not_produced",
+      "license": {
+        "status": "required_not_recorded",
+        "source_creator": null,
+        "source_url": null,
+        "license_name": null,
+        "license_document_filename": null,
+        "commercial_use_approved": false,
+        "requirements": "Record creator, source/acquisition URL if any, exact license, edit/redistribution rights and owner approval; retain native sources and texture/font provenance. Do not use unlicensed sample assets."
+      },
+      "validation": {
+        "file_exists": false,
+        "status": "not_produced",
+        "sha256": null,
+        "geometry_checked": false,
+        "dimensions_checked": false,
+        "rig_checked": false,
+        "animations_checked": false,
+        "loader_checked": false,
+        "performance_measured": false,
+        "report_filename": "reports/office-asset-validation.json"
+      }
+    },
+    {
+      "id": "character_adrian",
+      "kind": "runtime_rigged_character_glb",
+      "character_id": "adrian",
+      "character_name": "Adrian",
+      "required_filename": "assets/office/characters/adrian.glb",
+      "required_source_filename": "source/office/characters/adrian.blend",
+      "instance_count": 1,
+      "identity_reference_filename": "adrian.png",
+      "identity_requirements": "Warm olive skin, short softly wavy dark-brown hair, clean-shaven, navy blazer over muted blue crewneck.",
+      "rig_source": "source/office/common-biped-rig.blend",
+      "animation_source": "source/office/common-animations.blend",
+      "required_clip_names": [
+        "idle_stand",
+        "walk",
+        "seated_idle",
+        "seated_work",
+        "sit_down",
+        "stand_up",
+        "handoff_gesture"
+      ],
+      "model_budget": {
+        "triangles_target_max": 12000,
+        "materials_target_max": 3,
+        "compressed_transfer_mb_target_max": 1.5,
+        "measured": false
+      },
+      "requirements": [
+        "Recognizable portrait-derived fictional identity, coherent studio style",
+        "Editable modeled mesh, rig, skin weights, materials and texture sources",
+        "Shared-compatible rig contract; required clips embedded per character",
+        "Chair/desk and review-table dock tests at floorplan anchors",
+        "No billboard portrait or rigid unanimated placeholder accepted as final"
+      ],
+      "status": "required_not_produced",
+      "license": {
+        "status": "required_not_recorded",
+        "source_creator": null,
+        "source_url": null,
+        "license_name": null,
+        "license_document_filename": null,
+        "commercial_use_approved": false,
+        "requirements": "Record creator, source/acquisition URL if any, exact license, edit/redistribution rights and owner approval; retain native sources and texture/font provenance. Do not use unlicensed sample assets."
+      },
+      "validation": {
+        "file_exists": false,
+        "status": "not_produced",
+        "sha256": null,
+        "geometry_checked": false,
+        "dimensions_checked": false,
+        "rig_checked": false,
+        "animations_checked": false,
+        "loader_checked": false,
+        "performance_measured": false,
+        "report_filename": "reports/office-asset-validation.json"
+      }
+    },
+    {
+      "id": "character_clara",
+      "kind": "runtime_rigged_character_glb",
+      "character_id": "clara",
+      "character_name": "Clara",
+      "required_filename": "assets/office/characters/clara.glb",
+      "required_source_filename": "source/office/characters/clara.blend",
+      "instance_count": 1,
+      "identity_reference_filename": "clara.png",
+      "identity_requirements": "Fair warm skin with subtle freckles, chestnut chin-length bob, fine oval bronze glasses, navy tailored blouse.",
+      "rig_source": "source/office/common-biped-rig.blend",
+      "animation_source": "source/office/common-animations.blend",
+      "required_clip_names": [
+        "idle_stand",
+        "walk",
+        "seated_idle",
+        "seated_work",
+        "sit_down",
+        "stand_up",
+        "handoff_gesture"
+      ],
+      "model_budget": {
+        "triangles_target_max": 12000,
+        "materials_target_max": 3,
+        "compressed_transfer_mb_target_max": 1.5,
+        "measured": false
+      },
+      "requirements": [
+        "Recognizable portrait-derived fictional identity, coherent studio style",
+        "Editable modeled mesh, rig, skin weights, materials and texture sources",
+        "Shared-compatible rig contract; required clips embedded per character",
+        "Chair/desk and review-table dock tests at floorplan anchors",
+        "No billboard portrait or rigid unanimated placeholder accepted as final"
+      ],
+      "status": "required_not_produced",
+      "license": {
+        "status": "required_not_recorded",
+        "source_creator": null,
+        "source_url": null,
+        "license_name": null,
+        "license_document_filename": null,
+        "commercial_use_approved": false,
+        "requirements": "Record creator, source/acquisition URL if any, exact license, edit/redistribution rights and owner approval; retain native sources and texture/font provenance. Do not use unlicensed sample assets."
+      },
+      "validation": {
+        "file_exists": false,
+        "status": "not_produced",
+        "sha256": null,
+        "geometry_checked": false,
+        "dimensions_checked": false,
+        "rig_checked": false,
+        "animations_checked": false,
+        "loader_checked": false,
+        "performance_measured": false,
+        "report_filename": "reports/office-asset-validation.json"
+      }
+    },
+    {
+      "id": "character_nadia",
+      "kind": "runtime_rigged_character_glb",
+      "character_id": "nadia",
+      "character_name": "Nadia",
+      "required_filename": "assets/office/characters/nadia.glb",
+      "required_source_filename": "source/office/characters/nadia.blend",
+      "instance_count": 1,
+      "identity_reference_filename": "nadia.png",
+      "identity_requirements": "Deep warm brown skin, curly black hair in a high bun, dusty-blue collared shirt, small stud earrings.",
+      "rig_source": "source/office/common-biped-rig.blend",
+      "animation_source": "source/office/common-animations.blend",
+      "required_clip_names": [
+        "idle_stand",
+        "walk",
+        "seated_idle",
+        "seated_work",
+        "sit_down",
+        "stand_up",
+        "handoff_gesture"
+      ],
+      "model_budget": {
+        "triangles_target_max": 12000,
+        "materials_target_max": 3,
+        "compressed_transfer_mb_target_max": 1.5,
+        "measured": false
+      },
+      "requirements": [
+        "Recognizable portrait-derived fictional identity, coherent studio style",
+        "Editable modeled mesh, rig, skin weights, materials and texture sources",
+        "Shared-compatible rig contract; required clips embedded per character",
+        "Chair/desk and review-table dock tests at floorplan anchors",
+        "No billboard portrait or rigid unanimated placeholder accepted as final"
+      ],
+      "status": "required_not_produced",
+      "license": {
+        "status": "required_not_recorded",
+        "source_creator": null,
+        "source_url": null,
+        "license_name": null,
+        "license_document_filename": null,
+        "commercial_use_approved": false,
+        "requirements": "Record creator, source/acquisition URL if any, exact license, edit/redistribution rights and owner approval; retain native sources and texture/font provenance. Do not use unlicensed sample assets."
+      },
+      "validation": {
+        "file_exists": false,
+        "status": "not_produced",
+        "sha256": null,
+        "geometry_checked": false,
+        "dimensions_checked": false,
+        "rig_checked": false,
+        "animations_checked": false,
+        "loader_checked": false,
+        "performance_measured": false,
+        "report_filename": "reports/office-asset-validation.json"
+      }
+    },
+    {
+      "id": "character_leo",
+      "kind": "runtime_rigged_character_glb",
+      "character_id": "leo",
+      "character_name": "Leo",
+      "required_filename": "assets/office/characters/leo.glb",
+      "required_source_filename": "source/office/characters/leo.blend",
+      "instance_count": 1,
+      "identity_reference_filename": "leo.png",
+      "identity_requirements": "Medium brown skin, short textured black hair, neat short beard, navy overshirt and pale blue crewneck.",
+      "rig_source": "source/office/common-biped-rig.blend",
+      "animation_source": "source/office/common-animations.blend",
+      "required_clip_names": [
+        "idle_stand",
+        "walk",
+        "seated_idle",
+        "seated_work",
+        "sit_down",
+        "stand_up",
+        "handoff_gesture"
+      ],
+      "model_budget": {
+        "triangles_target_max": 12000,
+        "materials_target_max": 3,
+        "compressed_transfer_mb_target_max": 1.5,
+        "measured": false
+      },
+      "requirements": [
+        "Recognizable portrait-derived fictional identity, coherent studio style",
+        "Editable modeled mesh, rig, skin weights, materials and texture sources",
+        "Shared-compatible rig contract; required clips embedded per character",
+        "Chair/desk and review-table dock tests at floorplan anchors",
+        "No billboard portrait or rigid unanimated placeholder accepted as final"
+      ],
+      "status": "required_not_produced",
+      "license": {
+        "status": "required_not_recorded",
+        "source_creator": null,
+        "source_url": null,
+        "license_name": null,
+        "license_document_filename": null,
+        "commercial_use_approved": false,
+        "requirements": "Record creator, source/acquisition URL if any, exact license, edit/redistribution rights and owner approval; retain native sources and texture/font provenance. Do not use unlicensed sample assets."
+      },
+      "validation": {
+        "file_exists": false,
+        "status": "not_produced",
+        "sha256": null,
+        "geometry_checked": false,
+        "dimensions_checked": false,
+        "rig_checked": false,
+        "animations_checked": false,
+        "loader_checked": false,
+        "performance_measured": false,
+        "report_filename": "reports/office-asset-validation.json"
+      }
+    },
+    {
+      "id": "character_lisa",
+      "kind": "runtime_rigged_character_glb",
+      "character_id": "lisa",
+      "character_name": "Lisa",
+      "required_filename": "assets/office/characters/lisa.glb",
+      "required_source_filename": "source/office/characters/lisa.blend",
+      "instance_count": 1,
+      "identity_reference_filename": "lisa.png",
+      "identity_requirements": "Warm medium skin, softly asymmetrical dark bob, navy studio jacket and cobalt shirt, small silver earrings.",
+      "rig_source": "source/office/common-biped-rig.blend",
+      "animation_source": "source/office/common-animations.blend",
+      "required_clip_names": [
+        "idle_stand",
+        "walk",
+        "seated_idle",
+        "seated_work",
+        "sit_down",
+        "stand_up",
+        "handoff_gesture"
+      ],
+      "model_budget": {
+        "triangles_target_max": 12000,
+        "materials_target_max": 3,
+        "compressed_transfer_mb_target_max": 1.5,
+        "measured": false
+      },
+      "requirements": [
+        "Recognizable portrait-derived fictional identity, coherent studio style",
+        "Editable modeled mesh, rig, skin weights, materials and texture sources",
+        "Shared-compatible rig contract; required clips embedded per character",
+        "Chair/desk and review-table dock tests at floorplan anchors",
+        "No billboard portrait or rigid unanimated placeholder accepted as final"
+      ],
+      "status": "required_not_produced",
+      "license": {
+        "status": "required_not_recorded",
+        "source_creator": null,
+        "source_url": null,
+        "license_name": null,
+        "license_document_filename": null,
+        "commercial_use_approved": false,
+        "requirements": "Record creator, source/acquisition URL if any, exact license, edit/redistribution rights and owner approval; retain native sources and texture/font provenance. Do not use unlicensed sample assets."
+      },
+      "validation": {
+        "file_exists": false,
+        "status": "not_produced",
+        "sha256": null,
+        "geometry_checked": false,
+        "dimensions_checked": false,
+        "rig_checked": false,
+        "animations_checked": false,
+        "loader_checked": false,
+        "performance_measured": false,
+        "report_filename": "reports/office-asset-validation.json"
+      }
+    },
+    {
+      "id": "character_sam",
+      "kind": "runtime_rigged_character_glb",
+      "character_id": "sam",
+      "character_name": "Sam",
+      "required_filename": "assets/office/characters/sam.glb",
+      "required_source_filename": "source/office/characters/sam.blend",
+      "instance_count": 1,
+      "identity_reference_filename": "sam.png",
+      "identity_requirements": "Light-medium warm skin, swept-back straight dark hair, clean-shaven, navy overshirt and muted teal-blue crewneck.",
+      "rig_source": "source/office/common-biped-rig.blend",
+      "animation_source": "source/office/common-animations.blend",
+      "required_clip_names": [
+        "idle_stand",
+        "walk",
+        "seated_idle",
+        "seated_work",
+        "sit_down",
+        "stand_up",
+        "handoff_gesture"
+      ],
+      "model_budget": {
+        "triangles_target_max": 12000,
+        "materials_target_max": 3,
+        "compressed_transfer_mb_target_max": 1.5,
+        "measured": false
+      },
+      "requirements": [
+        "Recognizable portrait-derived fictional identity, coherent studio style",
+        "Editable modeled mesh, rig, skin weights, materials and texture sources",
+        "Shared-compatible rig contract; required clips embedded per character",
+        "Chair/desk and review-table dock tests at floorplan anchors",
+        "No billboard portrait or rigid unanimated placeholder accepted as final"
+      ],
+      "status": "required_not_produced",
+      "license": {
+        "status": "required_not_recorded",
+        "source_creator": null,
+        "source_url": null,
+        "license_name": null,
+        "license_document_filename": null,
+        "commercial_use_approved": false,
+        "requirements": "Record creator, source/acquisition URL if any, exact license, edit/redistribution rights and owner approval; retain native sources and texture/font provenance. Do not use unlicensed sample assets."
+      },
+      "validation": {
+        "file_exists": false,
+        "status": "not_produced",
+        "sha256": null,
+        "geometry_checked": false,
+        "dimensions_checked": false,
+        "rig_checked": false,
+        "animations_checked": false,
+        "loader_checked": false,
+        "performance_measured": false,
+        "report_filename": "reports/office-asset-validation.json"
+      }
+    },
+    {
+      "id": "character_theo",
+      "kind": "runtime_rigged_character_glb",
+      "character_id": "theo",
+      "character_name": "Theo",
+      "required_filename": "assets/office/characters/theo.glb",
+      "required_source_filename": "source/office/characters/theo.blend",
+      "instance_count": 1,
+      "identity_reference_filename": "theo.png",
+      "identity_requirements": "Deep brown skin, close-cropped black hair, neat short beard, thin dark rectangular glasses, charcoal-navy knit polo.",
+      "rig_source": "source/office/common-biped-rig.blend",
+      "animation_source": "source/office/common-animations.blend",
+      "required_clip_names": [
+        "idle_stand",
+        "walk",
+        "seated_idle",
+        "seated_work",
+        "sit_down",
+        "stand_up",
+        "handoff_gesture"
+      ],
+      "model_budget": {
+        "triangles_target_max": 12000,
+        "materials_target_max": 3,
+        "compressed_transfer_mb_target_max": 1.5,
+        "measured": false
+      },
+      "requirements": [
+        "Recognizable portrait-derived fictional identity, coherent studio style",
+        "Editable modeled mesh, rig, skin weights, materials and texture sources",
+        "Shared-compatible rig contract; required clips embedded per character",
+        "Chair/desk and review-table dock tests at floorplan anchors",
+        "No billboard portrait or rigid unanimated placeholder accepted as final"
+      ],
+      "status": "required_not_produced",
+      "license": {
+        "status": "required_not_recorded",
+        "source_creator": null,
+        "source_url": null,
+        "license_name": null,
+        "license_document_filename": null,
+        "commercial_use_approved": false,
+        "requirements": "Record creator, source/acquisition URL if any, exact license, edit/redistribution rights and owner approval; retain native sources and texture/font provenance. Do not use unlicensed sample assets."
+      },
+      "validation": {
+        "file_exists": false,
+        "status": "not_produced",
+        "sha256": null,
+        "geometry_checked": false,
+        "dimensions_checked": false,
+        "rig_checked": false,
+        "animations_checked": false,
+        "loader_checked": false,
+        "performance_measured": false,
+        "report_filename": "reports/office-asset-validation.json"
+      }
+    },
+    {
+      "id": "common_biped_rig",
+      "kind": "editable_rig_source",
+      "required_filename": "source/office/common-biped-rig.blend",
+      "required_source_filename": "source/office/common-biped-rig.blend",
+      "requirements": [
+        "Humanoid hierarchy and source pose",
+        "Rig controls plus export-deform skeleton",
+        "Bone path map, scale and retarget instructions",
+        "Proof on Sam before full roster production"
+      ],
+      "status": "required_not_produced",
+      "license": {
+        "status": "required_not_recorded",
+        "source_creator": null,
+        "source_url": null,
+        "license_name": null,
+        "license_document_filename": null,
+        "commercial_use_approved": false,
+        "requirements": "Record creator, source/acquisition URL if any, exact license, edit/redistribution rights and owner approval; retain native sources and texture/font provenance. Do not use unlicensed sample assets."
+      },
+      "validation": {
+        "file_exists": false,
+        "status": "not_produced",
+        "sha256": null,
+        "geometry_checked": false,
+        "dimensions_checked": false,
+        "rig_checked": false,
+        "animations_checked": false,
+        "loader_checked": false,
+        "performance_measured": false,
+        "report_filename": "reports/office-asset-validation.json"
+      }
+    },
+    {
+      "id": "common_animations",
+      "kind": "editable_animation_source",
+      "required_filename": "source/office/common-animations.blend",
+      "required_source_filename": "source/office/common-animations.blend",
+      "requirements": [
+        "All seven semantic clips in shared source",
+        "Record actual durations and root behavior",
+        "No horizontal root drift",
+        "Retargeted and embedded into every character GLB"
+      ],
+      "status": "required_not_produced",
+      "license": {
+        "status": "required_not_recorded",
+        "source_creator": null,
+        "source_url": null,
+        "license_name": null,
+        "license_document_filename": null,
+        "commercial_use_approved": false,
+        "requirements": "Record creator, source/acquisition URL if any, exact license, edit/redistribution rights and owner approval; retain native sources and texture/font provenance. Do not use unlicensed sample assets."
+      },
+      "validation": {
+        "file_exists": false,
+        "status": "not_produced",
+        "sha256": null,
+        "geometry_checked": false,
+        "dimensions_checked": false,
+        "rig_checked": false,
+        "animations_checked": false,
+        "loader_checked": false,
+        "performance_measured": false,
+        "report_filename": "reports/office-asset-validation.json"
+      }
+    },
+    {
+      "id": "texture_sources",
+      "kind": "editable_texture_source_bundle",
+      "required_filename": "source/office/textures-source.zip",
+      "required_source_filename": "source/office/textures-source.zip",
+      "requirements": [
+        "Editable base color/material/normal sources where used",
+        "Texture index with dimensions, color spaces and model assignment",
+        "Font/image provenance where used",
+        "GLB material appearance matches source"
+      ],
+      "status": "required_not_produced",
+      "license": {
+        "status": "required_not_recorded",
+        "source_creator": null,
+        "source_url": null,
+        "license_name": null,
+        "license_document_filename": null,
+        "commercial_use_approved": false,
+        "requirements": "Record creator, source/acquisition URL if any, exact license, edit/redistribution rights and owner approval; retain native sources and texture/font provenance. Do not use unlicensed sample assets."
+      },
+      "validation": {
+        "file_exists": false,
+        "status": "not_produced",
+        "sha256": null,
+        "geometry_checked": false,
+        "dimensions_checked": false,
+        "rig_checked": false,
+        "animations_checked": false,
+        "loader_checked": false,
+        "performance_measured": false,
+        "report_filename": "reports/office-asset-validation.json"
+      }
+    },
+    {
+      "id": "runtime_layout",
+      "kind": "runtime_scene_data",
+      "required_filename": "assets/office/office-layout.runtime.json",
+      "required_source_filename": "floorplan.json",
+      "requirements": [
+        "Derived from proposed floorplan after real exported bounds validation",
+        "Stable character/furniture node IDs",
+        "Validated graph, footprints, docks and scale",
+        "Changes reviewed against planning JSON; not a duplicate unchecked coordinate file"
+      ],
+      "status": "required_not_produced",
+      "license": {
+        "status": "required_not_recorded",
+        "source_creator": null,
+        "source_url": null,
+        "license_name": null,
+        "license_document_filename": null,
+        "commercial_use_approved": false,
+        "requirements": "Record creator, source/acquisition URL if any, exact license, edit/redistribution rights and owner approval; retain native sources and texture/font provenance. Do not use unlicensed sample assets."
+      },
+      "validation": {
+        "file_exists": false,
+        "status": "not_produced",
+        "sha256": null,
+        "geometry_checked": false,
+        "dimensions_checked": false,
+        "rig_checked": false,
+        "animations_checked": false,
+        "loader_checked": false,
+        "performance_measured": false,
+        "report_filename": "reports/office-asset-validation.json"
+      }
+    },
+    {
+      "id": "provenance_register",
+      "kind": "provenance_and_license_register",
+      "required_filename": "source/office/provenance-and-licenses.json",
+      "required_source_filename": "source/office/provenance-and-licenses.json",
+      "requirements": [
+        "Per-file author/source/license records and license documents",
+        "Texture/font/mesh/rig/animation provenance",
+        "Commercial use and edit/redistribution terms reviewed",
+        "Record self-authored work accurately; no invented licenses"
+      ],
+      "status": "required_not_produced",
+      "license": {
+        "status": "required_not_recorded",
+        "source_creator": null,
+        "source_url": null,
+        "license_name": null,
+        "license_document_filename": null,
+        "commercial_use_approved": false,
+        "requirements": "Record creator, source/acquisition URL if any, exact license, edit/redistribution rights and owner approval; retain native sources and texture/font provenance. Do not use unlicensed sample assets."
+      },
+      "validation": {
+        "file_exists": false,
+        "status": "not_produced",
+        "sha256": null,
+        "geometry_checked": false,
+        "dimensions_checked": false,
+        "rig_checked": false,
+        "animations_checked": false,
+        "loader_checked": false,
+        "performance_measured": false,
+        "report_filename": "reports/office-asset-validation.json"
+      }
+    },
+    {
+      "id": "asset_validation_report",
+      "kind": "validation_evidence_report",
+      "required_filename": "reports/office-asset-validation.json",
+      "required_source_filename": "reports/office-asset-validation.json",
+      "requirements": [
+        "Khronos glTF Validator results with actual file hashes",
+        "Node/bone/clip names, counts, durations, dimensions and texture index",
+        "Source/GLB opening, visual identity and deformation review results",
+        "Actual browser loader/collision/dock/accessibility checks",
+        "Hardware/browser/network-specific performance captures, failures and limits"
+      ],
+      "status": "required_not_produced",
+      "license": {
+        "status": "required_not_recorded",
+        "source_creator": null,
+        "source_url": null,
+        "license_name": null,
+        "license_document_filename": null,
+        "commercial_use_approved": false,
+        "requirements": "Record creator, source/acquisition URL if any, exact license, edit/redistribution rights and owner approval; retain native sources and texture/font provenance. Do not use unlicensed sample assets."
+      },
+      "validation": {
+        "file_exists": false,
+        "status": "not_produced",
+        "sha256": null,
+        "geometry_checked": false,
+        "dimensions_checked": false,
+        "rig_checked": false,
+        "animations_checked": false,
+        "loader_checked": false,
+        "performance_measured": false,
+        "report_filename": "reports/office-asset-validation.json"
+      }
+    }
+  ],
+  "production_order": [
+    "sam_one_character_proof",
+    "exact_office_blockout",
+    "remaining_six_characters_and_final_environment",
+    "browser_integration",
+    "measured_hardware_specific_acceptance"
+  ],
+  "perf_targets": {
+    "status": "provisional_unmeasured",
+    "profile": "Actual owner hardware must be agreed and recorded; provisional 16 GB Windows laptop, Iris Xe-class integrated GPU, stable Chrome, 1920x1080 display, inspector open.",
+    "rendered_triangles_max": 250000,
+    "draw_calls_max": 120,
+    "character_triangles_target_max": 12000,
+    "character_materials_target_max": 3,
+    "runtime_model_transfer_mb_target_max": 18,
+    "first_shell_furniture_transfer_mb_target_max": 5,
+    "device_pixel_ratio_cap_initial": 1.5,
+    "device_pixel_ratio_low": 1,
+    "normal_frame_ms_median_target_max": 16.7,
+    "normal_frame_ms_p95_target_max": 25,
+    "low_frame_ms_median_target_max": 33.3,
+    "low_frame_ms_p95_target_max": 50,
+    "route_dom_usable_s_target_max": 2,
+    "first_useful_3d_s_target_max": 5,
+    "all_characters_s_target_max": 10,
+    "network_profile": {
+      "down_mbps": 20,
+      "rtt_ms": 50,
+      "cold_cache": true
+    },
+    "measurement_required": "At least three cold/warm runs plus 60 s idle and moving scenarios, selection/resize, 15 min session and route-away-return resource checks. No pass recorded."
+  },
+  "acceptance_status": {
+    "modeled_assets": "not_started",
+    "rig_animation_checks": "not_run",
+    "gltf_validator": "not_run",
+    "browser_loader": "not_implemented",
+    "license_source_acceptance": "pending",
+    "real_device_performance": "not_measured",
+    "accessibility_and_fallback": "specified_not_implemented"
+  },
+  "tooling_observation": {
+    "blender_on_path": "not_found",
+    "scope": "Read-only PATH lookup only; not an exhaustive installed-program search. No install, modeling or export performed."
+  },
+  "package_reference_root": "visuals/reference"
+}

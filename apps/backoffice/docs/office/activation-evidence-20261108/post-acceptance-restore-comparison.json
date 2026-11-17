@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "differences": [],
+  "comparedTableCount": 32,
+  "comparedSequenceCount": 1,
+  "ignoredRestoreOnlyRoles": [
+    "recovery_admin"
+  ],
+  "exactAllGroups": true,
+  "exactPrivateRolesAndMemberships": true
+}

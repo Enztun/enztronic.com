@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "clientDate": "2026-11-08",
+  "machineUtc": "2026-11-07T20:19:33.620343+00:00",
+  "archive": "C:\\Users\\hoyec\\Enztronic-Worker-Preparation\\archives\\worker-preparation-20261108-ee8d2b8704.tar.gz",
+  "secondCopy": "E:\\Enztronic-Recovery\\worker-preparation-20261108-ee8d2b8704\\worker-preparation-20261108-ee8d2b8704.tar.gz",
+  "sha256": "fda0b87fc45f29a11522773a4920872ff0e98bcf34b275e744a537704838f535",
+  "bytes": 430165857,
+  "verifiedFiles": 5248,
+  "secondCopyIdentical": true,
+  "offComputer": false
+}

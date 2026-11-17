@@ -1,0 +1,32 @@
+{
+  "expiredLease": {
+    "snapshotCaptured": "2026-11-05T00:00:04Z",
+    "simulatedClientNow": "2026-11-05T00:00:10Z",
+    "leaseUntil": "2026-11-05T00:00:05Z",
+    "snapshotAgeSeconds": 6,
+    "roleIndicator": "stalled",
+    "taskIndicator": "stalled",
+    "correctedPayload": {
+      "roleIndicator": "stalled",
+      "roleLabel": "Lease expired",
+      "taskIndicator": "stalled"
+    },
+    "defectReproduced": false
+  },
+  "revisionEchoGuard": {
+    "actualRevisionA": "/team?mode=demo&workspace=00000000-0000-4000-8000-000000000001&task=00000000-0000-4000-8000-000000000002&artifact=00000000-0000-4000-8000-000000000003&view=tasks",
+    "actualRevisionB": "/team?mode=demo&workspace=00000000-0000-4000-8000-000000000001&task=00000000-0000-4000-8000-000000000002&artifact=00000000-0000-4000-8000-000000000004&view=tasks",
+    "canonicalRevisionA": "/team?mode=demo&workspace=00000000-0000-4000-8000-000000000001&task=00000000-0000-4000-8000-000000000002&artifact=00000000-0000-4000-8000-000000000003&view=tasks",
+    "canonicalRevisionB": "/team?mode=demo&workspace=00000000-0000-4000-8000-000000000001&task=00000000-0000-4000-8000-000000000002&artifact=00000000-0000-4000-8000-000000000004&view=tasks",
+    "defectReproduced": false
+  },
+  "cleanupFailure": {
+    "inlineFinalizerPresent": false,
+    "sharedFinalizerUsed": true,
+    "loggedCleanupError": true,
+    "reportedPassed": false,
+    "reportedRemainingProcesses": 1,
+    "exitCode": 1,
+    "defectReproduced": false
+  }
+}

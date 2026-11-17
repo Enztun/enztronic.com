@@ -1,0 +1,20 @@
+﻿{
+    "run":  "20261108-062714-5fe211aa",
+    "functionalPassed":  false,
+    "checks":  0,
+    "boundary":  "isolated development build",
+    "reason":  "Next.js cross-drive dependency junction produced ./D:/ client entry paths from a C: snapshot",
+    "productionUsed":  false,
+    "fixtureRoot":  "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\acceptance-20261108-062714-5fe211aa",
+    "cleanup":  {
+                    "ownedAppPid":  35028,
+                    "ownedHarnessPid":  44388,
+                    "ownedClusterStopped":  true,
+                    "portsClosed":  [
+                                        3138,
+                                        55499
+                                    ],
+                    "productionProcessesStopped":  false
+                },
+    "correction":  "Fresh snapshot uses a C: copy of installed dependencies; no package installation or source dependency modification"
+}

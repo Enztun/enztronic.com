@@ -1,0 +1,28 @@
+{
+  "patch": "D:\\Enztronic\\apps\\backoffice\\docs\\office\\CODEX-FINAL-CORRECTION-2026-11-06.diff",
+  "sha256": "6cf64b96a1e878983a7130bd4ffb87bbbdc12299d57a3800df9f2fc18b2eb52c",
+  "files": [
+    {
+      "path": "apps/backoffice/src/components/office/OfficeView.tsx",
+      "sha256": "c39aa9d713979c70c3fdfc592c349d0d781e48b059f69e53f3a1cdf504aba363"
+    },
+    {
+      "path": "apps/backoffice/src/components/office/OfficeTaskDetail.tsx",
+      "sha256": "935973db9529198ec040613a3d42738366ebadffbbccfb2acf3ace84409fe0c3"
+    },
+    {
+      "path": "apps/backoffice/scripts/office-acceptance/run.mjs",
+      "sha256": "a615f8f7ad1d604921383276c68735d435c491f3216b8fc9b8effb1dd26cfa50"
+    },
+    {
+      "path": "apps/backoffice/src/components/office/office-selection.ts",
+      "sha256": "a74f20b46f2cd687a3b9016b4704a40a7634278881d2a1596a5fc71fd92cc19f"
+    },
+    {
+      "path": "apps/backoffice/src/components/office/office-selection.test.ts",
+      "sha256": "a624978e0553a88f98699ae808ddb9d12c887ab2d6afbc993f8059ae9a6ce360"
+    }
+  ],
+  "replay": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-codex-final-correction-20261106\\patch-replay-tftvl5rp",
+  "allFilesByteIdentical": true
+}

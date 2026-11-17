@@ -1,0 +1,9 @@
+{
+  "name": "@enztronic/office-worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": { "start": "tsx src/index.ts", "typecheck": "tsc --noEmit", "test:lifecycle": "node --import tsx --test test/lifecycle.test.mjs" },
+  "dependencies": { "postgres": "^3.4.9", "tsx": "^4.23.15", "zod": "^4.4.3" },
+  "devDependencies": { "@types/node": "^26.1.1", "typescript": "^5.9.3" }
+}

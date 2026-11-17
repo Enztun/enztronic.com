@@ -1,0 +1,1524 @@
+{
+  "status": "UNAPPROVED_TECHNICAL_AND_ART_PROOF",
+  "blender_version": "4.5.14 LTS",
+  "generator": "scripts/office-modeling/sam_proof.py",
+  "reference": "office-spec/visuals/reference/sam.png; viewed and interpreted, never texture-mapped",
+  "axes": {
+    "native": "right-handed meters, Z-up, -Y forward",
+    "glb": "right-handed meters, Y-up, +Z forward"
+  },
+  "geometry": {
+    "vertices": 5861,
+    "triangles": 11299,
+    "materials": 3,
+    "textures": [],
+    "uv_usage": "none; authored vertex colors with PBR materials",
+    "skins": 1,
+    "deform_bones": 22,
+    "max_vertex_influences": 2
+  },
+  "bone_map": [
+    {
+      "name": "root",
+      "parent": null,
+      "head_blender_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tail_blender_m": [
+        0.0,
+        0.0,
+        0.11999999731779099
+      ],
+      "deform": true
+    },
+    {
+      "name": "pelvis",
+      "parent": "root",
+      "head_blender_m": [
+        0.0,
+        0.0,
+        0.9700000286102295
+      ],
+      "tail_blender_m": [
+        0.0,
+        0.0,
+        1.0700000524520874
+      ],
+      "deform": true
+    },
+    {
+      "name": "spine",
+      "parent": "pelvis",
+      "head_blender_m": [
+        0.0,
+        0.0,
+        1.0700000524520874
+      ],
+      "tail_blender_m": [
+        0.0,
+        0.0,
+        1.25
+      ],
+      "deform": true
+    },
+    {
+      "name": "chest",
+      "parent": "spine",
+      "head_blender_m": [
+        0.0,
+        0.0,
+        1.25
+      ],
+      "tail_blender_m": [
+        0.0,
+        0.0,
+        1.4049999713897705
+      ],
+      "deform": true
+    },
+    {
+      "name": "neck",
+      "parent": "chest",
+      "head_blender_m": [
+        0.0,
+        0.0,
+        1.4049999713897705
+      ],
+      "tail_blender_m": [
+        0.0,
+        0.0,
+        1.5199999809265137
+      ],
+      "deform": true
+    },
+    {
+      "name": "head",
+      "parent": "neck",
+      "head_blender_m": [
+        0.0,
+        0.0,
+        1.5199999809265137
+      ],
+      "tail_blender_m": [
+        0.0,
+        0.0,
+        1.7699999809265137
+      ],
+      "deform": true
+    },
+    {
+      "name": "clavicle.L",
+      "parent": "chest",
+      "head_blender_m": [
+        0.0,
+        0.0,
+        1.3899999856948853
+      ],
+      "tail_blender_m": [
+        0.20499999821186066,
+        0.0,
+        1.3899999856948853
+      ],
+      "deform": true
+    },
+    {
+      "name": "upper_arm.L",
+      "parent": "clavicle.L",
+      "head_blender_m": [
+        0.20499999821186066,
+        0.0,
+        1.3899999856948853
+      ],
+      "tail_blender_m": [
+        0.35499998927116394,
+        -0.00800000037997961,
+        1.1720000505447388
+      ],
+      "deform": true
+    },
+    {
+      "name": "forearm.L",
+      "parent": "upper_arm.L",
+      "head_blender_m": [
+        0.35499998927116394,
+        -0.00800000037997961,
+        1.1720000505447388
+      ],
+      "tail_blender_m": [
+        0.42500001192092896,
+        -0.023000000044703484,
+        0.9670000076293945
+      ],
+      "deform": true
+    },
+    {
+      "name": "hand.L",
+      "parent": "forearm.L",
+      "head_blender_m": [
+        0.42500001192092896,
+        -0.023000000044703484,
+        0.9670000076293945
+      ],
+      "tail_blender_m": [
+        0.4440000057220459,
+        -0.027000000700354576,
+        0.8489999771118164
+      ],
+      "deform": true
+    },
+    {
+      "name": "clavicle.R",
+      "parent": "chest",
+      "head_blender_m": [
+        0.0,
+        0.0,
+        1.3899999856948853
+      ],
+      "tail_blender_m": [
+        -0.20499999821186066,
+        0.0,
+        1.3899999856948853
+      ],
+      "deform": true
+    },
+    {
+      "name": "upper_arm.R",
+      "parent": "clavicle.R",
+      "head_blender_m": [
+        -0.20499999821186066,
+        0.0,
+        1.3899999856948853
+      ],
+      "tail_blender_m": [
+        -0.35499998927116394,
+        -0.00800000037997961,
+        1.1720000505447388
+      ],
+      "deform": true
+    },
+    {
+      "name": "forearm.R",
+      "parent": "upper_arm.R",
+      "head_blender_m": [
+        -0.35499998927116394,
+        -0.00800000037997961,
+        1.1720000505447388
+      ],
+      "tail_blender_m": [
+        -0.42500001192092896,
+        -0.023000000044703484,
+        0.9670000076293945
+      ],
+      "deform": true
+    },
+    {
+      "name": "hand.R",
+      "parent": "forearm.R",
+      "head_blender_m": [
+        -0.42500001192092896,
+        -0.023000000044703484,
+        0.9670000076293945
+      ],
+      "tail_blender_m": [
+        -0.4440000057220459,
+        -0.027000000700354576,
+        0.8489999771118164
+      ],
+      "deform": true
+    },
+    {
+      "name": "thigh.L",
+      "parent": "pelvis",
+      "head_blender_m": [
+        0.09799999743700027,
+        0.0,
+        0.949999988079071
+      ],
+      "tail_blender_m": [
+        0.09799999743700027,
+        -0.006000000052154064,
+        0.5299999713897705
+      ],
+      "deform": true
+    },
+    {
+      "name": "shin.L",
+      "parent": "thigh.L",
+      "head_blender_m": [
+        0.09799999743700027,
+        -0.006000000052154064,
+        0.5299999713897705
+      ],
+      "tail_blender_m": [
+        0.09799999743700027,
+        0.0,
+        0.10999999940395355
+      ],
+      "deform": true
+    },
+    {
+      "name": "foot.L",
+      "parent": "shin.L",
+      "head_blender_m": [
+        0.09799999743700027,
+        0.0,
+        0.10999999940395355
+      ],
+      "tail_blender_m": [
+        0.09799999743700027,
+        -0.15600000321865082,
+        0.052000001072883606
+      ],
+      "deform": true
+    },
+    {
+      "name": "toe.L",
+      "parent": "foot.L",
+      "head_blender_m": [
+        0.09799999743700027,
+        -0.15600000321865082,
+        0.052000001072883606
+      ],
+      "tail_blender_m": [
+        0.09799999743700027,
+        -0.18799999356269836,
+        0.052000001072883606
+      ],
+      "deform": true
+    },
+    {
+      "name": "thigh.R",
+      "parent": "pelvis",
+      "head_blender_m": [
+        -0.09799999743700027,
+        0.0,
+        0.949999988079071
+      ],
+      "tail_blender_m": [
+        -0.09799999743700027,
+        -0.006000000052154064,
+        0.5299999713897705
+      ],
+      "deform": true
+    },
+    {
+      "name": "shin.R",
+      "parent": "thigh.R",
+      "head_blender_m": [
+        -0.09799999743700027,
+        -0.006000000052154064,
+        0.5299999713897705
+      ],
+      "tail_blender_m": [
+        -0.09799999743700027,
+        0.0,
+        0.10999999940395355
+      ],
+      "deform": true
+    },
+    {
+      "name": "foot.R",
+      "parent": "shin.R",
+      "head_blender_m": [
+        -0.09799999743700027,
+        0.0,
+        0.10999999940395355
+      ],
+      "tail_blender_m": [
+        -0.09799999743700027,
+        -0.15600000321865082,
+        0.052000001072883606
+      ],
+      "deform": true
+    },
+    {
+      "name": "toe.R",
+      "parent": "foot.R",
+      "head_blender_m": [
+        -0.09799999743700027,
+        -0.15600000321865082,
+        0.052000001072883606
+      ],
+      "tail_blender_m": [
+        -0.09799999743700027,
+        -0.18799999356269836,
+        0.052000001072883606
+      ],
+      "deform": true
+    }
+  ],
+  "clips": [
+    {
+      "name": "idle_stand",
+      "duration_seconds": 3,
+      "frames": [
+        0,
+        72
+      ],
+      "fps": 24,
+      "root_horizontal_motion_m": 0,
+      "loop": true
+    },
+    {
+      "name": "walk",
+      "duration_seconds": 1,
+      "frames": [
+        0,
+        24
+      ],
+      "fps": 24,
+      "root_horizontal_motion_m": 0,
+      "loop": true
+    },
+    {
+      "name": "seated_idle",
+      "duration_seconds": 4,
+      "frames": [
+        0,
+        96
+      ],
+      "fps": 24,
+      "root_horizontal_motion_m": 0,
+      "loop": true
+    },
+    {
+      "name": "seated_work",
+      "duration_seconds": 4,
+      "frames": [
+        0,
+        96
+      ],
+      "fps": 24,
+      "root_horizontal_motion_m": 0,
+      "loop": true
+    },
+    {
+      "name": "sit_down",
+      "duration_seconds": 1.25,
+      "frames": [
+        0,
+        30
+      ],
+      "fps": 24,
+      "root_horizontal_motion_m": 0,
+      "loop": false
+    },
+    {
+      "name": "stand_up",
+      "duration_seconds": 1.25,
+      "frames": [
+        0,
+        30
+      ],
+      "fps": 24,
+      "root_horizontal_motion_m": 0,
+      "loop": false
+    },
+    {
+      "name": "handoff_gesture",
+      "duration_seconds": 2,
+      "frames": [
+        0,
+        48
+      ],
+      "fps": 24,
+      "root_horizontal_motion_m": 0,
+      "loop": false
+    }
+  ],
+  "sampled_deformed_bounds": {
+    "idle_stand": [
+      {
+        "normalized_time": 0,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.35654065012931824,
+            -0.16408586502075195,
+            0.005994281265884638
+          ],
+          "max_blender_xyz": [
+            0.35654065012931824,
+            0.12200000137090683,
+            1.8198621273040771
+          ],
+          "dimensions_m": [
+            0.7130813002586365,
+            0.2860858663916588,
+            1.8138678460381925
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.9700000286102295
+        ]
+      },
+      {
+        "normalized_time": 0.25,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.356536865234375,
+            -0.16408586502075195,
+            0.005994281265884638
+          ],
+          "max_blender_xyz": [
+            0.356536865234375,
+            0.12146000564098358,
+            1.8199554681777954
+          ],
+          "dimensions_m": [
+            0.71307373046875,
+            0.28554587066173553,
+            1.8139611869119108
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.9700000286102295
+        ]
+      },
+      {
+        "normalized_time": 0.5,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.35654065012931824,
+            -0.16408586502075195,
+            0.005994281265884638
+          ],
+          "max_blender_xyz": [
+            0.35654065012931824,
+            0.12200000137090683,
+            1.8198621273040771
+          ],
+          "dimensions_m": [
+            0.7130813002586365,
+            0.2860858663916588,
+            1.8138678460381925
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.9700000286102295
+        ]
+      },
+      {
+        "normalized_time": 0.75,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.3565385341644287,
+            -0.16408586502075195,
+            0.005994281265884638
+          ],
+          "max_blender_xyz": [
+            0.3565385341644287,
+            0.12253999710083008,
+            1.8197154998779297
+          ],
+          "dimensions_m": [
+            0.7130770683288574,
+            0.28662586212158203,
+            1.813721218612045
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.9700000286102295
+        ]
+      },
+      {
+        "normalized_time": 1,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.35654065012931824,
+            -0.16408586502075195,
+            0.005994281265884638
+          ],
+          "max_blender_xyz": [
+            0.35654065012931824,
+            0.12200000137090683,
+            1.8198621273040771
+          ],
+          "dimensions_m": [
+            0.7130813002586365,
+            0.2860858663916588,
+            1.8138678460381925
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.9700000286102295
+        ]
+      }
+    ],
+    "walk": [
+      {
+        "normalized_time": 0,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.3584933280944824,
+            -0.36408722400665283,
+            0.005994461476802826
+          ],
+          "max_blender_xyz": [
+            0.3584933280944824,
+            0.2840871214866638,
+            1.7938621044158936
+          ],
+          "dimensions_m": [
+            0.7169866561889648,
+            0.6481743454933167,
+            1.7878676429390907
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.9440000057220459
+        ]
+      },
+      {
+        "normalized_time": 0.25,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.3577459454536438,
+            -0.2586064338684082,
+            0.005994478240609169
+          ],
+          "max_blender_xyz": [
+            0.3578800857067108,
+            0.13584327697753906,
+            1.79384446144104
+          ],
+          "dimensions_m": [
+            0.7156260311603546,
+            0.39444971084594727,
+            1.7878499832004309
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.9440000057220459
+        ]
+      },
+      {
+        "normalized_time": 0.5,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.3584933280944824,
+            -0.36408722400665283,
+            0.005994461476802826
+          ],
+          "max_blender_xyz": [
+            0.3584933280944824,
+            0.2840871214866638,
+            1.7938621044158936
+          ],
+          "dimensions_m": [
+            0.7169866561889648,
+            0.6481743454933167,
+            1.7878676429390907
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.9440000057220459
+        ]
+      },
+      {
+        "normalized_time": 0.75,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.3577754497528076,
+            -0.2586064338684082,
+            0.005994478240609169
+          ],
+          "max_blender_xyz": [
+            0.3578506410121918,
+            0.13598546385765076,
+            1.79384446144104
+          ],
+          "dimensions_m": [
+            0.7156260907649994,
+            0.39459189772605896,
+            1.7878499832004309
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.9440000057220459
+        ]
+      },
+      {
+        "normalized_time": 1,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.3584933280944824,
+            -0.36408722400665283,
+            0.005994461476802826
+          ],
+          "max_blender_xyz": [
+            0.3584933280944824,
+            0.2840871214866638,
+            1.7938621044158936
+          ],
+          "dimensions_m": [
+            0.7169866561889648,
+            0.6481743454933167,
+            1.7878676429390907
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.9440000057220459
+        ]
+      }
+    ],
+    "seated_idle": [
+      {
+        "normalized_time": 0,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.2844265401363373,
+            -0.5790886878967285,
+            0.005997025407850742
+          ],
+          "max_blender_xyz": [
+            0.2844265401363373,
+            0.11497826874256134,
+            1.4147028923034668
+          ],
+          "dimensions_m": [
+            0.5688530802726746,
+            0.6940669566392899,
+            1.408705866895616
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.565000057220459
+        ]
+      },
+      {
+        "normalized_time": 0.25,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.2844458222389221,
+            -0.5790886878967285,
+            0.005997025407850742
+          ],
+          "max_blender_xyz": [
+            0.2844458222389221,
+            0.11443883180618286,
+            1.4146884679794312
+          ],
+          "dimensions_m": [
+            0.5688916444778442,
+            0.6935275197029114,
+            1.4086914425715804
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.565000057220459
+        ]
+      },
+      {
+        "normalized_time": 0.5,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.2844265401363373,
+            -0.5790886878967285,
+            0.005997025407850742
+          ],
+          "max_blender_xyz": [
+            0.2844265401363373,
+            0.11497826874256134,
+            1.4147028923034668
+          ],
+          "dimensions_m": [
+            0.5688530802726746,
+            0.6940669566392899,
+            1.408705866895616
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.565000057220459
+        ]
+      },
+      {
+        "normalized_time": 0.75,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.2844073176383972,
+            -0.5790886878967285,
+            0.005997025407850742
+          ],
+          "max_blender_xyz": [
+            0.2844073176383972,
+            0.11551781743764877,
+            1.4147155284881592
+          ],
+          "dimensions_m": [
+            0.5688146352767944,
+            0.6946065053343773,
+            1.4087185030803084
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.565000057220459
+        ]
+      },
+      {
+        "normalized_time": 1,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.2844265401363373,
+            -0.5790886878967285,
+            0.005997025407850742
+          ],
+          "max_blender_xyz": [
+            0.2844265401363373,
+            0.11497826874256134,
+            1.4147028923034668
+          ],
+          "dimensions_m": [
+            0.5688530802726746,
+            0.6940669566392899,
+            1.408705866895616
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.565000057220459
+        ]
+      }
+    ],
+    "seated_work": [
+      {
+        "normalized_time": 0,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.2845878005027771,
+            -0.5790886878967285,
+            0.005997025407850742
+          ],
+          "max_blender_xyz": [
+            0.2844265401363373,
+            0.11497826874256134,
+            1.4147028923034668
+          ],
+          "dimensions_m": [
+            0.5690143406391144,
+            0.6940669566392899,
+            1.408705866895616
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.565000057220459
+        ]
+      },
+      {
+        "normalized_time": 0.25,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.2841685116291046,
+            -0.5790886878967285,
+            0.005997025407850742
+          ],
+          "max_blender_xyz": [
+            0.2844265401363373,
+            0.11497826874256134,
+            1.4147028923034668
+          ],
+          "dimensions_m": [
+            0.5685950517654419,
+            0.6940669566392899,
+            1.408705866895616
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.565000057220459
+        ]
+      },
+      {
+        "normalized_time": 0.5,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.2845878005027771,
+            -0.5790886878967285,
+            0.005997025407850742
+          ],
+          "max_blender_xyz": [
+            0.2844265401363373,
+            0.11497826874256134,
+            1.4147028923034668
+          ],
+          "dimensions_m": [
+            0.5690143406391144,
+            0.6940669566392899,
+            1.408705866895616
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.565000057220459
+        ]
+      },
+      {
+        "normalized_time": 0.75,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.2841685116291046,
+            -0.5790886878967285,
+            0.005997025407850742
+          ],
+          "max_blender_xyz": [
+            0.2844265401363373,
+            0.11497826874256134,
+            1.4147028923034668
+          ],
+          "dimensions_m": [
+            0.5685950517654419,
+            0.6940669566392899,
+            1.408705866895616
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.565000057220459
+        ]
+      },
+      {
+        "normalized_time": 1,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.2845878005027771,
+            -0.5790886878967285,
+            0.005997025407850742
+          ],
+          "max_blender_xyz": [
+            0.2844265401363373,
+            0.11497826874256134,
+            1.4147028923034668
+          ],
+          "dimensions_m": [
+            0.5690143406391144,
+            0.6940669566392899,
+            1.408705866895616
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.565000057220459
+        ]
+      }
+    ],
+    "sit_down": [
+      {
+        "normalized_time": 0,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.35654065012931824,
+            -0.16408586502075195,
+            0.005994281265884638
+          ],
+          "max_blender_xyz": [
+            0.35654065012931824,
+            0.12200000137090683,
+            1.8198621273040771
+          ],
+          "dimensions_m": [
+            0.7130813002586365,
+            0.2860858663916588,
+            1.8138678460381925
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.9700000286102295
+        ]
+      },
+      {
+        "normalized_time": 0.25,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.42990827560424805,
+            -0.2533298134803772,
+            0.005994685925543308
+          ],
+          "max_blender_xyz": [
+            0.42990827560424805,
+            0.1207786500453949,
+            1.7488172054290771
+          ],
+          "dimensions_m": [
+            0.8598165512084961,
+            0.3741084635257721,
+            1.7428225195035338
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.8989600539207458
+        ]
+      },
+      {
+        "normalized_time": 0.5,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.3995029926300049,
+            -0.3893628716468811,
+            0.005995619110763073
+          ],
+          "max_blender_xyz": [
+            0.3995029926300049,
+            0.11850668489933014,
+            1.6173222064971924
+          ],
+          "dimensions_m": [
+            0.7990059852600098,
+            0.5078695565462112,
+            1.6113265873864293
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.7675000429153442
+        ]
+      },
+      {
+        "normalized_time": 0.75,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.3213878870010376,
+            -0.5062941312789917,
+            0.0059964354149997234
+          ],
+          "max_blender_xyz": [
+            0.3213878870010376,
+            0.11621993035078049,
+            1.4857937097549438
+          ],
+          "dimensions_m": [
+            0.6427757740020752,
+            0.6225140616297722,
+            1.4797972743399441
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.6360400319099426
+        ]
+      },
+      {
+        "normalized_time": 1,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.2844265401363373,
+            -0.5790886878967285,
+            0.005997025407850742
+          ],
+          "max_blender_xyz": [
+            0.2844265401363373,
+            0.11497826874256134,
+            1.4147028923034668
+          ],
+          "dimensions_m": [
+            0.5688530802726746,
+            0.6940669566392899,
+            1.408705866895616
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.565000057220459
+        ]
+      }
+    ],
+    "stand_up": [
+      {
+        "normalized_time": 0,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.2844265401363373,
+            -0.5790886878967285,
+            0.005997025407850742
+          ],
+          "max_blender_xyz": [
+            0.2844265401363373,
+            0.11497826874256134,
+            1.4147028923034668
+          ],
+          "dimensions_m": [
+            0.5688530802726746,
+            0.6940669566392899,
+            1.408705866895616
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.565000057220459
+        ]
+      },
+      {
+        "normalized_time": 0.25,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.3213878870010376,
+            -0.5062941312789917,
+            0.0059964354149997234
+          ],
+          "max_blender_xyz": [
+            0.3213878870010376,
+            0.11621993035078049,
+            1.4857937097549438
+          ],
+          "dimensions_m": [
+            0.6427757740020752,
+            0.6225140616297722,
+            1.4797972743399441
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.6360400319099426
+        ]
+      },
+      {
+        "normalized_time": 0.5,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.3995029926300049,
+            -0.3893628716468811,
+            0.005995619110763073
+          ],
+          "max_blender_xyz": [
+            0.3995029926300049,
+            0.11850668489933014,
+            1.6173222064971924
+          ],
+          "dimensions_m": [
+            0.7990059852600098,
+            0.5078695565462112,
+            1.6113265873864293
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.7675000429153442
+        ]
+      },
+      {
+        "normalized_time": 0.75,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.42990827560424805,
+            -0.2533298134803772,
+            0.005994685925543308
+          ],
+          "max_blender_xyz": [
+            0.42990827560424805,
+            0.1207786500453949,
+            1.7488172054290771
+          ],
+          "dimensions_m": [
+            0.8598165512084961,
+            0.3741084635257721,
+            1.7428225195035338
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.8989600539207458
+        ]
+      },
+      {
+        "normalized_time": 1,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.35654065012931824,
+            -0.16408586502075195,
+            0.005994281265884638
+          ],
+          "max_blender_xyz": [
+            0.35654065012931824,
+            0.12200000137090683,
+            1.8198621273040771
+          ],
+          "dimensions_m": [
+            0.7130813002586365,
+            0.2860858663916588,
+            1.8138678460381925
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.9700000286102295
+        ]
+      }
+    ],
+    "handoff_gesture": [
+      {
+        "normalized_time": 0,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.35654065012931824,
+            -0.16408586502075195,
+            0.005994281265884638
+          ],
+          "max_blender_xyz": [
+            0.35654065012931824,
+            0.12200000137090683,
+            1.8198621273040771
+          ],
+          "dimensions_m": [
+            0.7130813002586365,
+            0.2860858663916588,
+            1.8138678460381925
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.9700000286102295
+        ]
+      },
+      {
+        "normalized_time": 0.25,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.35653752088546753,
+            -0.36672359704971313,
+            0.005994281265884638
+          ],
+          "max_blender_xyz": [
+            0.35366398096084595,
+            0.12200000137090683,
+            1.8198621273040771
+          ],
+          "dimensions_m": [
+            0.7102015018463135,
+            0.48872359842061996,
+            1.8138678460381925
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.9700000286102295
+        ]
+      },
+      {
+        "normalized_time": 0.5,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.35654065012931824,
+            -0.441104531288147,
+            0.005994281265884638
+          ],
+          "max_blender_xyz": [
+            0.34964990615844727,
+            0.12200000137090683,
+            1.8198621273040771
+          ],
+          "dimensions_m": [
+            0.7061905562877655,
+            0.5631045326590538,
+            1.8138678460381925
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.9700000286102295
+        ]
+      },
+      {
+        "normalized_time": 0.75,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.3565393090248108,
+            -0.3697361350059509,
+            0.005994281265884638
+          ],
+          "max_blender_xyz": [
+            0.3537139892578125,
+            0.12200000137090683,
+            1.8198621273040771
+          ],
+          "dimensions_m": [
+            0.7102532982826233,
+            0.49173613637685776,
+            1.8138678460381925
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.9700000286102295
+        ]
+      },
+      {
+        "normalized_time": 1,
+        "bounds": {
+          "min_blender_xyz": [
+            -0.35654065012931824,
+            -0.16408586502075195,
+            0.005994281265884638
+          ],
+          "max_blender_xyz": [
+            0.35654065012931824,
+            0.12200000137090683,
+            1.8198621273040771
+          ],
+          "dimensions_m": [
+            0.7130813002586365,
+            0.2860858663916588,
+            1.8138678460381925
+          ]
+        },
+        "root_head_blender_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pelvis_head_blender_m": [
+          0.0,
+          0.0,
+          0.9700000286102295
+        ]
+      }
+    ]
+  },
+  "proof_furniture": {
+    "desk_surface_y_m": 0.75,
+    "chair_seat_y_m": 0.47,
+    "front_direction": "native -Y / glTF +Z"
+  },
+  "acceptance": {
+    "identity": "pending human art review; stylized interpretation, not portrait likeness claimed",
+    "deformation": "pending visual and quantitative review of exported animation",
+    "full_docks": "pending all room anchors and actual furniture geometry",
+    "browser_loader": "pending: available IAB has no WebGL context",
+    "performance": "not measured; Blender CPU renders are not browser performance evidence",
+    "khronos_validator": "root implementation agent runs official validator against final bytes",
+    "production_approved": false
+  },
+  "provenance": {
+    "creator": "Procedurally authored by Codex for Enztronic in this workspace",
+    "external_meshes": [],
+    "external_textures": [],
+    "external_fonts": [],
+    "portrait": "owner supplied reference only; source rights require owner review",
+    "license": "No third-party model or texture license invented. Owner legal/source acceptance remains pending."
+  },
+  "glb": {
+    "path": "assets/office/characters/sam.glb",
+    "sha256": "d469999d47c2a07d6bea1570aa0de7d1e1025354e05e176a29a4851ff7a7071f",
+    "bytes": 740672
+  }
+}

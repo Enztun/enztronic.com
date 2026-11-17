@@ -1,0 +1,1292 @@
+{
+  "source": "D:\\Enztronic\\apps\\backoffice",
+  "destination": "D:\\tmp\\claude-office-build-20261105-173613\\app",
+  "files": 257,
+  "entries": [
+    {
+      "path": ".gitignore",
+      "bytes": 394,
+      "sha256": "90eac1a341bd73635d2b5412fb2c3965cb78a56dadee19165aa8523eeb51d79a"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 679,
+      "sha256": "063098f6cb31bb44c6f8fbea25b3876de7ee1e5f7d00a50dbab506f6415eb7f0"
+    },
+    {
+      "path": "database/migrations/001_init.sql",
+      "bytes": 20951,
+      "sha256": "907de290abdb4714a2e51b2fa2595b48822a00154245e502897828ea0082f8e1"
+    },
+    {
+      "path": "database/migrations/002_users_and_ownership.sql",
+      "bytes": 2474,
+      "sha256": "f2ca6f7f81c22d9677fedc2b5782476fa664fc53a4a09330f7890d669da13748"
+    },
+    {
+      "path": "database/migrations/003_office.sql",
+      "bytes": 24125,
+      "sha256": "d4a84915bfd40831bb3c16aa48c3eeed49fd8a1a397dd9ececdfe20af1a7a0db"
+    },
+    {
+      "path": "database/README.md",
+      "bytes": 803,
+      "sha256": "6946e8b6660fef705f799e42661f46064619de57d1d6a31205575fa6f6aecc6f"
+    },
+    {
+      "path": "docs/BACKOFFICE-RECOVERY-2026-11-04.md",
+      "bytes": 7744,
+      "sha256": "36012f036b2664e5bbb51f264ef9a5a68da0a19c4d91d758781239ea2d6ea2a4"
+    },
+    {
+      "path": "docs/CLOUDFLARE_SETUP.md",
+      "bytes": 6742,
+      "sha256": "cb61b64adca1f712c24e8901c1586909ee296b810dcee8ced0b55f71f347a9d2"
+    },
+    {
+      "path": "docs/office-assets.md",
+      "bytes": 14253,
+      "sha256": "9e52d6f9bbff308de4e39f03b967d5777c3bef2469801d73030f534ba72adb57"
+    },
+    {
+      "path": "docs/office/ACTIVATION-AND-ROLLBACK.md",
+      "bytes": 4405,
+      "sha256": "4418606e6d7fa5259e436a2c2a27a731167740e5a08f6ab499df6481982f468e"
+    },
+    {
+      "path": "docs/office/asset-status.json",
+      "bytes": 18590,
+      "sha256": "1be4d81cef8b899b7d039142ae341117283162f469338b8e64c2716f3eac7f4c"
+    },
+    {
+      "path": "docs/office/BASELINE.md",
+      "bytes": 2786,
+      "sha256": "70a1076127a3a706435c869cb7f971f22d7bb5e88e20e7cb0ab0f903b1ff7519"
+    },
+    {
+      "path": "docs/office/CLAUDE-OPUS-5.5-HANDOFF-2026-11-04.md",
+      "bytes": 16501,
+      "sha256": "192be472f0deb5dfa3c3d6f6935a0620c0ae655c97a01cbae2391e55c052c18f"
+    },
+    {
+      "path": "docs/office/CLAUDE-REVIEW-FIXES-2026-11-05.diff",
+      "bytes": 209611,
+      "sha256": "77c05fe2f3368ede682b79f25e33370fd46275841a95246ab0ee22d8c8f11852"
+    },
+    {
+      "path": "docs/office/CLAUDE-REVIEW-FIXES-HANDOFF-2026-11-05.md",
+      "bytes": 13209,
+      "sha256": "7946287f66209798f365b5f32491f0cfc172faefb33148f379b9e64ae3e0f1b8"
+    },
+    {
+      "path": "docs/office/CLAUDE-WORKFLOW-2026-11-04.diff",
+      "bytes": 326516,
+      "sha256": "89ff370836d16a9fc472adcd44c43f2a436b4510a731fa295860eb10a60aed5a"
+    },
+    {
+      "path": "docs/office/claude-workflow-acceptance-2026-11-05.json",
+      "bytes": 43266,
+      "sha256": "47554b7deac6d94f70d88264340f53d939e1f0425a6af70aa16b75ab572f1e19"
+    },
+    {
+      "path": "docs/office/CLAUDE-WORKFLOW-REPORT-2026-11-04.md",
+      "bytes": 24836,
+      "sha256": "62197143aabb983670a93052df075bd81a3ee0021e3eded302989df12edb51f8"
+    },
+    {
+      "path": "docs/office/CODEX-INDEPENDENT-REVIEW-2026-11-05.md",
+      "bytes": 10158,
+      "sha256": "18a6c8a37860cccb6e946d35c8f0a336a8e2245ace6118a46c14ab680de20a1b"
+    },
+    {
+      "path": "docs/office/continuation-backup-check.json",
+      "bytes": 6623,
+      "sha256": "3ecc25b93e1f468a5ace6d0b938b2937946b548ecfbb64db4d0535f6e4fa2ff3"
+    },
+    {
+      "path": "docs/office/continuation-browser-worker-proof.json",
+      "bytes": 3418,
+      "sha256": "4a6c7c4faf3377cb89e3ada2bcd69b4b47f575042cdd7954de8383e24cb3e939"
+    },
+    {
+      "path": "docs/office/demo-browser-proof.json",
+      "bytes": 7932,
+      "sha256": "02f35c181678ec084d3c2db4975d0fe043d7f5bfbd5d33c5475e821e4fe156c2"
+    },
+    {
+      "path": "docs/office/disposable-backup-check.json",
+      "bytes": 2679,
+      "sha256": "3f6b2b6f1c0056d0498091ac6207fd5fe7dec4fcc5052f4d88fda578c971d026"
+    },
+    {
+      "path": "docs/office/environment-proof.md",
+      "bytes": 6224,
+      "sha256": "6175290178abf376494715eac12e98d3529a2e6240dcb07c62fc1171ab786efb"
+    },
+    {
+      "path": "docs/office/IMPLEMENTATION-REPORT.md",
+      "bytes": 14174,
+      "sha256": "223106385b36ec32bb561a11207178447b173fafc3b433222c01aa882756db73"
+    },
+    {
+      "path": "docs/office/MODELING-TOOL-PROVENANCE.json",
+      "bytes": 900,
+      "sha256": "7551b456fc0121db2d92ec0f84fcfdb8911b3a5d4217ea596f7c42fbdb28a0d1"
+    },
+    {
+      "path": "docs/office/PROPOSED-LIVE-PILOT.md",
+      "bytes": 4376,
+      "sha256": "90b0a6341bfbb612990620d893dfde0cdbe0a288264d61e4c5a9b39e1fa16c2c"
+    },
+    {
+      "path": "docs/office/sam-proof.md",
+      "bytes": 7807,
+      "sha256": "c00f644438e8febecc3ca73436392cad6bac8c8fbe2400ffb9696868bfa96ffb"
+    },
+    {
+      "path": "docs/office/screenshots/claude-workflow-01-dashboard-before-work.png",
+      "bytes": 168694,
+      "sha256": "45857234c0905ab00aff6f257643ecec0bf30b38f7dd788e952ff8813627b574"
+    },
+    {
+      "path": "docs/office/screenshots/claude-workflow-02-brief-persistence-banner.png",
+      "bytes": 101383,
+      "sha256": "d0e2a03faf291beee660f4d666411b7425ee90205114b80e3b1168bed9447f1f"
+    },
+    {
+      "path": "docs/office/screenshots/claude-workflow-03-saved-task-queued-not-executing.png",
+      "bytes": 253557,
+      "sha256": "0b22ad53f53621eb23a4840f39f35d8adad875a22e30a7d02d35f3212fab96b5"
+    },
+    {
+      "path": "docs/office/screenshots/claude-workflow-04-reload-preserves-task-and-brief.png",
+      "bytes": 246257,
+      "sha256": "e12db3d4c8beb9dffa6844a0e63a4e32194e782607847065fe2a97a969a277c0"
+    },
+    {
+      "path": "docs/office/screenshots/claude-workflow-05-uncertain-save-locked.png",
+      "bytes": 118090,
+      "sha256": "d630043703de76f843a05c6aef7eb40f97142b165328ca140e009460bf006299"
+    },
+    {
+      "path": "docs/office/screenshots/claude-workflow-06-uncertain-reconciled-no-duplicate.png",
+      "bytes": 226050,
+      "sha256": "d828c26eb23bfcbe9a2830466abb2bdb509a1d264679425ac08d895b3bca8054"
+    },
+    {
+      "path": "docs/office/screenshots/claude-workflow-07-conflict-rejected-text-kept.png",
+      "bytes": 97867,
+      "sha256": "584e02d8a56d98a02cd20d96cb446e53c40fbcc947bb2e19a889db157daf6ddf"
+    },
+    {
+      "path": "docs/office/screenshots/claude-workflow-08-session-denied-text-kept.png",
+      "bytes": 98644,
+      "sha256": "1b3a6d11856a0f72ff78c4894c2226ebe44b7d6bb53a1cdd38aec12664f792c9"
+    },
+    {
+      "path": "docs/office/screenshots/claude-workflow-09-offline-text-kept.png",
+      "bytes": 91265,
+      "sha256": "bb0b70bf51ab6a42fe34ea71ababfda763d855fc8ff435201df95a4563d9ffd3"
+    },
+    {
+      "path": "docs/office/screenshots/claude-workflow-10-worker-stopped-stalled-lease.png",
+      "bytes": 249533,
+      "sha256": "9acd93a15b3ecf00f2f287284ea745738a0763d4c510ffc19f8da64bad11a7f5"
+    },
+    {
+      "path": "docs/office/screenshots/claude-workflow-11-dashboard-awaiting-owner.png",
+      "bytes": 338502,
+      "sha256": "9d9186c96884935960223bd3626b0c28cad173caf0421f5f83870c347f99aa12"
+    },
+    {
+      "path": "docs/office/screenshots/claude-workflow-12-deep-link-exact-decision.png",
+      "bytes": 270507,
+      "sha256": "a8daf8a503c3f27ddd6f858262ae399db07e2631f402053a47bbaa68e34e22f2"
+    },
+    {
+      "path": "docs/office/screenshots/claude-workflow-13-role-status-evidence.png",
+      "bytes": 349802,
+      "sha256": "d755ab166bdd99b35c26ccda9f9ac7328510749a0446c8c51031a3daef6114cb"
+    },
+    {
+      "path": "docs/office/screenshots/claude-workflow-14-package-execution-and-evidence.png",
+      "bytes": 473243,
+      "sha256": "fa999a4e8454a9375ed8567ada8294f7424c40d2b7378a5a01b62be2022c091b"
+    },
+    {
+      "path": "docs/office/screenshots/claude-workflow-15-owner-accepted.png",
+      "bytes": 257042,
+      "sha256": "85030c9ffc2ec88bb510ae5c5bf25a8a52b7a96d2d7b81f3c0772011f35b5e4d"
+    },
+    {
+      "path": "docs/office/screenshots/claude-workflow-16-deep-link-cross-workspace-denied.png",
+      "bytes": 347217,
+      "sha256": "7737ddd7c2d85fd6f20d159f65d6b29e001687f5446f91c5fcdb97f4df32119b"
+    },
+    {
+      "path": "docs/office/screenshots/claude-workflow-17-dashboard-after-acceptance.png",
+      "bytes": 324110,
+      "sha256": "732a290b53b0df5c61a35975736d7cb464359c1087434ca0893ef9d8d7b4b7e1"
+    },
+    {
+      "path": "docs/office/screenshots/claude-workflow-18-sales-dashboard-no-office.png",
+      "bytes": 216991,
+      "sha256": "5e5731e3c56529d0de202ca9432a8b3edd5c56aecbd8fc6638f071fdcb19deec"
+    },
+    {
+      "path": "docs/office/screenshots/claude-workflow-19-sales-office-link-denied.png",
+      "bytes": 182367,
+      "sha256": "fb7265780bbf2169ed3c65ab5057240f9604fcbdd765f4d9bbeb87a172f2fed7"
+    },
+    {
+      "path": "docs/office/screenshots/continuation-completed.png",
+      "bytes": 77501,
+      "sha256": "15b79f15ea7a482dffb4b1b1c750074811dcf6c7e87bc54d950e027a90b2dd3c"
+    },
+    {
+      "path": "docs/office/screenshots/desktop-fallback.jpg",
+      "bytes": 150765,
+      "sha256": "3893b87a12a644ab9e619840067145d5d57f8c378fd778acb6629e2d5ac92fa1"
+    },
+    {
+      "path": "docs/office/screenshots/exact-revision-decision.jpg",
+      "bytes": 187088,
+      "sha256": "4bc448650a59109d0198cf67f93dff11ee7f81e63da718458fe739dec81c71f5"
+    },
+    {
+      "path": "docs/office/screenshots/live-configuration-required.jpg",
+      "bytes": 133727,
+      "sha256": "53119336e909bf5e14b3fde41f9eb08584b22bdb02f03361536850bdc9b336c1"
+    },
+    {
+      "path": "docs/office/screenshots/mobile-list.jpg",
+      "bytes": 94137,
+      "sha256": "a72e77d8706519dea47ca37db288b0fc49ab8f4a018d6d487a625062115e595a"
+    },
+    {
+      "path": "docs/office/screenshots/verified-office.jpg",
+      "bytes": 78736,
+      "sha256": "8877c9ccb43bd7fd01ee94b7e0b19b0b791c3dab48517e6d8964437da4a4fcb1"
+    },
+    {
+      "path": "docs/office/screenshots/verified-tasks.jpg",
+      "bytes": 155720,
+      "sha256": "6c94bc4596173e7e65b86e5642265a3e79e852b1babe9c91a359291393133554"
+    },
+    {
+      "path": "docs/office/screenshots/webgl-after-20261104.png",
+      "bytes": 58888,
+      "sha256": "055b8d1bd06f9e669b01b5e2c714c0412a16690a5d9f136bcc1ef63c5c5521c6"
+    },
+    {
+      "path": "docs/office/screenshots/webgl-before-20261104.png",
+      "bytes": 62240,
+      "sha256": "3d2f35409b0f90b1787f3b191d1f99ce73d23462a8fd9f335a82b0408b06b451"
+    },
+    {
+      "path": "docs/office/STATIC-MODEL-BATCHING.md",
+      "bytes": 3439,
+      "sha256": "5e1a3b3065b3adae7846e57a567528924afd10e982eb5b882a0e71ed38a3b613"
+    },
+    {
+      "path": "docs/office/WEBGL-PREVIEW-FIX-2026-11-04.md",
+      "bytes": 4779,
+      "sha256": "afff6c3fbae49d44ddf96707562beb23b1517f0f167c84adb339cfe1001caabf"
+    },
+    {
+      "path": "docs/office/WORKER-DATABASE-BOUNDARY.md",
+      "bytes": 5672,
+      "sha256": "2175eb6df7983e0935e10a6c4be400df47f15bff1c16698552c9ac27d3b8cdf4"
+    },
+    {
+      "path": "docs/office/WORKER-LIFECYCLE.md",
+      "bytes": 6648,
+      "sha256": "e1c2e1b4a0f26910443b76c675360d742f0681bef4a66f48180e1d36a271eea6"
+    },
+    {
+      "path": "email/InvoiceEmail.tsx",
+      "bytes": 4647,
+      "sha256": "d4c51f4fb8235d5ea2cc6dbef57e84b26eeffa7d7a64396ee004f129ac717407"
+    },
+    {
+      "path": "eslint.config.mjs",
+      "bytes": 514,
+      "sha256": "2ed1312b041f0ced48be62bccea5fc2a800240ddc4412514a066cc2382d6bd03"
+    },
+    {
+      "path": "next-env.d.ts",
+      "bytes": 314,
+      "sha256": "bed2862351032705aa7d54582e72227c95e99b215fd99716434733853b344200"
+    },
+    {
+      "path": "next.config.ts",
+      "bytes": 1163,
+      "sha256": "4bcbeabdb70723e61b0776d728958285c816f97ee2017c7bc7750d96eaee95bb"
+    },
+    {
+      "path": "office-assets/proof/assets/office/characters/sam.glb",
+      "bytes": 740672,
+      "sha256": "d469999d47c2a07d6bea1570aa0de7d1e1025354e05e176a29a4851ff7a7071f"
+    },
+    {
+      "path": "office-assets/proof/assets/office/office-shell.glb",
+      "bytes": 4684,
+      "sha256": "0920c07285a0165b3a23f409187d98c87a7e8bcc4f8d390528ed41e182ff51e6"
+    },
+    {
+      "path": "office-assets/proof/assets/office/studio-furniture.glb",
+      "bytes": 577312,
+      "sha256": "c4683fdf8d17f726c9fb3180c2121811c989fc62864fb52df568a8d46e67c353"
+    },
+    {
+      "path": "office-assets/proof/renders/environment-desk-detail.png",
+      "bytes": 1232929,
+      "sha256": "457225b3381dca27edf7268839741785fe0531f08d75b433ad60cdef1f7c35be"
+    },
+    {
+      "path": "office-assets/proof/renders/environment-overview.png",
+      "bytes": 1635867,
+      "sha256": "1a38a4b03fa08619a5147b38b3738579848281f42127f853b88620d37ca6a326"
+    },
+    {
+      "path": "office-assets/proof/renders/sam-face-three-quarter.png",
+      "bytes": 1221814,
+      "sha256": "28ff070474417d5c25a7414c184b1322e07097b2ffd73a7321245c6b8c4273b8"
+    },
+    {
+      "path": "office-assets/proof/renders/sam-initial-face-review.png",
+      "bytes": 1171759,
+      "sha256": "c98e04a7cdb4cb7e97e0ab8e04be17f50cdb42876557274b24aad3686206ef8d"
+    },
+    {
+      "path": "office-assets/proof/renders/sam-initial-standing-review.png",
+      "bytes": 1124782,
+      "sha256": "6b712307c5a6f7c62b03ce415d1c347dd3449ac45e5efaa0bd2086a75550b2d8"
+    },
+    {
+      "path": "office-assets/proof/renders/sam-seated-desk-proof.png",
+      "bytes": 1271759,
+      "sha256": "b405ab5d770403c2f038732740834e130c58181e7f677db51ed5a1320c1493ce"
+    },
+    {
+      "path": "office-assets/proof/renders/sam-seven-clips-contact-sheet.png",
+      "bytes": 2115406,
+      "sha256": "2547926c74ebf9328a01e3ddd618d9e253a340384fbc38df40cd84ef80948db5"
+    },
+    {
+      "path": "office-assets/proof/renders/sam-turntable-front.png",
+      "bytes": 1093473,
+      "sha256": "89142fe28bb4d9573eca4736e0a579e18aba6b7cc932d036bc030f09b35aee7a"
+    },
+    {
+      "path": "office-assets/proof/renders/sam-turntable-left.png",
+      "bytes": 1089909,
+      "sha256": "079480587f2168f5ce0918de293c5c881f1e2488b8a175283109e3c7257d7839"
+    },
+    {
+      "path": "office-assets/proof/renders/sam-turntable-rear.png",
+      "bytes": 1099417,
+      "sha256": "4dc3aa29f0eb4ead0202faabf583209282b0f7f267c4c8b1f7df74207c453ba7"
+    },
+    {
+      "path": "office-assets/proof/renders/sam-turntable-right.png",
+      "bytes": 1106351,
+      "sha256": "2e83464de9e7442aeefc35ee52ec272abb354d17f0238908845590be0b1d0459"
+    },
+    {
+      "path": "office-assets/proof/reports/common-animations-source-reopen.json",
+      "bytes": 2297,
+      "sha256": "20de480767d571d2530082f08d6b46501d2601ccc10f93fe676101dd47636578"
+    },
+    {
+      "path": "office-assets/proof/reports/common-biped-rig-source-reopen.json",
+      "bytes": 2296,
+      "sha256": "7e2017308b6fa726389552d2dd9405094dee781d59672cf5b6c92c65d1a0051b"
+    },
+    {
+      "path": "office-assets/proof/reports/environment-office-shell-khronos.json",
+      "bytes": 1015,
+      "sha256": "12349ddff8f746f886c7e047c31a95fdb2dc11ecaf47f144c2751b43640abcbd"
+    },
+    {
+      "path": "office-assets/proof/reports/environment-production-proof.json",
+      "bytes": 21111,
+      "sha256": "5f19a313ed531935cb140ff295227672c8d9cea5e17216807a67a3f5f2d3193c"
+    },
+    {
+      "path": "office-assets/proof/reports/environment-studio-furniture-khronos.json",
+      "bytes": 1031,
+      "sha256": "d5bf497081b51d0948d8b756a9c2660c1ba3db36bb044e65dab735cee78d885f"
+    },
+    {
+      "path": "office-assets/proof/reports/environment-three-loader.json",
+      "bytes": 9500,
+      "sha256": "fa653f98d0cb103088527f158b9d85f219e5e0acce6f7e52f339d4e5bd694411"
+    },
+    {
+      "path": "office-assets/proof/reports/khronos-validator.json",
+      "bytes": 923,
+      "sha256": "0fe47eb696ed65496b97eef0af2f13611eccf4d68dffd430db9de4a3453b9d41"
+    },
+    {
+      "path": "office-assets/proof/reports/runtime-technical-proof.json",
+      "bytes": 3922,
+      "sha256": "520d25cfceb2ea58c4fbb0f5004ca3250a2a78be731c3a3bfe9d6ecc610d92d7"
+    },
+    {
+      "path": "office-assets/proof/reports/sam-authoring-metadata.json",
+      "bytes": 35700,
+      "sha256": "cacefd03e5059cfb6142a6d2e40891f696b2deece4f6163e64013eedc48ff4be"
+    },
+    {
+      "path": "office-assets/proof/reports/sam-source-reopen.json",
+      "bytes": 2295,
+      "sha256": "a67ca7b353d22d229879f5298728c93db6e82545b47d026989e3fa490d261fec"
+    },
+    {
+      "path": "office-assets/proof/source/office/characters/sam.blend",
+      "bytes": 8388524,
+      "sha256": "6cc05a5f12c2c690c5e8df385d12651620bfe7c862010fc5bff0350c066d2ad4"
+    },
+    {
+      "path": "office-assets/proof/source/office/common-animations.blend",
+      "bytes": 8388524,
+      "sha256": "25da3477ff34ca4bec1f1959e025fa96649e6e09d84fbce5c7a19a565693db1b"
+    },
+    {
+      "path": "office-assets/proof/source/office/common-biped-bone-map.json",
+      "bytes": 7270,
+      "sha256": "ae2e2c94a3db21c979560ac823f4c8c8f37a4e1432aa2765d1b5bee2186bc649"
+    },
+    {
+      "path": "office-assets/proof/source/office/common-biped-rig.blend",
+      "bytes": 8388524,
+      "sha256": "25da3477ff34ca4bec1f1959e025fa96649e6e09d84fbce5c7a19a565693db1b"
+    },
+    {
+      "path": "office-assets/proof/source/office/material-and-source-index.json",
+      "bytes": 823,
+      "sha256": "fc3c98f0d05119ef716d17de02a688893077f58b85d5ddab5fa22d5d4f0b3539"
+    },
+    {
+      "path": "office-assets/proof/source/office/office-shell.blend",
+      "bytes": 87732,
+      "sha256": "a357e5e1dda80fa01f1b08e2ce5770a7b013c01a05063b103f8e144c13ad6e31"
+    },
+    {
+      "path": "office-assets/proof/source/office/office-shell.blend1",
+      "bytes": 87640,
+      "sha256": "bb2f93768b94fc75e297020323dabeef26482893aae868492a267408492e8ba7"
+    },
+    {
+      "path": "office-assets/proof/source/office/sam-initial-standing-review.blend",
+      "bytes": 1644008,
+      "sha256": "5edc2537014c945b3e74a12a4c6806012c8a739ef68fc836bdfd1e0140e1b99e"
+    },
+    {
+      "path": "office-assets/proof/source/office/sam-proof-render-stage.blend",
+      "bytes": 8424237,
+      "sha256": "ad8c41561d51edbd9e6ba9d21ee4a1a103fa24a2577beece442a1ad07e3688c7"
+    },
+    {
+      "path": "office-assets/proof/source/office/studio-furniture.blend",
+      "bytes": 272608,
+      "sha256": "4422b02aa1d0ccfa8e581a12a3f05e828614a3e0663e23815f5cff798a5bd751"
+    },
+    {
+      "path": "office-assets/proof/source/office/studio-furniture.blend1",
+      "bytes": 271906,
+      "sha256": "25dbc6e8430b00f5593c616e06ad99e0ced0c53cc46053f6cd6fce658f4ab864"
+    },
+    {
+      "path": "office-spec/ACCEPTANCE.md",
+      "bytes": 4957,
+      "sha256": "e9eb7c2544e36c570263140da5e2edc23ceddc5992231dd64d6dd4b739eec08f"
+    },
+    {
+      "path": "office-spec/CODEX-KICKOFF.md",
+      "bytes": 3591,
+      "sha256": "2f2095448f669758c42f3d538b0f9c23a16f600b9911d1d823536e8aa0427519"
+    },
+    {
+      "path": "office-spec/data/agent-profiles.json",
+      "bytes": 10073,
+      "sha256": "cf038ada098b62853b7e5c08ea4a7f987bc2518ee41e446e2580c58c67af1394"
+    },
+    {
+      "path": "office-spec/data/asset-manifest.json",
+      "bytes": 56962,
+      "sha256": "909823db0f3822afb6a016cdea5b810ccf989b67e7e04b6560e25774c0188dd3"
+    },
+    {
+      "path": "office-spec/data/floorplan.json",
+      "bytes": 42607,
+      "sha256": "763c7ba2fdfd8df7de9f730a9e90dab661698d4d0ffe0e3de78a0cf5c4551592"
+    },
+    {
+      "path": "office-spec/data/response-presets.json",
+      "bytes": 33607,
+      "sha256": "bb9dc7df5bf3c02333e04ff008d967a9ca35a498c2f99980cef028802707b7be"
+    },
+    {
+      "path": "office-spec/IMPLEMENTATION-PLAN.md",
+      "bytes": 5032,
+      "sha256": "e073842f9391e521c936cb078b39d126ce14c151a882b7b1972ddf1519eafbdf"
+    },
+    {
+      "path": "office-spec/OPERATOR-SETUP.md",
+      "bytes": 3945,
+      "sha256": "7af6936eb71416ebfccab04bfc6ebd7da293547e6389b19c101dfc61e53ee7fd"
+    },
+    {
+      "path": "office-spec/PACKAGE-STATUS.md",
+      "bytes": 3298,
+      "sha256": "989cf6087e09d5b93bc9d88c2cc7dc39f4d62cc493e8d9e0eae1a02e61d4bc5a"
+    },
+    {
+      "path": "office-spec/PACKAGE-VALIDATION.md",
+      "bytes": 1198,
+      "sha256": "97128939bc1a180a503030baf0ee5b8d0af0583adb8a6ac40fb047982021063a"
+    },
+    {
+      "path": "office-spec/README.md",
+      "bytes": 363,
+      "sha256": "0da622232833e96d392e1f31674f8ebd25fb446d1baba1e048c6ae94cc1c7b9e"
+    },
+    {
+      "path": "office-spec/SOURCES.md",
+      "bytes": 2709,
+      "sha256": "efe52c35ec2f4cda1c18b452042beb4909b7d02ff3ffd6a72246827a73a7b0ba"
+    },
+    {
+      "path": "office-spec/specs/3d-assets-and-browser.md",
+      "bytes": 22251,
+      "sha256": "c3f9dca296363efeb9234f4f7eaf2800431e7df57e4c2a0cd9c897f533b060a3"
+    },
+    {
+      "path": "office-spec/specs/integration-and-execution.md",
+      "bytes": 18826,
+      "sha256": "5d98932985f8d7a65d59824d657c66e3003d8088ba87ed7599d593d6d58f46eb"
+    },
+    {
+      "path": "office-spec/specs/personas.md",
+      "bytes": 8020,
+      "sha256": "5d55faddfbbc7ea5591798fd9bbf0dd82873485ccf04757941175e64f84e096c"
+    },
+    {
+      "path": "office-spec/specs/product-and-presets.md",
+      "bytes": 28257,
+      "sha256": "32b90c1c83ba156a7972b16e7d27abc474859fe4e7a6cb975e136498d11f66f2"
+    },
+    {
+      "path": "office-spec/START-HERE.md",
+      "bytes": 5876,
+      "sha256": "14d2756b622eed484b572ca8f73e53402d412f138d5ac94b693bcb7ab834d446"
+    },
+    {
+      "path": "office-spec/visuals/floorplan.png",
+      "bytes": 94939,
+      "sha256": "dc537a25b84e35f2cde4889f9cfc91e0cf78424759f0ff3dea4f5e355440a596"
+    },
+    {
+      "path": "office-spec/visuals/floorplan.svg",
+      "bytes": 22849,
+      "sha256": "0a89aa719f134357c1907dd2cd9e50d95afbde4444b53af0202f0c6f4c2b5ac1"
+    },
+    {
+      "path": "office-spec/visuals/reference/adrian.png",
+      "bytes": 2230048,
+      "sha256": "906e5b9be6987ef3d51812b7e9026e02ccc37c020015e54d3bfa56aab6f7ae8a"
+    },
+    {
+      "path": "office-spec/visuals/reference/clara.png",
+      "bytes": 2074577,
+      "sha256": "87b9aeb9f04172078bd04cea30e57689ad757c27230ee0d2378cd50e3570e555"
+    },
+    {
+      "path": "office-spec/visuals/reference/concept-prompts.md",
+      "bytes": 11663,
+      "sha256": "8b054f4d31dceacd1152d8f87dd39c84cc29fbfda45eee2f37248612308f7bbc"
+    },
+    {
+      "path": "office-spec/visuals/reference/leo.png",
+      "bytes": 2042523,
+      "sha256": "0721b29ae31e158b9a9bc23753637fa908d94ed4d8658f63721f0834ad49060d"
+    },
+    {
+      "path": "office-spec/visuals/reference/lisa.png",
+      "bytes": 2198483,
+      "sha256": "d93ebea524e42195509ecfb902ed6de15937a4eaf1d5a043f247c065329663fa"
+    },
+    {
+      "path": "office-spec/visuals/reference/nadia.png",
+      "bytes": 2097660,
+      "sha256": "a38b6cae7b26445d7a0d66450d28299742b65b4f2058faa713baa35986a1bcc6"
+    },
+    {
+      "path": "office-spec/visuals/reference/office-browser-concept.png",
+      "bytes": 2054420,
+      "sha256": "d9f1f6e6f38c283558902fab704db90f8310593ab0a15a3e5d451972b936e4bf"
+    },
+    {
+      "path": "office-spec/visuals/reference/office-concept-brief.md",
+      "bytes": 3260,
+      "sha256": "a363b6672b5d96367908f8590fcc530793c072758c8ef6743e58413e3d7ebc8b"
+    },
+    {
+      "path": "office-spec/visuals/reference/office-overview.png",
+      "bytes": 2302133,
+      "sha256": "ba1dacb4413da9238cd1703bc0877038e2f6ade5d35a3a5db0adb6fee47e074f"
+    },
+    {
+      "path": "office-spec/visuals/reference/personas.md",
+      "bytes": 8020,
+      "sha256": "5d55faddfbbc7ea5591798fd9bbf0dd82873485ccf04757941175e64f84e096c"
+    },
+    {
+      "path": "office-spec/visuals/reference/portrait-prompts-v1.md",
+      "bytes": 9869,
+      "sha256": "cc124a2d08ef17d4ff80fe2324444591bbb40a2ce8b0d9ccda8a6e3bd85c84ee"
+    },
+    {
+      "path": "office-spec/visuals/reference/sam.png",
+      "bytes": 2090885,
+      "sha256": "c6f3d0914264c3a4f8ce7c6b8dec75f17dffcda512788bbad21124f995ac18f8"
+    },
+    {
+      "path": "office-spec/visuals/reference/theo.png",
+      "bytes": 2383181,
+      "sha256": "ffedb0417a6b9eb4300b9b554788fd1293efcd649bb92182778dd6b2b6ed1280"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 363614,
+      "sha256": "b17136aca60a1ca94f3fc6dddebe145154321d5535013537021625749a0f766d"
+    },
+    {
+      "path": "package.json",
+      "bytes": 1503,
+      "sha256": "eee2b48528371397d2264be00cdef0c671c15bdac7e52eb74189996e76c9f0e9"
+    },
+    {
+      "path": "pdf/render_invoice.py",
+      "bytes": 17203,
+      "sha256": "fec87889cdf5b884a264b10482668f492ca97ae69d6f94db8a971db0b357668e"
+    },
+    {
+      "path": "pdf/requirements.txt",
+      "bytes": 17,
+      "sha256": "36b47c32872e5ca2bed4459b402a8c4be8b56eac70395d276b7aecefa83ab948"
+    },
+    {
+      "path": "postcss.config.mjs",
+      "bytes": 94,
+      "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
+    },
+    {
+      "path": "scripts/install-startup-task.ps1",
+      "bytes": 2549,
+      "sha256": "c68d2d8305a38f0e2335bdfcdabdb83f5125e839618ac70c2b88cc32949003ae"
+    },
+    {
+      "path": "scripts/migrate.mjs",
+      "bytes": 2106,
+      "sha256": "dd172506bb559b3648d7e6214bfc9aceaf0c586c8e10858b8ff54025d93980d7"
+    },
+    {
+      "path": "scripts/office-acceptance/build-snapshot.mjs",
+      "bytes": 2215,
+      "sha256": "dc0700e12a3b79dfde133b78dcee886e1c59a340c2e16a4d24d53daca0d40242"
+    },
+    {
+      "path": "scripts/office-acceptance/cleanup-selftest.mjs",
+      "bytes": 6171,
+      "sha256": "aa9ec2b50e089609726935f0698c2bf9ebc77c38a60a590079887a68ab5a3d98"
+    },
+    {
+      "path": "scripts/office-acceptance/cleanup.test.mjs",
+      "bytes": 13262,
+      "sha256": "5ff3a9aad1cf5a9e3805704687352fd0f3c7c067624e46a32775482de449e747"
+    },
+    {
+      "path": "scripts/office-acceptance/lib.mjs",
+      "bytes": 24843,
+      "sha256": "fea9d47f03b371910011548f54250995783586d48198ea1a53988365b20a85bb"
+    },
+    {
+      "path": "scripts/office-acceptance/run.mjs",
+      "bytes": 44513,
+      "sha256": "a80f8d0f2a973f76acabb9c2c20f46b56cddb2a54413ac97f83f010171fe2455"
+    },
+    {
+      "path": "scripts/office-acceptance/snapshot.test.mjs",
+      "bytes": 7494,
+      "sha256": "e6e20cebadca0f1a7b0c573c63e6da5e62d09834719fb449421d85ffdf6f2608"
+    },
+    {
+      "path": "scripts/office-acceptance/zombie-lease.ts",
+      "bytes": 2090,
+      "sha256": "6f7c56c3bbb9068093d72656063f0b29df985313d6f87ff2c445ee93ef75cd31"
+    },
+    {
+      "path": "scripts/office-assets-paths.test.mjs",
+      "bytes": 1663,
+      "sha256": "3a37d89e044ff02f8ee5242e4217263b303b4e11cf1be35b4572d9fb75dd6d54"
+    },
+    {
+      "path": "scripts/office-assets.mjs",
+      "bytes": 17681,
+      "sha256": "4d0281ce36d1ab1ae9ae66ab7772a41c65f460f7e15db8c409b16306e7e0a908"
+    },
+    {
+      "path": "scripts/office-assets.test.mjs",
+      "bytes": 2028,
+      "sha256": "31b4fbd4bc538d1d149f7c07b916226d3f3b0c06dfa9eaa8377f879906fb4e30"
+    },
+    {
+      "path": "scripts/office-modeling/build_office_environment.py",
+      "bytes": 33070,
+      "sha256": "104adbf4dd96f0ba7407a18c0b59fb50c5bb2fcd0ce2efbc60ecab66a31bdb64"
+    },
+    {
+      "path": "scripts/office-modeling/inspect_sam_source.py",
+      "bytes": 3672,
+      "sha256": "33392492bf7805ca0070e0d322313c014dd4413f02e3346588d702e21977aa82"
+    },
+    {
+      "path": "scripts/office-modeling/sam_proof.py",
+      "bytes": 45866,
+      "sha256": "d333d93b9442cc02ebbd0c8acd9453721823df5588d8a0215cf4c9bea0d18762"
+    },
+    {
+      "path": "scripts/office-proof-validation.mjs",
+      "bytes": 9383,
+      "sha256": "d32cf01517d866074d60418fbd82934fcd4275e4e857e8df85346c0d8d6dea06"
+    },
+    {
+      "path": "scripts/setup-local.ps1",
+      "bytes": 7985,
+      "sha256": "3a3e42c394f71b02514e0278d8d2a5f73c99c2258fea0a54523ef54e96746ede"
+    },
+    {
+      "path": "scripts/start-backoffice.ps1",
+      "bytes": 5143,
+      "sha256": "8d18d138b88268c7e3ebf7944e9b74544199e6c698638cbd17a5eaa229bc023b"
+    },
+    {
+      "path": "scripts/test-office-local.ps1",
+      "bytes": 2713,
+      "sha256": "b73b851707aedbfaa9b5c8c5feee1c04f3387c062e67f08e272360b22d3ccc80"
+    },
+    {
+      "path": "src/actions.ts",
+      "bytes": 16432,
+      "sha256": "78e2e854c67aa188ce816cfb9e3453b3025391c39cb55a1c47037b4d83af87f1"
+    },
+    {
+      "path": "src/app/(protected)/clients/[id]/edit/page.tsx",
+      "bytes": 2119,
+      "sha256": "801eda20d2fb990999a89c9ec2cfcc3953b65c172b1de1cb6225a3e90d5513ec"
+    },
+    {
+      "path": "src/app/(protected)/clients/new/page.tsx",
+      "bytes": 994,
+      "sha256": "75b44f4bab185688ab25c62be7172cdf17a014156c73d754c2ef7874a61e65b5"
+    },
+    {
+      "path": "src/app/(protected)/clients/page.tsx",
+      "bytes": 4997,
+      "sha256": "32f6e0f25550c751cf869ffa4dcda36f071149eea99f07246c07201411fca692"
+    },
+    {
+      "path": "src/app/(protected)/dashboard/page.tsx",
+      "bytes": 8785,
+      "sha256": "e07d711b7d287122aca470f5cd37f129ad54e964d82c5c2940760c8e1ef18283"
+    },
+    {
+      "path": "src/app/(protected)/invoices/[id]/page.tsx",
+      "bytes": 14233,
+      "sha256": "b579b00c0925d3ceea6b2962e00543b3d66c01f2b3ef4f61eea138513c5adf37"
+    },
+    {
+      "path": "src/app/(protected)/invoices/new/page.tsx",
+      "bytes": 2300,
+      "sha256": "839211360c92556dbd479ccd82f7fd4edaec401e1325ea1b2650c4ffa8873ca9"
+    },
+    {
+      "path": "src/app/(protected)/invoices/page.tsx",
+      "bytes": 3942,
+      "sha256": "6a36a1013bcb3c6c3a2d6f9cd7887c7035bda887127b71dc43309e972f2c37ef"
+    },
+    {
+      "path": "src/app/(protected)/layout.tsx",
+      "bytes": 518,
+      "sha256": "32f2031ddfab96c2fd4e68cf9975f59ad74552f1e1840963cf103f7fdbd4620e"
+    },
+    {
+      "path": "src/app/(protected)/settings/access/page.tsx",
+      "bytes": 8574,
+      "sha256": "d6de231b597c0cb114cdfac09a24139690aa02b29766c3e3b1b43feec0e5f4b3"
+    },
+    {
+      "path": "src/app/(protected)/settings/page.tsx",
+      "bytes": 2173,
+      "sha256": "53815ac5334a7d58ff05ebde7d371bd64603213c66bc529da535f4bc76b0bd12"
+    },
+    {
+      "path": "src/app/(protected)/team/page.tsx",
+      "bytes": 3490,
+      "sha256": "7d0aeaae7f13dd60aebb1f2c90e45ee1df053fb88ccd07aab00017996e2d87aa"
+    },
+    {
+      "path": "src/app/api/invoices/[id]/pdf/route.ts",
+      "bytes": 2795,
+      "sha256": "821b604d5e98256b5a70408fbbdb84b2a9a06a0708205e0329d2d0816ef6d756"
+    },
+    {
+      "path": "src/app/api/office/artifacts/[id]/route.ts",
+      "bytes": 948,
+      "sha256": "fd38097c4f5db3357c7531934ce44ef9754bde7844897572f0d4d93cd2b6bf43"
+    },
+    {
+      "path": "src/app/api/office/assets/route.ts",
+      "bytes": 2170,
+      "sha256": "2bf05fd2a05a1ac83cf791dc328bf17600f475f48586e19895889d0796cf60c5"
+    },
+    {
+      "path": "src/app/api/office/events/route.ts",
+      "bytes": 1078,
+      "sha256": "7833307280e0c2527c0f5fee7628634c62903ca118cb5f23b31726254875b8ab"
+    },
+    {
+      "path": "src/app/api/office/reference/[name]/route.ts",
+      "bytes": 922,
+      "sha256": "7a1918473e0700d21bc56662e271762e7d7357032184e824f06e0a333e7250e2"
+    },
+    {
+      "path": "src/app/api/office/route.ts",
+      "bytes": 1962,
+      "sha256": "cfcc2b35ec2391fb33f028841b57d7427853ce0852d317c806ab3ecfdd2be5dd"
+    },
+    {
+      "path": "src/app/api/office/status/route.ts",
+      "bytes": 1353,
+      "sha256": "8ada46ce2bbc481e97a108fb2061f7a03bf20ca0090f9f8a4afab0b30873bc50"
+    },
+    {
+      "path": "src/app/globals.css",
+      "bytes": 2843,
+      "sha256": "155fcbb9d5492aad834ad2b87801990b4113bd866224d86b7a0e8b3d3681ed0b"
+    },
+    {
+      "path": "src/app/layout.tsx",
+      "bytes": 1314,
+      "sha256": "e98a92157e603518c5e3b3ee9aa6f85775e986449f97c87f75e426c7904a7272"
+    },
+    {
+      "path": "src/app/page.tsx",
+      "bytes": 110,
+      "sha256": "72c4bba09586cace009ad965105687a54c8b155c47e336b70f839ff421dea34f"
+    },
+    {
+      "path": "src/app/robots.ts",
+      "bytes": 182,
+      "sha256": "ee236a71493c80ef6db46698ff842d8fe2bceb2b4e7b2273671e60525c895429"
+    },
+    {
+      "path": "src/components/admin-shell.tsx",
+      "bytes": 2592,
+      "sha256": "051ae4b749583ebddbdd737f20a54481fb7f953ee6bead7c07f538a3641a1ad8"
+    },
+    {
+      "path": "src/components/client-form.tsx",
+      "bytes": 6574,
+      "sha256": "7d5d9cb8e8b731147d431f37c0a44bbc9b4d3f4f3a01d3e3a0745c345997a1c2"
+    },
+    {
+      "path": "src/components/formatters.ts",
+      "bytes": 1265,
+      "sha256": "c35b48c760028d5a080079a9500b2748272b9f072e84295e63b74d5b1e6d6369"
+    },
+    {
+      "path": "src/components/invoice-actions.tsx",
+      "bytes": 6639,
+      "sha256": "c470074ce53c04c4d6796133b8783e75a5753e961245926a38f79e53c3cea74f"
+    },
+    {
+      "path": "src/components/invoice-form.tsx",
+      "bytes": 13413,
+      "sha256": "0fdd7c5f5ff6cd695d987414ad265126d855520bd5dc632331072c5954c537c5"
+    },
+    {
+      "path": "src/components/invoice-status-badge.tsx",
+      "bytes": 502,
+      "sha256": "b05207ad3714ae3dc1446c3ba07b5c0653a1da9e083cc0a55ff2999a70d40baf"
+    },
+    {
+      "path": "src/components/mobile-navigation.tsx",
+      "bytes": 3437,
+      "sha256": "aaf4a695502892c9990aad54cd69c20cad72d47c9f0b6d6c26c8f13da559047d"
+    },
+    {
+      "path": "src/components/navigation-items.ts",
+      "bytes": 999,
+      "sha256": "f73f52d5d5610f2e5b6b60f6313eca109a04da117292e934cc963faf6f357c1d"
+    },
+    {
+      "path": "src/components/office/office-status.test.ts",
+      "bytes": 36357,
+      "sha256": "a5aa21a8aa1ad71796119ce3d7400dd27f69dc249b48a2eb5e835a26f1f4097a"
+    },
+    {
+      "path": "src/components/office/office-status.ts",
+      "bytes": 36673,
+      "sha256": "5db4e883f694bbac769839850c9401567623db48aa52979e39ccf72a05ab9264"
+    },
+    {
+      "path": "src/components/office/office-ui.tsx",
+      "bytes": 7150,
+      "sha256": "2d096b9d06590b1fec8cd51a645fc89962fed9d5a20ac429923215ff5c0e05a5"
+    },
+    {
+      "path": "src/components/office/office.module.css",
+      "bytes": 18549,
+      "sha256": "9716c4ea3b88ee17a97b699ce1478367b177153e39e57629acfe39f11860073f"
+    },
+    {
+      "path": "src/components/office/OfficeDashboardPanel.test.tsx",
+      "bytes": 6351,
+      "sha256": "741223902cffded4f41860e614ba9df93ffb7608a20ca9ebe994bf3cd4fc771a"
+    },
+    {
+      "path": "src/components/office/OfficeDashboardPanel.tsx",
+      "bytes": 13654,
+      "sha256": "b2aa0626d24fae59b5cfe04d9397e9cdcd6ab574de505809879be78e7782d8eb"
+    },
+    {
+      "path": "src/components/office/OfficeInbox.tsx",
+      "bytes": 10679,
+      "sha256": "45b3641c6711bccd9b79e3aeed8146798a4aa53cc196e1dea374363bf4149bcf"
+    },
+    {
+      "path": "src/components/office/OfficeRoleStatus.tsx",
+      "bytes": 8903,
+      "sha256": "170e568ed8a5cfa93ff85b3928b0ad2f80a0977b2d1da2562d0e0bcee28291bc"
+    },
+    {
+      "path": "src/components/office/OfficeScene.tsx",
+      "bytes": 22463,
+      "sha256": "cf8e5c691c781795bd0854f78ebbab828762f966e5c06acb11a11b67ea8e7ea2"
+    },
+    {
+      "path": "src/components/office/OfficeTaskDetail.tsx",
+      "bytes": 28110,
+      "sha256": "a252805c0442621ad8f88b96967698b1e013e77b74bca40264562a33d9168af8"
+    },
+    {
+      "path": "src/components/office/OfficeView.tsx",
+      "bytes": 58529,
+      "sha256": "ff7d8c0bb944d508b27dff8f0643ca819303e18d76c5b0880ae8f923ec01cf6c"
+    },
+    {
+      "path": "src/components/office/profiles.ts",
+      "bytes": 5278,
+      "sha256": "af516b7049ac7b0a53c6b5489fc928d3a65ca3a91bce6bf2f12328d8617bea93"
+    },
+    {
+      "path": "src/components/office/scene-assets.generated.json",
+      "bytes": 109,
+      "sha256": "2f8bd237ae07fdcaf8cfab4cf7fb490834049714378c8dd3f65bca7548bcc01d"
+    },
+    {
+      "path": "src/components/office/scene-layout.test.ts",
+      "bytes": 3923,
+      "sha256": "0ea9f6b1089088335d065a4cadc746845e3ce993934c9e96cf6faa0109243128"
+    },
+    {
+      "path": "src/components/office/scene-layout.ts",
+      "bytes": 6576,
+      "sha256": "47e2f6e038d80401509f656c89f7e3cb6318038ad74681a3c188d4511aefce8a"
+    },
+    {
+      "path": "src/components/office/scene-static-batch.test.ts",
+      "bytes": 15653,
+      "sha256": "1462616cc843dd104b143e0122827f14cc16bdd6d40f6366d8f76ba7ef1b2f8a"
+    },
+    {
+      "path": "src/components/office/scene-static-batch.ts",
+      "bytes": 10970,
+      "sha256": "58034d529ea7b721f4933b1b5c2bab0e731c4a45f10eff26a9b3b2ab0e465023"
+    },
+    {
+      "path": "src/components/primary-navigation.tsx",
+      "bytes": 1599,
+      "sha256": "2a2b46d4c546781eb2ea6bb30c3e4fa9e631f5db5e6e4d6b8b5ae99b0b20e5dc"
+    },
+    {
+      "path": "src/components/settings-form.tsx",
+      "bytes": 8263,
+      "sha256": "037593bf45605c6923c021fe5128900235933402491515d395caab8a97b90b33"
+    },
+    {
+      "path": "src/components/theme-toggle.tsx",
+      "bytes": 3741,
+      "sha256": "db43b44bf060b6fd9a41a73263ab51c7b25f94e45f07444ba9d56dc3ff0ec675"
+    },
+    {
+      "path": "src/components/ui/badge.tsx",
+      "bytes": 853,
+      "sha256": "3de1bcdb9241952ae894bf81b42c1cffbe5b124d93a624a9684278166f3aacc1"
+    },
+    {
+      "path": "src/components/ui/button.tsx",
+      "bytes": 1526,
+      "sha256": "7f7cecb29d1c6584bf1039335786236c6a4344b16ee19469ac95aabec06c5ca6"
+    },
+    {
+      "path": "src/components/ui/card.tsx",
+      "bytes": 514,
+      "sha256": "1a4fdbfa6466abd28d9feb5b8d35c7942f755831b0b8242abf51b4e1fc64e6b5"
+    },
+    {
+      "path": "src/components/ui/empty-state.tsx",
+      "bytes": 867,
+      "sha256": "ddcfa73058f22c22dcc8f2f4c1b889929e1efe2582f07ca7552a1dc6d41aa86f"
+    },
+    {
+      "path": "src/components/ui/field.tsx",
+      "bytes": 662,
+      "sha256": "19b6dfb25b47161041788fc6ef19f7a2074cc650357d11ce7de79fc2888adcae"
+    },
+    {
+      "path": "src/components/ui/input.tsx",
+      "bytes": 527,
+      "sha256": "86c162f11c19ef27705fa7eeed7b8ccf1114b55fd55546c5a154e2ded2e48f9c"
+    },
+    {
+      "path": "src/components/ui/page-header.tsx",
+      "bytes": 917,
+      "sha256": "1667b0753595ca601aa02a56546f459076e3444ba6ec3d1f14bb0a0ad874defc"
+    },
+    {
+      "path": "src/components/ui/select.tsx",
+      "bytes": 482,
+      "sha256": "b3c6756054c52423e19068848bb0f5e58febb7358bee60d530c05a96599bcdb3"
+    },
+    {
+      "path": "src/components/ui/stat-card.tsx",
+      "bytes": 1237,
+      "sha256": "d78221369430fedf7fd4fd6aae45a3c1efcf1a00e5fdaf99580eef2e13fc6fda"
+    },
+    {
+      "path": "src/components/ui/submit-button.tsx",
+      "bytes": 715,
+      "sha256": "cd309291ff183e8519e502c9e7000bb01eb80b6a15ab3ae05db9bf495a315df8"
+    },
+    {
+      "path": "src/components/ui/table-shell.tsx",
+      "bytes": 503,
+      "sha256": "f4cb2ca5249b2a6a205efd14b924bb13cb8ce6d0b423e9ae9cf35b32a016a37a"
+    },
+    {
+      "path": "src/components/ui/textarea.tsx",
+      "bytes": 542,
+      "sha256": "02167f73183b3e9c0c45d38ea9cc624a4d5ea3b8436b57095a75157155e02979"
+    },
+    {
+      "path": "src/lib/calendar.ts",
+      "bytes": 576,
+      "sha256": "cdd8a055b7c027cb8c8d95bf772c0ed5b080e78c1c11ad081d8b19e5e9ceb135"
+    },
+    {
+      "path": "src/lib/env.ts",
+      "bytes": 7743,
+      "sha256": "7620c263433872f6e4940012990ebee13c98380ae7475b2ae81d287ed5337626"
+    },
+    {
+      "path": "src/lib/money.test.ts",
+      "bytes": 2273,
+      "sha256": "31f3aefe4ec4001f7a2ce66c9f2d4242bdb3057bcfd8c7cc3d763885e3430bd0"
+    },
+    {
+      "path": "src/lib/money.ts",
+      "bytes": 6579,
+      "sha256": "096a5cab41d723908e26ccc76e8823114928c321444752c4491b547997fccacd"
+    },
+    {
+      "path": "src/lib/office-activity.ts",
+      "bytes": 9327,
+      "sha256": "2d9496f1e73e96ae18f6df35eafa063ed5dda282a90827a02f8e3a23e28b2b3b"
+    },
+    {
+      "path": "src/lib/office-contracts/index.ts",
+      "bytes": 5243,
+      "sha256": "a679529d4fe23caa57e0754eb7ec29a166f809845628281dcb487aa5bd81f327"
+    },
+    {
+      "path": "src/lib/office-contracts/response-presets.json",
+      "bytes": 33607,
+      "sha256": "bb9dc7df5bf3c02333e04ff008d967a9ca35a498c2f99980cef028802707b7be"
+    },
+    {
+      "path": "src/lib/office-links.test.ts",
+      "bytes": 2986,
+      "sha256": "f5684421a1eb21d963a3dbd2597cd49829fe72adb5c945a6db9532ec1e02b571"
+    },
+    {
+      "path": "src/lib/office-links.ts",
+      "bytes": 4023,
+      "sha256": "7611ea77b0735187b995e52948366470d4247cf350d9aee2614f87b906fb0313"
+    },
+    {
+      "path": "src/lib/office-runtime/demo-adapter.ts",
+      "bytes": 4050,
+      "sha256": "5ce92d0b5c08610f859b223412641f0a2dd87f2c06845aa944e25e40584e0f7d"
+    },
+    {
+      "path": "src/lib/office-runtime/index.ts",
+      "bytes": 75007,
+      "sha256": "55fbde2ee5a44e5c5d0b1296d9027e9c4b33deef5812ff2e88c5dfbeb88b184d"
+    },
+    {
+      "path": "src/lib/office-runtime/runtime.integration.test.ts",
+      "bytes": 24583,
+      "sha256": "becca005a7686df8bde2be1312e3e2550ae046bfe8f2181cbed9e687ac391d6d"
+    },
+    {
+      "path": "src/lib/office-runtime/safety.test.ts",
+      "bytes": 2490,
+      "sha256": "e13c14d6c34655a73213c0f5b5beb80598da8b1d9dacce614e11d433d745b120"
+    },
+    {
+      "path": "src/lib/office-runtime/safety.ts",
+      "bytes": 2495,
+      "sha256": "45890860cb2ecc8ede0dfb6fadc9ca9bf323ca14471d19d4e82a63b7a0fd6483"
+    },
+    {
+      "path": "src/lib/office-runtime/worker-role.integration.test.ts",
+      "bytes": 16056,
+      "sha256": "817a52520d33a253b448e1602c3e9f0f5af8b09bf24d7581a041c969f18f70d1"
+    },
+    {
+      "path": "src/lib/server/auth.test.ts",
+      "bytes": 2402,
+      "sha256": "46044036e1669ef9b0a5c290d9b34e55bb36953b834928fd52d1c623ca4fc384"
+    },
+    {
+      "path": "src/lib/server/auth.ts",
+      "bytes": 5374,
+      "sha256": "95d4a961d32fe57ab0e55e4adc806b387ea528b6e5fa294bb9bfe7a0474fa6df"
+    },
+    {
+      "path": "src/lib/server/business.ts",
+      "bytes": 5722,
+      "sha256": "50a3801ca3fdcced9459ff1df099f50a5aeb4cfad0cc902c9aecdd47837d27b6"
+    },
+    {
+      "path": "src/lib/server/clients.ts",
+      "bytes": 12129,
+      "sha256": "cea974db542bc98598e85be0cf2da66118b65e58f28e1b2a67fd8c1b398a197c"
+    },
+    {
+      "path": "src/lib/server/db.ts",
+      "bytes": 1163,
+      "sha256": "a49c8954736a158a9d13888b0a6e718bc1d27815a0b8e7d9fd1740baa940c999"
+    },
+    {
+      "path": "src/lib/server/earnings.ts",
+      "bytes": 4609,
+      "sha256": "82acdaefdd9ca0d406c7f8fc95ed4c039d9c8f431df3aa725da87420a4b6ca1c"
+    },
+    {
+      "path": "src/lib/server/email.ts",
+      "bytes": 6094,
+      "sha256": "5fbb7d23fecb173d572537a3632296432996d4a297256b598e153fa608c51a9d"
+    },
+    {
+      "path": "src/lib/server/invoice-delivery.ts",
+      "bytes": 9554,
+      "sha256": "2186bf2d78734d18c9caf22a86b62b7c59f671397babbc0a64c6c0eb13e912ed"
+    },
+    {
+      "path": "src/lib/server/invoices.ts",
+      "bytes": 52751,
+      "sha256": "c83ee3407c996bfae18eac46236ae33e0aac539ac5236091a525a90883433487"
+    },
+    {
+      "path": "src/lib/server/office-assets.test.ts",
+      "bytes": 3122,
+      "sha256": "a9069e74f04d0252fd98d502382ddf6d86d35b2ff546b7ce1df96dd892ba96e8"
+    },
+    {
+      "path": "src/lib/server/office-dashboard.test.ts",
+      "bytes": 13277,
+      "sha256": "2ba6826a050525cad18af477dbb3092cedd7aa0050f8b38332292b6d0426e487"
+    },
+    {
+      "path": "src/lib/server/office-dashboard.ts",
+      "bytes": 1761,
+      "sha256": "cc8cda6928197444e772c06cb1e852a2a32e3216004591d60f60fb9ce950e427"
+    },
+    {
+      "path": "src/lib/server/office-http.test.ts",
+      "bytes": 5080,
+      "sha256": "0a166431b0c17f48a2c0635b67b9df00a65ffd72139216ce1d05a6fff1b9f0d6"
+    },
+    {
+      "path": "src/lib/server/office-http.ts",
+      "bytes": 3309,
+      "sha256": "b92232fc97354ebb9576e278dbb3328913abca4e7fcd1c5a6d68bf0c86b73056"
+    },
+    {
+      "path": "src/lib/server/office-preservation.integration.test.ts",
+      "bytes": 6229,
+      "sha256": "bd677970e36f30fecb1335be0379c3abab6356b6b8bc40d93d509fd170d7dc37"
+    },
+    {
+      "path": "src/lib/server/office-read-model.integration.test.ts",
+      "bytes": 19896,
+      "sha256": "7c72ab7b5bd8d670e4c66f3a015e2767466cc682beb693b3dde5fce975827b8f"
+    },
+    {
+      "path": "src/lib/server/office-read-model.ts",
+      "bytes": 39453,
+      "sha256": "e3cedf0d5a2147c4947e7087c622e4825630423a3d9309e9c510ad1c6421fe25"
+    },
+    {
+      "path": "src/lib/server/office.ts",
+      "bytes": 1293,
+      "sha256": "01e8f4d2f3e9ab272e5a96e13e349c4eb2f09e620b007a8b3bf4606967f5eb6e"
+    },
+    {
+      "path": "src/lib/server/pdf.ts",
+      "bytes": 11362,
+      "sha256": "194601ba21ab809bc9ca8c62d042294d03a504bf744c3749211275f1f75d0dba"
+    },
+    {
+      "path": "src/lib/server/r2.ts",
+      "bytes": 7236,
+      "sha256": "88ef36793d36134bd960f758607acf6a07e6c1e64b6805be0312790621a28548"
+    },
+    {
+      "path": "src/lib/server/session.ts",
+      "bytes": 10137,
+      "sha256": "f37f0a8fb9ddde67412518026c44eb734895d6a83a99c11f2afe2e16fb96d351"
+    },
+    {
+      "path": "src/proxy.ts",
+      "bytes": 1388,
+      "sha256": "ad20e896391a1a9ec9d399d801439e0127f84cd173fe6ec2d6343bbf469536b6"
+    },
+    {
+      "path": "tsconfig.json",
+      "bytes": 868,
+      "sha256": "618e2fbf81a028deeecd001ef257342c56e474f541712aff9c74a69317fa51ab"
+    },
+    {
+      "path": "vitest.config.mts",
+      "bytes": 442,
+      "sha256": "587a993191df665e683a50d1b11bb0a0392af7c46b62545a91ef7d6c93d58791"
+    }
+  ]
+}

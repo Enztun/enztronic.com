@@ -1,0 +1,34 @@
+{
+  "run": "20261108-063755-79c08146",
+  "startedAt": "2026-11-08T06:37:58.356Z",
+  "cwd": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\build-20261108-063755-79c08146\\app",
+  "snapshotFiles": 342,
+  "snapshotManifest": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\build-20261108-063755-79c08146\\app-manifest.json",
+  "dependencies": {
+    "source": "D:\\Enztronic\\apps\\backoffice\\node_modules",
+    "localCopy": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\dependencies-layout-e87700c7-e161-433d-82ea-fdc9c55b57cd\\node_modules",
+    "criticalHashesMatched": 6,
+    "packageInstallPerformed": false
+  },
+  "environmentFiles": 0,
+  "productionTouched": false,
+  "workerGrantTemplateSha256": "9b6359743bd84762d6e8084460806ec48fdd79487da05fb52bb760d31978c149",
+  "checks": [
+    {
+      "name": "lint",
+      "exitCode": 0,
+      "seconds": 44,
+      "log": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\build-20261108-063755-79c08146\\lint.log"
+    },
+    {
+      "name": "typecheck",
+      "exitCode": 0,
+      "seconds": 27,
+      "log": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\build-20261108-063755-79c08146\\typecheck.log"
+    }
+  ],
+  "passed": false,
+  "exitCode": 1,
+  "failure": "spawn powershell.exe ENOENT",
+  "completedAt": "2026-11-08T06:39:09.701Z"
+}

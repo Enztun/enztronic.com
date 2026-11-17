@@ -1,0 +1,1937 @@
+{
+  "schema_version": "1.0",
+  "status": "proposed_layout_not_modeled",
+  "title": "Enztronic Office Proposed Authoritative Floorplan",
+  "evidence": "Coordinates are a new planning proposal reconciled from the concept brief. Existing PNGs are illustrative and do not prove geometry or clearances.",
+  "units": "meters",
+  "coordinate_system": {
+    "origin": "front-left finished-floor corner",
+    "x_positive": "right / east",
+    "y_positive": "up",
+    "z_positive": "rear / north",
+    "finished_floor_y": 0,
+    "character_forward_local": "+Z",
+    "yaw_radians": "0 faces rear +Z; PI/2 faces right +X; PI faces front -Z; -PI/2 faces left -X"
+  },
+  "room": {
+    "width_x": 18,
+    "depth_z": 13,
+    "wall_height_y": 3.2,
+    "floor_thickness": 0.25,
+    "footprint": {
+      "min_x": 0,
+      "max_x": 18,
+      "min_z": 0,
+      "max_z": 13
+    },
+    "front_edge_z": 0,
+    "entry": {
+      "center": {
+        "x": 9,
+        "z": 0
+      },
+      "clear_width": 2.4
+    },
+    "cutaway": "Roof, front wall and right wall omitted in overview. Rear wall max 3.2 m; left wall lowered to 1.1 m to retain visibility."
+  },
+  "camera": {
+    "type": "orthographic",
+    "position": {
+      "x": 31,
+      "y": 22.8,
+      "z": -15.5
+    },
+    "target": {
+      "x": 9,
+      "y": 0.8,
+      "z": 6.5
+    },
+    "initial_vertical_span_m": 19.5,
+    "fit_policy": "Fit projected room plus 12 percent padding; increase vertical span as needed for viewport aspect, including inspector-open layout.",
+    "near": 0.1,
+    "far": 100,
+    "relative_zoom_min": 0.8,
+    "relative_zoom_max": 2.5,
+    "pan_target_bounds": {
+      "min_x": 2,
+      "max_x": 16,
+      "min_z": 2,
+      "max_z": 11
+    },
+    "orbit_rotation_enabled": false,
+    "focus_duration_ms": 450,
+    "reduced_motion_focus_duration_ms": 0
+  },
+  "navigation": {
+    "agent_radius_m": 0.25,
+    "agent_height_m": 1.8,
+    "minimum_static_clearance_corridor_width_m": 1.8,
+    "route_speed_mps": 0.8,
+    "minimum_agent_center_separation_m": 0.65,
+    "reservation_policy": "Single occupancy per destination dock. Reserve next segment before entry; queue or wait at a node when another agent occupies a narrow branch. No agent-agent pass-through.",
+    "planning_method": "Authored waypoint graph with inflated 2D static rectangles; no physics engine required for initial scene.",
+    "dock_policy": "Seat and approach anchors are distinct. A reserved short dock transition may enter that destination's chair collider only; no general route may cross chairs, tables or desks.",
+    "edges_are_bidirectional": true
+  },
+  "clear_corridors": [
+    {
+      "id": "aisle_business",
+      "box": {
+        "min_x": 4,
+        "max_x": 6,
+        "min_z": 1.75,
+        "max_z": 9.9
+      },
+      "width_m": 2
+    },
+    {
+      "id": "aisle_delivery",
+      "box": {
+        "min_x": 12,
+        "max_x": 14,
+        "min_z": 1.75,
+        "max_z": 9.9
+      },
+      "width_m": 2
+    },
+    {
+      "id": "aisle_front",
+      "box": {
+        "min_x": 4,
+        "max_x": 14,
+        "min_z": 1.75,
+        "max_z": 3.65
+      },
+      "width_m": 1.9
+    },
+    {
+      "id": "aisle_rear",
+      "box": {
+        "min_x": 4,
+        "max_x": 14,
+        "min_z": 8.1,
+        "max_z": 9.9
+      },
+      "width_m": 1.8
+    },
+    {
+      "id": "entry_branch",
+      "box": {
+        "min_x": 7.8,
+        "max_x": 10.2,
+        "min_z": 0,
+        "max_z": 1.75
+      },
+      "width_m": 2.4
+    }
+  ],
+  "zones": [
+    {
+      "id": "business_operations",
+      "label": "Business operations",
+      "box": {
+        "min_x": 0.8,
+        "max_x": 3.9,
+        "min_z": 3,
+        "max_z": 11.3
+      }
+    },
+    {
+      "id": "project_management",
+      "label": "Adrian / project wall",
+      "box": {
+        "min_x": 6.3,
+        "max_x": 12.5,
+        "min_z": 10,
+        "max_z": 12.8
+      }
+    },
+    {
+      "id": "delivery",
+      "label": "Design and development",
+      "box": {
+        "min_x": 14.1,
+        "max_x": 17.3,
+        "min_z": 3,
+        "max_z": 11.3
+      }
+    },
+    {
+      "id": "review",
+      "label": "Eight-seat review table",
+      "box": {
+        "min_x": 6.2,
+        "max_x": 11.8,
+        "min_z": 4.25,
+        "max_z": 7.75
+      }
+    },
+    {
+      "id": "client_nook",
+      "label": "Client conversation nook",
+      "box": {
+        "min_x": 0.8,
+        "max_x": 3.8,
+        "min_z": 0.35,
+        "max_z": 2.65
+      }
+    },
+    {
+      "id": "coffee_lounge",
+      "label": "Coffee and lounge",
+      "box": {
+        "min_x": 14.2,
+        "max_x": 17.4,
+        "min_z": 0.35,
+        "max_z": 2.85
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "id": "left_0",
+      "x": 5,
+      "z": 2.7
+    },
+    {
+      "id": "left_1",
+      "x": 5,
+      "z": 3.9
+    },
+    {
+      "id": "left_2",
+      "x": 5,
+      "z": 7.1
+    },
+    {
+      "id": "left_3",
+      "x": 5,
+      "z": 9
+    },
+    {
+      "id": "left_4",
+      "x": 5,
+      "z": 10.3
+    },
+    {
+      "id": "right_0",
+      "x": 13,
+      "z": 2.7
+    },
+    {
+      "id": "right_1",
+      "x": 13,
+      "z": 3.9
+    },
+    {
+      "id": "right_2",
+      "x": 13,
+      "z": 7.1
+    },
+    {
+      "id": "right_3",
+      "x": 13,
+      "z": 9
+    },
+    {
+      "id": "right_4",
+      "x": 13,
+      "z": 10.3
+    },
+    {
+      "id": "front_center",
+      "x": 9,
+      "z": 2.7
+    },
+    {
+      "id": "rear_adrian",
+      "x": 7.4,
+      "z": 9
+    },
+    {
+      "id": "rear_center",
+      "x": 9,
+      "z": 9
+    },
+    {
+      "id": "entry",
+      "x": 9,
+      "z": 0.75
+    },
+    {
+      "id": "approach_clara",
+      "x": 3.7,
+      "z": 10.3
+    },
+    {
+      "id": "approach_nadia",
+      "x": 3.7,
+      "z": 7.1
+    },
+    {
+      "id": "approach_leo",
+      "x": 3.7,
+      "z": 3.9
+    },
+    {
+      "id": "approach_adrian",
+      "x": 7.4,
+      "z": 9.45
+    },
+    {
+      "id": "approach_lisa",
+      "x": 14.3,
+      "z": 10.3
+    },
+    {
+      "id": "approach_sam",
+      "x": 14.3,
+      "z": 7.1
+    },
+    {
+      "id": "approach_theo",
+      "x": 14.3,
+      "z": 3.9
+    },
+    {
+      "id": "approach_review_adrian",
+      "x": 7.8,
+      "z": 3.95
+    },
+    {
+      "id": "branch_review_adrian",
+      "x": 7.8,
+      "z": 2.7
+    },
+    {
+      "id": "approach_review_clara",
+      "x": 9,
+      "z": 3.95
+    },
+    {
+      "id": "branch_review_clara",
+      "x": 9,
+      "z": 2.7
+    },
+    {
+      "id": "approach_review_nadia",
+      "x": 10.2,
+      "z": 3.95
+    },
+    {
+      "id": "branch_review_nadia",
+      "x": 10.2,
+      "z": 2.7
+    },
+    {
+      "id": "approach_review_leo",
+      "x": 5.85,
+      "z": 6
+    },
+    {
+      "id": "branch_review_leo",
+      "x": 5,
+      "z": 6
+    },
+    {
+      "id": "approach_review_lisa",
+      "x": 7.8,
+      "z": 8.05
+    },
+    {
+      "id": "branch_review_lisa",
+      "x": 7.8,
+      "z": 9
+    },
+    {
+      "id": "approach_review_sam",
+      "x": 9,
+      "z": 8.05
+    },
+    {
+      "id": "branch_review_sam",
+      "x": 9,
+      "z": 9
+    },
+    {
+      "id": "approach_review_theo",
+      "x": 10.2,
+      "z": 8.05
+    },
+    {
+      "id": "branch_review_theo",
+      "x": 10.2,
+      "z": 9
+    },
+    {
+      "id": "approach_review_owner",
+      "x": 12.15,
+      "z": 6
+    },
+    {
+      "id": "branch_review_owner",
+      "x": 13,
+      "z": 6
+    },
+    {
+      "id": "destination_client_nook",
+      "x": 2.8,
+      "z": 2.6
+    },
+    {
+      "id": "destination_coffee",
+      "x": 15,
+      "z": 2.65
+    },
+    {
+      "id": "project_wall_staging",
+      "x": 9,
+      "z": 11.9
+    },
+    {
+      "id": "destination_project_wall",
+      "x": 10.6,
+      "z": 11.9
+    }
+  ],
+  "edges": [
+    {
+      "from": "left_0",
+      "to": "left_1",
+      "kind": "walk"
+    },
+    {
+      "from": "right_0",
+      "to": "right_1",
+      "kind": "walk"
+    },
+    {
+      "from": "left_1",
+      "to": "left_2",
+      "kind": "walk"
+    },
+    {
+      "from": "right_1",
+      "to": "right_2",
+      "kind": "walk"
+    },
+    {
+      "from": "left_2",
+      "to": "left_3",
+      "kind": "walk"
+    },
+    {
+      "from": "right_2",
+      "to": "right_3",
+      "kind": "walk"
+    },
+    {
+      "from": "left_3",
+      "to": "left_4",
+      "kind": "walk"
+    },
+    {
+      "from": "right_3",
+      "to": "right_4",
+      "kind": "walk"
+    },
+    {
+      "from": "left_0",
+      "to": "front_center",
+      "kind": "walk"
+    },
+    {
+      "from": "front_center",
+      "to": "right_0",
+      "kind": "walk"
+    },
+    {
+      "from": "left_3",
+      "to": "rear_adrian",
+      "kind": "walk"
+    },
+    {
+      "from": "rear_adrian",
+      "to": "rear_center",
+      "kind": "walk"
+    },
+    {
+      "from": "rear_center",
+      "to": "right_3",
+      "kind": "walk"
+    },
+    {
+      "from": "entry",
+      "to": "front_center",
+      "kind": "walk"
+    },
+    {
+      "from": "left_4",
+      "to": "approach_clara",
+      "kind": "walk"
+    },
+    {
+      "from": "left_2",
+      "to": "approach_nadia",
+      "kind": "walk"
+    },
+    {
+      "from": "left_1",
+      "to": "approach_leo",
+      "kind": "walk"
+    },
+    {
+      "from": "rear_adrian",
+      "to": "approach_adrian",
+      "kind": "walk"
+    },
+    {
+      "from": "right_4",
+      "to": "approach_lisa",
+      "kind": "walk"
+    },
+    {
+      "from": "right_2",
+      "to": "approach_sam",
+      "kind": "walk"
+    },
+    {
+      "from": "right_1",
+      "to": "approach_theo",
+      "kind": "walk"
+    },
+    {
+      "from": "branch_review_adrian",
+      "to": "approach_review_adrian",
+      "kind": "walk"
+    },
+    {
+      "from": "front_center",
+      "to": "branch_review_adrian",
+      "kind": "walk"
+    },
+    {
+      "from": "branch_review_clara",
+      "to": "approach_review_clara",
+      "kind": "walk"
+    },
+    {
+      "from": "front_center",
+      "to": "branch_review_clara",
+      "kind": "walk"
+    },
+    {
+      "from": "branch_review_nadia",
+      "to": "approach_review_nadia",
+      "kind": "walk"
+    },
+    {
+      "from": "front_center",
+      "to": "branch_review_nadia",
+      "kind": "walk"
+    },
+    {
+      "from": "branch_review_leo",
+      "to": "approach_review_leo",
+      "kind": "walk"
+    },
+    {
+      "from": "left_1",
+      "to": "branch_review_leo",
+      "kind": "walk"
+    },
+    {
+      "from": "branch_review_leo",
+      "to": "left_2",
+      "kind": "walk"
+    },
+    {
+      "from": "branch_review_lisa",
+      "to": "approach_review_lisa",
+      "kind": "walk"
+    },
+    {
+      "from": "rear_center",
+      "to": "branch_review_lisa",
+      "kind": "walk"
+    },
+    {
+      "from": "branch_review_sam",
+      "to": "approach_review_sam",
+      "kind": "walk"
+    },
+    {
+      "from": "rear_center",
+      "to": "branch_review_sam",
+      "kind": "walk"
+    },
+    {
+      "from": "branch_review_theo",
+      "to": "approach_review_theo",
+      "kind": "walk"
+    },
+    {
+      "from": "rear_center",
+      "to": "branch_review_theo",
+      "kind": "walk"
+    },
+    {
+      "from": "branch_review_owner",
+      "to": "approach_review_owner",
+      "kind": "walk"
+    },
+    {
+      "from": "right_1",
+      "to": "branch_review_owner",
+      "kind": "walk"
+    },
+    {
+      "from": "branch_review_owner",
+      "to": "right_2",
+      "kind": "walk"
+    },
+    {
+      "from": "left_0",
+      "to": "destination_client_nook",
+      "kind": "walk"
+    },
+    {
+      "from": "right_0",
+      "to": "destination_coffee",
+      "kind": "walk"
+    },
+    {
+      "from": "rear_center",
+      "to": "project_wall_staging",
+      "kind": "walk"
+    },
+    {
+      "from": "project_wall_staging",
+      "to": "destination_project_wall",
+      "kind": "walk"
+    }
+  ],
+  "workstations": [
+    {
+      "id": "desk_clara",
+      "character_id": "clara",
+      "character_name": "Clara",
+      "role": "Finance & Accounting",
+      "zone": "business",
+      "desk_center": {
+        "x": 1.8,
+        "z": 10.3
+      },
+      "desk_top_y": 0.75,
+      "desk_width_m": 1.6,
+      "desk_depth_m": 0.8,
+      "seat": {
+        "x": 2.85,
+        "z": 10.3,
+        "y": 0,
+        "seat_surface_y": 0.47,
+        "yaw_radians": -1.5707963267948966,
+        "footprint_box": {
+          "min_x": 2.6,
+          "max_x": 3.1,
+          "min_z": 10.05,
+          "max_z": 10.55
+        }
+      },
+      "approach": {
+        "node_id": "approach_clara",
+        "x": 3.7,
+        "z": 10.3,
+        "clearance_box": {
+          "min_x": 3.45,
+          "max_x": 3.95,
+          "min_z": 10.05,
+          "max_z": 10.55
+        }
+      },
+      "dock": {
+        "from": "approach_clara",
+        "to": {
+          "x": 2.85,
+          "z": 10.3
+        },
+        "own_chair_exception": "chair_clara",
+        "animation": "turn, sit_down, seated_idle",
+        "reverse": "stand_up, turn, walk"
+      }
+    },
+    {
+      "id": "desk_nadia",
+      "character_id": "nadia",
+      "character_name": "Nadia",
+      "role": "Administration",
+      "zone": "business",
+      "desk_center": {
+        "x": 1.8,
+        "z": 7.1
+      },
+      "desk_top_y": 0.75,
+      "desk_width_m": 1.6,
+      "desk_depth_m": 0.8,
+      "seat": {
+        "x": 2.85,
+        "z": 7.1,
+        "y": 0,
+        "seat_surface_y": 0.47,
+        "yaw_radians": -1.5707963267948966,
+        "footprint_box": {
+          "min_x": 2.6,
+          "max_x": 3.1,
+          "min_z": 6.85,
+          "max_z": 7.35
+        }
+      },
+      "approach": {
+        "node_id": "approach_nadia",
+        "x": 3.7,
+        "z": 7.1,
+        "clearance_box": {
+          "min_x": 3.45,
+          "max_x": 3.95,
+          "min_z": 6.85,
+          "max_z": 7.35
+        }
+      },
+      "dock": {
+        "from": "approach_nadia",
+        "to": {
+          "x": 2.85,
+          "z": 7.1
+        },
+        "own_chair_exception": "chair_nadia",
+        "animation": "turn, sit_down, seated_idle",
+        "reverse": "stand_up, turn, walk"
+      }
+    },
+    {
+      "id": "desk_leo",
+      "character_id": "leo",
+      "character_name": "Leo",
+      "role": "Sales & Client Relations",
+      "zone": "business",
+      "desk_center": {
+        "x": 1.8,
+        "z": 3.9
+      },
+      "desk_top_y": 0.75,
+      "desk_width_m": 1.6,
+      "desk_depth_m": 0.8,
+      "seat": {
+        "x": 2.85,
+        "z": 3.9,
+        "y": 0,
+        "seat_surface_y": 0.47,
+        "yaw_radians": -1.5707963267948966,
+        "footprint_box": {
+          "min_x": 2.6,
+          "max_x": 3.1,
+          "min_z": 3.65,
+          "max_z": 4.15
+        }
+      },
+      "approach": {
+        "node_id": "approach_leo",
+        "x": 3.7,
+        "z": 3.9,
+        "clearance_box": {
+          "min_x": 3.45,
+          "max_x": 3.95,
+          "min_z": 3.65,
+          "max_z": 4.15
+        }
+      },
+      "dock": {
+        "from": "approach_leo",
+        "to": {
+          "x": 2.85,
+          "z": 3.9
+        },
+        "own_chair_exception": "chair_leo",
+        "animation": "turn, sit_down, seated_idle",
+        "reverse": "stand_up, turn, walk"
+      }
+    },
+    {
+      "id": "desk_adrian",
+      "character_id": "adrian",
+      "character_name": "Adrian",
+      "role": "Project Manager",
+      "zone": "project",
+      "desk_center": {
+        "x": 7.4,
+        "z": 11.3
+      },
+      "desk_top_y": 0.75,
+      "desk_width_m": 1.8,
+      "desk_depth_m": 0.8,
+      "seat": {
+        "x": 7.4,
+        "z": 10.35,
+        "y": 0,
+        "seat_surface_y": 0.47,
+        "yaw_radians": 0,
+        "footprint_box": {
+          "min_x": 7.15,
+          "max_x": 7.65,
+          "min_z": 10.1,
+          "max_z": 10.6
+        }
+      },
+      "approach": {
+        "node_id": "approach_adrian",
+        "x": 7.4,
+        "z": 9.45,
+        "clearance_box": {
+          "min_x": 7.15,
+          "max_x": 7.65,
+          "min_z": 9.2,
+          "max_z": 9.7
+        }
+      },
+      "dock": {
+        "from": "approach_adrian",
+        "to": {
+          "x": 7.4,
+          "z": 10.35
+        },
+        "own_chair_exception": "chair_adrian",
+        "animation": "turn, sit_down, seated_idle",
+        "reverse": "stand_up, turn, walk"
+      }
+    },
+    {
+      "id": "desk_lisa",
+      "character_id": "lisa",
+      "character_name": "Lisa",
+      "role": "Graphic Designer",
+      "zone": "delivery",
+      "desk_center": {
+        "x": 16.2,
+        "z": 10.3
+      },
+      "desk_top_y": 0.75,
+      "desk_width_m": 1.6,
+      "desk_depth_m": 0.8,
+      "seat": {
+        "x": 15.15,
+        "z": 10.3,
+        "y": 0,
+        "seat_surface_y": 0.47,
+        "yaw_radians": 1.5707963267948966,
+        "footprint_box": {
+          "min_x": 14.9,
+          "max_x": 15.4,
+          "min_z": 10.05,
+          "max_z": 10.55
+        }
+      },
+      "approach": {
+        "node_id": "approach_lisa",
+        "x": 14.3,
+        "z": 10.3,
+        "clearance_box": {
+          "min_x": 14.05,
+          "max_x": 14.55,
+          "min_z": 10.05,
+          "max_z": 10.55
+        }
+      },
+      "dock": {
+        "from": "approach_lisa",
+        "to": {
+          "x": 15.15,
+          "z": 10.3
+        },
+        "own_chair_exception": "chair_lisa",
+        "animation": "turn, sit_down, seated_idle",
+        "reverse": "stand_up, turn, walk"
+      }
+    },
+    {
+      "id": "desk_sam",
+      "character_id": "sam",
+      "character_name": "Sam",
+      "role": "Frontend Developer",
+      "zone": "delivery",
+      "desk_center": {
+        "x": 16.2,
+        "z": 7.1
+      },
+      "desk_top_y": 0.75,
+      "desk_width_m": 1.6,
+      "desk_depth_m": 0.8,
+      "seat": {
+        "x": 15.15,
+        "z": 7.1,
+        "y": 0,
+        "seat_surface_y": 0.47,
+        "yaw_radians": 1.5707963267948966,
+        "footprint_box": {
+          "min_x": 14.9,
+          "max_x": 15.4,
+          "min_z": 6.85,
+          "max_z": 7.35
+        }
+      },
+      "approach": {
+        "node_id": "approach_sam",
+        "x": 14.3,
+        "z": 7.1,
+        "clearance_box": {
+          "min_x": 14.05,
+          "max_x": 14.55,
+          "min_z": 6.85,
+          "max_z": 7.35
+        }
+      },
+      "dock": {
+        "from": "approach_sam",
+        "to": {
+          "x": 15.15,
+          "z": 7.1
+        },
+        "own_chair_exception": "chair_sam",
+        "animation": "turn, sit_down, seated_idle",
+        "reverse": "stand_up, turn, walk"
+      }
+    },
+    {
+      "id": "desk_theo",
+      "character_id": "theo",
+      "character_name": "Theo",
+      "role": "Backend Developer",
+      "zone": "delivery",
+      "desk_center": {
+        "x": 16.2,
+        "z": 3.9
+      },
+      "desk_top_y": 0.75,
+      "desk_width_m": 1.6,
+      "desk_depth_m": 0.8,
+      "seat": {
+        "x": 15.15,
+        "z": 3.9,
+        "y": 0,
+        "seat_surface_y": 0.47,
+        "yaw_radians": 1.5707963267948966,
+        "footprint_box": {
+          "min_x": 14.9,
+          "max_x": 15.4,
+          "min_z": 3.65,
+          "max_z": 4.15
+        }
+      },
+      "approach": {
+        "node_id": "approach_theo",
+        "x": 14.3,
+        "z": 3.9,
+        "clearance_box": {
+          "min_x": 14.05,
+          "max_x": 14.55,
+          "min_z": 3.65,
+          "max_z": 4.15
+        }
+      },
+      "dock": {
+        "from": "approach_theo",
+        "to": {
+          "x": 15.15,
+          "z": 3.9
+        },
+        "own_chair_exception": "chair_theo",
+        "animation": "turn, sit_down, seated_idle",
+        "reverse": "stand_up, turn, walk"
+      }
+    }
+  ],
+  "review_seats": [
+    {
+      "id": "review_adrian",
+      "occupant_default": "Adrian",
+      "seat": {
+        "x": 7.8,
+        "z": 4.8,
+        "y": 0,
+        "seat_surface_y": 0.47,
+        "yaw_radians": 0,
+        "footprint_box": {
+          "min_x": 7.55,
+          "max_x": 8.05,
+          "min_z": 4.55,
+          "max_z": 5.05
+        }
+      },
+      "approach": {
+        "node_id": "approach_review_adrian",
+        "x": 7.8,
+        "z": 3.95,
+        "clearance_box": {
+          "min_x": 7.55,
+          "max_x": 8.05,
+          "min_z": 3.7,
+          "max_z": 4.2
+        }
+      },
+      "own_chair_exception": "chair_review_adrian",
+      "owner_seat_is_empty_until_needed": false
+    },
+    {
+      "id": "review_clara",
+      "occupant_default": "Clara",
+      "seat": {
+        "x": 9,
+        "z": 4.8,
+        "y": 0,
+        "seat_surface_y": 0.47,
+        "yaw_radians": 0,
+        "footprint_box": {
+          "min_x": 8.75,
+          "max_x": 9.25,
+          "min_z": 4.55,
+          "max_z": 5.05
+        }
+      },
+      "approach": {
+        "node_id": "approach_review_clara",
+        "x": 9,
+        "z": 3.95,
+        "clearance_box": {
+          "min_x": 8.75,
+          "max_x": 9.25,
+          "min_z": 3.7,
+          "max_z": 4.2
+        }
+      },
+      "own_chair_exception": "chair_review_clara",
+      "owner_seat_is_empty_until_needed": false
+    },
+    {
+      "id": "review_nadia",
+      "occupant_default": "Nadia",
+      "seat": {
+        "x": 10.2,
+        "z": 4.8,
+        "y": 0,
+        "seat_surface_y": 0.47,
+        "yaw_radians": 0,
+        "footprint_box": {
+          "min_x": 9.95,
+          "max_x": 10.45,
+          "min_z": 4.55,
+          "max_z": 5.05
+        }
+      },
+      "approach": {
+        "node_id": "approach_review_nadia",
+        "x": 10.2,
+        "z": 3.95,
+        "clearance_box": {
+          "min_x": 9.95,
+          "max_x": 10.45,
+          "min_z": 3.7,
+          "max_z": 4.2
+        }
+      },
+      "own_chair_exception": "chair_review_nadia",
+      "owner_seat_is_empty_until_needed": false
+    },
+    {
+      "id": "review_leo",
+      "occupant_default": "Leo",
+      "seat": {
+        "x": 6.7,
+        "z": 6,
+        "y": 0,
+        "seat_surface_y": 0.47,
+        "yaw_radians": 1.5707963267948966,
+        "footprint_box": {
+          "min_x": 6.45,
+          "max_x": 6.95,
+          "min_z": 5.75,
+          "max_z": 6.25
+        }
+      },
+      "approach": {
+        "node_id": "approach_review_leo",
+        "x": 5.85,
+        "z": 6,
+        "clearance_box": {
+          "min_x": 5.6,
+          "max_x": 6.1,
+          "min_z": 5.75,
+          "max_z": 6.25
+        }
+      },
+      "own_chair_exception": "chair_review_leo",
+      "owner_seat_is_empty_until_needed": false
+    },
+    {
+      "id": "review_lisa",
+      "occupant_default": "Lisa",
+      "seat": {
+        "x": 7.8,
+        "z": 7.2,
+        "y": 0,
+        "seat_surface_y": 0.47,
+        "yaw_radians": 3.141592653589793,
+        "footprint_box": {
+          "min_x": 7.55,
+          "max_x": 8.05,
+          "min_z": 6.95,
+          "max_z": 7.45
+        }
+      },
+      "approach": {
+        "node_id": "approach_review_lisa",
+        "x": 7.8,
+        "z": 8.05,
+        "clearance_box": {
+          "min_x": 7.55,
+          "max_x": 8.05,
+          "min_z": 7.800000000000001,
+          "max_z": 8.3
+        }
+      },
+      "own_chair_exception": "chair_review_lisa",
+      "owner_seat_is_empty_until_needed": false
+    },
+    {
+      "id": "review_sam",
+      "occupant_default": "Sam",
+      "seat": {
+        "x": 9,
+        "z": 7.2,
+        "y": 0,
+        "seat_surface_y": 0.47,
+        "yaw_radians": 3.141592653589793,
+        "footprint_box": {
+          "min_x": 8.75,
+          "max_x": 9.25,
+          "min_z": 6.95,
+          "max_z": 7.45
+        }
+      },
+      "approach": {
+        "node_id": "approach_review_sam",
+        "x": 9,
+        "z": 8.05,
+        "clearance_box": {
+          "min_x": 8.75,
+          "max_x": 9.25,
+          "min_z": 7.800000000000001,
+          "max_z": 8.3
+        }
+      },
+      "own_chair_exception": "chair_review_sam",
+      "owner_seat_is_empty_until_needed": false
+    },
+    {
+      "id": "review_theo",
+      "occupant_default": "Theo",
+      "seat": {
+        "x": 10.2,
+        "z": 7.2,
+        "y": 0,
+        "seat_surface_y": 0.47,
+        "yaw_radians": 3.141592653589793,
+        "footprint_box": {
+          "min_x": 9.95,
+          "max_x": 10.45,
+          "min_z": 6.95,
+          "max_z": 7.45
+        }
+      },
+      "approach": {
+        "node_id": "approach_review_theo",
+        "x": 10.2,
+        "z": 8.05,
+        "clearance_box": {
+          "min_x": 9.95,
+          "max_x": 10.45,
+          "min_z": 7.800000000000001,
+          "max_z": 8.3
+        }
+      },
+      "own_chair_exception": "chair_review_theo",
+      "owner_seat_is_empty_until_needed": false
+    },
+    {
+      "id": "review_owner",
+      "occupant_default": "Owner",
+      "seat": {
+        "x": 11.3,
+        "z": 6,
+        "y": 0,
+        "seat_surface_y": 0.47,
+        "yaw_radians": -1.5707963267948966,
+        "footprint_box": {
+          "min_x": 11.05,
+          "max_x": 11.55,
+          "min_z": 5.75,
+          "max_z": 6.25
+        }
+      },
+      "approach": {
+        "node_id": "approach_review_owner",
+        "x": 12.15,
+        "z": 6,
+        "clearance_box": {
+          "min_x": 11.9,
+          "max_x": 12.4,
+          "min_z": 5.75,
+          "max_z": 6.25
+        }
+      },
+      "own_chair_exception": "chair_review_owner",
+      "owner_seat_is_empty_until_needed": true
+    }
+  ],
+  "destinations": [
+    {
+      "id": "client_nook",
+      "node_id": "destination_client_nook",
+      "x": 2.8,
+      "z": 2.6,
+      "description": "Stand at the clear nook edge; no automatic seating in the armchairs for first version."
+    },
+    {
+      "id": "coffee",
+      "node_id": "destination_coffee",
+      "x": 15,
+      "z": 2.65,
+      "description": "Stand at the clear lounge edge; no automatic sofa seating or cup simulation."
+    },
+    {
+      "id": "project_wall",
+      "node_id": "destination_project_wall",
+      "x": 10.6,
+      "z": 11.9,
+      "description": "Stand before project wall; approach via rear center x=9 then z=11.9 then x=10.6."
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "desk_clara",
+      "category": "desk",
+      "center": {
+        "x": 1.8,
+        "z": 10.3
+      },
+      "width_x": 0.8,
+      "depth_z": 1.6,
+      "height_y": 0.75,
+      "yaw_radians": -1.5707963267948966,
+      "box": {
+        "min_x": 1.4,
+        "max_x": 2.2,
+        "min_z": 9.5,
+        "max_z": 11.100000000000001
+      }
+    },
+    {
+      "id": "chair_clara",
+      "category": "desk_chair",
+      "center": {
+        "x": 2.85,
+        "z": 10.3
+      },
+      "width_x": 0.8,
+      "depth_z": 0.8,
+      "height_y": 1.05,
+      "yaw_radians": -1.5707963267948966,
+      "box": {
+        "min_x": 2.45,
+        "max_x": 3.25,
+        "min_z": 9.9,
+        "max_z": 10.700000000000001
+      }
+    },
+    {
+      "id": "desk_nadia",
+      "category": "desk",
+      "center": {
+        "x": 1.8,
+        "z": 7.1
+      },
+      "width_x": 0.8,
+      "depth_z": 1.6,
+      "height_y": 0.75,
+      "yaw_radians": -1.5707963267948966,
+      "box": {
+        "min_x": 1.4,
+        "max_x": 2.2,
+        "min_z": 6.3,
+        "max_z": 7.8999999999999995
+      }
+    },
+    {
+      "id": "chair_nadia",
+      "category": "desk_chair",
+      "center": {
+        "x": 2.85,
+        "z": 7.1
+      },
+      "width_x": 0.8,
+      "depth_z": 0.8,
+      "height_y": 1.05,
+      "yaw_radians": -1.5707963267948966,
+      "box": {
+        "min_x": 2.45,
+        "max_x": 3.25,
+        "min_z": 6.699999999999999,
+        "max_z": 7.5
+      }
+    },
+    {
+      "id": "desk_leo",
+      "category": "desk",
+      "center": {
+        "x": 1.8,
+        "z": 3.9
+      },
+      "width_x": 0.8,
+      "depth_z": 1.6,
+      "height_y": 0.75,
+      "yaw_radians": -1.5707963267948966,
+      "box": {
+        "min_x": 1.4,
+        "max_x": 2.2,
+        "min_z": 3.0999999999999996,
+        "max_z": 4.7
+      }
+    },
+    {
+      "id": "chair_leo",
+      "category": "desk_chair",
+      "center": {
+        "x": 2.85,
+        "z": 3.9
+      },
+      "width_x": 0.8,
+      "depth_z": 0.8,
+      "height_y": 1.05,
+      "yaw_radians": -1.5707963267948966,
+      "box": {
+        "min_x": 2.45,
+        "max_x": 3.25,
+        "min_z": 3.5,
+        "max_z": 4.3
+      }
+    },
+    {
+      "id": "desk_adrian",
+      "category": "desk",
+      "center": {
+        "x": 7.4,
+        "z": 11.3
+      },
+      "width_x": 1.8,
+      "depth_z": 0.8,
+      "height_y": 0.75,
+      "yaw_radians": 0,
+      "box": {
+        "min_x": 6.5,
+        "max_x": 8.3,
+        "min_z": 10.9,
+        "max_z": 11.700000000000001
+      }
+    },
+    {
+      "id": "chair_adrian",
+      "category": "desk_chair",
+      "center": {
+        "x": 7.4,
+        "z": 10.35
+      },
+      "width_x": 0.8,
+      "depth_z": 0.8,
+      "height_y": 1.05,
+      "yaw_radians": 0,
+      "box": {
+        "min_x": 7,
+        "max_x": 7.800000000000001,
+        "min_z": 9.95,
+        "max_z": 10.75
+      }
+    },
+    {
+      "id": "desk_lisa",
+      "category": "desk",
+      "center": {
+        "x": 16.2,
+        "z": 10.3
+      },
+      "width_x": 0.8,
+      "depth_z": 1.6,
+      "height_y": 0.75,
+      "yaw_radians": 1.5707963267948966,
+      "box": {
+        "min_x": 15.799999999999999,
+        "max_x": 16.599999999999998,
+        "min_z": 9.5,
+        "max_z": 11.100000000000001
+      }
+    },
+    {
+      "id": "chair_lisa",
+      "category": "desk_chair",
+      "center": {
+        "x": 15.15,
+        "z": 10.3
+      },
+      "width_x": 0.8,
+      "depth_z": 0.8,
+      "height_y": 1.05,
+      "yaw_radians": 1.5707963267948966,
+      "box": {
+        "min_x": 14.75,
+        "max_x": 15.55,
+        "min_z": 9.9,
+        "max_z": 10.700000000000001
+      }
+    },
+    {
+      "id": "desk_sam",
+      "category": "desk",
+      "center": {
+        "x": 16.2,
+        "z": 7.1
+      },
+      "width_x": 0.8,
+      "depth_z": 1.6,
+      "height_y": 0.75,
+      "yaw_radians": 1.5707963267948966,
+      "box": {
+        "min_x": 15.799999999999999,
+        "max_x": 16.599999999999998,
+        "min_z": 6.3,
+        "max_z": 7.8999999999999995
+      }
+    },
+    {
+      "id": "chair_sam",
+      "category": "desk_chair",
+      "center": {
+        "x": 15.15,
+        "z": 7.1
+      },
+      "width_x": 0.8,
+      "depth_z": 0.8,
+      "height_y": 1.05,
+      "yaw_radians": 1.5707963267948966,
+      "box": {
+        "min_x": 14.75,
+        "max_x": 15.55,
+        "min_z": 6.699999999999999,
+        "max_z": 7.5
+      }
+    },
+    {
+      "id": "desk_theo",
+      "category": "desk",
+      "center": {
+        "x": 16.2,
+        "z": 3.9
+      },
+      "width_x": 0.8,
+      "depth_z": 1.6,
+      "height_y": 0.75,
+      "yaw_radians": 1.5707963267948966,
+      "box": {
+        "min_x": 15.799999999999999,
+        "max_x": 16.599999999999998,
+        "min_z": 3.0999999999999996,
+        "max_z": 4.7
+      }
+    },
+    {
+      "id": "chair_theo",
+      "category": "desk_chair",
+      "center": {
+        "x": 15.15,
+        "z": 3.9
+      },
+      "width_x": 0.8,
+      "depth_z": 0.8,
+      "height_y": 1.05,
+      "yaw_radians": 1.5707963267948966,
+      "box": {
+        "min_x": 14.75,
+        "max_x": 15.55,
+        "min_z": 3.5,
+        "max_z": 4.3
+      }
+    },
+    {
+      "id": "review_table",
+      "category": "review_table",
+      "center": {
+        "x": 9,
+        "z": 6
+      },
+      "width_x": 3.6,
+      "depth_z": 1.4,
+      "height_y": 0.75,
+      "yaw_radians": 0,
+      "box": {
+        "min_x": 7.2,
+        "max_x": 10.8,
+        "min_z": 5.3,
+        "max_z": 6.7
+      }
+    },
+    {
+      "id": "chair_review_adrian",
+      "category": "review_chair",
+      "center": {
+        "x": 7.8,
+        "z": 4.8
+      },
+      "width_x": 0.7,
+      "depth_z": 0.8,
+      "height_y": 0.95,
+      "yaw_radians": 0,
+      "box": {
+        "min_x": 7.45,
+        "max_x": 8.15,
+        "min_z": 4.3999999999999995,
+        "max_z": 5.2
+      }
+    },
+    {
+      "id": "chair_review_clara",
+      "category": "review_chair",
+      "center": {
+        "x": 9,
+        "z": 4.8
+      },
+      "width_x": 0.7,
+      "depth_z": 0.8,
+      "height_y": 0.95,
+      "yaw_radians": 0,
+      "box": {
+        "min_x": 8.65,
+        "max_x": 9.35,
+        "min_z": 4.3999999999999995,
+        "max_z": 5.2
+      }
+    },
+    {
+      "id": "chair_review_nadia",
+      "category": "review_chair",
+      "center": {
+        "x": 10.2,
+        "z": 4.8
+      },
+      "width_x": 0.7,
+      "depth_z": 0.8,
+      "height_y": 0.95,
+      "yaw_radians": 0,
+      "box": {
+        "min_x": 9.85,
+        "max_x": 10.549999999999999,
+        "min_z": 4.3999999999999995,
+        "max_z": 5.2
+      }
+    },
+    {
+      "id": "chair_review_leo",
+      "category": "review_chair",
+      "center": {
+        "x": 6.7,
+        "z": 6
+      },
+      "width_x": 0.8,
+      "depth_z": 0.7,
+      "height_y": 0.95,
+      "yaw_radians": 1.5707963267948966,
+      "box": {
+        "min_x": 6.3,
+        "max_x": 7.1000000000000005,
+        "min_z": 5.65,
+        "max_z": 6.35
+      }
+    },
+    {
+      "id": "chair_review_lisa",
+      "category": "review_chair",
+      "center": {
+        "x": 7.8,
+        "z": 7.2
+      },
+      "width_x": 0.7,
+      "depth_z": 0.8,
+      "height_y": 0.95,
+      "yaw_radians": 3.141592653589793,
+      "box": {
+        "min_x": 7.45,
+        "max_x": 8.15,
+        "min_z": 6.8,
+        "max_z": 7.6000000000000005
+      }
+    },
+    {
+      "id": "chair_review_sam",
+      "category": "review_chair",
+      "center": {
+        "x": 9,
+        "z": 7.2
+      },
+      "width_x": 0.7,
+      "depth_z": 0.8,
+      "height_y": 0.95,
+      "yaw_radians": 3.141592653589793,
+      "box": {
+        "min_x": 8.65,
+        "max_x": 9.35,
+        "min_z": 6.8,
+        "max_z": 7.6000000000000005
+      }
+    },
+    {
+      "id": "chair_review_theo",
+      "category": "review_chair",
+      "center": {
+        "x": 10.2,
+        "z": 7.2
+      },
+      "width_x": 0.7,
+      "depth_z": 0.8,
+      "height_y": 0.95,
+      "yaw_radians": 3.141592653589793,
+      "box": {
+        "min_x": 9.85,
+        "max_x": 10.549999999999999,
+        "min_z": 6.8,
+        "max_z": 7.6000000000000005
+      }
+    },
+    {
+      "id": "chair_review_owner",
+      "category": "review_chair",
+      "center": {
+        "x": 11.3,
+        "z": 6
+      },
+      "width_x": 0.8,
+      "depth_z": 0.7,
+      "height_y": 0.95,
+      "yaw_radians": -1.5707963267948966,
+      "box": {
+        "min_x": 10.9,
+        "max_x": 11.700000000000001,
+        "min_z": 5.65,
+        "max_z": 6.35
+      }
+    },
+    {
+      "id": "client_armchair_a",
+      "category": "client_armchair",
+      "center": {
+        "x": 1.5,
+        "z": 1.7
+      },
+      "width_x": 0.85,
+      "depth_z": 0.85,
+      "height_y": 0.95,
+      "yaw_radians": 0,
+      "box": {
+        "min_x": 1.075,
+        "max_x": 1.925,
+        "min_z": 1.275,
+        "max_z": 2.125
+      }
+    },
+    {
+      "id": "client_armchair_b",
+      "category": "client_armchair",
+      "center": {
+        "x": 3,
+        "z": 0.9
+      },
+      "width_x": 0.85,
+      "depth_z": 0.85,
+      "height_y": 0.95,
+      "yaw_radians": 0,
+      "box": {
+        "min_x": 2.575,
+        "max_x": 3.425,
+        "min_z": 0.47500000000000003,
+        "max_z": 1.325
+      }
+    },
+    {
+      "id": "client_side_table",
+      "category": "client_side_table",
+      "center": {
+        "x": 2.3,
+        "z": 1.25
+      },
+      "width_x": 0.55,
+      "depth_z": 0.55,
+      "height_y": 0.5,
+      "yaw_radians": 0,
+      "box": {
+        "min_x": 2.025,
+        "max_x": 2.5749999999999997,
+        "min_z": 0.975,
+        "max_z": 1.525
+      }
+    },
+    {
+      "id": "lounge_sofa",
+      "category": "sofa",
+      "center": {
+        "x": 15.4,
+        "z": 0.8
+      },
+      "width_x": 2,
+      "depth_z": 0.9,
+      "height_y": 0.9,
+      "yaw_radians": 0,
+      "box": {
+        "min_x": 14.4,
+        "max_x": 16.4,
+        "min_z": 0.35000000000000003,
+        "max_z": 1.25
+      }
+    },
+    {
+      "id": "coffee_cabinet",
+      "category": "coffee_cabinet",
+      "center": {
+        "x": 17.1,
+        "z": 1.9
+      },
+      "width_x": 0.6,
+      "depth_z": 1.6,
+      "height_y": 1.1,
+      "yaw_radians": 0,
+      "box": {
+        "min_x": 16.8,
+        "max_x": 17.400000000000002,
+        "min_z": 1.0999999999999999,
+        "max_z": 2.7
+      }
+    },
+    {
+      "id": "shelf_business",
+      "category": "low_shelf",
+      "center": {
+        "x": 4,
+        "z": 12.2
+      },
+      "width_x": 2,
+      "depth_z": 0.4,
+      "height_y": 1.1,
+      "yaw_radians": 0,
+      "box": {
+        "min_x": 3,
+        "max_x": 5,
+        "min_z": 12,
+        "max_z": 12.399999999999999
+      }
+    },
+    {
+      "id": "shelf_delivery",
+      "category": "low_shelf",
+      "center": {
+        "x": 14,
+        "z": 12.2
+      },
+      "width_x": 2,
+      "depth_z": 0.4,
+      "height_y": 1.1,
+      "yaw_radians": 0,
+      "box": {
+        "min_x": 13,
+        "max_x": 15,
+        "min_z": 12,
+        "max_z": 12.399999999999999
+      }
+    },
+    {
+      "id": "plant_rear_left",
+      "category": "plant",
+      "center": {
+        "x": 0.9,
+        "z": 12
+      },
+      "width_x": 0.5,
+      "depth_z": 0.5,
+      "height_y": 1.4,
+      "yaw_radians": 0,
+      "box": {
+        "min_x": 0.65,
+        "max_x": 1.15,
+        "min_z": 11.75,
+        "max_z": 12.25
+      }
+    },
+    {
+      "id": "plant_rear_right",
+      "category": "plant",
+      "center": {
+        "x": 17.1,
+        "z": 12
+      },
+      "width_x": 0.5,
+      "depth_z": 0.5,
+      "height_y": 1.4,
+      "yaw_radians": 0,
+      "box": {
+        "min_x": 16.85,
+        "max_x": 17.35,
+        "min_z": 11.75,
+        "max_z": 12.25
+      }
+    },
+    {
+      "id": "plant_front_left",
+      "category": "plant",
+      "center": {
+        "x": 0.9,
+        "z": 0.4
+      },
+      "width_x": 0.5,
+      "depth_z": 0.5,
+      "height_y": 1.4,
+      "yaw_radians": 0,
+      "box": {
+        "min_x": 0.65,
+        "max_x": 1.15,
+        "min_z": 0.15000000000000002,
+        "max_z": 0.65
+      }
+    },
+    {
+      "id": "plant_front_right",
+      "category": "plant",
+      "center": {
+        "x": 17.1,
+        "z": 0.4
+      },
+      "width_x": 0.5,
+      "depth_z": 0.5,
+      "height_y": 1.4,
+      "yaw_radians": 0,
+      "box": {
+        "min_x": 16.85,
+        "max_x": 17.35,
+        "min_z": 0.15000000000000002,
+        "max_z": 0.65
+      }
+    },
+    {
+      "id": "wall_rear",
+      "category": "wall",
+      "center": {
+        "x": 9,
+        "z": 12.925
+      },
+      "width_x": 18,
+      "depth_z": 0.15,
+      "height_y": 3.2,
+      "yaw_radians": 0,
+      "box": {
+        "min_x": 0,
+        "max_x": 18,
+        "min_z": 12.850000000000001,
+        "max_z": 13
+      }
+    },
+    {
+      "id": "wall_left",
+      "category": "wall",
+      "center": {
+        "x": 0.075,
+        "z": 6.5
+      },
+      "width_x": 0.15,
+      "depth_z": 13,
+      "height_y": 1.1,
+      "yaw_radians": 0,
+      "box": {
+        "min_x": 0,
+        "max_x": 0.15,
+        "min_z": 0,
+        "max_z": 13
+      }
+    }
+  ],
+  "non_blocking_features": [
+    {
+      "id": "project_board",
+      "type": "wall_mounted",
+      "center": {
+        "x": 10.6,
+        "y": 1.7,
+        "z": 12.82
+      },
+      "width_m": 3.5,
+      "height_m": 1.15
+    },
+    {
+      "id": "brand_sign",
+      "type": "wall_mounted",
+      "center": {
+        "x": 7.4,
+        "y": 2.65,
+        "z": 12.82
+      },
+      "width_m": 2.3,
+      "height_m": 0.35
+    },
+    {
+      "id": "shared_review_display",
+      "type": "wall_mounted",
+      "center": {
+        "x": 14.2,
+        "y": 2,
+        "z": 12.82
+      },
+      "width_m": 1.8,
+      "height_m": 1.05
+    }
+  ],
+  "counts": {
+    "characters": 7,
+    "individual_desks": 7,
+    "desk_chairs": 7,
+    "review_tables": 1,
+    "review_chairs": 8,
+    "client_armchairs": 2,
+    "client_side_tables": 1,
+    "sofas": 1,
+    "sofa_seat_capacity": 2,
+    "coffee_cabinets": 1,
+    "low_shelves": 2,
+    "plants": 4,
+    "desk_monitors": 7,
+    "shared_review_displays": 1,
+    "project_boards": 1,
+    "brand_signs": 1
+  },
+  "validation": {
+    "status": "planning_geometry_checked_only",
+    "method": "Axis-aligned proposed footprint/corridor overlap check and straight graph-edge/inflated-obstacle check performed while authoring; no GLB, browser, rendered clearances, collision solver or animation tested.",
+    "modeled_validation_required": true,
+    "proposal_check_results": {
+      "corridor_obstacle_overlap_count": 0,
+      "straight_edge_inflated_obstacle_intersection_count": 0,
+      "approach_clearance_obstacle_overlap_count": 0,
+      "unresolved_edge_count": 0,
+      "nodes_reachable_from_entry": 41,
+      "total_nodes": 41,
+      "static_obstacle_count": 36,
+      "clear_corridor_count": 5,
+      "docks_tested_in_real_model": false,
+      "mesh_bounds_checked": false
+    }
+  }
+}

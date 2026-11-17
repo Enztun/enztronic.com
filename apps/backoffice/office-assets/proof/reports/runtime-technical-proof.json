@@ -1,0 +1,189 @@
+{
+  "generatedAtUtc": "2026-10-21T18:29:51.252Z",
+  "file": "office-assets/proof/assets/office/characters/sam.glb",
+  "sha256": "d469999d47c2a07d6bea1570aa0de7d1e1025354e05e176a29a4851ff7a7071f",
+  "bytes": 740672,
+  "status": "technical_rig_export_checks_passed",
+  "productionApproved": false,
+  "validator": {
+    "version": "2.0.0-dev.3.10",
+    "errors": 0,
+    "warnings": 0
+  },
+  "geometry": {
+    "triangles": 11299,
+    "materials": 3,
+    "skinBindings": 1,
+    "skinnedMeshes": 3,
+    "joints": 22,
+    "malformedWeights": 0,
+    "baseMin": [
+      -0.474,
+      0.006,
+      -0.122
+    ],
+    "baseMax": [
+      0.474,
+      1.82,
+      0.16409
+    ],
+    "independentSkeletonClones": true
+  },
+  "animations": [
+    {
+      "name": "idle_stand",
+      "durationSeconds": 3,
+      "tracks": 66,
+      "sampledFrames": 73,
+      "measurableJointMotion": true,
+      "boundsMin": [
+        -0.35654,
+        0.00599,
+        -0.12254
+      ],
+      "boundsMax": [
+        0.35654,
+        1.81996,
+        0.16409
+      ],
+      "rootHorizontalTravel": {
+        "x": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "walk",
+      "durationSeconds": 1,
+      "tracks": 66,
+      "sampledFrames": 25,
+      "measurableJointMotion": true,
+      "boundsMin": [
+        -0.35849,
+        0.00599,
+        -0.28409
+      ],
+      "boundsMax": [
+        0.35849,
+        1.79386,
+        0.36409
+      ],
+      "rootHorizontalTravel": {
+        "x": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "seated_idle",
+      "durationSeconds": 4,
+      "tracks": 66,
+      "sampledFrames": 97,
+      "measurableJointMotion": true,
+      "boundsMin": [
+        -0.28445,
+        0.006,
+        -0.11552
+      ],
+      "boundsMax": [
+        0.28445,
+        1.41472,
+        0.57909
+      ],
+      "rootHorizontalTravel": {
+        "x": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "seated_work",
+      "durationSeconds": 4,
+      "tracks": 66,
+      "sampledFrames": 97,
+      "measurableJointMotion": true,
+      "boundsMin": [
+        -0.28461,
+        0.006,
+        -0.11498
+      ],
+      "boundsMax": [
+        0.28462,
+        1.4147,
+        0.57909
+      ],
+      "rootHorizontalTravel": {
+        "x": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "sit_down",
+      "durationSeconds": 1.25,
+      "tracks": 66,
+      "sampledFrames": 31,
+      "measurableJointMotion": true,
+      "boundsMin": [
+        -0.46805,
+        0.00599,
+        -0.122
+      ],
+      "boundsMax": [
+        0.46805,
+        1.81986,
+        0.57909
+      ],
+      "rootHorizontalTravel": {
+        "x": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "stand_up",
+      "durationSeconds": 1.25,
+      "tracks": 66,
+      "sampledFrames": 31,
+      "measurableJointMotion": true,
+      "boundsMin": [
+        -0.46805,
+        0.00599,
+        -0.122
+      ],
+      "boundsMax": [
+        0.46805,
+        1.81986,
+        0.57909
+      ],
+      "rootHorizontalTravel": {
+        "x": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "handoff_gesture",
+      "durationSeconds": 2,
+      "tracks": 66,
+      "sampledFrames": 49,
+      "measurableJointMotion": true,
+      "boundsMin": [
+        -0.35654,
+        0.00599,
+        -0.122
+      ],
+      "boundsMax": [
+        0.36112,
+        1.81986,
+        0.4411
+      ],
+      "rootHorizontalTravel": {
+        "x": 0,
+        "z": 0
+      }
+    }
+  ],
+  "problems": [],
+  "pending": [
+    "Portrait-derived visual identity and deformation review",
+    "Real chair/desk dock and limb-clearance review",
+    "WebGL-capable Chrome loader, animation blend, context loss and hardware performance",
+    "Source/provenance/owner production acceptance"
+  ],
+  "limits": "Khronos and headless Three loader/bone sampling are technical evidence only. No WebGL render, final artistic identity, performance, license approval or production promotion is implied."
+}

@@ -209,6 +209,25 @@ export async function updateUser(
   const sql = getDb();
 
   const row = await sql.begin(async (transaction) => {
+    // Serialize every removal of admin authority, including concurrent requests.
+    await transaction`SELECT pg_advisory_xact_lock(hashtext('backoffice-active-admins'))`;
+    const [target] = await transaction<FullUserRow[]>`
+      SELECT id, email, name, role, commission_rate_bps, archived_at, version
+      FROM backoffice.users WHERE id = ${userId} FOR UPDATE
+    `;
+    if (target && actor?.id === target.email &&
+        (parsed.role !== "admin" || parsed.email !== target.email)) {
+      throw new DomainError("INVALID_STATE", "You cannot remove your own administrator access");
+    }
+    if (target?.role === "admin" && target.archived_at === null && parsed.role !== "admin") {
+      const [{ count }] = await transaction<{ count: string }[]>`
+        SELECT count(*) AS count FROM backoffice.users
+        WHERE role = 'admin' AND archived_at IS NULL
+      `;
+      if (Number(count) <= 1) {
+        throw new DomainError("INVALID_STATE", "The last administrator cannot be demoted");
+      }
+    }
     const [updated] = await transaction<FullUserRow[]>`
       UPDATE backoffice.users
       SET email = ${parsed.email},
@@ -257,10 +276,14 @@ export async function archiveUser(
   const sql = getDb();
 
   const row = await sql.begin(async (transaction) => {
-    const [target] = await transaction<{ role: UserRole }[]>`
-      SELECT role FROM backoffice.users
-      WHERE id = ${userId} AND archived_at IS NULL
+    await transaction`SELECT pg_advisory_xact_lock(hashtext('backoffice-active-admins'))`;
+    const [target] = await transaction<{ role: UserRole; email: string }[]>`
+      SELECT role, email FROM backoffice.users
+      WHERE id = ${userId} AND archived_at IS NULL FOR UPDATE
     `;
+    if (target && actor?.id === target.email) {
+      throw new DomainError("INVALID_STATE", "You cannot archive your own account");
+    }
     if (target?.role === "admin") {
       const [{ count }] = await transaction<{ count: string }[]>`
         SELECT count(*) AS count FROM backoffice.users

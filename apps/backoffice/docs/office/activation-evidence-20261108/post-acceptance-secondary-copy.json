@@ -1,0 +1,78 @@
+{
+  "passed": true,
+  "secondaryDirectory": "E:\\Enztronic-Recovery\\post-acceptance-20261108-64642ace-44df-4a0e-9912-c8446c753bf6",
+  "files": [
+    {
+      "path": "production.pgdump",
+      "bytes": 167623,
+      "sha256": "54e0ef4138862fc008ee1701d81324d6d388fb07e95eb8b3fc50aa67b5acfefe"
+    },
+    {
+      "path": "database-roles.private.json",
+      "bytes": 2070,
+      "sha256": "9e31dd76a45deba1f2f73b1fa43dabdc1f14d4096c7840bd3a3a1cc0757d369a"
+    },
+    {
+      "path": "database-definition.json",
+      "bytes": 206,
+      "sha256": "0db9d3321e553878c4ff233c4cf75d7fdaf9eaa723518ffc65b089f7767f0c0e"
+    },
+    {
+      "path": "database-backup.json",
+      "bytes": 194,
+      "sha256": "8577c0dc4cb4af4e6392cbc119bfbaca848f24e6363050be9b23ab48ae598249"
+    },
+    {
+      "path": "archive-list.txt",
+      "bytes": 25632,
+      "sha256": "63e4a78031550cb6e2694e1916015044b6fff7004ce9566359f6537733ec56d4"
+    },
+    {
+      "path": "production-baseline.private.json",
+      "bytes": 353204,
+      "sha256": "a0ac9b1ab332abdc925640e5736bf3e83c04ff0006c59ee764f5b962a7c35725"
+    },
+    {
+      "path": "restored-baseline.private.json",
+      "bytes": 353204,
+      "sha256": "a0ac9b1ab332abdc925640e5736bf3e83c04ff0006c59ee764f5b962a7c35725"
+    },
+    {
+      "path": "accepted-family.private.json",
+      "bytes": 43122,
+      "sha256": "862a73a644f59d159c057710b99d070d078206d8372bb1040ccc486fff7c9cee"
+    },
+    {
+      "path": "restore-comparison.json",
+      "bytes": 226,
+      "sha256": "ada107713f516a0764a86367c88b9ff5e216b14d8a243cb128fb749b8a835661"
+    },
+    {
+      "path": "sequence-after-dump.json",
+      "bytes": 92,
+      "sha256": "75ef3d7044e8bef68c177d60b492ada0459e33d11e82a2474209f8157b0fdcd9"
+    },
+    {
+      "path": "backup-restore-result.json",
+      "bytes": 878,
+      "sha256": "85a3a68174b1b84e0a02d7fac460797c9adb843d8c17df7f52bcd625e8376a03"
+    },
+    {
+      "path": "source-configuration-hashes.private.json",
+      "bytes": 169,
+      "sha256": "86528def44d9686a92f6a26a33eb510b627a1bb4922bf646823994880ee85472"
+    },
+    {
+      "path": "protected-configuration/app.env.local",
+      "bytes": 1105,
+      "sha256": "838303728cea0bd58cdda5e265408e71f4af1ef8903d2b9bf01f4375bc32698e"
+    },
+    {
+      "path": "protected-configuration/office-worker.private.json",
+      "bytes": 281,
+      "sha256": "e58e9efe830a1acb7e4ff88d9d95d61565484719ab355ac3c9f23e38f6aa79f6"
+    }
+  ],
+  "sourceArchiveSha256": "54e0ef4138862fc008ee1701d81324d6d388fb07e95eb8b3fc50aa67b5acfefe",
+  "restorePassedBeforeCopy": true
+}

@@ -1,0 +1,1767 @@
+diff --git a/apps/backoffice/database/migrations/004_office_live_provider.sql b/apps/backoffice/database/migrations/004_office_live_provider.sql
+--- a/apps/backoffice/database/migrations/004_office_live_provider.sql
++++ b/apps/backoffice/database/migrations/004_office_live_provider.sql
+@@ -1,4 +1,4 @@
+--- Additive only. Live model provider accounting for the Office pilot.
++-- Live model provider accounting for the Office pilot; no business tables are changed.
+ -- Defaults keep live execution disabled: live_enabled=false and every limit is zero until the
+ -- owner deliberately sets them. The worker role can only move reserved/spent amounts; it has no
+ -- privilege on these switches or limits (see apps/office-worker/office-role.example.sql).
+@@ -18,9 +18,14 @@
+  ADD COLUMN request_limit_microunits bigint NOT NULL DEFAULT 0 CHECK (request_limit_microunits>=0);
+ 
+ -- A run's model call is "dispatched" from the moment its reservation commits. Until usage is
+--- settled, a dispatched run is treated as billed at its full reservation.
++-- settled, a dispatched run retains its full reservation until explicit reconciliation.
+ ALTER TABLE backoffice.office_runs
+  ADD COLUMN model text CHECK (model IS NULL OR length(model) BETWEEN 1 AND 64),
+  ADD COLUMN provider_dispatched_at timestamptz,
+- ADD COLUMN token_usage jsonb CHECK (token_usage IS NULL OR (jsonb_typeof(token_usage)='object' AND octet_length(token_usage::text)<=1024));
++ ADD COLUMN token_usage jsonb CHECK (token_usage IS NULL OR (jsonb_typeof(token_usage)='object' AND octet_length(token_usage::text)<=1024)),
++ ADD COLUMN live_attempt_id uuid REFERENCES backoffice.office_runs(id);
++
++-- Admission enforces the ceiling before dispatch. An observed provider overage is real debt:
++-- it must be recordable in full even when it crosses that ceiling, then stop further live work.
++ALTER TABLE backoffice.office_budget DROP CONSTRAINT office_budget_check;
+ CREATE INDEX office_runs_metered ON backoffice.office_runs(started_at) WHERE budget_reserved_microunits>0;
+diff --git a/apps/backoffice/docs/office/CODEX-LIVE-OPENAI-ACTIVATION-2026-11-09.md b/apps/backoffice/docs/office/CODEX-LIVE-OPENAI-ACTIVATION-2026-11-09.md
+new file mode 100644
+--- /dev/null
++++ b/apps/backoffice/docs/office/CODEX-LIVE-OPENAI-ACTIVATION-2026-11-09.md
+@@ -0,0 +1,37 @@
++# Corrected OpenAI pilot: activation and rollback
++
++Prepared for independent review on 9 November 2026. This is a procedure, not activation authorization. It supersedes the activation/rollback ordering in `LIVE-OPENAI-PILOT-2026-11-09.md`; keep that original handoff as historical evidence.
++
++## Before the production window
++
++- Review `CODEX-LIVE-OPENAI-REVIEW-2026-11-09.md` and the exact final source/build/package hashes in its evidence. Use the complete isolated candidate, not a build made inside the production `.next` directory.
++- Obtain separate owner approval for migration 004, app/worker replacement, key setup and the bounded paid evaluation. `PROPOSED-LIVE-PILOT.md` states: "Production activation retains its separate approved window."
++- Prepare a dedicated Office-only OpenAI project and restricted project key. Check model access, current prices, account billing, retention settings and available project spending controls. Do not paste the key into chat, source, logs or browser JavaScript. Enter it only through the reviewed hidden-prompt helper on the host.
++- The local ledger limits metered model charges and retains uncertain reservations. The token-count endpoint's billing was not established by the official documentation consulted. Resolve that billing question before describing USD 10 as a complete OpenAI invoice ceiling; taxes, other project usage and future price changes are outside the local model ledger. Project alerts alone are not proof of a hard stop.
++- Review one short supplied-only internal test brief and its acceptance criteria. Mocked evaluations establish workflow behavior, not real model quality. A first paid evaluation remains necessary, with explicit spending authorization.
++
++## Production window, in this order
++
++1. Capture a fresh verified backup and preservation inventory using the existing recovery procedure. Preserve the current complete app build and installed sealed worker package, startup-task definitions, protected configuration, owner identity and records. Keep the current public website outside this release.
++2. Confirm quiescence: no running Office step, active lease or outstanding external request. Stop the dedicated Office worker and backoffice web process through their existing startup arrangement. Keep PostgreSQL running. Check the recorded processes actually exited. Do not apply 004 to a running old connection pool: its cached `SELECT *` plans can fail after the added columns.
++3. Apply only the reviewed migration 004 with the existing authorized migration role and checksum-aware migration runner. Verify earlier migration checksums. Do not seed, run setup-local or use port 3118. Verify live remains disabled and all new limits default to zero. Migration 004 includes a durable attempt reference and removes only the aggregate budget check that would prevent recording an actual provider overage; admission still enforces limits before dispatch.
++4. Promote the complete validated app candidate and install/verify the corrected sealed worker runtime using the existing installation arrangement. Update only the reviewed runtime/grant changes. Keep the service account's restrictions and startup persistence. Start fresh processes, initially with live disabled. Verify the dashboard, Access settings, Office, current owner and existing records. Keep development authentication bypass disabled.
++5. In elevated PowerShell 7, run the corrected `apps/office-worker/set-office-openai-key.ps1` with the installed task's existing configuration path and `-Apply`. Enter the dedicated project key at its hidden prompt. Restart the corrected worker so it reloads configuration. Confirm a fresh OpenAI-capable worker heartbeat; this alone does not enable paid task execution.
++6. Under the separately approved spend authorization, set the reviewed caps: USD 0.15/request, USD 1/proposal family, USD 10/month UTC and USD 10/lifetime. Enable live using the reviewed owner-only SQL. Do not raise a cap merely to get a failed task unstuck. One proposal and one live model request are admitted at a time; each owner-approved attempt gets ten minutes and at most sixteen model calls, with thirty-two calls total across its family.
++7. Run the bounded paid fixture evaluation first, using only approved synthetic/internal content. Check real model IDs/tier, response usage shape, count behavior, meaningful independent review, omissions/conflicts, refused external effects and provider usage reconciliation. Stop and reconcile any uncertain outcome; do not blindly retry. Read every output. Scripted success is not evidence that a real model meets the quality rubric.
++8. Submit one approved real internal proposal in the owner's authenticated browser. Inspect the seven drafts, their independent reviews, the exact package revision/digest/manifest and metered requests. Compare with OpenAI's usage records before accepting the internal package. Owner acceptance authorizes no send, deployment, invoice, payment or other external effect.
++9. Verify task restart behavior and startup persistence, record owner-browser acceptance, confirm preserved business/owner/access invariants, and retain the complete previous releases. A closed browser does not stop durable work; an asleep/off host cannot execute it.
++
++## Stop and rollback
++
++Disable `office_budget.live_enabled` first. This blocks new live dispatches; it cannot undo a request already sent. Stop new submissions and let the corrected runtime recover/drain outstanding work. Preserve all charged amounts and unresolved reservations.
++
++Remove live settings with the corrected key helper's `-Apply -Remove`, then restart the **corrected new worker** in demonstration-only mode. It understands dispatched live holds even with no provider configured. The application may be rolled back to the prior complete accepted build after quiescence; keep migration 004 applied and start fresh database connections.
++
++**Do not restore an older worker while any dispatched live reservation, unknown OpenAI operation or active live lease remains.** The older demo runtime does not understand `provider_dispatched_at`: it can release an uncertain live hold whose provider request ID has not arrived. Keep the corrected worker installed until reconciliation is complete. Only restore the older worker after the recorded rollback fence verifies no such state remains.
++
++From `D:\Enztronic`, run `node apps/office-worker/read-live-rollback-fence.mjs`. This is read-only: exit 0 means the state fence passes, exit 2 means unresolved work blocks replacement, and exit 1 means the fence could not be verified. Stop/quiesce the worker first so the result cannot race another dispatch. Passing the fence is not deployment authorization.
++
++For an uncertain request, inspect the provider evidence using the recorded request/client/run IDs. The owner-only `reconcileToolOperation` path requires an evidence reference and confirmed charge in exact USD microunits. A confirmed unprocessed failure costs zero; a known charge cannot be erased. Reconciliation settles the hold, and a separate explicit owner retry/resume/revision starts another bounded attempt while keeping all family spending and request counts.
++
++Do not drop 004 to roll back. Do not clear the budget ledger, unknown operations or business data. Record any first-live-run failure and its disposition before expanding the pilot.
+diff --git a/apps/backoffice/scripts/office-acceptance/live-openai.mjs b/apps/backoffice/scripts/office-acceptance/live-openai.mjs
+new file mode 100644
+--- /dev/null
++++ b/apps/backoffice/scripts/office-acceptance/live-openai.mjs
+@@ -0,0 +1,148 @@
++// Local release acceptance only. Extends the reviewed production-mode UX harness with a
++// scripted provider; no OpenAI credential, paid request or production resource is used.
++import { spawn } from 'node:child_process';
++import { createHash, randomUUID } from 'node:crypto';
++import { mkdir, readFile, writeFile } from 'node:fs/promises';
++import path from 'node:path';
++import { fileURLToPath, pathToFileURL } from 'node:url';
++import { appRoot, minimalEnv, stamp } from './lib.mjs';
++
++const options = Object.fromEntries(process.argv.slice(2).map(value => value.replace(/^--/, '').split('=')));
++const candidate = path.resolve(options['production-app'] ?? '');
++const temp = path.resolve(process.env.LOCALAPPDATA, 'Temp');
++const reviewRoot = path.resolve(process.env.LOCALAPPDATA, 'EnztronicCodexLiveReviewRoot-20261109');
++const sameDriveReviewRoot = path.resolve('D:\\tmp\\codex-live-openai-review-20261110');
++if (!options['production-app'] || ![temp, reviewRoot, sameDriveReviewRoot].some(root => candidate.toLowerCase().startsWith(root.toLowerCase() + path.sep)) || path.basename(candidate) !== 'app') throw new Error('Use a separate candidate app under the recorded review roots, never the production tree.');
++const snapshotManifest = path.join(path.dirname(candidate), 'app-manifest.json');
++const snapshot = JSON.parse(await readFile(snapshotManifest, 'utf8'));
++if (path.resolve(snapshot.destination).toLowerCase() !== candidate.toLowerCase() || !Array.isArray(snapshot.entries) || snapshot.entries.some(entry => path.basename(entry.path).startsWith('.env'))) throw new Error('Refused candidate source manifest.');
++const generatedDeclarationChanges = [];
++for (const entry of snapshot.entries) {
++  const file = path.resolve(candidate, entry.path);
++  if (!file.toLowerCase().startsWith(candidate.toLowerCase() + path.sep)) throw new Error('Refused candidate source path.');
++  const bytes = await readFile(file), actual = createHash('sha256').update(bytes).digest('hex');
++  if (actual !== entry.sha256) {
++    // next build regenerates this declaration for the actual dist directory. Permit only
++    // that exact transformation from the still-hash-matching source declaration.
++    const source = entry.path === 'next-env.d.ts' ? await readFile(path.join(appRoot, entry.path)) : null;
++    if (!source || createHash('sha256').update(source).digest('hex') !== entry.sha256 || bytes.toString('utf8') !== source.toString('utf8').replaceAll('./.next-office-check/', './.next/')) throw new Error('Candidate source differs from its sealed manifest: ' + entry.path);
++    generatedDeclarationChanges.push({ path: entry.path, beforeSha256: entry.sha256, afterSha256: actual });
++  }
++}
++const root = path.join(temp, 'enztronic-office-live-review', stamp() + '-' + randomUUID().slice(0, 8));
++await mkdir(root, { recursive: true });
++const here = path.dirname(fileURLToPath(import.meta.url));
++const original = await readFile(path.join(here, 'ui-ux.mjs'), 'utf8');
++const hash = text => createHash('sha256').update(text).digest('hex');
++function replaceOnce(source, from, to) {
++  if (source.split(from).length !== 2) throw new Error('Reviewed harness anchor changed: ' + from.slice(0, 100));
++  return source.replace(from, to);
++}
++
++const liveStory = String.raw`
++async function liveChecks(page,context,before,cluster) {
++ const base='http://127.0.0.1:'+APP_PORT;
++ const LIVE='00000000-0000-4000-8000-000000000002';
++ report.scope='Configured live UI and durable workflow with an offline scripted provider';
++ report.isolation.provider='Scripted in process: no API credential and no OpenAI network requests';
++ const module=await import(pathToFileURL(path.join(app,'src/lib/office-runtime/index.ts')).href);
++ const createOfficeRuntime=module.createOfficeRuntime??module.default?.createOfficeRuntime;
++ let requests=0;
++ const provider={name:'openai',countInputTokens:async()=>({ok:true,inputTokens:900}),create:async(call)=>{
++  requests++;
++  const fields=call.schema.properties;
++  let output;
++  if(call.schemaName==='office_independent_review')output={outcome:'passed',summary:'Offline structural fixture review.',checks:fields.checks.items.properties.criterion.enum.map(criterion=>({criterion,result:'met',note:'Offline scripted fixture.'})),findings:[]};
++  else {
++   const sections=Object.fromEntries(fields.sections.required.map(section=>[section,section+': synthetic internal proposal. Budget and dates remain unknown.']));
++   output=call.schemaName==='office_proposal_package'?{title:'Offline live package',sections}:{title:'Offline role draft',summary:'Synthetic internal proposal only.',sections,assumptions:[],unknowns:['Budget and dates require owner confirmation.'],sourceReferences:[]};
++  }
++  return {kind:'completed',requestId:'offline_'+requests,responseId:'offline_response_'+requests,output,usage:{inputTokens:900,cachedTokens:0,cacheWriteTokens:0,cacheWrite12hTokens:0,outputTokens:400,reasoningTokens:100},serviceTier:'default'};
++ }};
++ const runtime=createOfficeRuntime(sql,{live:{provider,settings:{draftModel:'gpt-6-luna',packageModel:'gpt-6.1-sol',reasoningEffort:'low'}}});
++ await sql\`UPDATE backoffice.office_budget SET live_enabled=true,limit_microunits=10000000,monthly_limit_microunits=10000000,family_limit_microunits=1000000,request_limit_microunits=150000 WHERE id=1\`;
++ const workerId='offline-browser-'+run;
++ await runtime.workerHeartbeat(workerId);
++ const heartbeat=setInterval(()=>runtime.workerHeartbeat(workerId).catch(()=>{}),10000);
++ try {
++  await page.goto(base+'/team?mode=live&workspace='+LIVE+'&view=status');
++  const status=page.locator('section[aria-labelledby="office-status-title"]');
++  await status.getByText('Live: OpenAI',{exact:true}).waitFor();
++  check('Configured live Status names the provider and models',(await status.innerText()).includes('gpt-6-luna')&&(await status.innerText()).includes('gpt-6.1-sol'));
++  await page.getByRole('button',{name:'New internal brief',exact:true}).click();
++  const form=page.locator('section[aria-labelledby="office-new-brief-title"]');
++  const goal='Offline live acceptance '+run;
++  await form.getByLabel('Goal',{exact:true}).fill(goal);
++  await form.getByLabel('Brief and permitted source references').fill('Synthetic internal website proposal only: five informational pages and a contact form. Budget, dates and hosting are unknown. No client or financial records. Do not send, publish, deploy or execute anything.');
++  await form.getByRole('button',{name:'Save internal brief',exact:true}).click();
++  const saved=page.getByText(/Saved as task [0-9a-f-]{36}/);await saved.waitFor();
++  const saveText=await saved.textContent(),taskId=saveText.match(/[0-9a-f-]{36}/)[0];report.taskId=taskId;
++  check('Configured-live save confirms persistence without claiming configuration failure',!saveText.includes('not configured')&&!saveText.includes('recorded as blocked')&&saveText.includes('once a run is recorded'),{text:saveText});
++  check('Saving alone makes zero model requests',requests===0);
++  await page.reload();await page.locator('#office-task-detail').getByRole('heading',{name:goal,exact:true}).waitFor();
++  check('Saved live brief survives reload',new URL(page.url()).searchParams.get('task')===taskId);
++  await page.goto(base+'/team?mode=live&workspace='+LIVE+'&view=status');
++  await status.locator('li[data-indicator="queued"]').first().waitFor();
++  check('All seven live role drafts are queued rather than misreported as unrunnable',await status.locator('li[data-indicator="queued"]').count()===7);
++  await shot(page,'live-queued-status');
++  const lease=await runtime.claim(workerId);if(!lease)throw new Error('No offline live lease was claimed');
++  await page.reload();await status.locator('li[data-agent-id="'+lease.agentId+'"][data-indicator="executing"]').waitFor();
++  check('A real live fixture lease drives the executing indicator',await status.locator('li[data-agent-id="'+lease.agentId+'"][data-indicator="executing"]').count()===1);
++  await shot(page,'live-running-status');
++  await runtime.execute(lease);
++  for(let step=0;step<20;step++) {const next=await runtime.claim(workerId);if(!next)break;await runtime.execute(next);}
++  const [parent]=await sql\`SELECT state,current_artifact_id,acceptance_evidence_id FROM backoffice.office_tasks WHERE id=\${taskId}\`;
++  check('Sixteen scripted model requests stop at the owner decision',requests===16&&parent.state==='waiting_for_owner_approval'&&parent.acceptance_evidence_id===null,{requests,state:parent.state});
++  const [completedBefore]=await sql\`SELECT count(*)::int AS n FROM backoffice.office_tasks WHERE (id=\${taskId} OR parent_task_id=\${taskId}) AND state='completed'\`;
++  check('No task is completed before the owner acts',completedBefore.n===0);
++  await page.goto(base+'/team?mode=live&workspace='+LIVE+'&task='+taskId+'&view=inbox');
++  const inbox=page.locator('article[aria-current="true"]');
++  await inbox.getByRole('button',{name:'View work and review findings',exact:true}).click();
++  const detail=page.locator('#office-task-detail');
++  await detail.locator('pre[aria-label$=", revision 1"]').waitFor();
++  const body=await detail.locator('pre[aria-label$=", revision 1"]').textContent();
++  const [packageRecord]=await sql\`SELECT content,artifact_hash FROM backoffice.office_artifacts WHERE id=\${parent.current_artifact_id}\`;
++  check('View work exposes the exact package and immutable manifest',new URL(page.url()).searchParams.get('task')===taskId&&body===packageRecord.content&&(await detail.innerText()).includes(packageRecord.artifact_hash)&&body.includes('Immutable component manifest')&&body.includes('artifactHash'));
++  await shot(page,'live-owner-review');
++  await page.goto(base+'/team?mode=live&workspace='+LIVE+'&task='+taskId+'&view=inbox');
++  await page.locator('article[aria-current="true"]').getByRole('button',{name:'Accept this internal package',exact:true}).click();
++  await page.getByText(/Accepted\. Acceptance evidence [0-9a-f-]{36}/).waitFor();
++  await page.reload();
++  const tasks=await sql\`SELECT state,acceptance_evidence_id FROM backoffice.office_tasks WHERE id=\${taskId} OR parent_task_id=\${taskId}\`;
++  check('Explicit synthetic-owner acceptance completes one exact eight-task family',tasks.length===8&&tasks.every(task=>task.state==='completed'&&task.acceptance_evidence_id)&&new Set(tasks.map(task=>task.acceptance_evidence_id)).size===1);
++  const reviews=await sql\`SELECT r.state,r.reviewer_id<>a.author_agent_id AS independent FROM backoffice.office_reviews r JOIN backoffice.office_artifacts a ON a.id=r.artifact_id WHERE r.task_id=\${taskId} OR r.task_id IN (SELECT id FROM backoffice.office_tasks WHERE parent_task_id=\${taskId})\`;
++  check('Every scripted artifact has its independent role review',reviews.length===8&&reviews.every(review=>review.state==='passed'&&review.independent));
++  check('Synthetic business records are unchanged',JSON.stringify(before)===JSON.stringify(await businessDigest(sql)));
++  await shot(page,'live-accepted-package');
++  check('No uncaught browser errors',report.consoleErrors.length===0,{errors:report.consoleErrors});
++ } finally {clearInterval(heartbeat);await runtime.workerHeartbeat(workerId,true);}
++ // The full offline evaluation gets a separate disposable database in this same owned cluster.
++ const evalDb='enztronic_office_live_eval_test';
++ runChecked(path.join('C:\\Program Files\\PostgreSQL\\17\\bin','createdb.exe'),['-h','127.0.0.1','-p',String(PG_PORT),'-U','office_test',evalDb]);
++ const evalOut=path.join(root,'offline-eval');
++ const evalProcess=startProcess('offline-live-eval',process.execPath,['--import',pathToFileURL(path.join(app,'node_modules','tsx','dist','loader.mjs')).href,path.join(app,'scripts','office-live-eval','run.ts'),'--dry-run','--briefs','standard-five-page,indonesian-brief,prompt-injection,missing-rates,with-supplied-budget,conflicting-requirements,vague-brief,long-brief','--out',evalOut],{cwd:app,env:minimalEnv({OFFICE_EVAL_DATABASE_URL:'postgresql://office_test@127.0.0.1:'+PG_PORT+'/'+evalDb}),logFile:path.join(root,'offline-eval.log')});
++ const evalExit=await evalProcess.exited;if(evalExit.code!==0)throw new Error('Offline evaluation failed; see retained log');
++ const evaluation=JSON.parse(await readFile(path.join(evalOut,'report.json'),'utf8'));
++ check('Eight offline evaluation briefs reach the owner decision',evaluation.dryRun&&evaluation.briefs.length===8&&evaluation.briefs.every(brief=>brief.reachedOwnerDecision&&brief.requests===16));
++ check('Offline evaluation retains language and conflict negative controls',evaluation.briefs.find(brief=>brief.id==='indonesian-brief').checks.some(check=>check.check==='indonesian_language'&&!check.passed)&&evaluation.briefs.find(brief=>brief.id==='conflicting-requirements').checks.some(check=>check.check==='conflict_flagged'&&!check.passed));
++ report.offlineEvaluation={out:evalOut,briefs:8,scriptedRequests:evaluation.briefs.reduce((sum,brief)=>sum+brief.requests,0),qualityVerified:false};
++ await context.close();
++}
++`;
++
++let source = original;
++for (const name of ['lib.mjs', 'ui-ux-dependencies.mjs']) source = replaceOnce(source, "'./" + name + "'", JSON.stringify(pathToFileURL(path.join(here, name)).href));
++for (const name of ['playwright', 'jose']) source = replaceOnce(source, "'" + name + "'", JSON.stringify(import.meta.resolve(name)));
++source = replaceOnce(source, 'createCluster, createWorkerRole, finalizeRun,', 'runChecked, createCluster, createWorkerRole, finalizeRun,');
++source = replaceOnce(source, "const evidence=path.join(appRoot,'docs','office','ui-ux-evidence-20261108');", "const evidence=path.join(appRoot,'docs','office','live-openai-review-evidence-20261109');");
++source = replaceOnce(source, "const expectedBase=path.join(process.env.LOCALAPPDATA,'Temp','enztronic-office-uiux-20261108');", 'const expectedBase=' + JSON.stringify(path.dirname(candidate)) + ';');
++source = replaceOnce(source, 'try{\n for(const port of [PG_PORT,APP_PORT])', liveStory.replaceAll('\\`', '`').replaceAll('\\${', '${') + '\ntry{\n for(const port of [PG_PORT,APP_PORT])');
++source = replaceOnce(source, "if(options['controls-only']==='true'){", "if(options['live-only']==='true'){await liveChecks(page,context,before,cluster);}else if(options['controls-only']==='true'){");
++const entry = path.join(root, 'acceptance.mjs');
++await writeFile(entry, source, { flag: 'wx' });
++await writeFile(path.join(root, 'harness.json'), JSON.stringify({ original: path.join(here, 'ui-ux.mjs'), originalSha256: hash(original), wrapper: fileURLToPath(import.meta.url), wrapperSha256: hash(await readFile(fileURLToPath(import.meta.url))), generated: entry, generatedSha256: hash(source), candidate, snapshotManifest, snapshotManifestSha256: hash(await readFile(snapshotManifest)), verifiedSourceFiles: snapshot.entries.length, generatedDeclarationChanges, productionUsed: false }, null, 2) + '\n', { flag: 'wx' });
++if (options['prepare-only'] === 'true') { console.log(JSON.stringify({ root, entry, executed: false })); process.exit(0); }
++const child = spawn(process.execPath, ['--import', pathToFileURL(path.join(appRoot, 'node_modules', 'tsx', 'dist', 'loader.mjs')).href, entry, '--production-app=' + candidate, '--pg-port=' + (options['pg-port'] ?? 55529), '--app-port=' + (options['app-port'] ?? 3168), '--issuer-port=' + (options['issuer-port'] ?? 9468), '--live-only=true'], { cwd: appRoot, windowsHide: true, env: minimalEnv(), stdio: ['ignore', 'inherit', 'inherit'] });
++const code = await new Promise((resolve, reject) => { child.once('error', reject); child.once('exit', resolve); });
++console.log(JSON.stringify({ root, exitCode: code, candidate, productionUsed: false }));
++process.exitCode = code;
+diff --git a/apps/backoffice/src/components/office/OfficeDashboardPanel.test.tsx b/apps/backoffice/src/components/office/OfficeDashboardPanel.test.tsx
+--- a/apps/backoffice/src/components/office/OfficeDashboardPanel.test.tsx
++++ b/apps/backoffice/src/components/office/OfficeDashboardPanel.test.tsx
+@@ -5,7 +5,7 @@
+ vi.mock('next/link', () => ({ default: ({ href, children, ...props }: { href: string; children: ReactNode }) => createElement('a', { href, ...props }, children) }));
+ 
+ import type { OfficeDashboardData, OfficeModeSummary, OfficeRoleCounts } from '@/lib/office-activity';
+-import { OfficeDashboardPanel } from './OfficeDashboardPanel';
++import { OfficeDashboardPanel, queuedRoleSteps } from './OfficeDashboardPanel';
+ 
+ const workspace = '00000000-0000-4000-8000-000000000001';
+ const parent = '6f1c2d3e-4b5a-4c6d-8e7f-90a1b2c3d4e5';
+@@ -77,4 +77,13 @@
+     const switchedOff = renderToStaticMarkup(<OfficeDashboardPanel data={{ ...live, execution: { ...live.execution, budget: { ...live.execution.budget!, enabled: false } } }} />);
+     expect(switchedOff).toContain('live switch is off, so nothing runs');
+   });
++  it('includes ready live author and review steps in each role queue without counting merely open work', () => {
++    const demo = { ...zeroCounts, open: 100, queued: 99, runnableSteps: 2, runnableReviews: 1 };
++    const live = { ...zeroCounts, open: 200, queued: 198, runnableSteps: 3, runnableReviews: 2 };
++    expect(queuedRoleSteps(demo, live)).toBe(8);
++    const html = renderToStaticMarkup(<OfficeDashboardPanel data={{ ...available, roles: [{ agentId: 'sam', demo, live, lastActivityAt: null }] }} />);
++    const row = html.match(/<tr data-agent-id="sam">([\s\S]*?)<\/tr>/)![1];
++    const cells = [...row.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/g)].map(match => match[1]);
++    expect(cells[2]).toBe('8');
++  });
+ });
+diff --git a/apps/backoffice/src/components/office/OfficeDashboardPanel.tsx b/apps/backoffice/src/components/office/OfficeDashboardPanel.tsx
+--- a/apps/backoffice/src/components/office/OfficeDashboardPanel.tsx
++++ b/apps/backoffice/src/components/office/OfficeDashboardPanel.tsx
+@@ -64,6 +64,7 @@
+ }
+ 
+ function openWork(counts: OfficeRoleCounts) { return counts.open; }
++export function queuedRoleSteps(demo: OfficeRoleCounts, live: OfficeRoleCounts) { return demo.runnableSteps + demo.runnableReviews + live.runnableSteps + live.runnableReviews; }
+ 
+ function AvailablePanel({ data }: { data: Available }) {
+   const worker = workerBadge(data.worker);
+@@ -99,7 +100,7 @@
+               <th scope="row" className="py-2 pr-3 font-semibold text-ink">{profile.name}<span className="block text-xs font-normal text-muted">{profile.role}</span></th>
+               <td className="py-2 pr-3">{role ? count(openWork(role.demo)) : "—"}</td>
+               <td className="py-2 pr-3">{role ? count(role.demo.executingRuns + role.live.executingRuns) : "—"}</td>
+-              <td className="py-2 pr-3">{role ? count(role.demo.runnableSteps + role.demo.runnableReviews) : "—"}</td>
++              <td className="py-2 pr-3">{role ? count(queuedRoleSteps(role.demo, role.live)) : "—"}</td>
+               <td className="py-2 pr-3">{role ? `${count(openWork(role.live))}${role.live.blocked ? ` (${count(role.live.blocked)} blocked)` : ""}` : "—"}</td>
+               <td className="py-2 text-xs text-muted"><When value={role?.lastActivityAt ?? null} /></td>
+             </tr>;
+diff --git a/apps/backoffice/src/components/office/OfficeView.tsx b/apps/backoffice/src/components/office/OfficeView.tsx
+--- a/apps/backoffice/src/components/office/OfficeView.tsx
++++ b/apps/backoffice/src/components/office/OfficeView.tsx
+@@ -18,7 +18,7 @@
+ import { OfficeTaskDetail } from "./OfficeTaskDetail";
+ import { EmptyState, OfficeButton, Portrait, Status, Time, downloadText } from "./office-ui";
+ import type { MutateOffice, OfficeMutation, OfficeNotice } from "./office-ui";
+-import { classifySubmitFailure, dataFreshness, deriveRoleStatus, evidenceAge, isOfficeActivity, liveUnavailable, liveUsageLine, mergeFamily, nextEvidenceChangeMs, nextSubmitLock, persistenceState, taskDecision, taskExecutionLine, workerIndicator } from "./office-status";
++import { classifySubmitFailure, dataFreshness, deriveRoleStatus, evidenceAge, isOfficeActivity, liveUnavailable, liveUsageLine, mergeFamily, nextEvidenceChangeMs, nextSubmitLock, persistenceState, savedBriefExecution, taskDecision, taskExecutionLine, workerIndicator } from "./office-status";
+ import type { WorkerIndicator } from "./office-status";
+ import { OFFICE_PROFILES, stateLabel } from "./profiles";
+ import { getRoleIdentity, roleIdentityStyle } from "./role-identity";
+@@ -463,8 +463,8 @@
+       briefDrafts.current.delete(draftKey); setRetainedDrafts(countRetained());
+       setGoal(""); setBrief(""); setSubmissionAttempt(null); idempotencyKey.current = null; setShowNew(false);
+       if (!saved) { setNotice({ tone: "warning", text: "The server confirmed the save, but its task identifier could not be read. Refresh and inspect the task list; do not resubmit the same brief." }); await refresh(); return; }
+-      const execution = attempt.input.mode === "live" ? "Live execution is not configured, so it is recorded as blocked and nothing will run." : worker.state === "online" ? "The worker is online; a step shows as executing only once a run is recorded." : `${worker.label}: nothing is executing. The specialist steps stay queued until a worker runs.`;
+-      setNotice({ tone: attempt.input.mode === "live" || worker.state !== "online" ? "warning" : "success", text: saved.duplicate ? `Your earlier attempt was already saved as task ${saved.taskId}. No duplicate task was created. ${execution}` : `Saved as task ${saved.taskId} in ${workspaces.find((workspace) => workspace.id === attempt.input.workspaceId)?.name ?? "its workspace"}. It survives reload and browser closure. ${execution}` });
++      const execution = savedBriefExecution(attempt.input.mode, worker, evidenceStale ? undefined : liveBlocked);
++      setNotice({ tone: execution.tone, text: saved.duplicate ? `Your earlier attempt was already saved as task ${saved.taskId}. No duplicate task was created. ${execution.text}` : `Saved as task ${saved.taskId} in ${workspaces.find((workspace) => workspace.id === attempt.input.workspaceId)?.name ?? "its workspace"}. It survives reload and browser closure. ${execution.text}` });
+       setSelection({ taskId: saved.taskId, workspaceId: attempt.input.workspaceId, artifactId: null, artifactNotFound: false }); setFocusTaskId(saved.taskId); setView("tasks");
+       if (attempt.input.workspaceId === workspaceId) await refresh(); else setWorkspaceId(attempt.input.workspaceId);
+       return;
+diff --git a/apps/backoffice/src/components/office/office-status.ts b/apps/backoffice/src/components/office/office-status.ts
+--- a/apps/backoffice/src/components/office/office-status.ts
++++ b/apps/backoffice/src/components/office/office-status.ts
+@@ -236,11 +236,21 @@
+ // -- live provider ---------------------------------------------------------------
+ 
+ export type LiveUnavailable = { label: string; detail: string };
++
++/** Saving proves persistence. Provider readiness and a recorded run are separate evidence. */
++export function savedBriefExecution(mode: OfficeMode, worker: WorkerIndicator, liveBlocked: LiveUnavailable | null | undefined): { tone: 'success' | 'warning'; text: string } {
++  if (mode === 'live' && liveBlocked === undefined) return { tone: 'warning', text: 'Live execution status is being refreshed. Saving a task does not confirm that it is executing.' };
++  if (mode === 'live' && liveBlocked) return { tone: 'warning', text: `${liveBlocked.detail} The saved task status will refresh shortly.` };
++  if (worker.state === 'online') return { tone: 'success', text: 'The worker is online; a step shows as executing only once a run is recorded.' };
++  return { tone: 'warning', text: `${worker.label}: nothing is confirmed executing. The specialist steps stay queued until a worker runs.` };
++}
++
+ /**
+  * Why live work cannot run now, or null when a worker holding a live provider has a fresh
+  * heartbeat, the owner's live switch is on and every spending limit is set.
+  */
+ export function liveUnavailable(execution: OfficeExecutionCapability | null | undefined): LiveUnavailable | null {
++  if (execution?.unresolvedModelOutcome) return { label: "live outcome reconciliation required", detail: "A model request has an unresolved billed outcome. Live work is on hold until the owner reconciles it; do not retry blindly." };
+   if (!execution?.providerConfigured) return { label: "live provider not connected", detail: "No live provider is connected on the Office worker, so nothing runs." };
+   const budget = execution.budget;
+   if (!budget?.enabled) return { label: "live execution switched off", detail: "A live provider is connected, but the owner's live switch is off, so nothing runs." };
+diff --git a/apps/backoffice/src/lib/office-activity.ts b/apps/backoffice/src/lib/office-activity.ts
+--- a/apps/backoffice/src/lib/office-activity.ts
++++ b/apps/backoffice/src/lib/office-activity.ts
+@@ -44,6 +44,8 @@
+   adapter: 'deterministic_demo' | 'openai_responses';
+   /** A worker holding a live provider has a fresh heartbeat. */
+   providerConfigured: boolean;
++  /** An unresolved billed model outcome holds all live work until owner reconciliation. */
++  unresolvedModelOutcome?: boolean;
+   commandExecutionEnabled: false;
+   provider?: OfficeLiveProvider | null;
+   budget?: OfficeLiveBudget | null;
+diff --git a/apps/backoffice/src/lib/office-runtime/codex-live-review.integration.test.ts b/apps/backoffice/src/lib/office-runtime/codex-live-review.integration.test.ts
+new file mode 100644
+--- /dev/null
++++ b/apps/backoffice/src/lib/office-runtime/codex-live-review.integration.test.ts
+@@ -0,0 +1,267 @@
++import { afterAll, beforeEach, describe, expect, it } from 'vitest';
++import postgres from 'postgres';
++import { readFile } from 'node:fs/promises';
++import { randomUUID } from 'node:crypto';
++import { fileURLToPath } from 'node:url';
++import { createOfficeRuntime, type LiveExecution } from './index';
++import type { CallOutcome, LiveModelCall } from './openai';
++import { reservationMicrounits, usageMicrounits } from './live-pricing';
++
++// Independent adversarial review. Scripted provider only; no secrets or network.
++const fixtureUrl = process.env.OFFICE_CODEX_LIVE_REVIEW_DATABASE_URL;
++const fixtureDescribe = fixtureUrl ? describe : describe.skip;
++const workspaceId = '00000000-0000-4000-8000-000000000002';
++const settings = { draftModel: 'gpt-6-luna', packageModel: 'gpt-6.1-sol', reasoningEffort: 'low' };
++const fullUsage = { inputTokens: 982, cachedTokens: 0, cacheWriteTokens: 982, cacheWrite12hTokens: 0, outputTokens: 6000, reasoningTokens: 100 };
++
++function completed(call: LiveModelCall, usage = fullUsage): CallOutcome {
++  const schema = call.schema as { properties: { sections: { required: string[] } } };
++  return { kind: 'completed', requestId: 'req_review', responseId: 'resp_review', usage, serviceTier: 'default', output: { title: 'Synthetic review draft', summary: 'A concise synthetic draft.', sections: Object.fromEntries(schema.properties.sections.required.map(key => [key, 'Supplied synthetic content.'])), assumptions: [], unknowns: ['Dates and budget'], sourceReferences: ['Internal review brief'] } };
++}
++function provider(script: (call: LiveModelCall) => Promise<CallOutcome> | CallOutcome = completed) {
++  const calls: LiveModelCall[] = [];
++  const counts: LiveModelCall[] = [];
++  const live: LiveExecution = { settings: { ...settings }, provider: { name: 'openai', async countInputTokens(call) { counts.push(call); return { ok: true, inputTokens: 900 }; }, async create(call) { calls.push(call); return script(call); } } };
++  return { calls, counts, live };
++}
++
++fixtureDescribe('independent live budget boundary review on an owned disposable database', () => {
++  let sql: ReturnType<typeof postgres>;
++  let ownerId: string;
++  const taskOf = async (id: string) => (await sql`SELECT * FROM backoffice.office_tasks WHERE id=${id}`)[0];
++  const budget = async () => (await sql`SELECT * FROM backoffice.office_budget WHERE id=1`)[0];
++  const submit = (runtime: ReturnType<typeof createOfficeRuntime>) => runtime.submitTask(ownerId, { workspaceId, mode: 'live', goal: 'Independent budget boundary review', brief: 'Internal review brief. Supply no invented dates or prices, and perform no external effect.', idempotencyKey: randomUUID() });
++  const setCaps = (month = 10_000_000) => sql`UPDATE backoffice.office_budget SET live_enabled=true,limit_microunits=10000000,monthly_limit_microunits=${month},family_limit_microunits=1000000,request_limit_microunits=150000 WHERE id=1`;
++  async function ageAttempt(runId: string, seconds: number) {
++    // Controlled fixture clock: real terminal production evidence is never altered.
++    await sql.begin(async tx => {
++      await tx`ALTER TABLE backoffice.office_runs DISABLE TRIGGER office_run_terminal_immutable`;
++      await tx`UPDATE backoffice.office_runs SET started_at=now()-(${seconds}*interval '1 second') WHERE id=(SELECT live_attempt_id FROM backoffice.office_runs WHERE id=${runId})`;
++      await tx`ALTER TABLE backoffice.office_runs ENABLE TRIGGER office_run_terminal_immutable`;
++    });
++  }
++  async function seedDispatched(lease: { runId: string; taskId: string }, count: number) {
++    const [run] = await sql`SELECT live_attempt_id,agent_id FROM backoffice.office_runs WHERE id=${lease.runId}`;
++    for (let n = 0; n < count; n++) await sql`INSERT INTO backoffice.office_runs(workspace_id,task_id,agent_id,profile_version,policy_version,attempt,state,step,budget_reserved_microunits,usage_microunits,provider_dispatched_at,finished_at,live_attempt_id) VALUES(${workspaceId},${lease.taskId},${run.agent_id},1,1,1,'failed','draft',1,0,now(),now(),${run.live_attempt_id})`;
++  }
++  beforeEach(async () => {
++    const url = new URL(fixtureUrl!);
++    if (url.hostname !== '127.0.0.1' || !['55439','55609','55649'].includes(url.port) || !url.pathname.endsWith('_test')) throw new Error('Requires an explicitly owned loopback review *_test fixture.');
++    sql ??= postgres(fixtureUrl!, { max: 6, onnotice: () => undefined });
++    await sql.unsafe('DROP SCHEMA IF EXISTS backoffice CASCADE');
++    for (const name of ['001_init.sql', '002_users_and_ownership.sql', '003_office.sql', '004_office_live_provider.sql']) await sql.unsafe(await readFile(fileURLToPath(new URL(`../../../database/migrations/${name}`, import.meta.url)), 'utf8'));
++    const [owner] = await sql`INSERT INTO backoffice.users(email,name,role) VALUES(${`codex-live-review-${randomUUID()}@example.test`},'Synthetic review owner','admin') RETURNING id`;
++    ownerId = owner.id;
++    await setCaps();
++  }, 30000);
++  afterAll(async () => { await sql?.end({ timeout: 2 }); });
++
++  it('counts the dispatch month when claim precedes that month', async () => {
++    await setCaps(5000);
++    const fake = provider();
++    const runtime = createOfficeRuntime(sql, { live: fake.live });
++    await submit(runtime);
++    const first = (await runtime.claim('review-midnight'))!;
++    // Models a claim/token count crossing midnight without changing the host/database clock.
++    await sql`UPDATE backoffice.office_runs SET started_at=(date_trunc('month',now() AT TIME ZONE 'UTC') AT TIME ZONE 'UTC')-interval '1 second' WHERE id=${first.runId}`;
++    await runtime.execute(first);
++    const second = (await runtime.claim('review-midnight'))!;
++    await runtime.execute(second);
++    const [actual] = await sql`SELECT sum(usage_microunits)::int AS charged FROM backoffice.office_runs WHERE provider_dispatched_at>=date_trunc('month',now() AT TIME ZONE 'UTC') AT TIME ZONE 'UTC'`;
++    expect(fake.calls).toHaveLength(1);
++    expect(actual.charged).toBeLessThanOrEqual(5000);
++  });
++
++  it('admits only one live model request under supported concurrency=2', async () => {
++    let finish!: () => void;
++    const gate = new Promise<void>(resolve => { finish = resolve; });
++    let active = 0; let maximumActive = 0;
++    const fake = provider(async call => { active++; maximumActive = Math.max(active, maximumActive); await gate; active--; return completed(call); });
++    const runtime = createOfficeRuntime(sql, { concurrency: 2, live: fake.live });
++    await submit(runtime);
++    const [first, second] = await Promise.all([runtime.claim('review-concurrent-1'), runtime.claim('review-concurrent-2')]);
++    const admitted = [first,second].filter(value => value !== null);
++    expect(admitted).toHaveLength(1);
++    const running = runtime.execute(admitted[0]!);
++    for (let i = 0; i < 100 && fake.calls.length < 1; i++) await new Promise(resolve => setTimeout(resolve, 10));
++    expect(await runtime.claim('review-concurrent-3')).toBeNull();
++    finish();
++    await running;
++    expect(maximumActive).toBe(1);
++  });
++
++  it('records known excess beyond the lifetime ceiling and blocks globally until explicit reconciliation', async () => {
++    await sql`UPDATE backoffice.office_budget SET limit_microunits=4000 WHERE id=1`;
++    const expensiveUsage = { ...fullUsage, outputTokens: 10000 };
++    const fake = provider(call => completed(call, expensiveUsage));
++    const runtime = createOfficeRuntime(sql, { live: fake.live });
++    await submit(runtime);
++    const first = (await runtime.claim('review-excess'))!;
++    expect(await runtime.execute(first)).toMatchObject({ code: 'usage_exceeds_reservation' });
++    const row = await taskOf(first.taskId);
++    expect(row.blocked_reason).toContain('reconcile');
++    const [run] = await sql`SELECT * FROM backoffice.office_runs WHERE id=${first.runId}`;
++    const actual = usageMicrounits('gpt-6-luna', expensiveUsage, 'default');
++    expect(Number(run.usage_microunits)).toBe(actual);
++    expect(run.token_usage.outputTokens).toBe(10000);
++    expect(await runtime.claim('review-excess')).toBeNull();
++    expect(fake.calls).toHaveLength(1);
++    expect(Number((await budget()).spent_microunits)).toBe(actual);
++    const [operation] = await sql`SELECT id FROM backoffice.office_tool_operations WHERE run_id=${first.runId}`;
++    await expect(runtime.reconcileToolOperation(ownerId, { workspaceId, operationId: operation.id, outcome: 'failed', evidenceReference: 'Cannot erase an observed provider charge.' })).rejects.toMatchObject({ code: 'CONFLICT' });
++    await runtime.reconcileToolOperation(ownerId, { workspaceId, operationId: operation.id, outcome: 'succeeded', actualMicrounits: actual, evidenceReference: 'Synthetic provider confirms the exact observed charge.' });
++    const sibling = (await runtime.claim('review-excess'))!;
++    expect(await runtime.execute(sibling)).toMatchObject({ code: 'lifetime_limit' });
++    expect(fake.calls).toHaveLength(1);
++  });
++
++  it('checks the current workspace grant before counting or spending', async () => {
++    const fake = provider();
++    const runtime = createOfficeRuntime(sql, { live: fake.live });
++    await submit(runtime);
++    const lease = (await runtime.claim('review-grant-revocation'))!;
++    await sql`DELETE FROM backoffice.office_workspace_grants WHERE workspace_id=${workspaceId} AND agent_id=${lease.agentId}`;
++    await expect(runtime.execute(lease)).rejects.toMatchObject({ code: 'FORBIDDEN' });
++    expect(fake.calls).toHaveLength(0);
++    expect(fake.counts).toHaveLength(0);
++    expect(Number((await budget()).spent_microunits)).toBe(0);
++  });
++
++  it('rechecks grant revocation during input counting before a paid create', async () => {
++    const fake = provider();
++    fake.live.provider.countInputTokens = async () => {
++      await sql`DELETE FROM backoffice.office_workspace_grants WHERE workspace_id=${workspaceId}`;
++      return { ok: true, inputTokens: 900 };
++    };
++    const runtime = createOfficeRuntime(sql, { live: fake.live });
++    await submit(runtime);
++    const lease = (await runtime.claim('review-revoke-during-count'))!;
++    await expect(runtime.execute(lease)).rejects.toMatchObject({ code: 'FORBIDDEN' });
++    expect(fake.calls).toHaveLength(0);
++    expect((await budget()).reserved_microunits).toBe('0');
++  });
++
++  it('checks the internal draft data scope before sending any brief', async () => {
++    const fake = provider();
++    const runtime = createOfficeRuntime(sql, { live: fake.live });
++    await submit(runtime);
++    const lease = (await runtime.claim('review-data-scope'))!;
++    await sql`UPDATE backoffice.office_workspace_grants SET data_scopes='[]'::jsonb WHERE workspace_id=${workspaceId} AND agent_id=${lease.agentId}`;
++    await expect(runtime.execute(lease)).rejects.toMatchObject({ code: 'FORBIDDEN' });
++    expect(fake.counts).toHaveLength(0); expect(fake.calls).toHaveLength(0);
++  });
++
++  it('retains an unpriceable usage outcome without creating an unsafe ledger amount', async () => {
++    const fake = provider(call => completed(call, { ...fullUsage, outputTokens: Number.MAX_SAFE_INTEGER }));
++    fake.live.settings.draftModel = 'gpt-6.1-sol';
++    const runtime = createOfficeRuntime(sql, { live: fake.live });
++    await submit(runtime);
++    const lease = (await runtime.claim('review-unsafe-price'))!;
++    expect(await runtime.execute(lease)).toMatchObject({ code: 'usage_unpriceable' });
++    expect(await budget()).toMatchObject({ spent_microunits: '0', reserved_microunits: String(reservationMicrounits('gpt-6.1-sol',982,6000)) });
++    expect(await runtime.claim('review-unsafe-price-blocked')).toBeNull();
++  });
++
++  it('expires a ten-minute attempt before counting and requires explicit owner recovery', async () => {
++    const fake = provider();
++    const runtime = createOfficeRuntime(sql, { live: fake.live });
++    await submit(runtime);
++    const lease = (await runtime.claim('review-deadline'))!;
++    await ageAttempt(lease.runId, 601);
++    expect(await runtime.execute(lease)).toMatchObject({ code: 'proposal_attempt_expired' });
++    expect(fake.counts).toHaveLength(0);
++    const current = await taskOf(lease.taskId);
++    await runtime.requestTaskAction(ownerId, { workspaceId, taskId: current.id, version: Number(current.version), action: 'retry', reason: 'Owner explicitly starts another bounded attempt.' });
++    const next = (await runtime.claim('review-deadline-recovered'))!;
++    expect(await runtime.execute(next)).toMatchObject({ outcome: 'committed' });
++    expect(fake.calls).toHaveLength(1);
++  });
++
++  it('bounds the transport by the remaining attempt and charges but discards a late known response', async () => {
++    const fake = provider(async call => {
++      expect(call.timeoutMs).toBeGreaterThan(0);
++      expect(call.timeoutMs).toBeLessThanOrEqual(2000);
++      await ageAttempt(lease.runId, 601);
++      return completed(call);
++    });
++    const runtime = createOfficeRuntime(sql, { live: fake.live });
++    await submit(runtime);
++    const lease = (await runtime.claim('review-late-response'))!;
++    await ageAttempt(lease.runId, 598);
++    expect(await runtime.execute(lease)).toMatchObject({ code: 'proposal_attempt_expired' });
++    expect(Number((await budget()).spent_microunits)).toBe(reservationMicrounits('gpt-6-luna', 982, 6000));
++    expect((await sql`SELECT count(*)::int AS n FROM backoffice.office_artifacts`)[0].n).toBe(0);
++  });
++
++  it('stops at sixteen dispatched calls per attempt before counting', async () => {
++    const fake = provider();
++    const runtime = createOfficeRuntime(sql, { live: fake.live });
++    await submit(runtime);
++    const lease = (await runtime.claim('review-attempt-ceiling'))!;
++    await seedDispatched(lease, 16);
++    expect(await runtime.execute(lease)).toMatchObject({ code: 'attempt_call_ceiling' });
++    expect(fake.calls).toHaveLength(0);
++    expect(fake.counts).toHaveLength(0);
++  });
++
++  it('does not reset the thirty-two family-call ceiling on an owner recovery attempt', async () => {
++    const fake = provider();
++    const runtime = createOfficeRuntime(sql, { live: fake.live });
++    await submit(runtime);
++    const lease = (await runtime.claim('review-family-ceiling'))!;
++    await seedDispatched(lease, 32);
++    expect(await runtime.execute(lease)).toMatchObject({ code: 'attempt_call_ceiling' });
++    const current = await taskOf(lease.taskId);
++    await runtime.requestTaskAction(ownerId, { workspaceId, taskId: current.id, version: Number(current.version), action: 'retry', reason: 'Recovery keeps the family ceiling.' });
++    const recovered = (await runtime.claim('review-family-ceiling-recovered'))!;
++    expect(await runtime.execute(recovered)).toMatchObject({ code: 'family_call_ceiling' });
++    expect(fake.calls).toHaveLength(0);
++  });
++
++  it('keeps unknown holds across process restart and month rollover while allowing demo work', async () => {
++    const fake = provider(() => ({ kind: 'unknown', code: 'timeout', requestId: null, retryAfterMs: null }));
++    const runtime = createOfficeRuntime(sql, { live: fake.live });
++    const parent = await submit(runtime);
++    const lease = (await runtime.claim('review-unknown'))!;
++    expect(await runtime.execute(lease)).toMatchObject({ code: 'timeout' });
++    await sql`UPDATE backoffice.office_runs SET provider_dispatched_at=(date_trunc('month',now() AT TIME ZONE 'UTC') AT TIME ZONE 'UTC')-interval '1 second' WHERE id=${lease.runId}`;
++    const restarted = createOfficeRuntime(sql, { live: fake.live });
++    expect(await restarted.claim('review-restarted')).toBeNull();
++    expect((await budget()).reserved_microunits).toBe(String(reservationMicrounits('gpt-6-luna',982,6000)));
++    const row = await taskOf(parent.taskId);
++    await expect(restarted.requestTaskAction(ownerId, { workspaceId, taskId: row.id, version: Number(row.version), action: 'resume' })).rejects.toMatchObject({ code: 'INVALID_STATE' });
++    await restarted.submitTask(ownerId, { workspaceId: '00000000-0000-4000-8000-000000000001', mode: 'demo', goal: 'Demonstration remains available', brief: 'Synthetic internal demonstration only; no external effects.', idempotencyKey: randomUUID() });
++    const demo = (await restarted.claim('review-demo-unaffected'))!;
++    expect(await restarted.execute(demo)).toMatchObject({ outcome: 'committed' });
++    expect(fake.calls).toHaveLength(1);
++  });
++
++  it('preserves a dispatched hold during lease recovery by a corrected demo-only worker', async () => {
++    let finish!: (outcome: CallOutcome) => void;
++    const gate = new Promise<CallOutcome>(resolve => { finish = resolve; });
++    const fake = provider(() => gate);
++    const runtime = createOfficeRuntime(sql, { live: fake.live });
++    await submit(runtime);
++    const lease = (await runtime.claim('review-old-live-worker'))!;
++    const running = runtime.execute(lease);
++    for (let i=0;i<100 && fake.calls.length<1;i++) await new Promise(resolve => setTimeout(resolve,10));
++    expect(fake.calls).toHaveLength(1);
++    await sql`UPDATE backoffice.office_dispatch SET lease_until=now()-interval '1 second' WHERE id=${lease.dispatchId}`;
++    const demoOnly = createOfficeRuntime(sql);
++    await demoOnly.recoverExpired();
++    expect(await budget()).toMatchObject({ spent_microunits: '0', reserved_microunits: String(reservationMicrounits('gpt-6-luna',982,6000)) });
++    expect((await sql`SELECT state,usage_microunits FROM backoffice.office_runs WHERE id=${lease.runId}`)[0]).toMatchObject({ state: 'waiting_for_tool', usage_microunits: null });
++    finish({ kind: 'unknown', code: 'timeout', requestId: null, retryAfterMs: null });
++    await expect(running).rejects.toMatchObject({ code: 'LEASE_LOST' });
++    expect(await demoOnly.claim('review-demo-only-recovered')).toBeNull();
++  });
++});
++
++describe('independent live pricing defensive arithmetic', () => {
++  it('rejects inconsistent or incomplete token categories and long-context pricing', () => {
++    expect(() => usageMicrounits('gpt-6-luna',{...fullUsage, cachedTokens: 1},'default')).toThrow('invalid_token_usage');
++    expect(() => usageMicrounits('gpt-6-luna',{...fullUsage, reasoningTokens: 6001},'default')).toThrow('invalid_token_usage');
++    expect(() => usageMicrounits('gpt-6-luna',{...fullUsage, inputTokens: 272001},'default')).toThrow('unpriced_long_context');
++    expect(() => usageMicrounits('gpt-6.1-sol',{...fullUsage, outputTokens: Number.MAX_SAFE_INTEGER},'default')).toThrow('unrepresentable_charge');
++  });
++});
+diff --git a/apps/backoffice/src/lib/office-runtime/index.ts b/apps/backoffice/src/lib/office-runtime/index.ts
+--- a/apps/backoffice/src/lib/office-runtime/index.ts
++++ b/apps/backoffice/src/lib/office-runtime/index.ts
+@@ -21,6 +21,9 @@
+ type FailOptions = { exhausted?: boolean; retryAfterMs?: number | null; blockedReason?: string };
+ /** Runaway guard: nominal first attempt is 16 calls (7 drafts, 7 reviews, package, package review). */
+ const FAMILY_CALL_CEILING = 32;
++const ATTEMPT_CALL_CEILING = 16;
++const PROPOSAL_ATTEMPT_MS = 10 * 60 * 1000;
++const MODEL_OPERATION = 'openai_responses';
+ type DbTask = { id: string; workspace_id: string; parent_task_id: string | null; initiating_owner_id: string; agent_id: AgentId; goal: string; brief: string; state: TaskState; mode: OfficeMode; version: number; stage: string; current_artifact_id: string | null; acceptance_evidence_id: string | null; blocked_reason: string | null; created_at: Date; updated_at: Date; scope_key: string; project_key: string; revision_cycles: number; priority: number };
+ type DbArtifact = { id: string; task_id: string; workspace_id: string; author_agent_id: AgentId; title: string; revision: number; artifact_hash: string; content: string; manifest: JsonValue; created_at: Date; scope_key: string; project_key: string };
+ type DbApproval = { id: string; task_id: string; workspace_id: string; artifact_id: string; artifact_hash: string; state: string; version: number; expires_at: Date; reason: string | null; decided_at: Date | null; acceptance_evidence_id: string | null };
+@@ -65,12 +68,34 @@
+   async function enqueue(tx: Connection, row: DbTask, step: string, reviewer: AgentId | null = null, suffix = '') {
+     await tx`INSERT INTO backoffice.office_dispatch(workspace_id,task_id,operation_key,step,reviewer_id) VALUES(${row.workspace_id},${row.id},${`${row.id}:${step}:${suffix || row.revision_cycles}`},${step},${reviewer}) ON CONFLICT(operation_key) DO NOTHING`;
+   }
++  async function startLiveAttempt(tx: Connection, current: DbTask) {
++    if (current.mode !== 'live') return;
++    const root = current.parent_task_id ? await task(tx, current.parent_task_id, current.workspace_id) : current;
++    const attemptId = randomUUID();
++    // Only an explicit authenticated owner recovery/revision starts another ten-minute window.
++    await tx`INSERT INTO backoffice.office_runs(id,workspace_id,task_id,agent_id,profile_version,policy_version,attempt,state,step,usage_microunits,finished_at) VALUES(${attemptId},${root.workspace_id},${root.id},'adrian',1,1,1,'succeeded','live_owner_attempt',0,now())`;
++  }
++  async function markModelUncertain(tx: Connection, runId: string, reason: string) {
++    await tx`UPDATE backoffice.office_tool_operations SET state='unknown_outcome',result=${tx.json({ reason })},updated_at=now() WHERE run_id=${runId} AND tool_name=${MODEL_OPERATION} AND state='reserved'`;
++  }
+   // Closes a run's open reservation. A model request that was dispatched but never settled may have
+   // been billed, so it keeps its full reservation as spend; an undispatched reservation is released.
+   async function settleOpenReservation(tx: Connection, runId: string) {
+     const [run] = await tx`SELECT * FROM backoffice.office_runs WHERE id=${runId} FOR UPDATE`;
+     if (!run || run.usage_microunits !== null) return;
+     const reserved = Number(run.budget_reserved_microunits);
++    let [modelOperation] = await tx`SELECT state FROM backoffice.office_tool_operations WHERE run_id=${runId} AND tool_name=${MODEL_OPERATION} AND state IN ('reserved','unknown_outcome')`;
++    if (!modelOperation && run.provider_dispatched_at && run.model) {
++      // Also quarantine a dispatched hold left by a prior implementation without operation evidence.
++      const operationKey = `openai:${runId}`;
++      await tx`INSERT INTO backoffice.office_tool_operations(workspace_id,task_id,run_id,operation_key,arguments_hash,tool_name,state,provider_idempotency_key,result) VALUES(${run.workspace_id},${run.task_id},${runId},${operationKey},${digest(operationKey)},${MODEL_OPERATION},'unknown_outcome',${digest(operationKey)},${tx.json({ reason: 'Recovered a dispatched model hold without confirmed billing usage.' })}) ON CONFLICT(operation_key) DO NOTHING`;
++      [modelOperation] = await tx`SELECT state FROM backoffice.office_tool_operations WHERE run_id=${runId} AND tool_name=${MODEL_OPERATION} AND state IN ('reserved','unknown_outcome')`;
++    }
++    if (modelOperation && run.provider_dispatched_at) {
++      // A dispatched unresolved request keeps an open hold until an owner reconciles provider evidence.
++      await markModelUncertain(tx, runId, 'The dispatched request has no confirmed billing outcome.');
++      return;
++    }
+     const charged = run.provider_dispatched_at ? reserved : 0;
+     if (reserved) await tx`UPDATE backoffice.office_budget SET reserved_microunits=reserved_microunits-${reserved},spent_microunits=spent_microunits+${charged} WHERE id=1`;
+     await tx`UPDATE backoffice.office_runs SET usage_microunits=${charged} WHERE id=${runId}`;
+@@ -206,7 +231,8 @@
+       for (const dispatch of rows) {
+         const current = await task(tx, dispatch.task_id, dispatch.workspace_id);
+         await settleOpenReservation(tx,dispatch.run_id);
+-        await tx`UPDATE backoffice.office_runs SET state='interrupted',finished_at=now(),error_code='lease_expired' WHERE id=${dispatch.run_id} AND state NOT IN ('succeeded','failed','interrupted','cancelled')`;
++        const [unknownModel] = await tx`SELECT 1 FROM backoffice.office_tool_operations WHERE run_id=${dispatch.run_id} AND tool_name=${MODEL_OPERATION} AND state='unknown_outcome'`;
++        await tx`UPDATE backoffice.office_runs SET state=${unknownModel ? 'waiting_for_tool' : 'interrupted'},finished_at=${unknownModel ? null : tx`now()`},error_code='lease_expired' WHERE id=${dispatch.run_id} AND state NOT IN ('succeeded','failed','interrupted','cancelled')`;
+         const unresolved = await tx`SELECT 1 FROM backoffice.office_tool_operations WHERE task_id=${current.id} AND state IN ('reserved','unknown_outcome') LIMIT 1`;
+         const exhausted = dispatch.attempt >= dispatch.max_attempts || unresolved.length > 0;
+         await tx`UPDATE backoffice.office_dispatch SET state=${exhausted ? 'exhausted' : 'pending'},lease_token=lease_token+1,lease_until=NULL,lease_owner=NULL,available_at=now()+(${Math.min(60, 2 ** Number(dispatch.attempt))}*interval '1 second'),last_error='lease_expired' WHERE id=${dispatch.id}`;
+@@ -229,14 +255,16 @@
+       await tx`SELECT pg_advisory_xact_lock(68421201)`;
+       const [count] = await tx`SELECT count(*)::integer AS n FROM backoffice.office_dispatch WHERE state='leased' AND lease_until>now()`;
+       if (count.n >= concurrency) return null;
+-      const [dispatch] = await tx`SELECT d.* FROM backoffice.office_dispatch d JOIN backoffice.office_tasks t ON t.id=d.task_id JOIN backoffice.office_agents a ON a.id=t.agent_id JOIN backoffice.office_workspace_grants g ON g.workspace_id=t.workspace_id AND g.agent_id=COALESCE(d.reviewer_id,t.agent_id) WHERE d.state='pending' AND d.available_at<=now() AND d.attempt<d.max_attempts AND a.enabled AND t.mode IN ${tx(modes)} AND t.state IN ('queued','assigned','in_progress','waiting_for_review','blocked') AND NOT EXISTS(SELECT 1 FROM backoffice.office_tasks p WHERE p.id=t.parent_task_id AND p.state IN ('pause_requested','paused','cancel_requested','cancelled')) AND NOT EXISTS(SELECT 1 FROM backoffice.office_task_dependencies dep JOIN backoffice.office_tasks child ON child.id=dep.dependency_task_id WHERE dep.task_id=t.id AND child.state NOT IN ('review_passed','completed')) ORDER BY t.priority DESC,d.available_at,d.created_at FOR UPDATE OF d SKIP LOCKED LIMIT 1`;
++      const [dispatch] = await tx`SELECT d.* FROM backoffice.office_dispatch d JOIN backoffice.office_tasks t ON t.id=d.task_id JOIN backoffice.office_agents a ON a.id=t.agent_id JOIN backoffice.office_workspace_grants g ON g.workspace_id=t.workspace_id AND g.agent_id=COALESCE(d.reviewer_id,t.agent_id) WHERE d.state='pending' AND d.available_at<=now() AND d.attempt<d.max_attempts AND a.enabled AND t.mode IN ${tx(modes)} AND t.state IN ('queued','assigned','in_progress','waiting_for_review','blocked') AND (t.mode<>'live' OR (NOT EXISTS(SELECT 1 FROM backoffice.office_dispatch active JOIN backoffice.office_tasks at ON at.id=active.task_id WHERE at.mode='live' AND active.state='leased' AND active.lease_until>now()) AND NOT EXISTS(SELECT 1 FROM backoffice.office_tool_operations o WHERE o.tool_name=${MODEL_OPERATION} AND o.state IN ('reserved','unknown_outcome')))) AND NOT EXISTS(SELECT 1 FROM backoffice.office_tasks p WHERE p.id=t.parent_task_id AND p.state IN ('pause_requested','paused','cancel_requested','cancelled')) AND NOT EXISTS(SELECT 1 FROM backoffice.office_task_dependencies dep JOIN backoffice.office_tasks child ON child.id=dep.dependency_task_id WHERE dep.task_id=t.id AND child.state NOT IN ('review_passed','completed')) ORDER BY t.priority DESC,d.available_at,d.created_at FOR UPDATE OF d SKIP LOCKED LIMIT 1`;
+       if (!dispatch) return null;
+       const current = await task(tx, dispatch.task_id, dispatch.workspace_id);
+       const agentId = (dispatch.reviewer_id ?? current.agent_id) as AgentId;
+       const [profile] = await tx`SELECT * FROM backoffice.office_agents WHERE id=${agentId} AND enabled`;
+       if (!profile) return null;
++      const [liveAttempt] = current.mode === 'live' ? await tx`SELECT id FROM backoffice.office_runs WHERE task_id=${current.parent_task_id ?? current.id} AND step IN ('delegate_internal_live','live_owner_attempt','resume_internal_dependencies') ORDER BY started_at DESC,id DESC LIMIT 1` : [];
++      if (current.mode === 'live' && !liveAttempt) throw new OfficeError('CONFIGURATION_REQUIRED', 'The proposal has no durable live attempt.');
+       const runId = randomUUID();
+-      await tx`INSERT INTO backoffice.office_runs(id,workspace_id,task_id,agent_id,profile_version,policy_version,attempt,state,step,predecessor_run_id,checkpoint) VALUES(${runId},${current.workspace_id},${current.id},${agentId},${profile.profile_version},${profile.policy_version},${dispatch.attempt + 1},'starting',${dispatch.step},${dispatch.run_id},${tx.json(dispatch.checkpoint)})`;
++      await tx`INSERT INTO backoffice.office_runs(id,workspace_id,task_id,agent_id,profile_version,policy_version,attempt,state,step,predecessor_run_id,checkpoint,live_attempt_id) VALUES(${runId},${current.workspace_id},${current.id},${agentId},${profile.profile_version},${profile.policy_version},${dispatch.attempt + 1},'starting',${dispatch.step},${dispatch.run_id},${tx.json(dispatch.checkpoint)},${liveAttempt?.id ?? null})`;
+       const [leased] = await tx`UPDATE backoffice.office_dispatch SET state='leased',attempt=attempt+1,lease_owner=${workerId},lease_token=lease_token+1,lease_until=now()+(${leaseSeconds}*interval '1 second'),run_id=${runId} WHERE id=${dispatch.id} RETURNING lease_token,lease_until`;
+       await tx`UPDATE backoffice.office_runs SET state='running' WHERE id=${runId}`;
+       if (current.state === 'blocked') await transition(tx, current, 'queued', 'task_queued', workerId, {}, runId);
+@@ -286,6 +314,24 @@
+     const components = await sql`SELECT t.id AS child_id,t.current_artifact_id,a.artifact_hash,array_agg(r.id ORDER BY r.created_at,r.id) AS review_ids FROM backoffice.office_task_dependencies dep JOIN backoffice.office_tasks t ON t.id=dep.dependency_task_id JOIN backoffice.office_artifacts a ON a.id=t.current_artifact_id JOIN backoffice.office_reviews r ON r.artifact_id=a.id AND r.state='passed' AND r.artifact_hash=a.artifact_hash WHERE dep.task_id=${current.id} AND dep.workspace_id=${current.workspace_id} AND t.state='review_passed' GROUP BY t.id,t.current_artifact_id,a.artifact_hash ORDER BY t.agent_id`;
+     const manifest = components.map(row => ({ childTaskId: row.child_id, artifactId: row.current_artifact_id, revisionId: row.current_artifact_id, artifactHash: row.artifact_hash, hashAlgorithm: 'SHA-256', reviewReferences: row.review_ids }));
+     return { components, manifest };
++  }
++  async function exactPackageComponents(inspected: OfficeArtifact): Promise<PackageComponent[]> {
++    const invalid = () => new LiveOutputError('missing_package_components');
++    if (!Array.isArray(inspected.manifest) || inspected.manifest.length !== OFFICE_AGENTS.length) throw invalid();
++    const components: PackageComponent[] = [];
++    const seen = new Set<string>();
++    for (const value of inspected.manifest) {
++      if (!value || typeof value !== 'object' || Array.isArray(value)) throw invalid();
++      const item = value as Record<string, JsonValue>;
++      if (typeof item.artifactId !== 'string' || typeof item.childTaskId !== 'string' || item.revisionId !== item.artifactId || item.hashAlgorithm !== 'SHA-256' || typeof item.artifactHash !== 'string' || !Array.isArray(item.reviewReferences) || !item.reviewReferences.length || !item.reviewReferences.every(id => typeof id === 'string')) throw invalid();
++      const [row] = await sql`SELECT a.*,t.parent_task_id,t.agent_id,t.current_artifact_id FROM backoffice.office_artifacts a JOIN backoffice.office_tasks t ON t.id=a.task_id AND t.workspace_id=a.workspace_id WHERE a.id=${item.artifactId} AND a.task_id=${item.childTaskId} AND a.workspace_id=${inspected.workspaceId}`;
++      if (!row || row.parent_task_id !== inspected.taskId || row.current_artifact_id !== row.id || row.author_agent_id !== row.agent_id || row.artifact_hash !== item.artifactHash || digest(row.content) !== item.artifactHash || seen.has(row.author_agent_id)) throw invalid();
++      const reviews = await sql`SELECT id FROM backoffice.office_reviews WHERE id IN ${sql(item.reviewReferences as string[])} AND artifact_id=${row.id} AND artifact_hash=${item.artifactHash} AND state='passed' AND reviewer_id<>${row.author_agent_id}`;
++      if (new Set(reviews.map(review => review.id)).size !== new Set(item.reviewReferences).size) throw invalid();
++      seen.add(row.author_agent_id);
++      components.push({ agentId: row.author_agent_id as AgentId, title: row.title, revision: row.revision, content: row.content });
++    }
++    return components;
+   }
+   async function currentArtifact(current: DbTask) {
+     if (!current.current_artifact_id) throw new OfficeError('INVALID_STATE', 'No current artifact to review.');
+@@ -368,11 +414,34 @@
+     if (digest(inspected.content) !== inspected.artifactHash) findings.push({ severity: 'error', message: 'Stored artifact digest does not match content.' });
+     return findings;
+   }
++  type LiveAdmission = { status: 'ready'; current: DbTask; run: postgres.Row; budget: postgres.Row; remainingMs: number } | { status: 'stopped' } | { status: 'denied'; code: string; reason: string };
++  async function liveAdmission(tx: Connection, lease: OfficeLease): Promise<LiveAdmission> {
++    await assertLease(tx, lease);
++    const current = await task(tx, lease.taskId, lease.workspaceId);
++    await owner(tx, current.initiating_owner_id);
++    if (['pause_requested','cancel_requested','paused','cancelled'].includes(current.state)) return { status: 'stopped' };
++    if (current.mode !== 'live' || !['in_progress','waiting_for_review'].includes(current.state)) throw new OfficeError('FORBIDDEN', 'This task is not authorized for live execution.');
++    const [grant] = await tx`SELECT 1 FROM backoffice.office_workspace_grants g JOIN backoffice.office_agents a ON a.id=g.agent_id WHERE g.workspace_id=${current.workspace_id} AND g.agent_id=${lease.agentId} AND a.enabled AND g.data_scopes ? 'internal_draft'`;
++    if (!grant) throw new OfficeError('FORBIDDEN', 'The live agent is disabled or its workspace grant was revoked.');
++    const [run] = await tx`SELECT r.*,extract(epoch FROM (now()-a.started_at))*1000 AS attempt_age_ms FROM backoffice.office_runs r LEFT JOIN backoffice.office_runs a ON a.id=r.live_attempt_id WHERE r.id=${lease.runId} FOR UPDATE OF r`;
++    const deny = (code: string, reason: string): LiveAdmission => ({ status: 'denied', code, reason });
++    if (!run?.live_attempt_id || run.attempt_age_ms === null || Number(run.attempt_age_ms) >= PROPOSAL_ATTEMPT_MS) return deny('proposal_attempt_expired', 'proposal_attempt_expired: the ten-minute live attempt ended; an explicit owner recovery decision is required');
++    const [unresolved] = await tx`SELECT 1 FROM backoffice.office_tool_operations WHERE tool_name=${MODEL_OPERATION} AND state IN ('reserved','unknown_outcome') AND run_id<>${lease.runId} LIMIT 1`;
++    if (unresolved) return deny('model_reconciliation_required', 'model_reconciliation_required: reconcile the outstanding OpenAI request before any further live request');
++    const [budget] = await tx`SELECT * FROM backoffice.office_budget WHERE id=1 FOR UPDATE`;
++    if (!budget?.live_enabled || ![budget.limit_microunits,budget.monthly_limit_microunits,budget.family_limit_microunits,budget.request_limit_microunits].every(value => Number(value) > 0)) return deny('live_disabled', 'configuration_required: live execution is switched off or its spending limits are unset');
++    const [calls] = await tx`SELECT count(*)::int AS n FROM backoffice.office_runs WHERE live_attempt_id=${run.live_attempt_id} AND provider_dispatched_at IS NOT NULL`;
++    if (calls.n >= ATTEMPT_CALL_CEILING) return deny('attempt_call_ceiling', 'attempt_call_ceiling: this attempt dispatched sixteen model requests; owner recovery is required');
++    return { status: 'ready', current, run, budget, remainingMs: Math.max(1, Math.floor(PROPOSAL_ATTEMPT_MS - Number(run.attempt_age_ms))) };
++  }
+   // One live step: count input exactly, reserve the worst-case charge under every limit, make one
+   // provider request without automatic retries, settle what it cost, then commit through commitStep.
+   async function executeLive(lease: OfficeLease, current: DbTask): Promise<StepResult> {
+     const live = options.live;
+     if (!live) throw new OfficeError('CONFIGURATION_REQUIRED', 'This worker has no live provider.');
++    const admission = await sql.begin(async tx => { await tx`SELECT pg_advisory_xact_lock(68421202)`; return liveAdmission(tx, lease); });
++    if (admission.status === 'stopped') return commitStep(lease, 'live', { draft: null, review: null });
++    if (admission.status === 'denied') return failLive(lease, admission.code, { exhausted: true, blockedReason: admission.reason });
+     const step = lease.step as LiveStep;
+     const [profile] = await sql`SELECT p.brief,p.version FROM backoffice.office_runs r JOIN backoffice.office_agent_profiles p ON p.agent_id=r.agent_id AND p.version=r.profile_version WHERE r.id=${lease.runId}`;
+     if (!profile) throw new OfficeError('CONFIGURATION_REQUIRED', 'The reviewed role profile for this run is missing.');
+@@ -380,22 +449,29 @@
+     let modelCall: LiveModelCall;
+     let inspected: OfficeArtifact | null = null;
+     let manifest: JsonValue = [];
++    try {
+     if (step === 'draft') modelCall = buildDraftCall({ ...base, revision: await revisionContext(current) });
+     else if (step === 'package') {
+       const parts = await packageComponents(current);
+       manifest = parts.manifest;
+-      const artifactIds = parts.components.map(row => row.current_artifact_id as string);
+-      const rows = artifactIds.length ? await sql<DbArtifact[]>`SELECT * FROM backoffice.office_artifacts WHERE workspace_id=${current.workspace_id} AND id IN ${sql(artifactIds)}` : [];
+-      const components: PackageComponent[] = rows.sort((a, b) => a.author_agent_id.localeCompare(b.author_agent_id)).map(row => ({ agentId: row.author_agent_id, title: row.title, revision: row.revision, content: row.content }));
++      const components = await exactPackageComponents({ taskId: current.id, workspaceId: current.workspace_id, manifest } as OfficeArtifact);
+       modelCall = buildPackageCall({ ...base, components, revision: await revisionContext(current) });
+     } else {
+       inspected = await currentArtifact(current);
+       const findings = structuralFindings(inspected, lease.agentId);
+       // A structurally invalid revision is rejected without spending a model request.
+       if (findings.length) return commitStep(lease, 'live', { draft: null, review: { inspected, result: { passed: false, criteria: ['current_digest_matches', 'independent_reviewer'], evidence: [{ claim: 'Structural checks before any model review', observedResult: 'changes_requested', artifactHash: inspected.artifactHash }], findings } } });
+-      modelCall = buildReviewCall({ ...base, authorId: inspected.authorAgentId, artifactTitle: inspected.title, artifactContent: inspected.content, packageReview: step === 'package_review' });
++      const components = step === 'package_review' ? await exactPackageComponents(inspected) : undefined;
++      modelCall = buildReviewCall({ ...base, authorId: inspected.authorAgentId, artifactTitle: inspected.title, artifactContent: inspected.content, packageReview: step === 'package_review', components });
+     }
+-    const counted = await live.provider.countInputTokens(modelCall);
++    } catch (error) {
++      if (error instanceof LiveOutputError) return failLive(lease, error.code, { exhausted: true, blockedReason: `source_evidence_invalid: ${error.code}; inspect the exact reviewed component records` });
++      throw error;
++    }
++    const countAdmission = await sql.begin(async tx => { await tx`SELECT pg_advisory_xact_lock(68421202)`; return liveAdmission(tx, lease); });
++    if (countAdmission.status === 'stopped') return commitStep(lease, 'live', { draft: null, review: null });
++    if (countAdmission.status === 'denied') return failLive(lease, countAdmission.code, { exhausted: true, blockedReason: countAdmission.reason });
++    const counted = await live.provider.countInputTokens({ ...modelCall, timeoutMs: Math.min(90000, countAdmission.remainingMs) });
+     if (!counted.ok) return failLive(lease, counted.code, counted.configuration ? { exhausted: true, blockedReason: `configuration_required: OpenAI rejected the token count (${counted.code}); check the Office API key, project and billing` } : {});
+     if (counted.inputTokens > Math.min(MAX_INPUT_TOKENS, SHORT_CONTEXT_MAX_INPUT_TOKENS)) return failLive(lease, 'input_too_large', { exhausted: true, blockedReason: `input_too_large: this request needs ${counted.inputTokens} input tokens, above the ${MAX_INPUT_TOKENS}-token request bound; shorten the brief` });
+     // A small cushion covers formatting tokens the count may not reflect exactly.
+@@ -403,15 +479,17 @@
+     const reservation = await reserveLive(lease, modelCall.model, reservedMicrounits);
+     if (reservation.status === 'stopped') return commitStep(lease, 'live', { draft: null, review: null });
+     if (reservation.status === 'denied') return failLive(lease, reservation.code, { exhausted: true, blockedReason: reservation.reason });
+-    const outcome = await live.provider.create(modelCall);
+-    const charge = chargeFor(outcome, modelCall.model, reservedMicrounits);
++    const outcome = await live.provider.create({ ...modelCall, timeoutMs: Math.min(90000, reservation.remainingMs) });
++    const charge = chargeFor(outcome, modelCall.model, reservedMicrounits, counted.inputTokens, modelCall.maxOutputTokens);
+     await settleLive(lease, charge);
+-    const metered: Partial<StepResult> = { model: modelCall.model, chargedMicrounits: charge.microunits, inputTokens: charge.usage?.inputTokens, outputTokens: charge.usage?.outputTokens };
++    const metered: Partial<StepResult> = { model: modelCall.model, chargedMicrounits: charge.uncertain ? undefined : charge.microunits, inputTokens: charge.usage?.inputTokens, outputTokens: charge.usage?.outputTokens };
+     if (outcome.kind === 'rejected') return failLive(lease, outcome.code, outcome.configuration
+       ? { exhausted: true, blockedReason: `configuration_required: OpenAI rejected the request (${outcome.code}); check the Office API key, project and billing` }
+       : outcome.retryable ? { retryAfterMs: outcome.retryAfterMs } : { exhausted: true, blockedReason: `request_rejected: ${outcome.code}` }, metered);
+-    if (outcome.kind === 'unknown') return failLive(lease, outcome.code, { retryAfterMs: outcome.retryAfterMs }, metered);
++    if (outcome.kind === 'unknown' || charge.uncertain) return failLive(lease, outcome.kind === 'unknown' ? outcome.code : 'usage_unpriceable', { exhausted: true, blockedReason: 'model_reconciliation_required: the OpenAI outcome or its price is unknown; its reservation is retained and all live requests are held for an explicit owner reconciliation' }, metered);
+     if (charge.exceeded) return failLive(lease, 'usage_exceeds_reservation', { exhausted: true, blockedReason: 'usage_exceeds_reservation: the reported usage prices above the reservation; reconcile with the OpenAI usage page before retrying' }, metered);
++    const [attempt] = await sql`SELECT extract(epoch FROM (now()-a.started_at))*1000 AS age_ms FROM backoffice.office_runs r JOIN backoffice.office_runs a ON a.id=r.live_attempt_id WHERE r.id=${lease.runId}`;
++    if (!attempt || Number(attempt.age_ms) >= PROPOSAL_ATTEMPT_MS) return failLive(lease, 'proposal_attempt_expired', { exhausted: true, blockedReason: 'proposal_attempt_expired: the ten-minute live attempt ended; the charged late output was discarded and owner recovery is required' }, metered);
+     if (outcome.kind === 'unusable') return failLive(lease, outcome.code, { exhausted: true, blockedReason: `model_output_unusable: ${outcome.code}; retry or revise after checking the brief` }, metered);
+     let draft: Draft | null = null;
+     let review: ReviewResult | null = null;
+@@ -427,23 +505,21 @@
+   }
+   // Rejected requests were not processed, so they release their reservation. A missing or
+   // unreadable response may still be billed, so it keeps the whole reservation.
+-  function chargeFor(outcome: CallOutcome, model: string, reserved: number) {
+-    if (outcome.kind === 'rejected') return { microunits: 0, exceeded: false, usage: null, providerRequestId: outcome.requestId };
+-    if (outcome.kind === 'unknown' || !outcome.usage) return { microunits: reserved, exceeded: false, usage: null, providerRequestId: outcome.requestId };
+-    const priced = usageMicrounits(model, outcome.usage, outcome.serviceTier);
+-    return { microunits: Math.min(priced, reserved), exceeded: priced > reserved, usage: outcome.usage, providerRequestId: outcome.responseId ?? outcome.requestId };
+-  }
+-  async function reserveLive(lease: OfficeLease, model: string, amount: number): Promise<{ status: 'reserved' } | { status: 'stopped' } | { status: 'denied'; code: string; reason: string }> {
+-    return sql.begin(async tx => {
+-      await tx`SELECT pg_advisory_xact_lock(68421202)`;
+-      await assertLease(tx, lease);
+-      const current = await task(tx, lease.taskId, lease.workspaceId);
+-      await owner(tx, current.initiating_owner_id);
+-      if (['pause_requested','cancel_requested','paused','cancelled'].includes(current.state)) return { status: 'stopped' as const };
+-      if (current.mode !== 'live') throw new OfficeError('FORBIDDEN', 'Only live tasks reserve provider spend.');
+-      const [run] = await tx`SELECT * FROM backoffice.office_runs WHERE id=${lease.runId} FOR UPDATE`;
++  function chargeFor(outcome: CallOutcome, model: string, reserved: number, inputBound: number, outputBound: number) {
++    if (outcome.kind === 'rejected') return { microunits: 0, exceeded: false, uncertain: false, usage: null, providerRequestId: outcome.requestId };
++    if (outcome.kind === 'unknown' || !outcome.usage) return { microunits: reserved, exceeded: false, uncertain: true, usage: null, providerRequestId: outcome.requestId };
++    let priced: number;
++    try { priced = usageMicrounits(model, outcome.usage, outcome.serviceTier); }
++    catch { return { microunits: reserved, exceeded: false, uncertain: true, usage: null, providerRequestId: outcome.responseId ?? outcome.requestId }; }
++    return { microunits: priced, exceeded: priced > reserved || outcome.usage.inputTokens > Math.min(MAX_INPUT_TOKENS, Math.ceil(inputBound * 1.02) + 64) || outcome.usage.outputTokens > outputBound, uncertain: false, usage: outcome.usage, providerRequestId: outcome.responseId ?? outcome.requestId };
++  }
++  async function reserveLive(lease: OfficeLease, model: string, amount: number): Promise<{ status: 'reserved'; remainingMs: number } | { status: 'stopped' } | { status: 'denied'; code: string; reason: string }> {
++    return sql.begin(async tx => {
++      await tx`SELECT pg_advisory_xact_lock(68421202)`;
++      const admission = await liveAdmission(tx, lease);
++      if (admission.status !== 'ready') return admission;
++      const { current, run, budget } = admission;
+       if (run.usage_microunits !== null || Number(run.budget_reserved_microunits) > 0 || run.provider_dispatched_at) throw new OfficeError('CONFLICT', 'This run already dispatched a model request; another attempt needs a new run.');
+-      const [budget] = await tx`SELECT * FROM backoffice.office_budget WHERE id=1 FOR UPDATE`;
+       const value = (column: string) => Number(budget[column]);
+       const deny = (code: string, reason: string) => ({ status: 'denied' as const, code, reason });
+       if (!budget.live_enabled) return deny('live_disabled', 'configuration_required: live execution is switched off');
+@@ -453,27 +529,34 @@
+       const familyUsed = Number(family.used);
+       if (familyUsed + amount > value('family_limit_microunits')) return deny('family_limit', `family_limit: this proposal has used ${formatUsd(familyUsed)} and the next request could reach ${formatUsd(familyUsed + amount)}, above the ${formatUsd(value('family_limit_microunits'))} per-proposal limit`);
+       if (family.calls >= FAMILY_CALL_CEILING) return deny('family_call_ceiling', `family_call_ceiling: this proposal already dispatched ${family.calls} model requests`);
+-      const [month] = await tx`SELECT COALESCE(sum(COALESCE(usage_microunits,budget_reserved_microunits)),0)::bigint AS used FROM backoffice.office_runs WHERE budget_reserved_microunits>0 AND started_at>=date_trunc('month',now() AT TIME ZONE 'UTC') AT TIME ZONE 'UTC'`;
++      const [month] = await tx`SELECT COALESCE(sum(COALESCE(usage_microunits,budget_reserved_microunits)),0)::bigint AS used FROM backoffice.office_runs WHERE budget_reserved_microunits>0 AND (usage_microunits IS NULL OR provider_dispatched_at>=date_trunc('month',now() AT TIME ZONE 'UTC') AT TIME ZONE 'UTC')`;
+       const monthUsed = Number(month.used);
+       if (monthUsed + amount > value('monthly_limit_microunits')) return deny('monthly_limit', `monthly_limit: ${formatUsd(monthUsed)} is used this month (UTC) and the next request could reach ${formatUsd(monthUsed + amount)}, above the ${formatUsd(value('monthly_limit_microunits'))} monthly limit`);
+       const lifetimeUsed = value('reserved_microunits') + value('spent_microunits');
+       if (lifetimeUsed + amount > value('limit_microunits')) return deny('lifetime_limit', `lifetime_limit: ${formatUsd(lifetimeUsed)} is used or reserved and the next request could reach ${formatUsd(lifetimeUsed + amount)}, above the ${formatUsd(value('limit_microunits'))} overall limit`);
+       await tx`UPDATE backoffice.office_budget SET reserved_microunits=reserved_microunits+${amount} WHERE id=1`;
+       await tx`UPDATE backoffice.office_runs SET budget_reserved_microunits=${amount},model=${model},provider_dispatched_at=now() WHERE id=${lease.runId}`;
+-      return { status: 'reserved' as const };
++      const operationKey = `openai:${lease.runId}`;
++      await tx`INSERT INTO backoffice.office_tool_operations(workspace_id,task_id,run_id,operation_key,arguments_hash,tool_name,state,provider_idempotency_key) VALUES(${current.workspace_id},${current.id},${lease.runId},${operationKey},${digest(operationKey)},${MODEL_OPERATION},'reserved',${digest(operationKey)})`;
++      return { status: 'reserved' as const, remainingMs: admission.remainingMs };
+     });
+   }
+   // Recording a known charge does not need the lease: it settles only this run's own reservation,
+   // once. A run already closed by lease recovery was charged its full reservation there.
+-  async function settleLive(lease: OfficeLease, charge: { microunits: number; usage: TokenUsage | null; providerRequestId: string | null }) {
++  async function settleLive(lease: OfficeLease, charge: { microunits: number; usage: TokenUsage | null; providerRequestId: string | null; uncertain: boolean; exceeded: boolean }) {
+     await sql.begin(async tx => {
+       await tx`SELECT pg_advisory_xact_lock(68421202)`;
+       const [run] = await tx`SELECT * FROM backoffice.office_runs WHERE id=${lease.runId} AND workspace_id=${lease.workspaceId} FOR UPDATE`;
+       if (!run || run.usage_microunits !== null || ['succeeded','failed','interrupted','cancelled'].includes(run.state)) return;
+       const reserved = Number(run.budget_reserved_microunits);
+-      const charged = Math.min(charge.microunits, reserved);
++      if (charge.uncertain) {
++        await markModelUncertain(tx, lease.runId, 'OpenAI outcome or billing usage is unknown; owner reconciliation is required.');
++        return;
++      }
++      const charged = charge.microunits;
+       await tx`UPDATE backoffice.office_budget SET reserved_microunits=reserved_microunits-${reserved},spent_microunits=spent_microunits+${charged} WHERE id=1`;
+       await tx`UPDATE backoffice.office_runs SET usage_microunits=${charged},provider_request_id=${charge.providerRequestId},token_usage=${charge.usage ? tx.json(charge.usage) : null} WHERE id=${lease.runId}`;
++      await tx`UPDATE backoffice.office_tool_operations SET state=${charge.exceeded ? 'unknown_outcome' : charged ? 'succeeded' : 'failed'},provider_reference=${charge.providerRequestId},result=${tx.json({ chargedMicrounits: charged, reservationMicrounits: reserved, reason: charge.exceeded ? 'Reported usage exceeded its reservation or token bounds; owner reconciliation required.' : 'Known provider usage settled.' })},updated_at=now() WHERE run_id=${lease.runId} AND tool_name=${MODEL_OPERATION} AND state='reserved'`;
+     });
+   }
+   async function failLive(lease: OfficeLease, code: string, failOptions: FailOptions, metered: Partial<StepResult> = {}): Promise<StepResult> {
+@@ -487,8 +570,11 @@
+       const current = await task(tx, lease.taskId, lease.workspaceId);
+       const safeCode = /^[a-z0-9_.-]{1,80}$/.test(code) ? code : 'adapter_error';
+       await settleOpenReservation(tx,lease.runId);
+-      await tx`UPDATE backoffice.office_runs SET state='failed',error_code=${safeCode},finished_at=now() WHERE id=${lease.runId}`;
+       const unresolved = await tx`SELECT 1 FROM backoffice.office_tool_operations WHERE task_id=${current.id} AND state IN ('reserved','unknown_outcome') LIMIT 1`;
++      const [modelUncertain] = await tx`SELECT 1 FROM backoffice.office_tool_operations WHERE run_id=${lease.runId} AND tool_name=${MODEL_OPERATION} AND state='unknown_outcome'`;
++      const [run] = await tx`SELECT usage_microunits FROM backoffice.office_runs WHERE id=${lease.runId}`;
++      const awaitingBilling = !!modelUncertain && run.usage_microunits === null;
++      await tx`UPDATE backoffice.office_runs SET state=${awaitingBilling ? 'waiting_for_tool' : 'failed'},error_code=${safeCode},finished_at=${awaitingBilling ? null : tx`now()`} WHERE id=${lease.runId}`;
+       const exhausted = failOptions.exhausted === true || dispatch.attempt >= dispatch.max_attempts || unresolved.length > 0;
+       const delaySeconds = Math.max(Math.min(60, 2 ** dispatch.attempt), Math.ceil((failOptions.retryAfterMs ?? 0) / 1000));
+       await tx`UPDATE backoffice.office_dispatch SET state=${exhausted ? 'exhausted' : 'pending'},lease_until=NULL,lease_owner=NULL,lease_token=lease_token+1,last_error=${safeCode},available_at=now()+(${delaySeconds}*interval '1 second') WHERE id=${lease.dispatchId}`;
+@@ -502,6 +588,13 @@
+         const reason = (failOptions.blockedReason ?? (exhausted ? 'retry_exhausted: owner recovery decision required' : 'Step failed; bounded retry pending')).slice(0, 500);
+         await tx`UPDATE backoffice.office_tasks SET blocked_reason=${reason} WHERE id=${current.id}`;
+         await transition(tx, current, 'blocked', 'work_blocked', lease.workerId, { dependencySummary: failOptions.blockedReason ? reason.slice(0, 300) : exhausted ? 'Retries exhausted.' : 'Retry pending.' }, lease.runId);
++      }
++      if (modelUncertain && current.parent_task_id) {
++        const parent = await task(tx, current.parent_task_id, current.workspace_id);
++        if (['in_progress','waiting_for_review'].includes(parent.state)) {
++          await tx`UPDATE backoffice.office_tasks SET blocked_reason='model_reconciliation_required: reconcile the outstanding OpenAI request before any further live work' WHERE id=${parent.id}`;
++          await transition(tx, parent, 'blocked', 'work_blocked', lease.workerId, { dependencySummary: 'OpenAI billing outcome requires explicit owner reconciliation.' });
++        }
+       }
+     });
+   }
+@@ -553,6 +646,9 @@
+         if (current.revision_cycles >= 2) throw new OfficeError('INVALID_STATE', 'A task may be revised at most twice before an owner recovery review.');
+         const active = await tx`SELECT 1 FROM backoffice.office_dispatch WHERE task_id=${current.id} AND state='leased' AND lease_until>now()`;
+         if (active.length) throw new OfficeError('CONFLICT', 'Wait for active execution to stop before requesting a revision.');
++        const [unresolvedModel] = await tx`SELECT 1 FROM backoffice.office_tool_operations WHERE tool_name=${MODEL_OPERATION} AND state IN ('reserved','unknown_outcome') LIMIT 1`;
++        if (unresolvedModel) throw new OfficeError('INVALID_STATE', 'Reconcile the outstanding OpenAI outcome before starting another live attempt.');
++        await startLiveAttempt(tx, current);
+         await tx`UPDATE backoffice.office_tasks SET revision_cycles=revision_cycles+1 WHERE id=${current.id}`;
+         await transition(tx, current, 'queued', 'task_queued', ownerId, { recoveryDecision: input.reason ?? 'Revise using the latest review findings.' }, null, 'owner');
+         await enqueue(tx, current, current.parent_task_id ? 'draft' : 'package', null, `redraft:${current.revision_cycles + 1}`);
+@@ -561,11 +657,14 @@
+           if (!await liveConfigured(tx)) throw new OfficeError('CONFIGURATION_REQUIRED', 'Live execution is switched off or its spending limits are not set.');
+           const [delegated] = await tx`SELECT 1 FROM backoffice.office_task_dependencies WHERE task_id=${current.parent_task_id ?? current.id} LIMIT 1`;
+           if (!delegated) throw new OfficeError('INVALID_STATE', 'This live request was recorded before live execution was available. Cancel it and submit a new one.');
++          const [unresolvedModel] = await tx`SELECT 1 FROM backoffice.office_tool_operations WHERE tool_name=${MODEL_OPERATION} AND state IN ('reserved','unknown_outcome') LIMIT 1`;
++          if (unresolvedModel) throw new OfficeError('INVALID_STATE', 'Reconcile the outstanding OpenAI outcome before starting another live attempt.');
+         }
+         if (!['paused','blocked','failed'].includes(current.state)) throw new OfficeError('INVALID_STATE', 'Only paused or failed/blocked tasks can resume.');
+         if (input.action === 'retry' && !input.reason) throw new OfficeError('INVALID_STATE', 'Retry requires a recovery decision and duplicate-effect check.');
+         const effects = await tx`SELECT 1 FROM backoffice.office_tool_operations WHERE task_id IN ${tx(related.map(row => row.id))} AND state IN ('reserved','unknown_outcome') LIMIT 1`;
+         if (effects.length) throw new OfficeError('INVALID_STATE', 'Reconcile unknown external outcomes before retry.');
++        await startLiveAttempt(tx, current);
+         for (const row of related) if (['paused','blocked','failed'].includes(row.state)) {
+           await transition(tx, row, 'queued', 'task_queued', ownerId, { recoveryDecision: input.reason ?? 'Resume after scope and effect checks.' }, null, 'owner');
+           await tx`UPDATE backoffice.office_tasks SET blocked_reason=NULL WHERE id=${row.id}`;
+@@ -680,6 +779,11 @@
+       if (current.state !== 'changes_requested' || current.revision_cycles >= 2) throw new OfficeError('INVALID_STATE', 'A changes-requested task may be revised at most twice before owner recovery review.');
+       const active = await tx`SELECT 1 FROM backoffice.office_dispatch WHERE task_id=${current.id} AND state='leased' AND lease_until>now()`;
+       if (active.length) throw new OfficeError('CONFLICT', 'Wait for active execution to stop before revising.');
++      if (current.mode === 'live') {
++        const [unresolvedModel] = await tx`SELECT 1 FROM backoffice.office_tool_operations WHERE tool_name=${MODEL_OPERATION} AND state IN ('reserved','unknown_outcome') LIMIT 1`;
++        if (unresolvedModel) throw new OfficeError('INVALID_STATE', 'Reconcile the outstanding OpenAI outcome before starting another live attempt.');
++        await startLiveAttempt(tx, current);
++      }
+       await transition(tx, current, 'in_progress', 'work_started', ownerId, { agentName: input.authorAgentId }, null, 'owner');
+       await tx`UPDATE backoffice.office_tasks SET revision_cycles=revision_cycles+1 WHERE id=${current.id}`;
+       let content = input.content;
+@@ -771,12 +875,28 @@
+       await emit(tx, lease.workspaceId, lease.taskId, outcome === 'unknown_outcome' ? 'work_blocked' : 'tool_operation_recorded', lease.workerId, { operationId, outcome }, lease.runId);
+     });
+   }
+-  async function reconcileToolOperation(ownerId: string, input: { workspaceId: string; operationId: string; outcome: 'succeeded' | 'failed'; evidenceReference: string }) {
++  async function reconcileToolOperation(ownerId: string, input: { workspaceId: string; operationId: string; outcome: 'succeeded' | 'failed'; evidenceReference: string; actualMicrounits?: number }) {
+     if (input.evidenceReference.length < 5 || input.evidenceReference.length > 2000) throw new OfficeError('INVALID_STATE', 'Reconciliation requires an inspected evidence reference.');
+     await sql.begin(async tx => {
+       await tx`SELECT pg_advisory_xact_lock(68421202)`;
+       await owner(tx, ownerId);
+-      const rows = await tx`UPDATE backoffice.office_tool_operations SET state=${input.outcome},result=${tx.json({ reconciledBy: ownerId, evidenceReference: input.evidenceReference })},updated_at=now() WHERE id=${input.operationId} AND workspace_id=${input.workspaceId} AND state IN ('unknown_outcome','reserved') RETURNING task_id`;
++      const [operation] = await tx`SELECT * FROM backoffice.office_tool_operations WHERE id=${input.operationId} AND workspace_id=${input.workspaceId} AND state IN ('unknown_outcome','reserved') FOR UPDATE`;
++      if (!operation) throw new OfficeError('NOT_FOUND', 'No unresolved operation in this workspace.');
++      if (operation.tool_name === MODEL_OPERATION) {
++        const [active] = await tx`SELECT 1 FROM backoffice.office_dispatch WHERE run_id=${operation.run_id} AND state='leased' AND lease_until>now()`;
++        if (active) throw new OfficeError('INVALID_STATE', 'Wait for the active request to stop before reconciling it.');
++        const actual = input.outcome === 'failed' ? (input.actualMicrounits ?? 0) : input.actualMicrounits;
++        if (!Number.isSafeInteger(actual) || actual! < 0 || (input.outcome === 'failed' && actual !== 0)) throw new OfficeError('INVALID_STATE', 'Model reconciliation requires the exact confirmed charge in microunits; a confirmed unprocessed failure costs zero.');
++        const [run] = await tx`SELECT * FROM backoffice.office_runs WHERE id=${operation.run_id} FOR UPDATE`;
++        if (run.usage_microunits !== null && Number(run.usage_microunits) !== actual) throw new OfficeError('CONFLICT', 'The observed charge is immutable; reconcile the recorded amount without removing known spend.');
++        if (run.usage_microunits === null) {
++          await tx`UPDATE backoffice.office_budget SET reserved_microunits=reserved_microunits-${run.budget_reserved_microunits},spent_microunits=spent_microunits+${actual!} WHERE id=1`;
++          await tx`UPDATE backoffice.office_runs SET usage_microunits=${actual!},state='failed',finished_at=now() WHERE id=${run.id}`;
++        } else if (run.state === 'waiting_for_tool') {
++          await tx`UPDATE backoffice.office_runs SET state='failed',finished_at=now() WHERE id=${run.id}`;
++        }
++      }
++      const rows = await tx`UPDATE backoffice.office_tool_operations SET state=${input.outcome},result=${tx.json({ reconciledBy: ownerId, evidenceReference: input.evidenceReference, ...(input.actualMicrounits === undefined ? {} : { actualMicrounits: input.actualMicrounits }) })},updated_at=now() WHERE id=${input.operationId} RETURNING task_id`;
+       if (!rows.length) throw new OfficeError('NOT_FOUND', 'No unresolved operation in this workspace.');
+       await emit(tx, input.workspaceId, rows[0].task_id, 'tool_operation_reconciled', ownerId, { operationId: input.operationId, outcome: input.outcome }, null, 'owner');
+       const current = await task(tx, rows[0].task_id, input.workspaceId);
+diff --git a/apps/backoffice/src/lib/office-runtime/live-adapter.ts b/apps/backoffice/src/lib/office-runtime/live-adapter.ts
+--- a/apps/backoffice/src/lib/office-runtime/live-adapter.ts
++++ b/apps/backoffice/src/lib/office-runtime/live-adapter.ts
+@@ -14,8 +14,6 @@
+ export const MAX_OUTPUT_TOKENS: Record<LiveStep, number> = { draft: 6000, review: 3000, package: 6000, package_review: 3000 };
+ /** Counted input bound per request, from the reviewed pilot proposal. */
+ export const MAX_INPUT_TOKENS = 12000;
+-/** Characters of each reviewed role draft passed into the package request. */
+-export const COMPONENT_EXCERPT_CHARS = 2400;
+ 
+ export class LiveOutputError extends Error {
+   constructor(readonly code: string) { super(code); this.name = 'LiveOutputError'; }
+@@ -100,7 +98,7 @@
+     `Goal: ${context.goal}`,
+     quoted('owner_brief', context.brief),
+     ...(context.revision ? [
+-      quoted('previous_revision', `${context.revision.previousTitle}\n\n${clip(context.revision.previousContent, 16000)}`),
++      quoted('previous_revision', `${context.revision.previousTitle}\n\n${context.revision.previousContent}`),
+       quoted('reviewer_findings', list(context.revision.reviewerFindings, 'None recorded.')),
+       quoted('owner_feedback', context.revision.ownerFeedback ?? 'None recorded.'),
+     ] : []),
+@@ -176,7 +174,7 @@
+   };
+ }
+ 
+-export function buildReviewCall(context: { ids: LiveIds; settings: LiveSettings; profileBrief: string; profileVersion: number; authorId: AgentId; goal: string; brief: string; artifactTitle: string; artifactContent: string; packageReview: boolean }): LiveModelCall {
++export function buildReviewCall(context: { ids: LiveIds; settings: LiveSettings; profileBrief: string; profileVersion: number; authorId: AgentId; goal: string; brief: string; artifactTitle: string; artifactContent: string; packageReview: boolean; components?: PackageComponent[] }): LiveModelCall {
+   const criteria = context.packageReview ? PACKAGE_REVIEW_CRITERIA : CHILD_REVIEW_CRITERIA;
+   const author = roleOf(context.authorId);
+   const instructions = [
+@@ -190,7 +188,9 @@
+     '',
+     SHARED_RULES,
+   ].join('\n');
+-  const input = [`Goal: ${context.goal}`, quoted('owner_brief', context.brief), quoted('artifact_under_review', `${context.artifactTitle}\n\n${context.artifactContent}`)].join('\n\n');
++  // A manifest proves identity, not coverage. The final reviewer needs the exact complete
++  // component bodies as well as the package to check omissions and conflicts independently.
++  const input = [`Goal: ${context.goal}`, quoted('owner_brief', context.brief), quoted('artifact_under_review', `${context.artifactTitle}\n\n${context.artifactContent}`), ...(context.packageReview ? componentEvidence(context.components ?? []) : [])].join('\n\n');
+   return call(context.ids, context.settings, instructions, input, 'office_independent_review', reviewSchema(criteria));
+ }
+ 
+@@ -201,12 +201,15 @@
+     outcome: z.enum(['passed', 'changes_requested']),
+     summary: z.string().transform(value => clip(value.trim(), 1200)),
+     checks: z.array(z.object({ criterion: z.string(), result: z.enum(['met', 'not_met', 'unverified']), note: z.string().transform(value => clip(value.trim(), 600)) })).max(40),
+-    findings: z.array(z.object({ severity: z.enum(['error', 'warning', 'note']), message: z.string().transform(value => clip(value.trim(), 800)) })).transform(values => values.slice(0, 25)),
++    findings: z.array(z.object({ severity: z.enum(['error', 'warning', 'note']), message: z.string().transform(value => clip(value.trim(), 800)) })).max(25),
+   });
+   const parsed = shape.safeParse(raw);
+   if (!parsed.success) throw new LiveOutputError('invalid_review_shape');
+   const output = parsed.data;
+-  const checks = ids.map(id => output.checks.find(check => check.criterion === id) ?? { criterion: id, result: 'unverified' as const, note: 'Not reported by the reviewer model.' });
++  // Strict JSON schema cannot express one entry for each criterion. Validate that locally;
++  // selecting the first duplicate could otherwise hide a later "not_met" result.
++  if (output.checks.length !== ids.length || new Set(output.checks.map(check => check.criterion)).size !== ids.length || output.checks.some(check => !ids.includes(check.criterion))) throw new LiveOutputError('invalid_review_criteria');
++  const checks = ids.map(id => output.checks.find(check => check.criterion === id)!);
+   // The model's verdict cannot pass a review that its own checks or findings contradict.
+   const passed = output.outcome === 'passed' && !checks.some(check => check.result === 'not_met') && !output.findings.some(finding => finding.severity === 'error');
+   return {
+@@ -237,6 +240,17 @@
+ 
+ export type PackageComponent = { agentId: AgentId; title: string; revision: number; content: string };
+ 
++function componentEvidence(components: PackageComponent[]): string[] {
++  // Never replace a reviewed component with an excerpt. If the complete evidence exceeds
++  // the counted input bound, the runtime blocks before dispatch instead of losing decisions.
++  const expected = OFFICE_AGENTS.map(role => role.agentId);
++  if (components.length !== expected.length || new Set(components.map(component => component.agentId)).size !== expected.length || components.some(component => !expected.includes(component.agentId) || !component.content.trim() || !component.title.trim() || !Number.isSafeInteger(component.revision) || component.revision < 1)) throw new LiveOutputError('missing_package_components');
++  return components.map(component => {
++    const role = roleOf(component.agentId);
++    return quoted('role_component', `${role.displayName} (${role.role}) · R${component.revision} · ${component.title}\n\n${component.content}`);
++  });
++}
++
+ export function buildPackageCall(context: { ids: LiveIds; settings: LiveSettings; profileBrief: string; profileVersion: number; goal: string; brief: string; components: PackageComponent[]; revision?: DraftRevisionContext | null }): LiveModelCall {
+   const instructions = [
+     persona(context.ids.agentId, context.profileBrief, context.profileVersion),
+@@ -247,10 +261,7 @@
+     '',
+     SHARED_RULES,
+   ].filter(line => line !== '').join('\n');
+-  const components = context.components.map(component => {
+-    const role = roleOf(component.agentId);
+-    return quoted('role_component', `${role.displayName} (${role.role}) · R${component.revision} · ${component.title}\n\n${clip(component.content, COMPONENT_EXCERPT_CHARS)}`);
+-  });
++  const components = componentEvidence(context.components);
+   const input = [
+     `Goal: ${context.goal}`,
+     quoted('owner_brief', context.brief),
+diff --git a/apps/backoffice/src/lib/office-runtime/live-client-review.test.ts b/apps/backoffice/src/lib/office-runtime/live-client-review.test.ts
+new file mode 100644
+--- /dev/null
++++ b/apps/backoffice/src/lib/office-runtime/live-client-review.test.ts
+@@ -0,0 +1,83 @@
++import {createServer} from 'node:http';
++import {once} from 'node:events';
++import {describe, expect, it} from 'vitest';
++import {createOpenAIProvider, interpretResponse, parseUsage, requestBody, type LiveModelCall} from './openai';
++
++const call: LiveModelCall = {model:'gpt-6-luna',instructions:'Internal draft only.',input:'Test brief.',schemaName:'review_test',schema:{type:'object',properties:{ok:{type:'boolean'}},required:['ok'],additionalProperties:false},maxOutputTokens:6000,reasoningEffort:'low',metadata:{},clientRequestId:'office-client-review'};
++const key = `sk-proj-${'z'.repeat(40)}`;
++const usage = () => ({input_tokens:1000,output_tokens:200,total_tokens:1200,input_tokens_details:{cached_tokens:100,cache_write_tokens:300,cache_write_tokens_details:{ttl_30m_tokens:200,ttl_12h_tokens:100}},output_tokens_details:{reasoning_tokens:50}});
++const response = () => ({id:'resp_review',model:call.model,status:'completed',service_tier:'default',usage:usage(),output:[{type:'message',content:[{type:'output_text',text:'{"ok":true}'}]}]});
++
++describe('review regressions: billing evidence and transport', () => {
++  it('requires complete disjoint exact token accounting, including cache write lifetimes', () => {
++    expect(parseUsage(usage())).toEqual({inputTokens:1000,outputTokens:200,cachedTokens:100,cacheWriteTokens:300,cacheWrite12hTokens:100,reasoningTokens:50});
++    const missingCache = usage(); delete (missingCache.input_tokens_details as Partial<typeof missingCache.input_tokens_details>).cached_tokens;
++    const missingWrite = usage(); delete (missingWrite.input_tokens_details as Partial<typeof missingWrite.input_tokens_details>).cache_write_tokens;
++    const missingLifetime = usage(); delete (missingLifetime.input_tokens_details as Partial<typeof missingLifetime.input_tokens_details>).cache_write_tokens_details;
++    const missingReasoning = usage(); delete (missingReasoning.output_tokens_details as Partial<typeof missingReasoning.output_tokens_details>).reasoning_tokens;
++    const malformed = [missingCache,missingWrite,missingLifetime,missingReasoning,
++      {...usage(),total_tokens:1199}, {...usage(),input_tokens:-1}, {...usage(),output_tokens:0.5},
++      {...usage(),input_tokens:Number.NaN}, {...usage(),output_tokens:Number.POSITIVE_INFINITY},
++      {...usage(),total_tokens:Number.MAX_SAFE_INTEGER+1},
++      {...usage(),input_tokens_details:{...usage().input_tokens_details,cached_tokens:900}},
++      {...usage(),input_tokens_details:{...usage().input_tokens_details,cache_write_tokens_details:{ttl_30m_tokens:200,ttl_12h_tokens:101}}},
++      {...usage(),output_tokens_details:{reasoning_tokens:201}},
++    ];
++    for (const value of malformed) {
++      expect(parseUsage(value)).toBeNull();
++      expect(interpretResponse({...response(),usage:value},'req_review',call.model)).toMatchObject({kind:'unknown',code:'response_without_usage'});
++    }
++  });
++  it('allows an omitted lifetime breakdown only when explicitly zero tokens were written', () => {
++    expect(parseUsage({...usage(),input_tokens_details:{cached_tokens:0,cache_write_tokens:0}})).toMatchObject({cacheWriteTokens:0,cacheWrite12hTokens:0});
++    expect(parseUsage({...usage(),input_tokens_details:{cached_tokens:0,cache_write_tokens:0,cache_write_tokens_details:{ttl_12h_tokens:1,ttl_30m_tokens:0}}})).toBeNull();
++  });
++  it('does not infer the effective model or processing tier from what was requested', () => {
++    expect(interpretResponse(response(),'req_review',call.model)).toMatchObject({kind:'completed'});
++    expect(interpretResponse({...response(),model:'other-model'},'req_review',call.model)).toMatchObject({kind:'unknown',code:'unexpected_response_model'});
++    expect(interpretResponse({...response(),model:undefined},'req_review',call.model)).toMatchObject({kind:'unknown',code:'unexpected_response_model'});
++    expect(interpretResponse({...response(),service_tier:undefined},'req_review',call.model)).toMatchObject({kind:'unknown',code:'missing_response_service_tier'});
++    expect(interpretResponse({...response(),service_tier:'fast'},'req_review',call.model)).toMatchObject({kind:'unusable',code:'unexpected_response_service_tier',usage:{inputTokens:1000},serviceTier:'fast'});
++    expect(interpretResponse({...response(),service_tier:'future-more-expensive-tier'},'req_review',call.model)).toMatchObject({kind:'unknown',code:'unpriced_response_service_tier'});
++  });
++  it.each([302,307,308,408,409,500,503])('does not release or automatically retry an uncertain HTTP %i outcome', async status => {
++    let calls=0;
++    const provider=createOpenAIProvider({apiKey:key,fetch:(async()=>{calls++;return new Response('{}',{status});}) as typeof fetch});
++    expect(await provider.create(call)).toMatchObject({kind:'unknown'});
++    expect(calls).toBe(1);
++  });
++  it('rejects a count payload without the documented response discriminator', async () => {
++    const provider=createOpenAIProvider({apiKey:key,fetch:(async()=>new Response('{"input_tokens":1000}',{status:200})) as typeof fetch});
++    expect(await provider.countInputTokens(call)).toEqual({ok:false,code:'count_invalid_response',configuration:false});
++  });
++  it('bounds both HTTP operations by the remaining attempt time without sending the deadline', async () => {
++    let requests=0;
++    const provider=createOpenAIProvider({apiKey:key,fetch:(async(_url,init)=>{
++      requests++;
++      return new Promise<Response>((_resolve,reject)=>init!.signal!.addEventListener('abort',()=>reject(init!.signal!.reason),{once:true}));
++    }) as typeof fetch});
++    const expiring={...call,timeoutMs:10};
++    expect(await provider.countInputTokens(expiring)).toMatchObject({ok:false,code:'count_timeout'});
++    expect(await provider.create(expiring)).toMatchObject({kind:'unknown',code:'timeout'});
++    expect(requests).toBe(2);
++    for(const purpose of ['count','create'] as const)expect(requestBody(expiring,purpose)).not.toHaveProperty('timeoutMs');
++    expect(await provider.create({...call,timeoutMs:0})).toMatchObject({kind:'rejected',status:0,retryable:false});
++    expect(await provider.countInputTokens({...call,timeoutMs:-1})).toMatchObject({ok:false});
++    expect(requests).toBe(2);
++  });
++  it('never follows a real HTTP redirect for either a token count or model create', async () => {
++    const requests:string[]=[];
++    const server=createServer((req,res)=>{requests.push(req.url??'');res.writeHead(307,{location:'/redirect-target'});res.end();});
++    try {
++      server.listen(0,'127.0.0.1'); await once(server,'listening');
++      const address=server.address(); if (!address||typeof address==='string')throw new Error('Expected loopback listener');
++      const provider=createOpenAIProvider({apiKey:key,baseUrl:`http://127.0.0.1:${address.port}`});
++      expect(await provider.countInputTokens(call)).toMatchObject({ok:false});
++      expect(await provider.create(call)).toMatchObject({kind:'unknown'});
++      expect(requests).toEqual(['/responses/input_tokens','/responses']);
++    } finally {
++      server.closeAllConnections();
++      await new Promise<void>((resolve,reject)=>server.close(error=>error?reject(error):resolve()));
++    }
++  });
++});
+diff --git a/apps/backoffice/src/lib/office-runtime/live-pricing.ts b/apps/backoffice/src/lib/office-runtime/live-pricing.ts
+--- a/apps/backoffice/src/lib/office-runtime/live-pricing.ts
++++ b/apps/backoffice/src/lib/office-runtime/live-pricing.ts
+@@ -16,10 +16,10 @@
+ export const PRICES_CHECKED_AT = '2026-11-09';
+ /** Long-context pricing starts above this many input tokens; requests above it are refused. */
+ export const SHORT_CONTEXT_MAX_INPUT_TOKENS = 272000;
+-/** Every figure carries a 10% margin for the regional-processing premium, so invoices should not exceed it. */
++/** Model charges include the 10% regional uplift; count billing, tax and other project usage are excluded. */
+ export const CONSERVATIVE_MARGIN_PERCENT = 110;
+-/** Response service tiers and their price multiple of Standard. Unknown tiers are charged as the most expensive. */
+-const TIER_PERCENT: Record<string, number> = { default: 100, auto: 100, flex: 100, scale: 200, priority: 200, fast: 200, ultrafast: 600 };
++/** Response service tiers and their price multiple of Standard. Unknown tiers need reconciliation. */
++const TIER_PERCENT: Record<string, number> = { default: 100, flex: 100, priority: 200, fast: 200, ultrafast: 600 };
+ 
+ export type TokenUsage = { inputTokens: number; cachedTokens: number; cacheWriteTokens: number; cacheWrite12hTokens: number; outputTokens: number; reasoningTokens: number };
+ 
+@@ -30,8 +30,12 @@
+ }
+ 
+ // Integer ceiling of a sum of token*milli products, expressed in microunits.
+-function microunits(milliTokens: number, percent = 100): number {
+-  return Math.ceil((milliTokens * percent * CONSERVATIVE_MARGIN_PERCENT) / (1000 * 100 * 100));
++function microunits(milliTokens: bigint, percent = 100): number {
++  const denominator = 1000n * 100n * 100n;
++  const numerator = milliTokens * BigInt(percent) * BigInt(CONSERVATIVE_MARGIN_PERCENT);
++  const exact = (numerator + denominator - 1n) / denominator;
++  if (exact > BigInt(Number.MAX_SAFE_INTEGER)) throw new Error('unrepresentable_charge');
++  return Number(exact);
+ }
+ 
+ /**
+@@ -42,17 +46,23 @@
+ export function reservationMicrounits(model: string, inputTokens: number, maxOutputTokens: number): number {
+   const price = modelPrice(model);
+   if (!Number.isSafeInteger(inputTokens) || inputTokens < 0 || !Number.isSafeInteger(maxOutputTokens) || maxOutputTokens < 16) throw new Error('invalid_token_bounds');
+-  return microunits(inputTokens * price.cacheWrite30mMilli + maxOutputTokens * price.outputMilli);
++  return microunits(BigInt(inputTokens) * BigInt(price.cacheWrite30mMilli) + BigInt(maxOutputTokens) * BigInt(price.outputMilli));
+ }
+ 
+ /** Charge for reported usage. Cache reads, both cache-write lifetimes and uncached input are disjoint. */
+ export function usageMicrounits(model: string, usage: TokenUsage, serviceTier: string | null): number {
+   const price = modelPrice(model);
+-  const written30m = Math.max(0, usage.cacheWriteTokens - usage.cacheWrite12hTokens);
+-  const uncached = Math.max(0, usage.inputTokens - usage.cachedTokens - usage.cacheWriteTokens);
+-  const milli = uncached * price.inputMilli + usage.cachedTokens * price.cachedInputMilli + written30m * price.cacheWrite30mMilli
+-    + usage.cacheWrite12hTokens * price.cacheWrite12hMilli + usage.outputTokens * price.outputMilli;
+-  return microunits(milli, TIER_PERCENT[serviceTier ?? 'default'] ?? 600);
++  if (![usage.inputTokens,usage.cachedTokens,usage.cacheWriteTokens,usage.cacheWrite12hTokens,usage.outputTokens,usage.reasoningTokens].every(value => Number.isSafeInteger(value) && value >= 0)
++    || usage.cachedTokens + usage.cacheWriteTokens > usage.inputTokens
++    || usage.cacheWrite12hTokens > usage.cacheWriteTokens || usage.reasoningTokens > usage.outputTokens) throw new Error('invalid_token_usage');
++  if (usage.inputTokens > SHORT_CONTEXT_MAX_INPUT_TOKENS) throw new Error('unpriced_long_context');
++  const tier = serviceTier === null ? undefined : TIER_PERCENT[serviceTier];
++  if (tier === undefined) throw new Error('unpriced_service_tier');
++  const written30m = usage.cacheWriteTokens - usage.cacheWrite12hTokens;
++  const uncached = usage.inputTokens - usage.cachedTokens - usage.cacheWriteTokens;
++  const milli = BigInt(uncached) * BigInt(price.inputMilli) + BigInt(usage.cachedTokens) * BigInt(price.cachedInputMilli) + BigInt(written30m) * BigInt(price.cacheWrite30mMilli)
++    + BigInt(usage.cacheWrite12hTokens) * BigInt(price.cacheWrite12hMilli) + BigInt(usage.outputTokens) * BigInt(price.outputMilli);
++  return microunits(milli, tier);
+ }
+ 
+ /** Integer formatting (no float rounding): four decimals below USD 1, otherwise two. */
+diff --git a/apps/backoffice/src/lib/office-runtime/live.integration.test.ts b/apps/backoffice/src/lib/office-runtime/live.integration.test.ts
+--- a/apps/backoffice/src/lib/office-runtime/live.integration.test.ts
++++ b/apps/backoffice/src/lib/office-runtime/live.integration.test.ts
+@@ -198,22 +198,29 @@
+     expect(reasons.every(reason => reason.startsWith('monthly_limit'))).toBe(true);
+   });
+ 
+-  it('charges a possibly-billed failure its full reservation, releases rejected requests and blocks on configuration errors', async () => {
++  it('retains unknown charges until explicit owner reconciliation and releases configuration rejections', async () => {
+     await setCaps();
+     let first = true;
+     const fake = fakeProvider((call, n) => {
+       if (first) { first = false; return { kind: 'unknown', code: 'timeout', retryAfterMs: null, requestId: null }; }
+-      if (n === 2) return { kind: 'rejected', code: 'rate_limited_slow_down', status: 429, retryable: true, configuration: false, retryAfterMs: 1000, requestId: 'req_429' };
+       return completed(call, n);
+     });
+     const runtime = createOfficeRuntime(sql, { live: fake.live });
+     const { taskId } = await submit(runtime);
+     await drain(runtime, taskId);
++    expect((await taskOf(taskId)).state).toBe('blocked');
++    expect(fake.calls).toHaveLength(1);
++    const [held] = await meteredRuns();
++    expect(held).toMatchObject({ state: 'waiting_for_tool', usage_microunits: null, error_code: 'timeout' });
++    expect((await budget()).reserved_microunits).toBe(held.budget_reserved_microunits);
++    const parent = await taskOf(taskId);
++    await expect(runtime.requestTaskAction(ownerId, { workspaceId: liveWorkspace, taskId, version: Number(parent.version), action: 'retry', reason: 'A note alone must not release an unknown request.' })).rejects.toMatchObject({ code: 'INVALID_STATE' });
++    const [operation] = await sql`SELECT id FROM backoffice.office_tool_operations WHERE run_id=${held.id}`;
++    await runtime.reconcileToolOperation(ownerId, { workspaceId: liveWorkspace, operationId: operation.id, outcome: 'failed', actualMicrounits: 0, evidenceReference: 'Synthetic provider evidence: definitely unprocessed.' });
++    await runtime.requestTaskAction(ownerId, { workspaceId: liveWorkspace, taskId, version: Number(parent.version), action: 'retry', reason: 'Verified the provider evidence; begin another bounded attempt.' });
++    await drain(runtime, taskId);
+     expect((await taskOf(taskId)).state).toBe('waiting_for_owner_approval');
+-    const failed = (await meteredRuns()).filter(run => run.state === 'failed');
+-    expect(failed.map(run => run.error_code)).toEqual(['timeout', 'rate_limited_slow_down']);
+-    expect(Number(failed[0].usage_microunits)).toBe(Number(failed[0].budget_reserved_microunits));
+-    expect(Number(failed[1].usage_microunits)).toBe(0);
++    expect(fake.calls).toHaveLength(17);
+     expect((await budget()).reserved_microunits).toBe('0');
+ 
+     await sql`UPDATE backoffice.office_tasks SET state='cancelled' WHERE (id=${taskId} OR parent_task_id=${taskId}) AND state<>'waiting_for_owner_approval'`;
+@@ -249,7 +256,7 @@
+     expect(fake.calls.filter(call => call.schemaName === 'office_proposal_package')).toHaveLength(0);
+   });
+ 
+-  it('charges a lease-expired dispatched request its reservation once and fences the late result', async () => {
++  it('holds a lease-expired request, records a late known charge and fences its result until reconciliation', async () => {
+     await setCaps();
+     let release!: (outcome: CallOutcome) => void;
+     const gate = new Promise<CallOutcome>(resolve => { release = resolve; });
+@@ -262,10 +269,15 @@
+     const [reserved] = await sql`SELECT budget_reserved_microunits FROM backoffice.office_runs WHERE id=${lease.runId}`;
+     await sql`UPDATE backoffice.office_dispatch SET lease_until=now()-interval '1 second' WHERE id=${lease.dispatchId}`;
+     await runtime.recoverExpired();
+-    expect(await sql`SELECT state,usage_microunits FROM backoffice.office_runs WHERE id=${lease.runId}`).toEqual([{ state: 'interrupted', usage_microunits: reserved.budget_reserved_microunits }]);
++    expect(await sql`SELECT state,usage_microunits FROM backoffice.office_runs WHERE id=${lease.runId}`).toEqual([{ state: 'waiting_for_tool', usage_microunits: null }]);
++    expect(await budget()).toMatchObject({ reserved_microunits: reserved.budget_reserved_microunits, spent_microunits: '0' });
++    expect(await runtime.claim('another-worker')).toBeNull();
+     release(completed(fake.calls[0], 1));
+     await expect(running).rejects.toMatchObject({ code: 'LEASE_LOST' });
+-    expect(await budget()).toMatchObject({ reserved_microunits: '0', spent_microunits: reserved.budget_reserved_microunits });
++    expect(await budget()).toMatchObject({ reserved_microunits: '0', spent_microunits: '319' });
++    expect(await runtime.claim('another-worker')).toBeNull();
++    const [operation] = await sql`SELECT id FROM backoffice.office_tool_operations WHERE run_id=${lease.runId}`;
++    await runtime.reconcileToolOperation(ownerId, { workspaceId: liveWorkspace, operationId: operation.id, outcome: 'succeeded', actualMicrounits: 319, evidenceReference: 'Synthetic provider evidence confirms the late response charge.' });
+     expect((await sql`SELECT count(*)::int AS n FROM backoffice.office_artifacts WHERE task_id=${lease.taskId}`)[0].n).toBe(0);
+   });
+ 
+diff --git a/apps/backoffice/src/lib/office-runtime/live.test.ts b/apps/backoffice/src/lib/office-runtime/live.test.ts
+--- a/apps/backoffice/src/lib/office-runtime/live.test.ts
++++ b/apps/backoffice/src/lib/office-runtime/live.test.ts
+@@ -2,14 +2,14 @@
+ import { OFFICE_AGENTS, type AgentId } from '../office-contracts';
+ import { createOpenAIProvider, interpretResponse, requestBody, type LiveModelCall } from './openai';
+ import { formatUsd, modelPrice, reservationMicrounits, usageMicrounits } from './live-pricing';
+-import { buildDraftCall, buildPackageCall, buildReviewCall, COMPONENT_EXCERPT_CHARS, draftSchema, findingMessages, interpretReview, LiveOutputError, MAX_OUTPUT_TOKENS, packageSchema, renderDraft, renderPackage, reviewSchema, CHILD_REVIEW_CRITERIA, type LiveStep } from './live-adapter';
++import { buildDraftCall, buildPackageCall, buildReviewCall, draftSchema, findingMessages, interpretReview, LiveOutputError, MAX_OUTPUT_TOKENS, packageSchema, renderDraft, renderPackage, reviewSchema, CHILD_REVIEW_CRITERIA, type LiveStep } from './live-adapter';
+ import { digest } from './safety';
+ 
+ const KEY = `sk-proj-${'a'.repeat(40)}`;
+ const settings = { draftModel: 'gpt-6-luna', packageModel: 'gpt-6.1-sol', reasoningEffort: 'low' };
+ const ids = (step: LiveStep, agentId: AgentId = 'leo') => ({ workspaceId: '00000000-0000-4000-8000-000000000002', taskId: '11111111-1111-4111-8111-111111111111', runId: '22222222-2222-4222-8222-222222222222', step, agentId });
+ const usage = { input_tokens: 1000, input_tokens_details: { cached_tokens: 0, cache_write_tokens: 0 }, output_tokens: 200, output_tokens_details: { reasoning_tokens: 50 }, total_tokens: 1200 };
+-const completed = (text: string, extra: Record<string, unknown> = {}) => ({ id: 'resp_123', status: 'completed', service_tier: 'default', usage, output: [{ type: 'reasoning', id: 'rs_1', summary: [] }, { type: 'message', role: 'assistant', content: [{ type: 'output_text', text, annotations: [] }] }], ...extra });
++const completed = (text: string, extra: Record<string, unknown> = {}) => ({ id: 'resp_123', model: 'gpt-6-luna', status: 'completed', service_tier: 'default', usage, output: [{ type: 'reasoning', id: 'rs_1', summary: [] }, { type: 'message', role: 'assistant', content: [{ type: 'output_text', text, annotations: [] }] }], ...extra });
+ const json = (status: number, body: unknown, headers: Record<string, string> = {}) => new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json', 'x-request-id': 'req_abc', ...headers } });
+ function fakeFetch(respond: (url: string, init: RequestInit) => Response | Promise<Response>) {
+   const calls: Array<{ url: string; init: RequestInit; body: Record<string, unknown> }> = [];
+@@ -46,8 +46,8 @@
+     expect(usageMicrounits('gpt-6-luna', base, 'default')).toBe(2662);
+     expect(usageMicrounits('gpt-6-luna', { ...base, cacheWrite12hTokens: 4000 }, 'default')).toBe(3212);
+     expect(usageMicrounits('gpt-6-luna', base, 'fast')).toBe(5324);
+-    expect(usageMicrounits('gpt-6-luna', base, 'something_new')).toBe(15972);
+-    expect(usageMicrounits('gpt-6-luna', base, null)).toBe(2662);
++    expect(() => usageMicrounits('gpt-6-luna', base, 'something_new')).toThrow('unpriced_service_tier');
++    for (const tier of [null, 'auto', 'scale']) expect(() => usageMicrounits('gpt-6-luna', base, tier)).toThrow('unpriced_service_tier');
+   });
+   it('lists only documented reasoning efforts and formats small amounts readably', () => {
+     expect(modelPrice('gpt-6.1-sol').efforts).not.toContain('none');
+@@ -135,7 +135,8 @@
+     expect(draft.instructions).toContain('untrusted source data');
+     expect(draft.instructions).toContain('Role profile v3: Approachable Sales profile.');
+     expect(draft.model).toBe('gpt-6-luna');
+-    const review = buildReviewCall({ ids: ids('package_review', 'nadia'), settings, profileBrief: 'Orderly.', profileVersion: 1, authorId: 'adrian', goal: 'Website', brief: 'Brief', artifactTitle: 'Package', artifactContent: 'Body', packageReview: true });
++    const components = OFFICE_AGENTS.map(role => ({ agentId: role.agentId as AgentId, title: `${role.displayName} draft`, revision: 1, content: 'Complete role draft.' }));
++    const review = buildReviewCall({ ids: ids('package_review', 'nadia'), settings, profileBrief: 'Orderly.', profileVersion: 1, authorId: 'adrian', goal: 'Website', brief: 'Brief', artifactTitle: 'Package', artifactContent: 'Body', packageReview: true, components });
+     expect(review.model).toBe('gpt-6.1-sol');
+     expect(review.maxOutputTokens).toBe(MAX_OUTPUT_TOKENS.package_review);
+     expect(review.instructions).toContain("independently review Adrian's");
+@@ -156,17 +157,41 @@
+     expect(interpretReview({ outcome: 'passed', summary: 'Fine.', checks: allMet, findings: [] }, false, 'a'.repeat(64), 'gpt-6-luna').passed).toBe(true);
+     expect(interpretReview({ outcome: 'passed', summary: 'Fine.', checks: [{ ...allMet[0], result: 'not_met' }, ...allMet.slice(1)], findings: [] }, false, 'a'.repeat(64), 'gpt-6-luna').passed).toBe(false);
+     expect(interpretReview({ outcome: 'passed', summary: 'Fine.', checks: allMet, findings: [{ severity: 'error', message: 'Invented rate.' }] }, false, 'a'.repeat(64), 'gpt-6-luna').passed).toBe(false);
+-    const partial = interpretReview({ outcome: 'passed', summary: 'Fine.', checks: allMet.slice(1), findings: [] }, false, 'a'.repeat(64), 'gpt-6-luna');
+-    expect(partial.passed).toBe(true);
+-    expect(JSON.stringify(partial.evidence)).toContain('"observedResult":"unverified"');
+-    expect(partial.criteria).toEqual(['current_digest_matches', 'independent_reviewer', ...Object.keys(CHILD_REVIEW_CRITERIA)]);
++    const unverified = interpretReview({ outcome: 'passed', summary: 'Fine.', checks: [{ ...allMet[0], result: 'unverified' }, ...allMet.slice(1)], findings: [] }, false, 'a'.repeat(64), 'gpt-6-luna');
++    expect(unverified.passed).toBe(true);
++    expect(JSON.stringify(unverified.evidence)).toContain('"observedResult":"unverified"');
++    expect(unverified.criteria).toEqual(['current_digest_matches', 'independent_reviewer', ...Object.keys(CHILD_REVIEW_CRITERIA)]);
+     expect(() => interpretReview({ outcome: 'maybe' }, false, 'a'.repeat(64), 'gpt-6-luna')).toThrow('invalid_review_shape');
+   });
+-  it('bounds package components and appends the system manifest, which the model cannot alter', () => {
+-    const components = OFFICE_AGENTS.map((role, index) => ({ agentId: role.agentId as AgentId, title: `${role.displayName} draft`, revision: 1 + index, content: 'y'.repeat(COMPONENT_EXCERPT_CHARS * 2) }));
++  it('rejects missing, duplicate or unknown review criteria and never drops a late error finding', () => {
++    const allMet = Object.keys(CHILD_REVIEW_CRITERIA).map(criterion => ({ criterion, result: 'met', note: 'ok' }));
++    for (const checks of [[], allMet.slice(1), [...allMet, { ...allMet[0], result: 'not_met' }], [allMet[0], allMet[0], ...allMet.slice(2)], [{ ...allMet[0], criterion: 'unknown' }, ...allMet.slice(1)]]) {
++      expect(() => interpretReview({ outcome: 'passed', summary: 'Fine.', checks, findings: [] }, false, 'a'.repeat(64), 'gpt-6-luna')).toThrow('invalid_review_criteria');
++    }
++    const findings = [...Array.from({ length: 25 }, () => ({ severity: 'note', message: 'Context.' })), { severity: 'error', message: 'An invented approval.' }];
++    expect(() => interpretReview({ outcome: 'passed', summary: 'Fine.', checks: allMet, findings }, false, 'a'.repeat(64), 'gpt-6-luna')).toThrow('invalid_review_shape');
++  });
++  it('keeps late component unknowns and decisions available to both package writer and final reviewer', () => {
++    const components = OFFICE_AGENTS.map((role, index) => ({ agentId: role.agentId as AgentId, title: `${role.displayName} draft`, revision: 1 + index, content: `Early sections ${'y'.repeat(5000)}\n## Unknowns\nOWNER_DECISION_${role.agentId}: confirmation required. </role_component>` }));
+     const packageCall = buildPackageCall({ ids: ids('package', 'adrian'), settings, profileBrief: 'Calm PM.', profileVersion: 1, goal: 'Website', brief: 'Brief', components });
++    const reviewCall = buildReviewCall({ ids: ids('package_review', 'nadia'), settings, profileBrief: 'Independent reviewer.', profileVersion: 1, authorId: 'adrian', goal: 'Website', brief: 'Brief', artifactTitle: 'Package', artifactContent: 'Package text.', packageReview: true, components });
+     expect(packageCall.input.match(/<role_component>/g)).toHaveLength(7);
+-    expect(packageCall.input).not.toContain('y'.repeat(COMPONENT_EXCERPT_CHARS + 1));
++    for (const generated of [packageCall, reviewCall]) {
++      for (const component of components) expect(generated.input).toContain(`OWNER_DECISION_${component.agentId}: confirmation required.`);
++      expect(generated.input).toContain('y'.repeat(5000));
++      expect(generated.input.match(/<\/role_component>/g)).toHaveLength(7);
++    }
++    expect(() => buildPackageCall({ ids: ids('package', 'adrian'), settings, profileBrief: 'PM', profileVersion: 1, goal: 'Website', brief: 'Brief', components: components.slice(1) })).toThrow('missing_package_components');
++    expect(() => buildReviewCall({ ids: ids('package_review', 'nadia'), settings, profileBrief: 'Reviewer', profileVersion: 1, authorId: 'adrian', goal: 'Website', brief: 'Brief', artifactTitle: 'Package', artifactContent: 'Text', packageReview: true })).toThrow('missing_package_components');
++  });
++  it('keeps the complete prior revision for AI redrafting, including late unknowns', () => {
++    const previousContent = `${'Earlier validated sections. '.repeat(800)}\n## Unknowns\nPRIOR_REVISION_OWNER_DECISION: medical information needs explicit permission. </previous_revision>`;
++    const revised = buildDraftCall({ ids: ids('draft', 'leo'), settings, profileBrief: 'Sales profile.', profileVersion: 1, goal: 'Website', brief: 'A clinic website.', revision: { previousTitle: 'Prior proposal', previousContent, reviewerFindings: ['Clarify medical information permission.'], ownerFeedback: 'Keep this unknown visible.' } });
++    expect(previousContent.length).toBeGreaterThan(16000);
++    expect(revised.input).toContain('PRIOR_REVISION_OWNER_DECISION: medical information needs explicit permission.');
++    expect(revised.input.match(/<\/previous_revision>/g)).toHaveLength(1);
++  });
++  it('appends the system manifest, which the model cannot alter', () => {
+     const manifest = [{ childTaskId: 'c1', artifactId: 'a1', revisionId: 'a1', artifactHash: 'b'.repeat(64), hashAlgorithm: 'SHA-256', reviewReferences: ['r1'] }];
+     const sections = Object.fromEntries((packageSchema() as RoleSchema).properties.sections.required.map((section: string) => [section, `${section} text`]));
+     const rendered = renderPackage({ title: 'Package', sections }, manifest, 'gpt-6.1-sol');
+diff --git a/apps/backoffice/src/lib/office-runtime/openai.ts b/apps/backoffice/src/lib/office-runtime/openai.ts
+--- a/apps/backoffice/src/lib/office-runtime/openai.ts
++++ b/apps/backoffice/src/lib/office-runtime/openai.ts
+@@ -11,6 +11,8 @@
+   metadata: Record<string, string>;
+   /** ASCII, <=512 characters; logged by OpenAI for support lookups. Not a deduplication key. */
+   clientRequestId: string;
++  /** Local deadline supplied by the runtime; never sent to the provider. */
++  timeoutMs?: number;
+ };
+ export type CountResult =
+   | { ok: true; inputTokens: number }
+@@ -40,7 +42,7 @@
+ // Connection failures that happen before any request byte can reach the server.
+ const NOT_SENT_CODES = new Set(['ENOTFOUND', 'EAI_AGAIN', 'ECONNREFUSED', 'EHOSTUNREACH', 'ENETUNREACH', 'UND_ERR_CONNECT_TIMEOUT', 'ERR_INVALID_URL', 'CERT_HAS_EXPIRED', 'DEPTH_ZERO_SELF_SIGNED_CERT', 'UNABLE_TO_VERIFY_LEAF_SIGNATURE']);
+ const safeCode = (value: unknown, fallback: string) => typeof value === 'string' && /^[a-z0-9_.-]{1,64}$/i.test(value) ? value.toLowerCase() : fallback;
+-const int = (value: unknown) => typeof value === 'number' && Number.isSafeInteger(value) && value >= 0 ? value : 0;
++const isTokenCount = (value: unknown): value is number => typeof value === 'number' && Number.isSafeInteger(value) && value >= 0;
+ // Untrusted JSON is read through these narrowing helpers only.
+ type JsonObject = Record<string, unknown>;
+ const obj = (value: unknown): JsonObject => value && typeof value === 'object' && !Array.isArray(value) ? value as JsonObject : {};
+@@ -61,23 +63,39 @@
+ 
+ export function parseUsage(raw: unknown): TokenUsage | null {
+   const usage = obj(raw);
+-  if (typeof usage.input_tokens !== 'number' || typeof usage.output_tokens !== 'number') return null;
+   const inputDetails = obj(usage.input_tokens_details);
+   const writeDetails = obj(inputDetails.cache_write_tokens_details);
++  const outputDetails = obj(usage.output_tokens_details);
++  const input = usage.input_tokens, output = usage.output_tokens, total = usage.total_tokens;
++  const cached = inputDetails.cached_tokens, written = inputDetails.cache_write_tokens, reasoning = outputDetails.reasoning_tokens;
++  // Absent or malformed billing evidence must never become a zero-cost bucket.
++  if (!isTokenCount(input) || !isTokenCount(output) || !isTokenCount(total) || !isTokenCount(cached) || !isTokenCount(written) || !isTokenCount(reasoning)) return null;
++  if (!Number.isSafeInteger(input + output) || total !== input + output || cached + written > input || reasoning > output) return null;
++  let write12h = 0;
++  if (written > 0 || inputDetails.cache_write_tokens_details !== undefined) {
++    const short = writeDetails.ttl_30m_tokens, long = writeDetails.ttl_12h_tokens;
++    if (!isTokenCount(short) || !isTokenCount(long) || short + long !== written) return null;
++    write12h = long;
++  }
+   return {
+-    inputTokens: int(usage.input_tokens), cachedTokens: int(inputDetails.cached_tokens),
+-    cacheWriteTokens: int(inputDetails.cache_write_tokens), cacheWrite12hTokens: int(writeDetails.ttl_12h_tokens),
+-    outputTokens: int(usage.output_tokens), reasoningTokens: int(obj(usage.output_tokens_details).reasoning_tokens),
++    inputTokens: input, cachedTokens: cached,
++    cacheWriteTokens: written, cacheWrite12hTokens: write12h,
++    outputTokens: output, reasoningTokens: reasoning,
+   };
+ }
+ 
+ /** Interprets a parsed Responses API object. Exported for tests. */
+-export function interpretResponse(raw: unknown, requestId: string | null): CallOutcome {
++export function interpretResponse(raw: unknown, requestId: string | null, expectedModel?: string): CallOutcome {
+   const body = obj(raw);
+   const responseId = typeof body.id === 'string' ? body.id.slice(0, 120) : null;
+   const usage = parseUsage(body.usage);
+   const serviceTier = typeof body.service_tier === 'string' ? body.service_tier.slice(0, 32) : null;
+   if (!responseId || !usage) return { kind: 'unknown', code: 'response_without_usage', retryAfterMs: null, requestId };
++  if (expectedModel && body.model !== expectedModel) return { kind: 'unknown', code: 'unexpected_response_model', retryAfterMs: null, requestId };
++  if (expectedModel && !serviceTier) return { kind: 'unknown', code: 'missing_response_service_tier', retryAfterMs: null, requestId };
++  if (expectedModel && serviceTier && !['default', 'flex', 'priority', 'fast', 'ultrafast'].includes(serviceTier)) return { kind: 'unknown', code: 'unpriced_response_service_tier', retryAfterMs: null, requestId };
++  // Preserve known usage for settlement, but never accept output from another processing tier.
++  if (expectedModel && serviceTier !== 'default') return { kind: 'unusable', code: 'unexpected_response_service_tier', requestId, responseId, usage, serviceTier };
+   if (body.status === 'incomplete') return { kind: 'unusable', code: `incomplete_${safeCode(obj(body.incomplete_details).reason, 'unknown')}`, requestId, responseId, usage, serviceTier };
+   if (body.status === 'failed') return { kind: 'unusable', code: `model_failed_${safeCode(obj(body.error).code, 'unknown')}`, requestId, responseId, usage, serviceTier };
+   if (body.status !== 'completed') return { kind: 'unusable', code: `status_${safeCode(body.status, 'unknown')}`, requestId, responseId, usage, serviceTier };
+@@ -101,18 +119,18 @@
+   return { code: safeCode(error.code, ''), type: safeCode(error.type, '') };
+ }
+ 
+-/** Classifies a non-2xx status. 4xx means rejected before processing; 5xx may have been processed. */
++/** Only explicit rejection statuses release a reservation. Timeouts, conflicts and redirects are uncertain. */
+ export async function classifyHttpError(response: Response, requestId: string | null): Promise<Extract<CallOutcome, { kind: 'rejected' | 'unknown' }>> {
+   const { code, type } = await errorCode(response);
+   const status = response.status;
+   const label = code || type || `http_${status}`;
+-  if (status >= 500) return { kind: 'unknown', code: `server_${status}_${label}`.slice(0, 80), retryAfterMs: retryAfter(response), requestId };
++  if (![400, 401, 403, 404, 422, 429].includes(status)) return { kind: 'unknown', code: `server_${status}_${label}`.slice(0, 80), retryAfterMs: retryAfter(response), requestId };
+   if (status === 429) {
+     const billing = BILLING_CODES.has(code) || BILLING_CODES.has(type);
+     return { kind: 'rejected', code: billing ? `billing_${label}` : `rate_limited_${label}`.slice(0, 80), status, retryable: !billing, configuration: billing, retryAfterMs: retryAfter(response), requestId };
+   }
+   const configuration = status === 401 || status === 403;
+-  return { kind: 'rejected', code: `rejected_${status}_${label}`.slice(0, 80), status, retryable: status === 409, configuration, retryAfterMs: retryAfter(response), requestId };
++  return { kind: 'rejected', code: `rejected_${status}_${label}`.slice(0, 80), status, retryable: false, configuration, retryAfterMs: retryAfter(response), requestId };
+ }
+ 
+ function transportCode(error: unknown): { sent: boolean; code: string } {
+@@ -121,6 +139,11 @@
+   const code = failure?.cause?.code ?? failure?.code ?? '';
+   if (NOT_SENT_CODES.has(code)) return { sent: false, code: `not_sent_${code.toLowerCase()}` };
+   return { sent: true, code: `transport_${safeCode(code, 'error')}` };
++}
++
++function requestTimeout(call: LiveModelCall, maximum: number): number | null {
++  const remaining = call.timeoutMs ?? maximum;
++  return Number.isFinite(remaining) && remaining > 0 ? Math.max(1, Math.floor(Math.min(maximum, remaining))) : null;
+ }
+ 
+ export function createOpenAIProvider(options: OpenAIProviderOptions): LiveProvider {
+@@ -137,9 +160,11 @@
+   return {
+     name: 'openai',
+     async countInputTokens(call) {
++      const timeout = requestTimeout(call, countTimeoutMs);
++      if (timeout === null) return { ok: false, code: 'count_attempt_timeout', configuration: false };
+       let response: Response;
+       try {
+-        response = await doFetch(`${base}/responses/input_tokens`, { method: 'POST', headers: headers(call), body: JSON.stringify(requestBody(call, 'count')), signal: AbortSignal.timeout(countTimeoutMs) });
++        response = await doFetch(`${base}/responses/input_tokens`, { method: 'POST', redirect: 'manual', headers: headers(call), body: JSON.stringify(requestBody(call, 'count')), signal: AbortSignal.timeout(timeout) });
+       } catch (error) {
+         return { ok: false, code: `count_${transportCode(error).code}`, configuration: false };
+       }
+@@ -147,15 +172,17 @@
+         const outcome = await classifyHttpError(response, response.headers.get('x-request-id'));
+         return { ok: false, code: `count_${outcome.code}`.slice(0, 80), configuration: outcome.kind === 'rejected' && outcome.configuration };
+       }
+-      const tokens = obj(await response.json().catch(() => null)).input_tokens;
+-      return typeof tokens === 'number' && Number.isSafeInteger(tokens) && tokens > 0
++      const body = obj(await response.json().catch(() => null)), tokens = body.input_tokens;
++      return body.object === 'response.input_tokens' && isTokenCount(tokens) && tokens > 0
+         ? { ok: true, inputTokens: tokens }
+         : { ok: false, code: 'count_invalid_response', configuration: false };
+     },
+     async create(call) {
++      const timeout = requestTimeout(call, timeoutMs);
++      if (timeout === null) return { kind: 'rejected', code: 'attempt_timeout_before_dispatch', status: 0, retryable: false, configuration: false, retryAfterMs: null, requestId: null };
+       let response: Response;
+       try {
+-        response = await doFetch(`${base}/responses`, { method: 'POST', headers: headers(call), body: JSON.stringify(requestBody(call, 'create')), signal: AbortSignal.timeout(timeoutMs) });
++        response = await doFetch(`${base}/responses`, { method: 'POST', redirect: 'manual', headers: headers(call), body: JSON.stringify(requestBody(call, 'create')), signal: AbortSignal.timeout(timeout) });
+       } catch (error) {
+         const transport = transportCode(error);
+         return transport.sent
+@@ -166,7 +193,7 @@
+       if (!response.ok) return classifyHttpError(response, requestId);
+       let body: unknown;
+       try { body = await response.json(); } catch { return { kind: 'unknown', code: 'unreadable_response', retryAfterMs: null, requestId }; }
+-      return interpretResponse(body, requestId);
++      return interpretResponse(body, requestId, call.model);
+     },
+   };
+ }
+diff --git a/apps/backoffice/src/lib/server/office-read-model.integration.test.ts b/apps/backoffice/src/lib/server/office-read-model.integration.test.ts
+--- a/apps/backoffice/src/lib/server/office-read-model.integration.test.ts
++++ b/apps/backoffice/src/lib/server/office-read-model.integration.test.ts
+@@ -241,4 +241,61 @@
+     expect(activity.family!.tasks).toHaveLength(8);
+     expect(activity.tasks.some(entry => entry.taskId === parent)).toBe(true);
+   }, 60000);
++
++  it('counts ready live drafts and reviews only with a fresh provider, enabled limits and no unresolved outcome', async () => {
++    await sql`UPDATE backoffice.office_budget SET live_enabled=true,limit_microunits=10000000,monthly_limit_microunits=10000000,family_limit_microunits=1000000,request_limit_microunits=150000 WHERE id=1`;
++    const liveParent = (await runtime.submitTask(owner.id, input('Configured live queue', live, 'live'))).taskId;
++    expect((await readModel.dashboard()).modes.live.steps.runnable).toBe(0);
++    await sql`INSERT INTO backoffice.office_workers(id,adapter,capabilities) VALUES('read-model-live-fixture','openai_responses','{"provider":"openai","draftModel":"gpt-6-luna","packageModel":"gpt-6.1-sol","reasoningEffort":"low"}')`;
++    const ready = await readModel.activity({ workspaceId: live });
++    expect(ready.roles.filter(entry => entry.mode === 'live').reduce((sum, entry) => sum + entry.counts.runnableSteps, 0)).toBe(7);
++    expect(ready.tasks.reduce((sum, entry) => sum + entry.steps.runnable, 0)).toBe(7);
++    expect((await readModel.dashboard()).modes.live.steps).toMatchObject({ runnable: 7, waitingOnDependencies: 1 });
++    // A queued review is credited to its independent reviewer, not only to the author.
++    const [child] = await sql`SELECT id,agent_id FROM backoffice.office_tasks WHERE parent_task_id=${liveParent} ORDER BY agent_id LIMIT 1`;
++    await sql`UPDATE backoffice.office_dispatch SET step='review',reviewer_id='nadia' WHERE task_id=${child.id}`;
++    const reviewQueue = await readModel.activity({ workspaceId: live });
++    expect(roleOf(reviewQueue.roles, 'nadia', 'live').counts.runnableReviews).toBe(1);
++    await sql`UPDATE backoffice.office_budget SET live_enabled=false WHERE id=1`;
++    expect((await readModel.dashboard()).modes.live.steps.runnable).toBe(0);
++    await sql`UPDATE backoffice.office_budget SET live_enabled=true WHERE id=1`;
++    await sql`UPDATE backoffice.office_workers SET heartbeat_at=now()-interval '61 seconds' WHERE id='read-model-live-fixture'`;
++    expect((await readModel.dashboard()).modes.live.steps.runnable).toBe(0);
++    await sql`UPDATE backoffice.office_workers SET heartbeat_at=now() WHERE id='read-model-live-fixture'`;
++    const [coordinator] = await sql`SELECT id FROM backoffice.office_runs WHERE task_id=${liveParent} ORDER BY started_at LIMIT 1`;
++    const operationId = randomUUID();
++    await sql`INSERT INTO backoffice.office_tool_operations(id,workspace_id,task_id,run_id,operation_key,arguments_hash,tool_name,state,provider_idempotency_key) VALUES(${operationId},${live},${liveParent},${coordinator.id},${randomUUID()},${'a'.repeat(64)},'openai_responses','unknown_outcome',${randomUUID()})`;
++    expect((await readModel.dashboard()).modes.live.steps.runnable).toBe(0);
++    expect((await readModel.activity({ workspaceId: live })).execution.unresolvedModelOutcome).toBe(true);
++    await sql`UPDATE backoffice.office_tool_operations SET state='reconciled' WHERE id=${operationId}`;
++    expect((await readModel.dashboard()).modes.live.steps.runnable).toBe(7);
++    await sql`UPDATE backoffice.office_workspace_grants SET data_scopes='[]' WHERE workspace_id=${live} AND agent_id='nadia'`;
++    expect((await readModel.dashboard()).modes.live.steps.runnable).toBe(5);
++    await sql`UPDATE backoffice.office_workspace_grants SET data_scopes='["internal_draft"]' WHERE workspace_id=${live} AND agent_id='nadia'`;
++    // Controlled clock in this suite's guarded disposable fixture only. Transactional DDL
++    // restores the immutable trigger even if ageing fails and the transaction rolls back.
++    const ageFixtureAttempt = async (seconds: number) => sql.begin(async tx => {
++      await tx`ALTER TABLE backoffice.office_runs DISABLE TRIGGER office_run_terminal_immutable`;
++      await tx`UPDATE backoffice.office_runs SET started_at=now()-(${seconds}*interval '1 second') WHERE id=${coordinator.id}`;
++      await tx`ALTER TABLE backoffice.office_runs ENABLE TRIGGER office_run_terminal_immutable`;
++    });
++    await ageFixtureAttempt(660);
++    expect((await readModel.dashboard()).modes.live.steps.runnable).toBe(0);
++    await ageFixtureAttempt(0);
++    expect((await readModel.dashboard()).modes.live.steps.runnable).toBe(7);
++  });
++
++  it('meters by dispatch month and carries unresolved reservations from earlier months', async () => {
++    const [child] = await sql`SELECT id,agent_id FROM backoffice.office_tasks WHERE mode='live' AND parent_task_id IS NOT NULL LIMIT 1`;
++    // A previous-month claim can dispatch this month; a previous-month unresolved request
++    // still reserves its whole charge this month. Settled previous-month spend stays separate.
++    for (const item of [{ reserved: 100, usage: 10, dispatchedThisMonth: true }, { reserved: 20, usage: null, dispatchedThisMonth: false }, { reserved: 100, usage: 30, dispatchedThisMonth: false }]) {
++      await sql`INSERT INTO backoffice.office_runs(workspace_id,task_id,agent_id,profile_version,policy_version,attempt,state,step,started_at,provider_dispatched_at,budget_reserved_microunits,usage_microunits) VALUES(${live},${child.id},${child.agent_id},1,1,1,'interrupted','draft',date_trunc('month',now() AT TIME ZONE 'UTC') AT TIME ZONE 'UTC'-interval '1 day',CASE WHEN ${item.dispatchedThisMonth} THEN now() ELSE date_trunc('month',now() AT TIME ZONE 'UTC') AT TIME ZONE 'UTC'-interval '1 day' END,${item.reserved},${item.usage})`;
++    }
++    await sql`UPDATE backoffice.office_budget SET reserved_microunits=20,spent_microunits=40 WHERE id=1`;
++    const activity = await readModel.activity({ workspaceId: live });
++    expect(activity.execution.budget).toMatchObject({ monthUsedMicrounits: 30, lifetimeUsedMicrounits: 60 });
++    const board = await readModel.dashboard();
++    expect(board.execution.budget?.monthUsedMicrounits).toBe(30);
++  });
+ });
+diff --git a/apps/backoffice/src/lib/server/office-read-model.ts b/apps/backoffice/src/lib/server/office-read-model.ts
+--- a/apps/backoffice/src/lib/server/office-read-model.ts
++++ b/apps/backoffice/src/lib/server/office-read-model.ts
+@@ -95,10 +95,15 @@
+   const unmetDependencies = (tx: Tx) => tx`EXISTS (SELECT 1 FROM backoffice.office_task_dependencies dep JOIN backoffice.office_tasks c ON c.id=dep.dependency_task_id WHERE dep.task_id=t.id AND c.state NOT IN ('review_passed','completed'))`;
+   // Mirrors the claim() admission filter for a pending dispatch `d` of task `t`, except the
+   // global capacity check. Read-only; it never claims, and the worker remains authoritative.
+-  const runnable = (tx: Tx) => tx`(d.state='pending' AND d.available_at<=now() AND d.attempt<d.max_attempts AND t.mode='demo'
++  const runnable = (tx: Tx) => tx`(d.state='pending' AND d.available_at<=now() AND d.attempt<d.max_attempts
++    AND (t.mode='demo' OR (t.mode='live'
++      AND EXISTS (SELECT 1 FROM backoffice.office_workers ow WHERE NOT ow.stopping AND ow.adapter='openai_responses' AND ow.heartbeat_at>now()-(${WORKER_ONLINE_THRESHOLD_SECONDS}*interval '1 second'))
++      AND EXISTS (SELECT 1 FROM backoffice.office_budget ob WHERE ob.id=1 AND ob.live_enabled AND ob.limit_microunits>0 AND ob.monthly_limit_microunits>0 AND ob.family_limit_microunits>0 AND ob.request_limit_microunits>0)
++      AND (SELECT attempt.started_at FROM backoffice.office_runs attempt WHERE attempt.task_id=COALESCE(t.parent_task_id,t.id) AND attempt.step IN ('delegate_internal_live','live_owner_attempt','resume_internal_dependencies') ORDER BY attempt.started_at DESC,attempt.id DESC LIMIT 1)>now()-interval '10 minutes'
++      AND NOT EXISTS (SELECT 1 FROM backoffice.office_tool_operations op WHERE op.tool_name='openai_responses' AND op.state='unknown_outcome')))
+     AND t.state IN ('queued','assigned','in_progress','waiting_for_review','blocked')
+     AND EXISTS (SELECT 1 FROM backoffice.office_agents ta WHERE ta.id=t.agent_id AND ta.enabled)
+-    AND EXISTS (SELECT 1 FROM backoffice.office_workspace_grants g JOIN backoffice.office_agents ra ON ra.id=g.agent_id WHERE g.workspace_id=t.workspace_id AND g.agent_id=COALESCE(d.reviewer_id,t.agent_id) AND ra.enabled)
++    AND EXISTS (SELECT 1 FROM backoffice.office_workspace_grants g JOIN backoffice.office_agents ra ON ra.id=g.agent_id WHERE g.workspace_id=t.workspace_id AND g.agent_id=COALESCE(d.reviewer_id,t.agent_id) AND ra.enabled AND (t.mode<>'live' OR g.data_scopes ? 'internal_draft'))
+     AND NOT EXISTS (SELECT 1 FROM backoffice.office_tasks p WHERE p.id=t.parent_task_id AND p.state IN ('pause_requested','paused','cancel_requested','cancelled'))
+     AND NOT ${unmetDependencies(tx)})`;
+   const liveDecision = (tx: Tx) => tx`EXISTS (SELECT 1 FROM backoffice.office_approvals a WHERE a.task_id=t.id AND a.artifact_id=t.current_artifact_id AND a.state='pending' AND a.expires_at>now())`;
+@@ -217,12 +222,14 @@
+   // A live provider counts only while its worker heartbeat is fresh, judged in database time.
+   async function executionCapability(tx: Tx): Promise<OfficeExecutionCapability> {
+     const [liveWorker] = await tx`SELECT capabilities FROM backoffice.office_workers WHERE NOT stopping AND adapter='openai_responses' AND heartbeat_at>now()-(${WORKER_ONLINE_THRESHOLD_SECONDS}*interval '1 second') ORDER BY heartbeat_at DESC LIMIT 1`;
+-    const [budget] = await tx`SELECT b.*, (SELECT COALESCE(sum(COALESCE(r.usage_microunits,r.budget_reserved_microunits)),0)::bigint FROM backoffice.office_runs r WHERE r.budget_reserved_microunits>0 AND r.started_at>=date_trunc('month',now() AT TIME ZONE 'UTC') AT TIME ZONE 'UTC') AS month_used FROM backoffice.office_budget b WHERE b.id=1`;
++    const [budget] = await tx`SELECT b.*, (SELECT COALESCE(sum(COALESCE(r.usage_microunits,r.budget_reserved_microunits)),0)::bigint FROM backoffice.office_runs r WHERE r.budget_reserved_microunits>0 AND (r.usage_microunits IS NULL OR r.provider_dispatched_at>=date_trunc('month',now() AT TIME ZONE 'UTC') AT TIME ZONE 'UTC')) AS month_used FROM backoffice.office_budget b WHERE b.id=1`;
++    const [uncertain] = await tx`SELECT EXISTS(SELECT 1 FROM backoffice.office_tool_operations WHERE tool_name='openai_responses' AND state='unknown_outcome') AS held`;
+     const advertised = (liveWorker?.capabilities ?? {}) as Record<string, unknown>;
+     const label = (value: unknown) => typeof value === 'string' && value ? value.slice(0, 64) : null;
+     return {
+       adapter: liveWorker ? 'openai_responses' : 'deterministic_demo',
+       providerConfigured: !!liveWorker,
++      unresolvedModelOutcome: uncertain.held === true,
+       commandExecutionEnabled: false,
+       provider: liveWorker ? { provider: label(advertised.provider) ?? 'openai', draftModel: label(advertised.draftModel), packageModel: label(advertised.packageModel), reasoningEffort: label(advertised.reasoningEffort) } : null,
+       budget: budget ? {
+diff --git a/apps/office-worker/read-live-rollback-fence.mjs b/apps/office-worker/read-live-rollback-fence.mjs
+new file mode 100644
+--- /dev/null
++++ b/apps/office-worker/read-live-rollback-fence.mjs
+@@ -0,0 +1,31 @@
++// Read-only gate for replacing the corrected live-aware worker with a previous demo worker.
++// Does not stop, recover, settle or reconcile anything. Never emits credentials or business rows.
++import {createRequire} from 'node:module';
++import {fileURLToPath,pathToFileURL} from 'node:url';
++import path from 'node:path';
++
++export async function readLiveRollbackFence(sql) {
++  return sql.begin('isolation level repeatable read read only',async tx=>{
++    const [columns]=await tx`SELECT EXISTS(SELECT 1 FROM information_schema.columns WHERE table_schema='backoffice' AND table_name='office_runs' AND column_name='provider_dispatched_at') AS live_schema`;
++    const [operations]=await tx`SELECT count(*)::int AS count FROM backoffice.office_tool_operations WHERE tool_name='openai_responses' AND state IN ('reserved','unknown_outcome')`;
++    const [leases]=await tx`SELECT count(*)::int AS count FROM backoffice.office_dispatch d JOIN backoffice.office_tasks t ON t.id=d.task_id WHERE t.mode='live' AND d.state='leased' AND d.lease_until>now()`;
++    const [holds]=columns.live_schema
++      ? await tx`SELECT count(*)::int AS count FROM backoffice.office_runs r JOIN backoffice.office_tasks t ON t.id=r.task_id WHERE t.mode='live' AND r.provider_dispatched_at IS NOT NULL AND r.usage_microunits IS NULL AND r.budget_reserved_microunits>0`
++      : await tx`SELECT count(*)::int AS count FROM backoffice.office_runs r JOIN backoffice.office_tasks t ON t.id=r.task_id WHERE t.mode='live' AND r.usage_microunits IS NULL AND r.budget_reserved_microunits>0`;
++    const result={readOnly:true,liveSchema:columns.live_schema,unsettledLiveReservations:holds.count,unresolvedOpenAIOperations:operations.count,activeLiveLeases:leases.count};
++    return {...result,canUsePreviousWorker:holds.count===0&&operations.count===0&&leases.count===0};
++  });
++}
++
++if (process.argv[1]&&import.meta.url===pathToFileURL(path.resolve(process.argv[1])).href) {
++  let sql;
++  try {
++    const app=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../backoffice'),require=createRequire(app+'/package.json');
++    process.env.NODE_ENV='production';require('@next/env').loadEnvConfig(app,false,{info(){},error(){}});
++    const url=new URL(process.env.DATABASE_URL);
++    if(url.hostname!=='127.0.0.1'||url.port!=='54329'||url.pathname!=='/enztronic_backoffice'||url.username!=='enztronic_app')throw new Error('Target refused');
++    sql=require('postgres')(url.toString(),{max:1,onnotice(){},connection:{default_transaction_read_only:'on'}});
++    const result=await readLiveRollbackFence(sql);console.log(JSON.stringify(result));if(!result.canUsePreviousWorker)process.exitCode=2;
++  }catch(error){console.error(JSON.stringify({failed:true,code:error.code??error.name,reason:'Rollback fence could not be verified; do not replace the worker.'}));process.exitCode=1;}
++  finally{if(sql)await sql.end({timeout:2});}
++}
+diff --git a/apps/office-worker/set-office-openai-key.ps1 b/apps/office-worker/set-office-openai-key.ps1
+--- a/apps/office-worker/set-office-openai-key.ps1
++++ b/apps/office-worker/set-office-openai-key.ps1
+@@ -31,15 +31,33 @@
+   $officeConfig.OFFICE_OPENAI_PACKAGE_MODEL = $PackageModel
+   $officeConfig.OFFICE_OPENAI_REASONING_EFFORT = $ReasoningEffort
+ }
+-# Write beside the original, then replace it in one step. File.Replace keeps the replaced file's
+-# access rules, and no backup copy of the old secrets is left behind.
++# Create the temporary file with the original's private access rules before writing secrets.
++# Its parent may have broader inherited access; protection prevents that access being added.
++# File.Replace keeps the replaced file's access rules, without leaving a backup of old secrets.
++$officeTemporaryAcl = [Security.AccessControl.FileSecurity]::new()
++$officeOriginalAcl = Get-Acl -LiteralPath $officePath
++$officeTemporaryAcl.SetSecurityDescriptorSddlForm($officeOriginalAcl.GetSecurityDescriptorSddlForm([Security.AccessControl.AccessControlSections]::Access), [Security.AccessControl.AccessControlSections]::Access)
++$officeTemporaryAcl.SetAccessRuleProtection($true, $true)
+ $officeTemporary = "$officePath.$([guid]::NewGuid().ToString('N')).tmp"
++$officeTemporaryStream = $null
+ try {
+-  [IO.File]::WriteAllText($officeTemporary, ($officeConfig | ConvertTo-Json -Depth 3), [Text.UTF8Encoding]::new($false))
++  $officeTemporaryStream = [IO.FileSystemAclExtensions]::Create([IO.FileInfo]::new($officeTemporary), [IO.FileMode]::CreateNew, [Security.AccessControl.FileSystemRights]::Write, [IO.FileShare]::None, 4096, [IO.FileOptions]::None, $officeTemporaryAcl)
++  try {
++    $officeBytes = [Text.UTF8Encoding]::new($false).GetBytes(($officeConfig | ConvertTo-Json -Depth 3))
++    $officeTemporaryStream.Write($officeBytes, 0, $officeBytes.Length)
++    $officeTemporaryStream.Flush($true)
++  } finally {
++    $officeTemporaryStream.Dispose()
++    $officeTemporaryStream = $null
++  }
+   [IO.File]::Replace($officeTemporary, $officePath, [NullString]::Value)
+ } finally {
++  if ($officeTemporaryStream) { $officeTemporaryStream.Dispose() }
+   if (Test-Path -LiteralPath $officeTemporary) { Remove-Item -LiteralPath $officeTemporary -Force }
+   $officeKeyText = $null
++  $officeBytes = $null
++  [void]$officeConfig.Remove('OFFICE_OPENAI_API_KEY')
++  if ($officeSecure) { $officeSecure.Dispose() }
+ }
+ $officePlan.applied = $true
+ $officePlan | ConvertTo-Json
+diff --git a/apps/office-worker/test/lifecycle.test.mjs b/apps/office-worker/test/lifecycle.test.mjs
+--- a/apps/office-worker/test/lifecycle.test.mjs
++++ b/apps/office-worker/test/lifecycle.test.mjs
+@@ -118,6 +118,82 @@
+   await writeFile(config, JSON.stringify({ SOME_OTHER_APP: 'x' }));
+   const refused = await launch(powershell, ['-NoProfile', '-NonInteractive', '-File', helper, '-ConfigurationFile', config, '-Apply', '-Remove']).done;
+   assert.notEqual(refused.code, 0); assert.deepEqual(JSON.parse(await readFile(config, 'utf8')), { SOME_OTHER_APP: 'x' });
++}));
++
++test('key insertion and removal keep temporary secrets private even under a broader parent ACL', { skip: !windows }, async () => temporary(async directory => {
++  const helper = path.join(workerRoot, 'set-office-openai-key.ps1');
++  const wrapper = path.join(directory, 'private-key-helper.ps1');
++  // Observe the actual file immediately before its first secret write. The broader parent is
++  // deliberate: checking only the replaced file's final ACL misses this disclosure window.
++  await writeFile(wrapper, String.raw`param([string]$Helper,[string]$ConfigurationFile,[switch]$FailReplacement)
++$ErrorActionPreference = 'Stop'
++$parent = Split-Path $ConfigurationFile
++$parentAcl = Get-Acl -LiteralPath $parent
++$everyone = [Security.Principal.SecurityIdentifier]::new('S-1-1-0')
++$parentAcl.AddAccessRule([Security.AccessControl.FileSystemAccessRule]::new($everyone,'ReadAndExecute','ContainerInherit,ObjectInherit','None','Allow'))
++Set-Acl -LiteralPath $parent -AclObject $parentAcl
++$privateAcl = Get-Acl -LiteralPath $ConfigurationFile
++$privateAcl.SetAccessRuleProtection($true,$false)
++$privateAcl.AddAccessRule([Security.AccessControl.FileSystemAccessRule]::new([Security.Principal.WindowsIdentity]::GetCurrent().User,'FullControl','Allow'))
++Set-Acl -LiteralPath $ConfigurationFile -AclObject $privateAcl
++$originalSddl = (Get-Acl -LiteralPath $ConfigurationFile).Sddl
++$originalHash = (Get-FileHash -LiteralPath $ConfigurationFile -Algorithm SHA256).Hash
++$global:officeKeyHelperProbe = @{ configurationFile=$ConfigurationFile; observed=$false; private=$false; emptyBeforeWrite=$false; lock=$null }
++function Read-Host { param([switch]$AsSecureString,[string]$Prompt); ConvertTo-SecureString ('sk-proj-sentinel'+('k'*30)) -AsPlainText -Force }
++$lines = @(Get-Content -LiteralPath $Helper)
++$writeLine = 1 + [Array]::FindIndex($lines,[Predicate[string]]{ param($line) $line.Contains('$officeTemporaryStream.Write(') })
++$replaceLine = 1 + [Array]::FindIndex($lines,[Predicate[string]]{ param($line) $line.Contains('[IO.File]::Replace(') })
++if ($writeLine -lt 1 -or $replaceLine -lt 1) { throw 'Missing key-helper observation point.' }
++$writeBreakpoint = Set-PSBreakpoint -Script $Helper -Line $writeLine -Action {
++  $temporary = Get-ChildItem -LiteralPath (Split-Path $global:officeKeyHelperProbe.configurationFile) -Filter 'office.json.*.tmp' | Select-Object -First 1
++  $acl = Get-Acl -LiteralPath $temporary.FullName
++  $global:officeKeyHelperProbe.observed = $true
++  $global:officeKeyHelperProbe.private = $acl.AreAccessRulesProtected -and $acl.Sddl -notmatch '\(A;[^)]*;;;WD\)'
++  $global:officeKeyHelperProbe.emptyBeforeWrite = $temporary.Length -eq 0
++}
++$replaceBreakpoint = $null
++if ($FailReplacement) {
++  $replaceBreakpoint = Set-PSBreakpoint -Script $Helper -Line $replaceLine -Action {
++    $global:officeKeyHelperProbe.lock = [IO.File]::Open($global:officeKeyHelperProbe.configurationFile,[IO.FileMode]::Open,[IO.FileAccess]::Read,[IO.FileShare]::Read)
++  }
++}
++$failed = $false
++try { & $Helper -ConfigurationFile $ConfigurationFile -Apply | Out-Null } catch { $failed = $true }
++finally {
++  if ($global:officeKeyHelperProbe.lock) { $global:officeKeyHelperProbe.lock.Dispose() }
++  Remove-PSBreakpoint -Breakpoint $writeBreakpoint
++  if ($replaceBreakpoint) { Remove-PSBreakpoint -Breakpoint $replaceBreakpoint }
++}
++$stored = Get-Content -Raw -LiteralPath $ConfigurationFile | ConvertFrom-Json -AsHashtable
++$result = @{ observed=$global:officeKeyHelperProbe.observed; temporaryPrivate=$global:officeKeyHelperProbe.private; emptyBeforeWrite=$global:officeKeyHelperProbe.emptyBeforeWrite; failed=$failed; finalAclPreserved=((Get-Acl -LiteralPath $ConfigurationFile).Sddl -ceq $originalSddl); noTemporaryFiles=(@(Get-ChildItem -LiteralPath $parent -Filter '*.tmp').Count -eq 0); originalUnchanged=((Get-FileHash -LiteralPath $ConfigurationFile -Algorithm SHA256).Hash -ceq $originalHash); keyPresent=$stored.ContainsKey('OFFICE_OPENAI_API_KEY') }
++if (!$failed) {
++  $global:officeKeyHelperProbe.observed = $false
++  $global:officeKeyHelperProbe.private = $false
++  $removalBreakpoint = Set-PSBreakpoint -Script $Helper -Line $writeLine -Action $writeBreakpoint.Action
++  try { & $Helper -ConfigurationFile $ConfigurationFile -Apply -Remove | Out-Null } finally { Remove-PSBreakpoint -Breakpoint $removalBreakpoint }
++  $afterRemoval = Get-Content -Raw -LiteralPath $ConfigurationFile | ConvertFrom-Json -AsHashtable
++  $result.removalWorked = !$afterRemoval.ContainsKey('OFFICE_OPENAI_API_KEY') -and !$afterRemoval.ContainsKey('OFFICE_LIVE_WORKER')
++  $result.removalAclPreserved = (Get-Acl -LiteralPath $ConfigurationFile).Sddl -ceq $originalSddl
++  $result.removalTemporaryPrivate = $global:officeKeyHelperProbe.observed -and $global:officeKeyHelperProbe.private
++  $result.removalNoTemporaryFiles = @(Get-ChildItem -LiteralPath $parent -Filter '*.tmp').Count -eq 0
++}
++$result | ConvertTo-Json -Compress
++`);
++  for (const failReplacement of [false, true]) {
++    const caseDirectory = path.join(directory, failReplacement ? 'failed-replacement' : 'successful-replacement');
++    await mkdir(caseDirectory);
++    const config = path.join(caseDirectory, 'office.json');
++    await writeFile(config, JSON.stringify(configuration));
++    const args = ['-NoProfile', '-NonInteractive', '-File', wrapper, '-Helper', helper, '-ConfigurationFile', config];
++    if (failReplacement) args.push('-FailReplacement');
++    const probe = await launch(powershell, args).done;
++    assert.equal(probe.code, 0, probe.stderr); assert.ok(!probe.stdout.includes('sentinel')); assert.ok(!probe.stderr.includes('sentinel'));
++    const result = JSON.parse(probe.stdout);
++    assert.equal(result.observed, true); assert.equal(result.temporaryPrivate, true); assert.equal(result.emptyBeforeWrite, true);
++    assert.equal(result.finalAclPreserved, true); assert.equal(result.noTemporaryFiles, true); assert.equal(result.failed, failReplacement);
++    if (failReplacement) { assert.equal(result.originalUnchanged, true); assert.equal(result.keyPresent, false); }
++    else { assert.equal(result.keyPresent, true); assert.equal(result.removalWorked, true); assert.equal(result.removalAclPreserved, true); assert.equal(result.removalTemporaryPrivate, true); assert.equal(result.removalNoTemporaryFiles, true); }
++  }
+ }));
+ 
+ test('supervisor rejects unreviewed keys/types/concurrency before launching or creating logs', { skip: !windows }, async () => temporary(async directory => {

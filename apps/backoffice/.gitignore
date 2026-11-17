@@ -1,5 +1,7 @@
 node_modules/
 .next/
+.next-office-check/
+.next-office-dev/
 .env*
 !.env.example
 .runtime/
@@ -13,3 +15,12 @@ output/
 # Brand assets are intentionally versioned inside this isolated app.
 !public/*.png
 !public/*.svg
+!office-spec/visuals/*.png
+!office-spec/visuals/*.svg
+!office-spec/visuals/reference/*.png
+!office-assets/proof/**/*.png
+!docs/office/screenshots/*.png
+
+# Blender source files and autosaves stay local; the app ships the exported .glb.
+*.blend
+*.blend1

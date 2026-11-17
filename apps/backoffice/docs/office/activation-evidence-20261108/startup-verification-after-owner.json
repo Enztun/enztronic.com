@@ -1,0 +1,16 @@
+{
+    "passed":  true,
+    "clientDate":  "2026-11-08",
+    "machineUtc":  "2026-11-08T05:46:00.1091786Z",
+    "backofficeTaskEnabled":  true,
+    "backofficeTaskRunning":  true,
+    "backofficeLogonType":  "InteractiveToken",
+    "backofficeRequiresOwnerLogon":  true,
+    "workerTaskEnabled":  true,
+    "workerTaskRunning":  true,
+    "workerLogonType":  "Password",
+    "workerLeastPrivilege":  true,
+    "workerBootTriggerEnabled":  true,
+    "workerBootDelay":  "PT1M",
+    "rebootTestPerformed":  false
+}

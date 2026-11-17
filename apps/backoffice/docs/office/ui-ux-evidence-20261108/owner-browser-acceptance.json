@@ -1,0 +1,11 @@
+{
+  "clientDate": "2026-11-08",
+  "buildId": "lLqX-hgihnGlb_e0a6-8g",
+  "source": "owner_reply_in_chat",
+  "ownerResponse": "New layout and figures look right",
+  "requestedCheck": "Refresh the existing signed-in Office browser and inspect the compact sidebar, Profile dialog and seven 3D preview figures.",
+  "uiVisualAcceptance": "owner_confirmed",
+  "operatorUsedOwnerSession": false,
+  "gpuBenchmarkClaimed": false,
+  "finalRiggedCharactersApproved": false
+}

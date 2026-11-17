@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 import { saveSettingsAction } from "@/actions";
 import { SettingsForm } from "@/components/settings-form";
 import { PageHeader } from "@/components/ui/page-header";
 import { getBusinessProfile } from "@/lib/server/business";
+import { requireAdminSession } from "@/lib/server/session";
 
 export const metadata: Metadata = {
   title: "Settings",
@@ -17,6 +19,7 @@ function addressValue(address: Record<string, unknown>, key: string) {
 }
 
 export default async function SettingsPage() {
+  await requireAdminSession();
   const profile = await getBusinessProfile();
 
   return (
@@ -26,6 +29,7 @@ export default async function SettingsPage() {
         title="Settings"
         description="Control the business identity and defaults used for billing."
       />
+      <p className="my-5 text-sm"><Link className="text-accent underline" href="/settings/access">Manage human access and commissions</Link></p>
       <SettingsForm
         action={saveSettingsAction}
         initialValues={{

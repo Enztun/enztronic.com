@@ -1,0 +1,775 @@
+{
+  "checkedAt": "2026-11-08T08:27:26.580Z",
+  "buildId": "7VQBHlMCw4uRSPfvo5f5T",
+  "candidate": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\v2-build-20261108-081739-c816de4d\\app",
+  "snapshotManifest": "C:\\Users\\hoyec\\AppData\\Local\\Temp\\enztronic-office-uiux-20261108\\v2-build-20261108-081739-c816de4d\\app-manifest.json",
+  "snapshotManifestSha256": "569addf7cf3a89e3c3409f97a377ede2edd909dbaf2b304515e6c93e6346dfd3",
+  "applicationFiles": 124,
+  "sourceAndCandidateExact": true,
+  "componentMismatches": [],
+  "ports": [
+    {
+      "port": 55439,
+      "closed": true
+    },
+    {
+      "port": 55519,
+      "closed": true
+    },
+    {
+      "port": 3158,
+      "closed": true
+    },
+    {
+      "port": 9458,
+      "closed": true
+    }
+  ],
+  "checks": [
+    {
+      "path": "eslint.config.mjs",
+      "sha256": "2ed1312b041f0ced48be62bccea5fc2a800240ddc4412514a066cc2382d6bd03",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "next.config.ts",
+      "sha256": "4bcbeabdb70723e61b0776d728958285c816f97ee2017c7bc7750d96eaee95bb",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "b17136aca60a1ca94f3fc6dddebe145154321d5535013537021625749a0f766d",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "package.json",
+      "sha256": "eee2b48528371397d2264be00cdef0c671c15bdac7e52eb74189996e76c9f0e9",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "postcss.config.mjs",
+      "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/actions.ts",
+      "sha256": "78e2e854c67aa188ce816cfb9e3453b3025391c39cb55a1c47037b4d83af87f1",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/app/(protected)/clients/[id]/edit/page.tsx",
+      "sha256": "801eda20d2fb990999a89c9ec2cfcc3953b65c172b1de1cb6225a3e90d5513ec",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/app/(protected)/clients/new/page.tsx",
+      "sha256": "75b44f4bab185688ab25c62be7172cdf17a014156c73d754c2ef7874a61e65b5",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/app/(protected)/clients/page.tsx",
+      "sha256": "32f6e0f25550c751cf869ffa4dcda36f071149eea99f07246c07201411fca692",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/app/(protected)/dashboard/page.tsx",
+      "sha256": "e07d711b7d287122aca470f5cd37f129ad54e964d82c5c2940760c8e1ef18283",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/app/(protected)/invoices/[id]/page.tsx",
+      "sha256": "b579b00c0925d3ceea6b2962e00543b3d66c01f2b3ef4f61eea138513c5adf37",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/app/(protected)/invoices/new/page.tsx",
+      "sha256": "839211360c92556dbd479ccd82f7fd4edaec401e1325ea1b2650c4ffa8873ca9",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/app/(protected)/invoices/page.tsx",
+      "sha256": "6a36a1013bcb3c6c3a2d6f9cd7887c7035bda887127b71dc43309e972f2c37ef",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/app/(protected)/layout.tsx",
+      "sha256": "32f2031ddfab96c2fd4e68cf9975f59ad74552f1e1840963cf103f7fdbd4620e",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/app/(protected)/settings/access/page.tsx",
+      "sha256": "d6de231b597c0cb114cdfac09a24139690aa02b29766c3e3b1b43feec0e5f4b3",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/app/(protected)/settings/page.tsx",
+      "sha256": "53815ac5334a7d58ff05ebde7d371bd64603213c66bc529da535f4bc76b0bd12",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/app/(protected)/team/page.tsx",
+      "sha256": "7d0aeaae7f13dd60aebb1f2c90e45ee1df053fb88ccd07aab00017996e2d87aa",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/app/api/invoices/[id]/pdf/route.ts",
+      "sha256": "821b604d5e98256b5a70408fbbdb84b2a9a06a0708205e0329d2d0816ef6d756",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/app/api/office/artifacts/[id]/route.ts",
+      "sha256": "fd38097c4f5db3357c7531934ce44ef9754bde7844897572f0d4d93cd2b6bf43",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/app/api/office/assets/route.ts",
+      "sha256": "2bf05fd2a05a1ac83cf791dc328bf17600f475f48586e19895889d0796cf60c5",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/app/api/office/events/route.ts",
+      "sha256": "7833307280e0c2527c0f5fee7628634c62903ca118cb5f23b31726254875b8ab",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/app/api/office/reference/[name]/route.ts",
+      "sha256": "7a1918473e0700d21bc56662e271762e7d7357032184e824f06e0a333e7250e2",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/app/api/office/route.ts",
+      "sha256": "cfcc2b35ec2391fb33f028841b57d7427853ce0852d317c806ab3ecfdd2be5dd",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/app/api/office/status/route.ts",
+      "sha256": "8ada46ce2bbc481e97a108fb2061f7a03bf20ca0090f9f8a4afab0b30873bc50",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/app/globals.css",
+      "sha256": "155fcbb9d5492aad834ad2b87801990b4113bd866224d86b7a0e8b3d3681ed0b",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/app/layout.tsx",
+      "sha256": "02dd93dbc0a033ef2b92a1843d2fd84e6112c9d6a8feb43bf7ff9a6474567364",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/app/page.tsx",
+      "sha256": "72c4bba09586cace009ad965105687a54c8b155c47e336b70f839ff421dea34f",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/app/robots.ts",
+      "sha256": "ee236a71493c80ef6db46698ff842d8fe2bceb2b4e7b2273671e60525c895429",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/admin-shell.tsx",
+      "sha256": "051ae4b749583ebddbdd737f20a54481fb7f953ee6bead7c07f538a3641a1ad8",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/client-form.tsx",
+      "sha256": "7d5d9cb8e8b731147d431f37c0a44bbc9b4d3f4f3a01d3e3a0745c345997a1c2",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/formatters.ts",
+      "sha256": "c35b48c760028d5a080079a9500b2748272b9f072e84295e63b74d5b1e6d6369",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/invoice-actions.tsx",
+      "sha256": "c470074ce53c04c4d6796133b8783e75a5753e961245926a38f79e53c3cea74f",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/invoice-form.tsx",
+      "sha256": "0fdd7c5f5ff6cd695d987414ad265126d855520bd5dc632331072c5954c537c5",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/invoice-status-badge.tsx",
+      "sha256": "b05207ad3714ae3dc1446c3ba07b5c0653a1da9e083cc0a55ff2999a70d40baf",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/mobile-navigation.tsx",
+      "sha256": "aaf4a695502892c9990aad54cd69c20cad72d47c9f0b6d6c26c8f13da559047d",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/navigation-items.ts",
+      "sha256": "f73f52d5d5610f2e5b6b60f6313eca109a04da117292e934cc963faf6f357c1d",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/office-activity-feed.module.css",
+      "sha256": "5367cfa674e6571dc9aa35339df89ff802c4c8fea8c9cd3ad37d3261381b1704",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/office-activity-groups.test.ts",
+      "sha256": "5d764627fd473b69e0df954c15f2fa3e9a8a9a6a8db5efc07da09fcc497ccf3f",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/office-activity-groups.ts",
+      "sha256": "bff34f10a18afc31762cd3774c6906ef506265c6c3eaede0363d80c204b18b3b",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/office-agent-badge.module.css",
+      "sha256": "25b3b556606547f6a14fce24f7b0337965c3a8c4d5618895ef4f5c8f771f5cd6",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/office-event-presentation.test.tsx",
+      "sha256": "22638216db2cb1121465bae4d1f6e1229f713c257a0a45f67229eae098feaabc",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/office-profile-status.test.ts",
+      "sha256": "05bd892c63e6fffb0f4297f6a4d7d05e116a188defa0789264a65ff38a46a461",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/office-profile-status.ts",
+      "sha256": "f0e2e5ddc3b0bc93ed080f0d61300a58efdbbc866aba88875b9295328c41624a",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/office-profile.module.css",
+      "sha256": "504b9007d6131bd2ecb79938c7d1c392df4e606cb7b62e6d061648d0eb07d26a",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/office-selection.test.ts",
+      "sha256": "a624978e0553a88f98699ae808ddb9d12c887ab2d6afbc993f8059ae9a6ce360",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/office-selection.ts",
+      "sha256": "a74f20b46f2cd687a3b9016b4704a40a7634278881d2a1596a5fc71fd92cc19f",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/office-status.test.ts",
+      "sha256": "a5aa21a8aa1ad71796119ce3d7400dd27f69dc249b48a2eb5e835a26f1f4097a",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/office-status.ts",
+      "sha256": "5db4e883f694bbac769839850c9401567623db48aa52979e39ccf72a05ab9264",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/office-ui.tsx",
+      "sha256": "15a66c80004d7c1907038ca34c06842adc46396510204238e35852e95492082b",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/office.module.css",
+      "sha256": "009d77d6951aa4fc900a0fb32e7711f6aadfe0f5eece1f38a5e7709b33d489b6",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/OfficeActivityFeed.tsx",
+      "sha256": "d8cbfd42176bf608d3cc755ca3053d35e7c7ffa2ccb46f50892a53463fadc69c",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/OfficeAgentBadge.tsx",
+      "sha256": "da0b75c910b0f91384cbcbd392b1f47e372874e1b2bfd208e6b708908120d8ae",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/OfficeDashboardPanel.test.tsx",
+      "sha256": "741223902cffded4f41860e614ba9df93ffb7608a20ca9ebe994bf3cd4fc771a",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/OfficeDashboardPanel.tsx",
+      "sha256": "b2aa0626d24fae59b5cfe04d9397e9cdcd6ab574de505809879be78e7782d8eb",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/OfficeInbox.tsx",
+      "sha256": "61f66858c7130ed8832a8f0d965b244fe5f8fe697e990b8164f7976eb59c9b9a",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/OfficeInfo.tsx",
+      "sha256": "40123d95e01e7b36c779e767f71886d73800b325d557c58bb1dcd866a8ccfde5",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/OfficePortrait.tsx",
+      "sha256": "5f76cbb1688ec58d39b2a1588312171715f97eb76d9e3d765d2f662383980f28",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/OfficeProfilePanel.tsx",
+      "sha256": "500f5012dadad4d5f6a11c0c2cbe74d93879e2e944167203580334cc145dccad",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/OfficeRoleStatus.tsx",
+      "sha256": "db6c84c8c118e09435f5ef23eb47559998ecd224b631c2df3cac0071fa4e6a82",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/OfficeScene.tsx",
+      "sha256": "814f14c54d91f97ffccb86876ddd18d912b835ac151fe47cd0630f1fed0640ce",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/OfficeTaskDetail.tsx",
+      "sha256": "eda1f2e130b489744aeaad279860ecd2ce88293a8f12f7445b52d7d2f97670ad",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/OfficeView.tsx",
+      "sha256": "6233cc3fce4f3c00c8092bc311b8e044af80a4f2bbf538d43470c79494cf14ce",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/profiles.ts",
+      "sha256": "af516b7049ac7b0a53c6b5489fc928d3a65ca3a91bce6bf2f12328d8617bea93",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/role-identity.ts",
+      "sha256": "f749ab75e53c32b5358c44cb970ad4fd27d50ec4718e0383ed9229b62ec95440",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/scene-assets.generated.json",
+      "sha256": "2f8bd237ae07fdcaf8cfab4cf7fb490834049714378c8dd3f65bca7548bcc01d",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/scene-layout.test.ts",
+      "sha256": "0ea9f6b1089088335d065a4cadc746845e3ce993934c9e96cf6faa0109243128",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/scene-layout.ts",
+      "sha256": "47e2f6e038d80401509f656c89f7e3cb6318038ad74681a3c188d4511aefce8a",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/scene-preview-people.tsx",
+      "sha256": "a52b942713b3ac9517f46cfa178e4630a74ebe31785f13655f87e0a8380ab983",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/scene-static-batch.test.ts",
+      "sha256": "1462616cc843dd104b143e0122827f14cc16bdd6d40f6366d8f76ba7ef1b2f8a",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/scene-static-batch.ts",
+      "sha256": "58034d529ea7b721f4933b1b5c2bab0e731c4a45f10eff26a9b3b2ab0e465023",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/office/scene.module.css",
+      "sha256": "d2c9d08385a7d74751c99f4d455c18691e68edb6035b71781dcf67c0e2149538",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/primary-navigation.tsx",
+      "sha256": "2a2b46d4c546781eb2ea6bb30c3e4fa9e631f5db5e6e4d6b8b5ae99b0b20e5dc",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/settings-form.tsx",
+      "sha256": "037593bf45605c6923c021fe5128900235933402491515d395caab8a97b90b33",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/theme-toggle.tsx",
+      "sha256": "e0071617db2bc1272e33c6c4f3fb4f63c369d1acb14a5f8017ab1c566375d930",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/ui/badge.tsx",
+      "sha256": "3de1bcdb9241952ae894bf81b42c1cffbe5b124d93a624a9684278166f3aacc1",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/ui/button.tsx",
+      "sha256": "7f7cecb29d1c6584bf1039335786236c6a4344b16ee19469ac95aabec06c5ca6",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/ui/card.tsx",
+      "sha256": "1a4fdbfa6466abd28d9feb5b8d35c7942f755831b0b8242abf51b4e1fc64e6b5",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/ui/empty-state.tsx",
+      "sha256": "ddcfa73058f22c22dcc8f2f4c1b889929e1efe2582f07ca7552a1dc6d41aa86f",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/ui/field.tsx",
+      "sha256": "19b6dfb25b47161041788fc6ef19f7a2074cc650357d11ce7de79fc2888adcae",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/ui/input.tsx",
+      "sha256": "86c162f11c19ef27705fa7eeed7b8ccf1114b55fd55546c5a154e2ded2e48f9c",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/ui/page-header.tsx",
+      "sha256": "1667b0753595ca601aa02a56546f459076e3444ba6ec3d1f14bb0a0ad874defc",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/ui/select.tsx",
+      "sha256": "b3c6756054c52423e19068848bb0f5e58febb7358bee60d530c05a96599bcdb3",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/ui/stat-card.tsx",
+      "sha256": "d78221369430fedf7fd4fd6aae45a3c1efcf1a00e5fdaf99580eef2e13fc6fda",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/ui/submit-button.tsx",
+      "sha256": "cd309291ff183e8519e502c9e7000bb01eb80b6a15ab3ae05db9bf495a315df8",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/ui/table-shell.tsx",
+      "sha256": "f4cb2ca5249b2a6a205efd14b924bb13cb8ce6d0b423e9ae9cf35b32a016a37a",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/components/ui/textarea.tsx",
+      "sha256": "02167f73183b3e9c0c45d38ea9cc624a4d5ea3b8436b57095a75157155e02979",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/calendar.ts",
+      "sha256": "cdd8a055b7c027cb8c8d95bf772c0ed5b080e78c1c11ad081d8b19e5e9ceb135",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/env.ts",
+      "sha256": "7620c263433872f6e4940012990ebee13c98380ae7475b2ae81d287ed5337626",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/money.test.ts",
+      "sha256": "31f3aefe4ec4001f7a2ce66c9f2d4242bdb3057bcfd8c7cc3d763885e3430bd0",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/money.ts",
+      "sha256": "096a5cab41d723908e26ccc76e8823114928c321444752c4491b547997fccacd",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/office-activity.ts",
+      "sha256": "2d9496f1e73e96ae18f6df35eafa063ed5dda282a90827a02f8e3a23e28b2b3b",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/office-contracts/index.ts",
+      "sha256": "a679529d4fe23caa57e0754eb7ec29a166f809845628281dcb487aa5bd81f327",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/office-contracts/response-presets.json",
+      "sha256": "bb9dc7df5bf3c02333e04ff008d967a9ca35a498c2f99980cef028802707b7be",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/office-links.test.ts",
+      "sha256": "f5684421a1eb21d963a3dbd2597cd49829fe72adb5c945a6db9532ec1e02b571",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/office-links.ts",
+      "sha256": "7611ea77b0735187b995e52948366470d4247cf350d9aee2614f87b906fb0313",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/office-runtime/demo-adapter.ts",
+      "sha256": "5ce92d0b5c08610f859b223412641f0a2dd87f2c06845aa944e25e40584e0f7d",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/office-runtime/index.ts",
+      "sha256": "55fbde2ee5a44e5c5d0b1296d9027e9c4b33deef5812ff2e88c5dfbeb88b184d",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/office-runtime/runtime.integration.test.ts",
+      "sha256": "becca005a7686df8bde2be1312e3e2550ae046bfe8f2181cbed9e687ac391d6d",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/office-runtime/safety.test.ts",
+      "sha256": "e13c14d6c34655a73213c0f5b5beb80598da8b1d9dacce614e11d433d745b120",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/office-runtime/safety.ts",
+      "sha256": "45890860cb2ecc8ede0dfb6fadc9ca9bf323ca14471d19d4e82a63b7a0fd6483",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/office-runtime/worker-role.integration.test.ts",
+      "sha256": "817a52520d33a253b448e1602c3e9f0f5af8b09bf24d7581a041c969f18f70d1",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/server/auth.test.ts",
+      "sha256": "46044036e1669ef9b0a5c290d9b34e55bb36953b834928fd52d1c623ca4fc384",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/server/auth.ts",
+      "sha256": "95d4a961d32fe57ab0e55e4adc806b387ea528b6e5fa294bb9bfe7a0474fa6df",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/server/business.ts",
+      "sha256": "50a3801ca3fdcced9459ff1df099f50a5aeb4cfad0cc902c9aecdd47837d27b6",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/server/clients.ts",
+      "sha256": "cea974db542bc98598e85be0cf2da66118b65e58f28e1b2a67fd8c1b398a197c",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/server/db.ts",
+      "sha256": "a49c8954736a158a9d13888b0a6e718bc1d27815a0b8e7d9fd1740baa940c999",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/server/earnings.ts",
+      "sha256": "82acdaefdd9ca0d406c7f8fc95ed4c039d9c8f431df3aa725da87420a4b6ca1c",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/server/email.ts",
+      "sha256": "5fbb7d23fecb173d572537a3632296432996d4a297256b598e153fa608c51a9d",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/server/invoice-delivery.ts",
+      "sha256": "2186bf2d78734d18c9caf22a86b62b7c59f671397babbc0a64c6c0eb13e912ed",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/server/invoices.ts",
+      "sha256": "c83ee3407c996bfae18eac46236ae33e0aac539ac5236091a525a90883433487",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/server/office-assets.test.ts",
+      "sha256": "a9069e74f04d0252fd98d502382ddf6d86d35b2ff546b7ce1df96dd892ba96e8",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/server/office-dashboard.test.ts",
+      "sha256": "2ba6826a050525cad18af477dbb3092cedd7aa0050f8b38332292b6d0426e487",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/server/office-dashboard.ts",
+      "sha256": "cc8cda6928197444e772c06cb1e852a2a32e3216004591d60f60fb9ce950e427",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/server/office-http.test.ts",
+      "sha256": "0a166431b0c17f48a2c0635b67b9df00a65ffd72139216ce1d05a6fff1b9f0d6",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/server/office-http.ts",
+      "sha256": "b92232fc97354ebb9576e278dbb3328913abca4e7fcd1c5a6d68bf0c86b73056",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/server/office-preservation.integration.test.ts",
+      "sha256": "bd677970e36f30fecb1335be0379c3abab6356b6b8bc40d93d509fd170d7dc37",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/server/office-read-model.integration.test.ts",
+      "sha256": "7c72ab7b5bd8d670e4c66f3a015e2767466cc682beb693b3dde5fce975827b8f",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/server/office-read-model.ts",
+      "sha256": "e3cedf0d5a2147c4947e7087c622e4825630423a3d9309e9c510ad1c6421fe25",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/server/office.ts",
+      "sha256": "01e8f4d2f3e9ab272e5a96e13e349c4eb2f09e620b007a8b3bf4606967f5eb6e",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/server/pdf.ts",
+      "sha256": "194601ba21ab809bc9ca8c62d042294d03a504bf744c3749211275f1f75d0dba",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/server/r2.ts",
+      "sha256": "88ef36793d36134bd960f758607acf6a07e6c1e64b6805be0312790621a28548",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/lib/server/session.ts",
+      "sha256": "f37f0a8fb9ddde67412518026c44eb734895d6a83a99c11f2afe2e16fb96d351",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "src/proxy.ts",
+      "sha256": "ad20e896391a1a9ec9d399d801439e0127f84cd173fe6ec2d6343bbf469536b6",
+      "sourceMatches": true,
+      "candidateMatches": true
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "618e2fbf81a028deeecd001ef257342c56e474f541712aff9c74a69317fa51ab",
+      "sourceMatches": true,
+      "candidateMatches": true
+    }
+  ],
+  "passed": true
+}
