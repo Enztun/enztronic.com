@@ -1,0 +1,12 @@
+# pnpm settings for the backoffice. It is a separate install from the public website
+# (repository root) and the office worker; this file also stops pnpm from treating
+# the root website as this app's workspace.
+
+overrides:
+  # Security floor carried over from npm "overrides".
+  postcss: 8.5.31
+
+# Install scripts npm used to run unasked. Each only fetches or checks its native binary.
+allowBuilds:
+  esbuild: true
+  unrs-resolver: true

@@ -1,0 +1,13 @@
+# pnpm settings for the public website only. apps/backoffice and apps/office-worker
+# are separate installs with their own pnpm-workspace.yaml and lockfile.
+
+overrides:
+  # Security floor carried over from npm "overrides" (see MAINTENANCE_LOGS, 16 Oct 2026).
+  postcss: 8.5.30
+
+# Install scripts npm used to run unasked. Each only fetches or checks its native binary.
+allowBuilds:
+  '@parcel/watcher': true
+  '@swc/core': true
+  esbuild: true
+  unrs-resolver: true

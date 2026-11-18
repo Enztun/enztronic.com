@@ -2,14 +2,14 @@
 
 This is an independent durable **deterministic demonstration** worker. It requires the additive migration `apps/backoffice/database/migrations/003_office.sql`. It does not call a model, run project commands, send messages or access financial actions. Live submissions remain `blocked / configuration_required` until a reviewed provider adapter, exact budgets, runtime caps and approved sources exist.
 
-Install dependencies with `npm ci` in this directory after reviewing its lockfile. Set the worker environment securely in the approved host configuration:
+Install dependencies with `pnpm install --frozen-lockfile` in this directory after reviewing its lockfile. Set the worker environment securely in the approved host configuration:
 
 - `OFFICE_ENABLED=true`
 - `OFFICE_DEMO_WORKER=true`
 - `OFFICE_WORKER_DATABASE_URL`: a dedicated office database role on the approved dedicated cluster. Never paste a secret into chat, commit it or point an isolated test at the live database.
 - Optional `OFFICE_WORKER_CONCURRENCY=1` (bounded 1–4) and an absolute `OFFICE_WORKER_LOG_DIRECTORY` owned by the service account.
 
-Run `npm start`; use `npm start -- --once` for a single local claim. The browser is independent: closed tabs do not stop work. The workstation, database, worker and network must remain awake and available. The application reports worker offline once its heartbeat exceeds 60 seconds. A logon task does not establish availability before logon or while the PC is off.
+Run `pnpm start`; use `pnpm start --once` for a single local claim. The browser is independent: closed tabs do not stop work. The workstation, database, worker and network must remain awake and available. The application reports worker offline once its heartbeat exceeds 60 seconds. A logon task does not establish availability before logon or while the PC is off.
 
 For a separately authorized production window, register a new dedicated Windows service through the owner's approved supervisor. Run a dedicated nonadministrator account with a scrubbed environment, database role and ACLs limited to office runtime code/logs and office tables; it must not read website credentials, source workspaces, human/client records or financial tables. Active-owner validation uses only the boolean `office_authorized_owner(uuid)` function, without exposing users to the worker. Use a new, reviewed Office-specific SQL role with no inherited memberships; `office-role.example.sql` grants only the prepared worker capabilities. Never use an app-owner/superuser connection for activation. Bind no network listener. Set supervisor restart-on-failure with bounded backoff (5, 15, 60 seconds), normal shutdown timeout of 30 seconds, and independent health polling of `office_workers.heartbeat_at`. If using a reviewed PowerShell `Start-Process` supervisor, include `-WindowStyle Hidden`. A Windows service wrapper is not supplied or silently installed by this implementation.
 
@@ -47,7 +47,7 @@ The supervisor owns a private stdin pipe. On normal supervisor cleanup, it reque
 
 `start-office-worker.ps1 -NodeExecutable <reviewed-node> -ConfigurationFile <office-json> -LogDirectory <owned-directory> -Once` passes `--once` for a single claim or idle check and does not retry a failed pass. Continuous mode restarts nonzero exits after 5, 15 and then 60 seconds. `office-worker.jsonl` and `office-supervisor.jsonl` each retain one current file and one `.previous`, capped at 2 MiB per file. These logs summarize lifecycle/step events; raw child stderr is discarded.
 
-Run `npm run test:lifecycle` here for startup/configuration/supervisor fixtures. The real PostgreSQL lifecycle case skips unless `OFFICE_LIFECYCLE_ADMIN_URL` explicitly identifies `/postgres` on a separate loopback test cluster, excluding ports 5432 and 54329. That case creates a new generated `office_worker_<uuid>_test` database and limited login from the grant example, then removes only its own role/grants/database; it never resets an existing test/preview schema. See [the lifecycle evidence](../backoffice/docs/office/WORKER-LIFECYCLE.md) for the observed result and coverage limits. No test registers a startup task or service.
+Run `pnpm run test:lifecycle` here for startup/configuration/supervisor fixtures. The real PostgreSQL lifecycle case skips unless `OFFICE_LIFECYCLE_ADMIN_URL` explicitly identifies `/postgres` on a separate loopback test cluster, excluding ports 5432 and 54329. That case creates a new generated `office_worker_<uuid>_test` database and limited login from the grant example, then removes only its own role/grants/database; it never resets an existing test/preview schema. See [the lifecycle evidence](../backoffice/docs/office/WORKER-LIFECYCLE.md) for the observed result and coverage limits. No test registers a startup task or service.
 
 ## Live OpenAI provider (optional)
 

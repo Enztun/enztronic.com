@@ -35,10 +35,10 @@ async function buildCandidate() {
   const result = { run, startedAt: new Date().toISOString(), cwd: app, snapshotFiles: snapshot.files, snapshotManifest: snapshot.manifest, dependencies, environmentFiles: 0, productionTouched: false, workerGrantTemplateSha256: hash(grants), checks: [] };
   try {
     const commands = [
-      ['lint', 'cmd.exe', ['/d', '/c', 'npm', 'run', 'lint']],
-      ['typecheck', 'cmd.exe', ['/d', '/c', 'npm', 'run', 'typecheck']],
+      ['lint', 'cmd.exe', ['/d', '/c', 'pnpm', 'run', 'lint']],
+      ['typecheck', 'cmd.exe', ['/d', '/c', 'pnpm', 'run', 'typecheck']],
       ['tests', path.join(process.env.SystemRoot, 'System32', 'WindowsPowerShell', 'v1.0', 'powershell.exe'), ['-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File', path.join(app, 'scripts', 'test-office-local.ps1')]],
-      ['build', 'cmd.exe', ['/d', '/c', 'npm', 'run', 'build', '--', '--webpack']],
+      ['build', 'cmd.exe', ['/d', '/c', 'pnpm', 'run', 'build', '--webpack']],
     ];
     for (const [name, executable, args] of commands) {
       const started = Date.now(), log = path.join(root, name + '.log');

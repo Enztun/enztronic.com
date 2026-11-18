@@ -195,8 +195,8 @@ $env:DATABASE_URL = $databaseUrl
 Push-Location $appRoot
 try {
     if (-not $SkipNodeInstall) {
-        & npm.cmd ci
-        if ($LASTEXITCODE -ne 0) { throw 'npm ci failed.' }
+        & pnpm.cmd install --frozen-lockfile
+        if ($LASTEXITCODE -ne 0) { throw 'pnpm install failed.' }
     }
 
     if (-not $SkipPythonInstall) {
@@ -209,7 +209,7 @@ try {
         if ($LASTEXITCODE -ne 0) { throw 'Python PDF dependencies failed to install.' }
     }
 
-    & npm.cmd run db:migrate
+    & pnpm.cmd run db:migrate
     if ($LASTEXITCODE -ne 0) { throw 'Database migration failed.' }
 }
 finally {
@@ -219,5 +219,5 @@ finally {
 
 Write-Host ''
 Write-Host 'Enztronic back office is initialized.' -ForegroundColor Green
-Write-Host 'Start it with: npm run dev'
+Write-Host 'Start it with: pnpm dev'
 Write-Host 'Open: http://127.0.0.1:3100'

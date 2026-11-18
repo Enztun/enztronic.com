@@ -5,13 +5,8 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 First, run the development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -37,7 +32,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ## Checks and tooling
 
-### `npm run audit:contrast`
+### `pnpm audit:contrast`
 
 WCAG contrast audit over every page in both themes, run against a server you
 already have up (`--base http://localhost:3000` by default). It shoots each page
@@ -51,7 +46,7 @@ Failures we have accepted on purpose live in `ACCEPTED` at the top of
 `scripts/audit-contrast.mjs`, so the audit stays a signal instead of being
 permanently red.
 
-### `npm run shots`
+### `pnpm shots`
 
 Re-captures the client screenshots on /portfolio, reading the project URLs from
 `messages/en.json`. Client sites get redesigned, so this is the way to refresh

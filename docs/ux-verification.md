@@ -4,12 +4,12 @@ The public site uses a common enquiry and information journey in English, Indone
 
 ## Local checks
 
-- `npm run lint`
-- `npx tsc --noEmit`
-- `npm run build`
-- Start the built app on port 3100: `npm start -- --port 3100`
-- `npm run test:ux` (or set `BASE_URL` to another localhost port).
-- `npm run audit:contrast -- --base http://localhost:3100`
+- `pnpm lint`
+- `pnpm exec tsc --noEmit`
+- `pnpm build`
+- Start the built app on port 3100: `pnpm start --port 3100`
+- `pnpm test:ux` (or set `BASE_URL` to another localhost port).
+- `pnpm audit:contrast --base http://localhost:3100`
 
 The UX regression suite checks page and navigation fit across languages and screen widths, plus stateful interactions. All synthetic enquiry/chat writes are intercepted in the browser. It never creates a CMS enquiry or calls the AI provider. Real delivery still requires a deliberate integration test.
 

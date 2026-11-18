@@ -41,9 +41,9 @@ async function command(name,executable,args,extra={}){
  const check={name,exitCode,seconds:Math.round((Date.now()-started)/1000),log:file};result.checks.push(check);console.log(JSON.stringify(check));if(exitCode!==0)throw new Error(name+' failed');
 }
 try{
- if(!resume){await command('lint','cmd.exe',['/d','/c','npm','run','lint']);await command('typecheck','cmd.exe',['/d','/c','npm','run','typecheck']);}
+ if(!resume){await command('lint','cmd.exe',['/d','/c','pnpm','run','lint']);await command('typecheck','cmd.exe',['/d','/c','pnpm','run','typecheck']);}
  if(!previousFixtureReport)await command('tests',path.join(process.env.SystemRoot,'System32','WindowsPowerShell','v1.0','powershell.exe'),['-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-File',path.join(app,'scripts','test-office-local.ps1')]);
- await command('build','cmd.exe',['/d','/c','npm','run','build','--','--webpack'],{NODE_ENV:'production'});
+ await command('build','cmd.exe',['/d','/c','pnpm','run','build','--webpack'],{NODE_ENV:'production'});
  result.buildId=(await readFile(path.join(app,'.next','BUILD_ID'),'utf8')).trim();result.exitCode=0;result.passed=true;
 }catch(error){result.passed=false;result.exitCode=1;result.failure=error.message;process.exitCode=1;}
 finally{result.completedAt=new Date().toISOString();const record=path.join(evidence,'build-'+run+'.json');await writeFile(record,JSON.stringify(result,null,2)+'\n',{flag:'wx'});await writeFile(path.join(root,resume?'build-result-'+run+'.json':'build-result.json'),JSON.stringify(result,null,2)+'\n',{flag:'wx'});console.log(JSON.stringify({passed:result.passed,cwd:app,buildId:result.buildId??null,report:record}));}

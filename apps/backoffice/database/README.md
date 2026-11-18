@@ -7,7 +7,7 @@ digits.
 Set `DATABASE_URL` in the process environment, then run:
 
 ```powershell
-npm run db:migrate
+pnpm run db:migrate
 ```
 
 The runner serializes concurrent migration attempts with a PostgreSQL advisory

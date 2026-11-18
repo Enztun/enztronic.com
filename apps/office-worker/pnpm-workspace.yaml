@@ -1,0 +1,7 @@
+# pnpm settings for the office worker. It is a separate install from the public
+# website (repository root) and the backoffice; this file also stops pnpm from
+# treating the root website as this package's workspace.
+
+# Install scripts npm used to run unasked. esbuild (used by tsx) only checks its binary.
+allowBuilds:
+  esbuild: true

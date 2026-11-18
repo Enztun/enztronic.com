@@ -131,7 +131,7 @@ export function packageRuntime(destination) {
     nodeMinimumMajor: 20, entry: 'apps/office-worker/src/index.ts', loader: 'apps/office-worker/node_modules/tsx/dist/loader.mjs',
     supervisor: 'apps/office-worker/start-office-worker.ps1', configurationIncluded: false, workerActivated: false,
     reviewedWorkerPackageSha256: sha256(fs.readFileSync(path.join(worker, 'package.json'))),
-    reviewedWorkerLockSha256: sha256(fs.readFileSync(path.join(worker, 'package-lock.json'))),
+    reviewedWorkerLockSha256: sha256(fs.readFileSync(path.join(worker, 'pnpm-lock.yaml'))),
     dependencies: packages, files: filesWithin(target),
   };
   const bytes = Buffer.from(JSON.stringify(manifest, null, 2) + '\n');

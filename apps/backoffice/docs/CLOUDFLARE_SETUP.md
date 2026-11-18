@@ -9,7 +9,7 @@ No Docker, GitHub Actions, public database port, or direct public Next.js listen
 From `D:\Enztronic\apps\backoffice`:
 
 ```powershell
-npm install
+pnpm install
 py -m pip install reportlab
 Copy-Item .env.example .env.local
 ```

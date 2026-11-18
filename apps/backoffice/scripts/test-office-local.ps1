@@ -28,7 +28,7 @@ try {
   $env:OFFICE_DASHBOARD_TEST_DATABASE_URL = "postgresql://office_test@127.0.0.1:$Port/enztronic_office_dashboard_test"
   $env:OFFICE_LIVE_TEST_DATABASE_URL = "postgresql://office_test@127.0.0.1:$Port/enztronic_office_live_test"
   Push-Location $officeAppRoot
-  try { npm test; if ($LASTEXITCODE) { throw 'Office tests failed.' } }
+  try { pnpm test; if ($LASTEXITCODE) { throw 'Office tests failed.' } }
   finally { Pop-Location }
 } finally {
   if ($officeStarted) { & (Join-Path $PostgresBin 'pg_ctl.exe') -D $officeData -m fast -w stop }

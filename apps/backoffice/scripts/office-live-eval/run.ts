@@ -2,9 +2,9 @@
 // disposable *_test database and checks the saved artifacts. Real OpenAI requests are made only
 // with --confirm-spend and an Office-only key; --dry-run uses an offline scripted provider.
 //
-//   npx tsx scripts/office-live-eval/run.ts --dry-run
+//   pnpm exec tsx scripts/office-live-eval/run.ts --dry-run
 //   OFFICE_EVAL_DATABASE_URL=postgresql://...@127.0.0.1:<port>/<name>_test OFFICE_OPENAI_API_KEY=... \
-//     npx tsx scripts/office-live-eval/run.ts --confirm-spend --briefs standard-five-page [--max-usd 1]
+//     pnpm exec tsx scripts/office-live-eval/run.ts --confirm-spend --briefs standard-five-page [--max-usd 1]
 //
 // The key is read from the environment, never printed, and removed from the environment after use.
 import postgres from 'postgres';
