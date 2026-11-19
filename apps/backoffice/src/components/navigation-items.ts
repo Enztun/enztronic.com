@@ -2,6 +2,7 @@ import {
   Building2,
   FileText,
   LayoutDashboard,
+  ReceiptText,
   Settings,
   Users,
   type LucideIcon,
@@ -20,6 +21,7 @@ export const navigationItems: NavigationItem[] = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/clients", label: "Clients", icon: Building2 },
   { href: "/invoices", label: "Invoices", icon: FileText },
+  { href: "/receipts", label: "Receipts", icon: ReceiptText, adminOnly: true },
   { href: "/team", label: "Office", icon: Users, adminOnly: true },
   { href: "/settings", label: "Settings", icon: Settings, adminOnly: true },
 ];

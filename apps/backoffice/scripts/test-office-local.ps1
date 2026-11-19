@@ -18,7 +18,7 @@ try {
   & (Join-Path $PostgresBin 'pg_ctl.exe') -D $officeData -l (Join-Path $officeTestRoot 'postgres.log') -o "-h 127.0.0.1 -p $Port" -w start
   if ($LASTEXITCODE) { throw 'Test PostgreSQL start failed.' }
   $officeStarted = $true
-  foreach ($officeDatabase in @('enztronic_office_test','enztronic_office_access_test','enztronic_office_role_test','enztronic_office_dashboard_test','enztronic_office_live_test')) {
+  foreach ($officeDatabase in @('enztronic_office_test','enztronic_office_access_test','enztronic_office_role_test','enztronic_office_dashboard_test','enztronic_office_live_test','enztronic_receipts_test')) {
     & (Join-Path $PostgresBin 'createdb.exe') -h 127.0.0.1 -p $Port -U office_test $officeDatabase
     if ($LASTEXITCODE) { throw 'Test createdb failed.' }
   }
@@ -27,6 +27,7 @@ try {
   $env:OFFICE_ROLE_TEST_DATABASE_URL = "postgresql://office_test@127.0.0.1:$Port/enztronic_office_role_test"
   $env:OFFICE_DASHBOARD_TEST_DATABASE_URL = "postgresql://office_test@127.0.0.1:$Port/enztronic_office_dashboard_test"
   $env:OFFICE_LIVE_TEST_DATABASE_URL = "postgresql://office_test@127.0.0.1:$Port/enztronic_office_live_test"
+  $env:RECEIPTS_TEST_DATABASE_URL = "postgresql://office_test@127.0.0.1:$Port/enztronic_receipts_test"
   Push-Location $officeAppRoot
   try { pnpm test; if ($LASTEXITCODE) { throw 'Office tests failed.' } }
   finally { Pop-Location }
@@ -38,6 +39,7 @@ try {
   Remove-Item Env:OFFICE_ROLE_TEST_DATABASE_URL -ErrorAction SilentlyContinue
   Remove-Item Env:OFFICE_DASHBOARD_TEST_DATABASE_URL -ErrorAction SilentlyContinue
   Remove-Item Env:OFFICE_LIVE_TEST_DATABASE_URL -ErrorAction SilentlyContinue
+  Remove-Item Env:RECEIPTS_TEST_DATABASE_URL -ErrorAction SilentlyContinue
 }
 # Keep logs/data for inspection. Cleanup is explicit and must stay in this test root.
 Write-Output "Verification files retained at $officeTestRoot"

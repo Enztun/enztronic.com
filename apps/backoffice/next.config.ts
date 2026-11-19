@@ -19,6 +19,10 @@ const nextConfig: NextConfig = {
     : {}),
   poweredByHeader: false,
   reactStrictMode: true,
+  experimental: {
+    // Receipt uploads are capped at 5 MB in the action; this leaves room for multipart overhead.
+    serverActions: { bodySizeLimit: "6mb" },
+  },
   outputFileTracingIncludes: {
     '/api/office/reference/*': ['./office-spec/visuals/reference/*.png'],
     '/api/office/assets': ['./office-assets/assets/office/**/*.glb'],
