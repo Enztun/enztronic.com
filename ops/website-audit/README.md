@@ -16,9 +16,11 @@ Native daily checks cover public health, TLS/expiry, configured headers and
 positive signatures of exposed environment/Git files. Every 14 UTC calendar
 days, native security checks fetch this public repository's `main`, scan its
 history with verified Gitleaks, and check production/full lockfile advisories
-and declared dependency updates. Only bounded JSON manifests and inert version
-metadata are extracted: project packages, scripts and application code are
-never installed or executed. Git/npm use private anonymous configuration.
+and declared dependency updates. Only `package.json` (reduced to its dependency
+lists) and a strictly validated registry-only `pnpm-lock.yaml` are extracted:
+project packages, scripts and application code are never installed or executed.
+Git/pnpm use private anonymous configuration; `pnpm audit` and `pnpm outdated`
+run from the trusted Node with the pnpm path recorded at setup.
 
 **Lint, type, build and browser checks are explicitly unavailable/deferred in
 native mode.** They remain visible as incomplete coverage. The current PC has
@@ -148,7 +150,7 @@ bounded positive-signature probes for exposed environment/Git files. Host OS,
 Docker runtime logs and private Vercel logs are explicitly outside this website
 profile: the audit machine's packages are not Vercel's runtime packages.
 
-Full scans add full Git-history Gitleaks, production/full npm advisories,
+Full scans add full Git-history Gitleaks, production/full pnpm advisories,
 available versions, zero-warning lint, TypeScript, network-policy tests, and a
 representative public-CMS production build. The fixed Playwright 1.62.1 image is
 pinned by digest. A separately labeled fixture build omits CMS configuration;

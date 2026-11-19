@@ -21,6 +21,12 @@ REGISTRY = 'https://registry.npmjs.org/'
 MAX_JSON = 8 * 1024 * 1024
 NAME = re.compile(r'(?:@[a-z0-9][a-z0-9._-]*/)?[a-z0-9][a-z0-9._-]*\Z')
 VERSION = re.compile(r'[0-9]+\.[0-9]+\.[0-9]+(?:[-+][0-9A-Za-z.+-]+)?\Z')
+SPEC = re.compile(r'[0-9A-Za-z<>=~^*|+. -]+\Z')
+GROUPS = ('dependencies', 'devDependencies', 'optionalDependencies')
+LOCK_SECTIONS = ('settings', 'overrides', 'importers', 'packages', 'snapshots')
+# Registry packages only: tarball, directory and git resolutions are refused.
+INTEGRITY = re.compile(r'resolution: \{integrity: sha(?:256|384|512)-[A-Za-z0-9+/]+={0,2}\}\Z')
+SEVERITIES = ('info', 'low', 'moderate', 'high', 'critical')
 
 
 class ToolFailure(RuntimeError):
@@ -158,14 +164,14 @@ def read_private_json(path, limit=16384):
 
 def tools_for(root):
     tools = read_private_json(root / 'bin/tool-paths.json')
-    if not isinstance(tools, dict) or set(tools) != {'git', 'node', 'npm_cli'}:
+    if not isinstance(tools, dict) or set(tools) != {'git', 'node', 'pnpm_cli'}:
         raise ValueError('Exact native tool paths are required')
     for key, value in tools.items():
         path = Path(value) if isinstance(value, str) else Path()
         if not path.is_absolute() or not path.is_file() or path.is_symlink():
             raise ValueError('Native tool path must identify an existing absolute file')
         tools[key] = str(path.resolve())
-    if Path(tools['git']).name.lower() != 'git.exe' or Path(tools['node']).name.lower() != 'node.exe' or Path(tools['npm_cli']).name != 'npm-cli.js':
+    if Path(tools['git']).name.lower() != 'git.exe' or Path(tools['node']).name.lower() != 'node.exe' or Path(tools['pnpm_cli']).name != 'pnpm.mjs':
         raise ValueError('Unexpected native tool identity')
     scanner = root / 'bin/gitleaks.exe'
     sidecar = root / 'bin/gitleaks.sha256'
@@ -192,8 +198,11 @@ def anonymous_environment(work, root, tools):
     temp = home / 'tmp'
     temp.mkdir(mode=0o700)
     npm_user, npm_global = home / 'user.npmrc', home / 'global.npmrc'
-    write_private(npm_user, 'registry=' + REGISTRY + '\nignore-scripts=true\nstrict-ssl=true\n')
+    settings = 'registry=' + REGISTRY + '\nignore-scripts=true\nstrict-ssl=true\n'
+    write_private(npm_user, settings)
     write_private(npm_global, '')
+    # pnpm reads the user config from HOME; outdated has no --registry option.
+    write_private(home / '.npmrc', settings)
     system = os.environ.get('SystemRoot', 'C:/Windows')
     # A fresh HOME has no .netrc/.npmrc, Git credentials, SSH keys or Docker config.
     # No inherited tokens, proxy settings, NODE_OPTIONS or NPM_CONFIG_* survive.
@@ -245,55 +254,168 @@ def exact_ignore(git, mirror, revision, work, runner, options):
     return destination
 
 
+def yaml_scalar(text):
+    """pnpm writes plain or single-quoted scalars; any other YAML form is refused."""
+    if text.startswith("'"):
+        inner = text[1:-1]
+        if len(text) < 2 or not text.endswith("'") or "'" in inner.replace("''", ''):
+            raise ValueError('Unsupported lockfile quoting')
+        return inner.replace("''", "'")
+    if not text or text[0] in '"{}[]&*!|>%`#' or ': ' in text or ' #' in text:
+        raise ValueError('Unsupported lockfile scalar')
+    return text
+
+
+def lock_entry(line, indent):
+    body = line[indent:]
+    if body.endswith(':'):
+        return yaml_scalar(body[:-1]), None
+    key, separator, value = body.partition(': ')
+    if not separator or not value:
+        raise ValueError('Unsupported lockfile line')
+    return yaml_scalar(key), value
+
+
+def registry_id(value):
+    """name@version, optionally followed by pnpm's (peer@version) suffix."""
+    name, _separator, version = value.split('(', 1)[0].rpartition('@')
+    if not NAME.fullmatch(name) or not VERSION.fullmatch(version):
+        raise ValueError('Only public registry packages are supported')
+
+
+def locked_version(value):
+    version = value.split('(', 1)[0]
+    if not VERSION.fullmatch(version):
+        raise ValueError('Declared dependency must have a locked registry version')
+    return version
+
+
+def pnpm_lock(text):
+    """Validate the pnpm v9 lockfile subset this check supports; return the root importer."""
+    lines = text.split('\n')
+    if lines[0] != "lockfileVersion: '9.0'" or '\r' in text or '\t' in text:
+        raise ValueError('Unsupported project or lockfile layout')
+    seen, section = set(), None
+    groups, group, dependency, root = {}, None, None, False
+    resolutions, package, field = {}, None, None
+    for line in lines[1:]:
+        if not line.strip():
+            continue
+        indent = len(line) - len(line.lstrip(' '))
+        if indent % 2:
+            raise ValueError('Unsupported lockfile indentation')
+        if indent == 0:
+            key, value = lock_entry(line, 0)
+            if key not in LOCK_SECTIONS or key in seen or value is not None:
+                raise ValueError('Unsupported lockfile section')
+            seen.add(key)
+            section = key
+        elif section in ('settings', 'overrides'):
+            key, value = lock_entry(line, indent)
+            if indent != 2 or value is None or section == 'overrides' and not SPEC.fullmatch(yaml_scalar(value)):
+                raise ValueError('Unsupported lockfile setting')
+        elif section == 'importers':
+            key, value = lock_entry(line, indent)
+            if value is None and indent == 2 and key == '.' and not root:
+                root = True
+            elif value is None and indent == 4 and root and key in GROUPS and key not in groups:
+                group = key
+                groups[group] = {}
+            elif value is None and indent == 6 and group and key not in groups[group]:
+                dependency = groups[group][key] = {}
+            elif value is not None and indent == 8 and dependency is not None and key in ('specifier', 'version') and key not in dependency:
+                dependency[key] = yaml_scalar(value)
+            else:
+                # Workspace projects, links and any unknown importer field fail closed.
+                raise ValueError('Only the root project is supported')
+        elif section == 'packages':
+            if indent == 2:
+                key, value = lock_entry(line, 2)
+                if value is not None:
+                    raise ValueError('Unsupported package entry')
+                registry_id(key)
+                package = key
+                resolutions[package] = 0
+            elif indent == 4 and package and line[4:].startswith('resolution:'):
+                if not INTEGRITY.fullmatch(line[4:]):
+                    raise ValueError('Linked or external filesystem dependencies are unsupported')
+                resolutions[package] += 1
+            elif not package:
+                raise ValueError('Unsupported package entry')
+        elif section == 'snapshots':
+            if indent == 2:
+                key, value = lock_entry(line, 2)
+                if value not in (None, '{}'):
+                    raise ValueError('Unsupported snapshot entry')
+                registry_id(key)
+                field = None
+            elif indent == 4:
+                field, value = lock_entry(line, 4)
+                if (value is None) == (field == 'optional'):
+                    raise ValueError('Unsupported snapshot field')
+            elif indent == 6 and field in ('dependencies', 'optionalDependencies'):
+                _name, value = lock_entry(line, 6)
+                value = yaml_scalar(value)
+                if '@' in value.split('(', 1)[0][1:]:
+                    registry_id(value)  # npm alias such as string-width@4.2.3
+                else:
+                    locked_version(value)
+            elif not (indent == 6 and field == 'transitivePeerDependencies' and line[6:].startswith('- ')):
+                raise ValueError('Unsupported snapshot field')
+        else:
+            raise ValueError('Unsupported project or lockfile layout')
+    if not root or 'packages' not in seen or any(count != 1 for count in resolutions.values()):
+        raise ValueError('Unsupported project or lockfile layout')
+    importer = {}
+    for key, rows in groups.items():
+        if any(set(row) != {'specifier', 'version'} for row in rows.values()):
+            raise ValueError('Declared dependency must have a locked registry version')
+        importer[key] = {name: (row['specifier'], locked_version(row['version'])) for name, row in rows.items()}
+    return importer
+
+
 def manifests(git, mirror, revision, destination, runner, options):
-    data = {}
-    for name, bound in [('package.json', 1024 * 1024), ('package-lock.json', MAX_JSON)]:
+    texts = {}
+    for name, bound in [('package.json', 1024 * 1024), ('pnpm-lock.yaml', MAX_JSON)]:
         listing = require_tool([git, '--git-dir', str(mirror), 'ls-tree', revision, '--', name], runner, **options, limit=2048)
         if not re.fullmatch(r'100(?:644|755) blob [a-f0-9]{40}\t' + re.escape(name), listing):
-            raise ValueError('Only regular JSON manifests may be read')
-        text = require_tool([git, '--git-dir', str(mirror), 'show', revision + ':' + name], runner, **options, limit=bound)
-        data[name] = json_data(text)
-        if not isinstance(data[name], dict):
-            raise ValueError('Manifest must be a JSON object')
-    package, lock = data['package.json'], data['package-lock.json']
-    if package.get('name') != PROJECT_ID or package.get('workspaces') or lock.get('lockfileVersion') not in (2, 3) or not isinstance(lock.get('packages'), dict):
+            raise ValueError('Only regular manifests may be read')
+        texts[name] = require_tool([git, '--git-dir', str(mirror), 'show', revision + ':' + name], runner, **options, limit=bound)
+    package = json_data(texts['package.json'])
+    if not isinstance(package, dict):
+        raise ValueError('Manifest must be a JSON object')
+    if package.get('name') != PROJECT_ID or package.get('workspaces') or package.get('peerDependencies'):
         raise ValueError('Unsupported project or lockfile layout')
-    root_metadata = lock['packages'].get('')
-    if not isinstance(root_metadata, dict):
-        raise ValueError('Lockfile root metadata is required')
+    lock = texts['pnpm-lock.yaml'].replace('\r\n', '\n') + '\n'
+    importer = pnpm_lock(lock)
     declared = {}
-    for key in ('dependencies', 'devDependencies', 'optionalDependencies', 'peerDependencies'):
+    for key in GROUPS:
         rows = package.get(key, {})
-        if not isinstance(rows, dict) or rows != root_metadata.get(key, {}):
+        if not isinstance(rows, dict) or rows != {name: spec for name, (spec, _version) in importer.get(key, {}).items()}:
             raise ValueError('Invalid dependency metadata')
         for name, spec in rows.items():
-            if not NAME.fullmatch(name) or not isinstance(spec, str) or not re.fullmatch(r'[0-9A-Za-z<>=~^*|+. -]+', spec):
+            if not NAME.fullmatch(name) or not isinstance(spec, str) or not SPEC.fullmatch(spec):
                 raise ValueError('Only public registry dependency metadata is supported')
-            info = lock['packages'].get('node_modules/' + name, {})
-            version = info.get('version') if isinstance(info, dict) else None
-            if not isinstance(version, str) or not VERSION.fullmatch(version) or info.get('link'):
-                raise ValueError('Declared dependency must have a locked registry version')
-            declared[name] = version
+            declared[name] = importer[key][name][1]
     if len(declared) > 512:
         raise ValueError('Too many declared dependencies for the bounded native check')
-    for path, row in lock['packages'].items():
-        if (not isinstance(row, dict) or row.get('link') or '\\' in path
-                or any(part == '..' for part in path.split('/')) or path and not path.startswith('node_modules/')):
-            raise ValueError('Linked or external filesystem dependencies are unsupported')
     destination.mkdir(mode=0o700)
-    # Copy data only. No repository .npmrc, JS, hooks, source or executable is extracted.
-    for name, value in data.items():
-        write_private(destination / name, json.dumps(value))
-    return declared
+    # Data only. Scripts, packageManager, engines, repository .npmrc and workspace
+    # settings are dropped, so pnpm cannot be told to fetch or run anything.
+    inert = {key: package[key] for key in ('name', 'version', *GROUPS) if key in package}
+    write_private(destination / 'package.json', json.dumps(inert))
+    write_private(destination / 'pnpm-lock.yaml', lock)
+    # Present so pnpm never searches parent folders for workspace settings.
+    write_private(destination / 'pnpm-workspace.yaml', '# Inert audit workspace.\n')
+    return declared, lock
 
 
-def metadata_stubs(destination, declared):
-    # npm outdated reads an actual tree and otherwise omits missing dev packages.
-    # These inert JSON-only stubs supply locked direct versions, not installed code.
-    for name, version in declared.items():
-        directory = destination / 'node_modules' / name
-        directory.mkdir(mode=0o700, parents=True)
-        write_private(directory / 'package.json', json.dumps({'name': name, 'version': version}))
+def metadata_stubs(destination, lock):
+    # pnpm outdated reads the installed tree's lockfile for current versions. This
+    # inert copy states the locked versions without installing any package.
+    directory = destination / 'node_modules' / '.pnpm'
+    directory.mkdir(mode=0o700, parents=True)
+    write_private(directory / 'lock.yaml', lock)
 
 
 def audit_result(code, output, production):
@@ -301,13 +423,17 @@ def audit_result(code, output, production):
     try:
         data = json_data(output)
         counts = data['metadata']['vulnerabilities']
-        keys = ('info', 'low', 'moderate', 'high', 'critical', 'total')
-        if (code not in (0, 1) or not isinstance(data.get('vulnerabilities'), dict)
-                or not all(type(counts.get(key)) is int and 0 <= counts[key] <= 2**53 - 1 for key in keys)
-                or counts['total'] != sum(counts[key] for key in keys[:-1]) or code == 1 and counts['total'] == 0):
+        advisories = data['advisories']
+        if (code not in (0, 1) or not isinstance(advisories, dict)
+                or not all(type(counts.get(key)) is int and 0 <= counts[key] <= 2**53 - 1 for key in SEVERITIES)
+                or any(not isinstance(row, dict) or row.get('severity') not in SEVERITIES for row in advisories.values())):
             raise ValueError()
-        status = 'fail' if counts['high'] or counts['critical'] else 'warn' if counts['total'] else 'pass'
-        return check(name, category, status, exit_code=code, **{key: counts[key] for key in keys})
+        # pnpm counts advisories; the summary must agree with the advisory list.
+        total = sum(counts[key] for key in SEVERITIES)
+        if total != len(advisories) or code == 1 and total == 0:
+            raise ValueError()
+        status = 'fail' if counts['high'] or counts['critical'] else 'warn' if total else 'pass'
+        return check(name, category, status, exit_code=code, **{key: counts[key] for key in SEVERITIES}, total=total)
     except (ValueError, TypeError, KeyError, AttributeError):
         return check(name, category, 'fail', errors=1, invalid_report=True)
 
@@ -366,18 +492,17 @@ def run_native(root, runner=capture):
                 checks.append(check('Native redacted Git history scan', 'gitleaks', 'fail' if code or findings else 'pass', findings=len(findings), history_scanned=True))
             completed.add('gitleaks')
             project = work / 'metadata'
-            declared = manifests(git, mirror, revision, project, runner, options)
-            npm = [tools['node'], tools['npm_cli']]
-            # Workspaces were rejected above. npm10's --workspaces=false filters
-            # inert actual trees and can otherwise hide every direct update.
-            flags = ['--json', '--ignore-scripts', '--registry=' + REGISTRY, '--fetch-retries=0', '--fetch-timeout=30000']
-            npm_options = {'cwd': project, 'env': env, 'timeout': 180}
+            declared, lock = manifests(git, mirror, revision, project, runner, options)
+            pnpm = [tools['node'], tools['pnpm_cli']]
+            # audit and outdated only read the lockfile and registry metadata; nothing is
+            # installed. The registry comes from the private HOME .npmrc as well.
+            pnpm_options = {'cwd': project, 'env': env, 'timeout': 180}
             for production, category in [(True, 'audit-prod'), (False, 'audit-full')]:
-                code, output = runner(npm + ['audit', '--package-lock-only', *(['--omit=dev'] if production else []), *flags], **npm_options)
+                code, output = runner(pnpm + ['audit', '--json', *(['--prod'] if production else []), '--registry=' + REGISTRY], **pnpm_options)
                 checks.append(audit_result(code, output, production))
                 completed.add(category)
-            metadata_stubs(project, declared)
-            code, output = runner(npm + ['outdated', '--all', *flags], **npm_options)
+            metadata_stubs(project, lock)
+            code, output = runner(pnpm + ['outdated', '--format', 'json'], **pnpm_options)
             checks.append(outdated_result(code, output, declared))
             completed.add('outdated')
     except Exception as error:

@@ -282,11 +282,15 @@ function run(name,category,args,parser,env=process.env) {
   if(r.error) metrics.execution_error=true;
   if(parser==='audit') {
     try {
-      const data=JSON.parse(r.stdout), counts=counters(data?.metadata?.vulnerabilities,['info','low','moderate','high','critical','total']);
-      if(!data.vulnerabilities || typeof data.vulnerabilities!=='object' || Array.isArray(data.vulnerabilities) || (r.status!==0&&r.status!==1)) throw Error();
+      // pnpm audit --json: one advisory per finding; the summary has no total.
+      const levels=['info','low','moderate','high','critical'];
+      const data=JSON.parse(r.stdout), counts=counters(data?.metadata?.vulnerabilities,levels), advisories=data.advisories;
+      if(!advisories || typeof advisories!=='object' || Array.isArray(advisories) || (r.status!==0&&r.status!==1)) throw Error();
+      if(Object.values(advisories).some(row=>!row || typeof row!=='object' || !levels.includes(row.severity))) throw Error();
       for(const level of ['critical','high','moderate','low']) metrics[level]=counts[level]||0;
+      counts.total=levels.reduce((sum,key)=>sum+counts[key],0);
       metrics.total=counts.total;
-      if(counts.total!==['info','low','moderate','high','critical'].reduce((sum,key)=>sum+counts[key],0)) throw Error();
+      if(counts.total!==Object.keys(advisories).length || (r.status===1&&counts.total===0)) throw Error();
       if(counts.total===0) status='pass';
       else status=(counts.critical||counts.high)?'fail':'warn';
     } catch { status='fail'; metrics.invalid_report=true; }
@@ -316,18 +320,21 @@ function run(name,category,args,parser,env=process.env) {
   results.push({name,category,status,metrics});
   return status;
 }
-run(kind+' install','install',['npm','ci']);
+// The image ships npm only. npm fetches the pinned pnpm into the cache volume;
+// npm itself is used only to run package scripts below.
+const PNPM=['npm','exec','--yes','--package=pnpm@11.25.0','--','pnpm'];
+run(kind+' install','install',[...PNPM,'install','--frozen-lockfile']);
 if(results[0].status!=='pass') {
   for(const category of ['audit-prod','audit-full','outdated','lint','typecheck','unit','build'])
     results.push({name:kind+' '+category,category,status:'blocked',metrics:{install_failed:true}});
 } else {
-  run(kind+' production audit','audit-prod',['npm','audit','--omit=dev','--json'],'audit');
-  run(kind+' full audit','audit-full',['npm','audit','--json'],'audit');
-  run(kind+' available updates','outdated',['npm','outdated','--json'],'outdated');
+  run(kind+' production audit','audit-prod',[...PNPM,'audit','--prod','--json'],'audit');
+  run(kind+' full audit','audit-full',[...PNPM,'audit','--json'],'audit');
+  run(kind+' available updates','outdated',[...PNPM,'outdated','--format','json'],'outdated');
     run(kind+' lint','lint',['node','node_modules/eslint/bin/eslint.js','--format','json'],'lint');
     run(kind+' route type generation','typecheck',['node','node_modules/next/dist/bin/next','typegen']);
     run(kind+' TypeScript','typecheck',['node','node_modules/typescript/bin/tsc','--noEmit','--pretty','false']);
-      run('Enztronic browser toolchain','setup',['node','-e',"const fs=require('node:fs');const lock=JSON.parse(fs.readFileSync('package-lock.json','utf8'));const installed=JSON.parse(fs.readFileSync('node_modules/playwright/package.json','utf8'));if(lock.packages?.['node_modules/playwright']?.version!=='1.62.1'||installed.version!=='1.62.1')process.exit(1)"]);
+      run('Enztronic browser toolchain','setup',['node','-e',"const fs=require('node:fs');const lock=fs.readFileSync('pnpm-lock.yaml','utf8');const installed=JSON.parse(fs.readFileSync('node_modules/playwright/package.json','utf8'));if(!/\\n      playwright:\\n        specifier: [^\\n]+\\n        version: 1\\.62\\.1\\n/.test(lock)||installed.version!=='1.62.1')process.exit(1)"]);
       run('Enz UX network policy tests','unit',['node','--test','--test-reporter=tap','scripts/ux-network-guard.test.mjs'],'tests');
     const primaryBuild=run(kind+' production build','build',['npm','run','build']);
     if(kind==='enztronic' && primaryBuild==='pass') {
@@ -563,6 +570,8 @@ def _audit_repository(repository):
             '--read-only', '--tmpfs', '/tmp:rw,nosuid,nodev,size=536870912', '--user',
             str(os.getuid()) + ':' + str(os.getgid()), '--env', 'HOME=/tmp', '--env',
             'NEXT_TELEMETRY_DISABLED=1', '--env', 'npm_config_cache=/npm-cache',
+            # pnpm's store and metadata cache would otherwise fill the 512 MB /tmp.
+            '--env', 'XDG_CACHE_HOME=/npm-cache/xdg-cache', '--env', 'XDG_DATA_HOME=/npm-cache/xdg-data',
             '--volume', str(work) + ':/workspace', '--volume', str(cache) + ':/npm-cache',
             '--volume', str(tools / 'driver.cjs') + ':/audit-driver.cjs:ro',
             '--workdir', '/workspace']

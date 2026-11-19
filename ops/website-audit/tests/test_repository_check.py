@@ -1,4 +1,4 @@
-"""Local fixtures only: no Git remote, npm install, Docker, VPS or production data."""
+"""Local fixtures only: no Git remote, package install, Docker, VPS or production data."""
 import contextlib
 import importlib.util
 import io
@@ -24,7 +24,7 @@ const fs=require('node:fs'), vm=require('node:vm');
 const fixture=JSON.parse(fs.readFileSync(0,'utf8'));
 let report;
 const calls=[];
-const clean={metadata:{vulnerabilities:{info:0,low:0,moderate:0,high:0,critical:0,total:0}},vulnerabilities:{}};
+const clean={advisories:{},metadata:{vulnerabilities:{info:0,low:0,moderate:0,high:0,critical:0}}};
 const sandbox={
   process:{argv:['node','driver.cjs',fixture.kind||'frontend'],env:{NEXT_PUBLIC_SANITY_PROJECT_ID:'fixture-project',NEXT_PUBLIC_SANITY_DATASET:'production',NEXT_PUBLIC_SITE_URL:'https://example.test'}},
   Date:class extends Date { static now(){return Date.parse(fixture.now||'2026-10-16T00:00:00Z');} },
@@ -128,16 +128,27 @@ def driver(responses=None, **fixture):
     return json.loads(completed.stdout)
 
 
+PNPM = 'npm exec --yes --package=pnpm@11.25.0 -- pnpm'
+INSTALL = PNPM + ' install --frozen-lockfile'
+AUDIT_PROD = PNPM + ' audit --prod --json'
+AUDIT_FULL = PNPM + ' audit --json'
+OUTDATED = PNPM + ' outdated --format json'
+
+
 def audit_report(**levels):
+    # pnpm audit --json: one advisory per finding and severity counts without a total.
     counts = {key: 0 for key in ['info', 'low', 'moderate', 'high', 'critical']}
     counts.update(levels)
-    counts['total'] = sum(value for value in counts.values() if type(value) is int)
-    return {'metadata': {'vulnerabilities': counts}, 'vulnerabilities': {}}
+    advisories = {}
+    for severity, count in counts.items():
+        for _ in range(count if type(count) is int else 0):
+            advisories[str(len(advisories) + 1)] = {'severity': severity, 'module_name': 'fixture'}
+    return {'advisories': advisories, 'metadata': {'vulnerabilities': counts}}
 
 
 class RepositoryDriverTests(unittest.TestCase):
-    def test_actual_driver_accepts_clean_npm_json_and_never_emits_command_output(self):
-        rows = driver({'npm ci': {'status': 0, 'stdout': 'password=fixture-private-output'}})
+    def test_actual_driver_accepts_clean_pnpm_json_and_never_emits_command_output(self):
+        rows = driver({INSTALL: {'status': 0, 'stdout': 'password=fixture-private-output'}})
         self.assertTrue(all(row['status'] == 'pass' for row in rows))
         self.assertNotIn('fixture-private-output', json.dumps(rows))
         self.assertEqual(next(row for row in rows if row['category'] == 'audit-prod')['metrics']['total'], 0)
@@ -147,11 +158,14 @@ class RepositoryDriverTests(unittest.TestCase):
             ({'error': {'code': 'ENOAUDIT', 'detail': 'fixture-private-output'}}, 1),
             ('invalid-json', 1),
             (audit_report(high='1'), 1),
-            ({'metadata': {'vulnerabilities': {'total': 0}}, 'vulnerabilities': {}}, 0),
+            ({'metadata': {'vulnerabilities': {'total': 0}}, 'advisories': {}}, 0),
+            ({**audit_report(high=2), 'metadata': {'vulnerabilities': {**audit_report()['metadata']['vulnerabilities'], 'high': 1}}}, 1),
+            ({**audit_report(), 'advisories': {'1': {'severity': 'fixture-private-output'}}}, 1),
+            (audit_report(), 1),
             (audit_report(), 2),
         ]:
             output = payload if isinstance(payload, str) else json.dumps(payload)
-            rows = driver({'npm audit --omit=dev --json': {'status': code, 'stdout': output}})
+            rows = driver({AUDIT_PROD: {'status': code, 'stdout': output}})
             row = next(row for row in rows if row['category'] == 'audit-prod')
             self.assertEqual(row['status'], 'fail')
             self.assertTrue(row['metrics']['invalid_report'])
@@ -159,16 +173,16 @@ class RepositoryDriverTests(unittest.TestCase):
 
     def test_high_and_moderate_audits_keep_correct_severity(self):
         for severity, expected in [('high', 'fail'), ('moderate', 'warn')]:
-            rows = driver({'npm audit --omit=dev --json': {'status': 1, 'stdout': json.dumps(audit_report(**{severity: 1}))}})
+            rows = driver({AUDIT_PROD: {'status': 1, 'stdout': json.dumps(audit_report(**{severity: 1}))}})
             self.assertEqual(next(row for row in rows if row['category'] == 'audit-prod')['status'], expected)
 
     def test_enz_high_development_advisory_is_never_downgraded_or_suppressed(self):
         known = audit_report(high=1)
-        known['vulnerabilities'] = {'dev-only': {'via': [{'url': 'https://github.com/advisories/GHSA-vfj7-8cjw-p6xm'}]}}
-        command = {'npm audit --json': {'status': 1, 'stdout': json.dumps(known)}}
+        known['advisories']['1']['url'] = 'https://github.com/advisories/GHSA-vfj7-8cjw-p6xm'
+        command = {AUDIT_FULL: {'status': 1, 'stdout': json.dumps(known)}}
         self.assertEqual(next(row for row in driver(command) if row['category'] == 'audit-full')['status'], 'fail')
         self.assertEqual(next(row for row in driver(command, now='2026-11-01T00:00:00Z') if row['category'] == 'audit-full')['status'], 'fail')
-        command['npm audit --omit=dev --json'] = {'status': 1, 'stdout': json.dumps(audit_report(high=1))}
+        command[AUDIT_PROD] = {'status': 1, 'stdout': json.dumps(audit_report(high=1))}
         self.assertEqual(next(row for row in driver(command) if row['category'] == 'audit-full')['status'], 'fail')
 
     def test_outdated_accepts_package_records_and_rejects_error_json(self):
@@ -180,7 +194,7 @@ class RepositoryDriverTests(unittest.TestCase):
             ([], 'fail'),
             (None, 'fail'),
         ]:
-            rows = driver({'npm outdated --json': {'status': 0 if not report else 1, 'stdout': json.dumps(report)}})
+            rows = driver({OUTDATED: {'status': 0 if not report else 1, 'stdout': json.dumps(report)}})
             self.assertEqual(next(row for row in rows if row['category'] == 'outdated')['status'], status)
             self.assertNotIn('fixture-private-output', json.dumps(rows))
 
@@ -192,7 +206,7 @@ class RepositoryDriverTests(unittest.TestCase):
         self.assertEqual(next(row for row in rows if row['name'] == 'Enz UX network policy tests')['status'], 'fail')
 
     def test_failed_install_blocks_downstream_checks(self):
-        rows = driver({'npm ci': {'status': 1, 'stdout': 'fixture-private-output'}})
+        rows = driver({INSTALL: {'status': 1, 'stdout': 'fixture-private-output'}})
         self.assertEqual(rows[0]['status'], 'fail')
         self.assertTrue(all(row['status'] == 'blocked' for row in rows[1:]))
         self.assertNotIn('fixture-private-output', json.dumps(rows))
@@ -210,6 +224,9 @@ class RepositoryDriverTests(unittest.TestCase):
         self.assertNotIn('NEXT_PUBLIC_SANITY_DATASET', commands[1]['env'])
         toolchain = next(call for call in trace['calls'] if call['command'].startswith('node -e'))
         self.assertIn("version!=='1.62.1'", toolchain['command'])
+        self.assertIn('pnpm-lock.yaml', toolchain['command'])
+        installs = [call['command'] for call in trace['calls'] if 'install' in call['command'].split()]
+        self.assertEqual(installs, [INSTALL])
         self.assertIn('node --test --test-reporter=tap scripts/ux-network-guard.test.mjs', [call['command'] for call in trace['calls']])
         rows = driver(kind='enztronic', fail_fixture_build=True)
         self.assertEqual(next(row for row in rows if row['name'] == 'enztronic production build')['status'], 'pass')

@@ -76,13 +76,24 @@ def publish_private(path, content):
             temporary.unlink()
 
 
+def pnpm_home():
+    # PNPM_HOME first; otherwise the folder holding the pnpm.cmd shim on PATH.
+    configured = os.environ.get('PNPM_HOME')
+    if configured:
+        return Path(configured)
+    shim = shutil.which('pnpm.cmd') or shutil.which('pnpm')
+    return Path(shim).parent if shim else None
+
+
 def resolve_tools():
     git = shutil.which('git.exe') or shutil.which('git')
     node = shutil.which('node.exe') or shutil.which('node')
-    if not git or not node:
-        raise ValueError('Installed Git and Node are required')
-    npm_cli = Path(node).parent / 'node_modules/npm/bin/npm-cli.js'
-    tools = {'git': str(Path(git).absolute()), 'node': str(Path(node).absolute()), 'npm_cli': str(npm_cli.absolute())}
+    home = pnpm_home()
+    if not git or not node or not home:
+        raise ValueError('Installed Git, Node and pnpm are required')
+    # The pnpm entry script is run by the trusted Node; its .cmd shim is never used.
+    pnpm_cli = home / 'node_modules/pnpm/bin/pnpm.mjs'
+    tools = {'git': str(Path(git).absolute()), 'node': str(Path(node).absolute()), 'pnpm_cli': str(pnpm_cli.absolute())}
     if any(not Path(value).is_absolute() or not Path(value).is_file() for value in tools.values()):
         raise ValueError('Trusted installed tool files are unavailable')
     return tools
